@@ -38,7 +38,7 @@ package primevc.core.geom;
  * @author Ruben Weijers
  * @creation-date Aug 03, 2010
  */
-class IntRectangle extends QueueingInvalidatable, implements IRectangle
+class IntRectangle extends QueueingInvalidatable implements IRectangle
 {
 	public var centerX	(get_centerX, set_centerX)	: Int;
 	public var centerY	(get_centerY, set_centerY)	: Int;

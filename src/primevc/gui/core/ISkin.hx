@@ -112,5 +112,5 @@ interface ISkin
 	public function isFocusOwner (target:primevc.gui.events.UserEventTarget) : Bool;
 }
 #else
-interface ISkin implements primevc.gui.traits.IBehaving, implements primevc.core.traits.IDisposable {}
+interface ISkin implements primevc.gui.traits.IBehaving implements primevc.core.traits.IDisposable {}
 #end

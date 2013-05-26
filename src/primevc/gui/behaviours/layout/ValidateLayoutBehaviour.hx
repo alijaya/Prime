@@ -50,7 +50,7 @@ package primevc.gui.behaviours.layout;
  * @creation-date	Jun 14, 2010
  * @author			Ruben Weijers
  */
-class ValidateLayoutBehaviour extends ValidatingBehaviour < IUIElement >, implements IPropertyValidator
+class ValidateLayoutBehaviour extends ValidatingBehaviour < IUIElement > implements IPropertyValidator
 {
 	private var isNotPositionedYet	: Bool;
 	private var isNotSizedYet		: Bool;

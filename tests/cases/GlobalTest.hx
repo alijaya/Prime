@@ -177,7 +177,7 @@ class Tile extends DataButton < DataVOType >
 }
 
 
-class TileList extends ListView < DataVOType >, implements IDataDropTarget < DataVOType >
+class TileList extends ListView < DataVOType > implements IDataDropTarget < DataVOType >
 {
 	public var dragEvents	(default, null)		: DropTargetEvents;
 	public var list			(get_list, never)	: IEditableList < DataVOType >;

@@ -46,7 +46,7 @@ package primevc.avm2.display;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-class Video extends flash.media.Video, implements IVideo 
+class Video extends flash.media.Video implements IVideo 
 {
 	public var container		(default, default)		: IDisplayContainer;
 	public var window			(default, set_window)	: Window;

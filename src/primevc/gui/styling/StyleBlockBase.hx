@@ -39,7 +39,7 @@ package primevc.gui.styling;
  * @author Ruben Weijers
  * @creation-date Aug 05, 2010
  */
-class StyleBlockBase extends Invalidatable, implements IStyleBlock
+class StyleBlockBase extends Invalidatable implements IStyleBlock
 {
 #if (debug || CSSParser)
 	public var _oid					(default, null)		: Int;

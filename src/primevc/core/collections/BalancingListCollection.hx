@@ -73,7 +73,7 @@ package primevc.core.collections;
  * @author			Ruben Weijers
  */
 #if (flash9 || cpp) @:generic #end
-class BalancingListCollection <DataType> implements IEditableList <DataType>, implements IListCollection < DataType, BalancingList<DataType> > 
+class BalancingListCollection <DataType> implements IEditableList <DataType> implements IListCollection < DataType, BalancingList<DataType> > 
 {
 	private var _length		: Int;
 	public var length		(get_length, never)			: Int;

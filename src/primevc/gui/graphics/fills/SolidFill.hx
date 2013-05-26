@@ -45,7 +45,7 @@ package primevc.gui.graphics.fills;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-class SolidFill extends GraphicElement, implements IGraphicProperty
+class SolidFill extends GraphicElement implements IGraphicProperty
 {
 	public var color		(default, set_color)	: RGBA;
 	public var isFinished	(default, null)		: Bool;

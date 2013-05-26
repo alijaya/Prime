@@ -55,7 +55,7 @@ package primevc.gui.display;
  * @creation-date Jul 13, 2010
  */
 #if !CSSParser
-class Window implements IDisplayContainer, implements IDisablable
+class Window implements IDisplayContainer implements IDisablable
 {
 	public static #if !noinline inline #end function startup<WindowInstance>(windowClassFactory : Stage -> WindowInstance) : WindowInstance
 	{

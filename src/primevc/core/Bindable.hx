@@ -72,7 +72,7 @@ package primevc.core;
  * @creation-date	Jun 18, 2010
  * @author			Ruben Weijers, Danny Wilson
  */
-class Bindable <DataType> implements IBindable<DataType>, implements IClonable<Bindable<DataType>>
+class Bindable <DataType> implements IBindable<DataType> implements IClonable<Bindable<DataType>>
 {
 	public var value	(default, set_value)	: DataType;
 	

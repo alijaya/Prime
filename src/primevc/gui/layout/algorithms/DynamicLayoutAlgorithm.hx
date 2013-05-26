@@ -51,7 +51,7 @@ private typedef AlgorithmClass = Factory<ILayoutAlgorithm>;
  * @creation-date	Jun 24, 2010
  * @author			Ruben Weijers
  */
-class DynamicLayoutAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgorithm
+class DynamicLayoutAlgorithm extends LayoutAlgorithmBase implements ILayoutAlgorithm
 {
 	/**
 	 * Defines the start position on the horizontal axis.

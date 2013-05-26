@@ -36,7 +36,7 @@ package primevc.core.net;
  * @author 	Ruben Weijers
  * @since 	Dec 12, 2011
  */
-interface IFileReference implements IDisposable, implements IUnbindable<Dynamic>
+interface IFileReference implements IDisposable implements IUnbindable<Dynamic>
 {
 	public var select		(default,null) : Signal0;
 	public var cancel		(default,null) : Signal0;

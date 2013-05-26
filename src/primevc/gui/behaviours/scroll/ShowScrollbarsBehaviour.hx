@@ -50,7 +50,7 @@ package primevc.gui.behaviours.scroll;
  * @author Ruben Weijers
  * @creation-date Jan 04, 2011
  */
-class ShowScrollbarsBehaviour extends BehaviourBase<IScrollable>, implements IScrollBehaviour
+class ShowScrollbarsBehaviour extends BehaviourBase<IScrollable> implements IScrollBehaviour
 {
 #if !CSSParser
 	private static inline var SIZE = 15;

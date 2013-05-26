@@ -54,7 +54,7 @@ typedef FlashGradientType = flash.display.GradientType;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-class GradientFill extends GraphicElement, implements IGraphicProperty 
+class GradientFill extends GraphicElement implements IGraphicProperty 
 {
 	public var gradientStops	(default, null)					: FastArray <GradientStop>;
 	public var type				(default, set_type)				: GradientType;

@@ -37,7 +37,7 @@ package primevc.gui.behaviours.layout;
  * @creation-date	Jun 25, 2010
  * @author			Ruben Weijers
  */
-class ClippedLayoutBehaviour extends primevc.gui.behaviours.BehaviourBase<primevc.gui.traits.IScrollable>, implements primevc.gui.behaviours.scroll.IScrollBehaviour
+class ClippedLayoutBehaviour extends primevc.gui.behaviours.BehaviourBase<primevc.gui.traits.IScrollable> implements primevc.gui.behaviours.scroll.IScrollBehaviour
 {
 	private var wasClipping : Bool;
 	override private function init ()	{ wasClipping = target.getScrollRect() != null; if (!wasClipping) { target.enableClipping(); } }

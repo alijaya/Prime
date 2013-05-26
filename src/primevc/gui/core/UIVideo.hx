@@ -69,7 +69,7 @@ private typedef Flags = primevc.gui.core.UIElementFlags;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-class UIVideo extends Video, implements IUIElement
+class UIVideo extends Video implements IUIElement
 {
 	public var prevValidatable	: IValidatable;
 	public var nextValidatable	: IValidatable;

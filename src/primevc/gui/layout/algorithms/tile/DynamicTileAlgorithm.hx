@@ -65,7 +65,7 @@ private typedef Flags = LayoutFlags;
  * @creation-date	Jul 7, 2010
  * @author			Ruben Weijers
  */
-class DynamicTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
+class DynamicTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 {
 	/**
 	 * tileGroups is a TileContainer containing a reference to each TileContainer

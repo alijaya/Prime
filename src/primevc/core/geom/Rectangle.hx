@@ -38,7 +38,7 @@ package primevc.core.geom;
 /*
  import primevc.core.traits.IDisposable;
 
-class Rectangle extends flash.geom.Rectangle, implements IDisposable
+class Rectangle extends flash.geom.Rectangle implements IDisposable
 {
 	public function dispose () {}
 }*/

@@ -62,7 +62,7 @@ package primevc.avm2.display;
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-class TextField extends flash.text.TextField, implements ITextField 
+class TextField extends flash.text.TextField implements ITextField 
 {	
 	/**
 	 * The padding to be added to textWidth to get the width

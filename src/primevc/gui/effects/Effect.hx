@@ -40,7 +40,7 @@ package primevc.gui.effects;
  * @author Ruben Weijers
  * @creation-date Aug 31, 2010
  */
-class Effect <TargetType, EffectClass:IEffect> extends primevc.core.traits.Invalidatable, implements IEffect
+class Effect <TargetType, EffectClass:IEffect> extends primevc.core.traits.Invalidatable implements IEffect
 {
 #if (debug || CSSParser)
 	public var _oid				(default, null)	: Int;

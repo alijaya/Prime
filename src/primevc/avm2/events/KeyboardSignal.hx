@@ -43,7 +43,7 @@ package primevc.avm2.events;
  * @author Danny Wilson
  * @creation-date jun 15, 2010
  */
-class KeyboardSignal extends Signal1<KeyboardState>, implements IWireWatcher<KeyboardHandler>
+class KeyboardSignal extends Signal1<KeyboardState> implements IWireWatcher<KeyboardHandler>
 {
 	private var eventDispatcher:IEventDispatcher;
 	private var event:String;

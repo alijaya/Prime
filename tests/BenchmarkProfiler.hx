@@ -309,7 +309,7 @@ class Benchmark extends MainThread
 
 
 
-class Comparison extends Thread, implements ITest
+class Comparison extends Thread implements ITest
 {
 	public var name				: String;
 	private var firstTest		: Test;
@@ -429,7 +429,7 @@ class Comparison extends Thread, implements ITest
  * @creation-date	Jun 9, 2010
  * @author			Ruben Weijers
  */
-class Test extends Thread, implements ITest
+class Test extends Thread implements ITest
 {
 	private static inline var REPEAT_TEST : Int = 7;
 	

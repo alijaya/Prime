@@ -40,7 +40,7 @@ package primevc.gui.managers;
  * @author Ruben Weijers
  * @creation-date Sep 03, 2010
  */
-class QueueManager implements IDisposable, implements IValidatable
+class QueueManager implements IDisposable implements IValidatable
 {	
 	/**
 	 * Reference to the object that owns the object

@@ -44,7 +44,7 @@ package primevc.gui.components;
  * @author Ruben Weijers
  * @creation-date Feb 11, 2011
  */
-class DataButton <DataType> extends Button, implements IItemRenderer <DataType>
+class DataButton <DataType> extends Button implements IItemRenderer <DataType>
 {
 	// IItemRenderer Properties
 	public var vo				(default, null)				: Bindable<DataType>;

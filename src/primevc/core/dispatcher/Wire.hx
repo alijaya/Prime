@@ -43,7 +43,7 @@ package primevc.core.dispatcher;
  * Implementation detail: Wires are added to a bounded freelist (max 8096 free objects) to reduce garbage collector pressure.
  * This means you should never reuse a Wire after calling dispose() and/or after unbinding the handler from the signal (which returned this Wire).
  */
-class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements IDisposable, implements IDisablable
+class Wire <FunctionSignature> extends WireList<FunctionSignature> implements IDisposable implements IDisablable
 {
 	static private inline var MAX_WIRES		= 8096;
 	

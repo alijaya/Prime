@@ -46,7 +46,7 @@ private typedef Flags = primevc.gui.core.UIElementFlags;
  * @author Ruben Weijers
  * @creation-date Oct 29, 2010
  */
-class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, implements ITextStylable, implements ISelectable
+class Button extends UIDataContainer <Bindable<String>> implements IIconOwner implements ITextStylable implements ISelectable
 {
 	public var selected		(default, null)			: Bindable<Bool>;
 	public var icon			(default, set_icon)		: Asset;

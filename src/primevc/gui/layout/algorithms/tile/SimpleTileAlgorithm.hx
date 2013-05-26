@@ -55,7 +55,7 @@ package primevc.gui.layout.algorithms.tile;
  * @author Ruben Weijers
  * @creation-date Jun 25, 2011
  */
-class SimpleTileAlgorithm extends LayoutAlgorithmBase, implements ITileAlgorithm
+class SimpleTileAlgorithm extends LayoutAlgorithmBase implements ITileAlgorithm
 {
 	private var validatePreparedHor : Bool;
 	private var validatePreparedVer : Bool;

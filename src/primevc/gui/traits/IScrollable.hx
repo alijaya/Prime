@@ -35,7 +35,7 @@ package primevc.gui.traits;
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
-interface IScrollable implements IDisplayable, implements IInteractive
+interface IScrollable implements IDisplayable implements IInteractive
 {
 	public var scrollableLayout (get_scrollableLayout, never) : IScrollableLayout;
 	

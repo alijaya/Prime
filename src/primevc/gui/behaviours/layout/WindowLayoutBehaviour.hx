@@ -40,7 +40,7 @@ package primevc.gui.behaviours.layout;
  * @author Ruben Weijers
  * @creation-date Jul 26, 2010
  */
-class WindowLayoutBehaviour extends ValidatingBehaviour < UIWindow >, implements IPropertyValidator
+class WindowLayoutBehaviour extends ValidatingBehaviour < UIWindow > implements IPropertyValidator
 {
 	public function new (target:UIWindow) { super(target); }
 	

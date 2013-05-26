@@ -41,7 +41,7 @@ private typedef Flags = LayoutFlags;
  * @creation-date	Jun 17, 2010
  * @author			Ruben Weijers
  */
-class AdvancedLayoutClient extends LayoutClient, implements IAdvancedLayoutClient
+class AdvancedLayoutClient extends LayoutClient implements IAdvancedLayoutClient
 {
 	public function new (newWidth:Int = Number.INT_NOT_SET, newHeight:Int = Number.INT_NOT_SET)
 	{

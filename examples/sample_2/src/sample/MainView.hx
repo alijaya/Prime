@@ -8,7 +8,7 @@ package sample;
  * Defines and groups together and couples 
  * mediators and application windows.
  */
-class MainView extends MVCActor<MainFacade>, implements IMVCCoreActor
+class MainView extends MVCActor<MainFacade> implements IMVCCoreActor
 {
     private var window:MainWindow;
     public var buttonMediator(default, null):ButtonMediator;

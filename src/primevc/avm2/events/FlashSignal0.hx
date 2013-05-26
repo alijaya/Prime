@@ -42,7 +42,7 @@ package primevc.avm2.events;
  * @author Danny Wilson
  * @creation-date jun 15, 2010
  */
-class FlashSignal0 extends Signal0, implements IWireWatcher<Void->Void>
+class FlashSignal0 extends Signal0 implements IWireWatcher<Void->Void>
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;

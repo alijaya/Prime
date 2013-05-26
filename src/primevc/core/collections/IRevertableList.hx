@@ -35,7 +35,7 @@ package primevc.core.collections;
  * @author Ruben Weijers
  * @creation-date Nov 18, 2010
  */
-interface IRevertableList < DataType > implements IEditableList < DataType >, implements IEditableValueObject
+interface IRevertableList < DataType > implements IEditableList < DataType > implements IEditableValueObject
 {
 	/**
 	 * List with all the changes that are made when the list is in editing mode.

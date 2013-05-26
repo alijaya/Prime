@@ -48,7 +48,7 @@ typedef TextSignal  = primevc.core.dispatcher.INotifier<TextHandler>;
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-class TextSignals extends Signals, implements haxe.Public 
+class TextSignals extends Signals implements haxe.Public 
 {
 	public var change		(default,null) : Signal0;
 	public var link			(default,null) : TextSignal;

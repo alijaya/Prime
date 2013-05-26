@@ -37,7 +37,7 @@ typedef DOMEvent =
  * @author Stanislav Sopov
  * @creation-date march 2, 2010
  */
-class DOMSignal1<Type> extends Signal1<Type>, implements IWireWatcher<Type->Void>
+class DOMSignal1<Type> extends Signal1<Type> implements IWireWatcher<Type->Void>
 {
 	var eventDispatcher:UserEventTarget;
 	var event:String;

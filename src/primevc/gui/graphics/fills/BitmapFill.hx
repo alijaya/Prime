@@ -48,7 +48,7 @@ package primevc.gui.graphics.fills;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-class BitmapFill extends GraphicElement, implements IGraphicProperty 
+class BitmapFill extends GraphicElement implements IGraphicProperty 
 {
 	public var asset		(default, set_asset)		: Asset;
 	public var assetFactory	(default, set_assetFactory)	: Factory<Dynamic>;

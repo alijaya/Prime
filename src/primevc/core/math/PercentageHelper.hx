@@ -42,7 +42,7 @@ package primevc.core.math;
  * @author Ruben Weijers
  * @creation-date Mar 24, 2011
  */
-class PercentageHelper extends Bindable<Float>, implements IDisposable
+class PercentageHelper extends Bindable<Float> implements IDisposable
 {
 	//
 	// PUBLIC VARS

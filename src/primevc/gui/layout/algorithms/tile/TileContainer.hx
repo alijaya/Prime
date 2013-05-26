@@ -53,7 +53,7 @@ private typedef Flags = LayoutFlags;
  * @creation-date	Jun 30, 2010
  * @author			Ruben Weijers
  */
-class TileContainer extends LayoutClient, implements ILayoutContainer
+class TileContainer extends LayoutClient implements ILayoutContainer
 {
 	public var algorithm	(default, set_algorithm)	: ILayoutAlgorithm;
 	public var childWidth	(default, set_childWidth)	: Int;

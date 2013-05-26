@@ -46,7 +46,7 @@ private typedef Flags = RevertableBindableFlags;
  * @creation-date Nov 19, 2010
  */
 //#if (flash9 || cpp) @:generic #end
-class RevertableArrayList < DataType > extends ReadOnlyArrayList < DataType >, implements IRevertableList < DataType >
+class RevertableArrayList < DataType > extends ReadOnlyArrayList < DataType > implements IRevertableList < DataType >
 {
 	/**
 	 * Keeps track of settings.

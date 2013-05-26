@@ -42,7 +42,7 @@ package primevc.gui.graphics.borders;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements IBorder
+class BorderBase <FillType:IGraphicProperty> extends GraphicElement implements IBorder
 {
 	public var weight		(default, set_weight)		: Float;
 	public var fill			(default, set_fill)			: FillType;

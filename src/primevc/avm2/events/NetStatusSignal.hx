@@ -43,7 +43,7 @@ private typedef Handler = NetStreamInfo -> Void;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-class NetStatusSignal extends Signal1<NetStreamInfo>, implements IWireWatcher <Handler> 
+class NetStatusSignal extends Signal1<NetStreamInfo> implements IWireWatcher <Handler> 
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;

@@ -68,7 +68,7 @@ private typedef Flags = StyleFlags;
  * @author Ruben Weijers
  * @creation-date Sep 22, 2010
  */
-class UIElementStyle implements primevc.core.traits.IInvalidateListener, implements primevc.core.traits.IDisposable
+class UIElementStyle implements primevc.core.traits.IInvalidateListener implements primevc.core.traits.IDisposable
 {
 #if debug
 	public var _oid						(default, null)			: Int;

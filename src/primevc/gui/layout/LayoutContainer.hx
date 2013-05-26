@@ -55,7 +55,7 @@ private typedef Flags = LayoutFlags;
  * @since	Mar 20, 2010
  * @author	Ruben Weijers
  */
-class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer, implements IScrollableLayout
+class LayoutContainer extends AdvancedLayoutClient implements ILayoutContainer implements IScrollableLayout
 {
 	public var algorithm			(default, set_algorithm)		: ILayoutAlgorithm;
 	

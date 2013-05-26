@@ -40,7 +40,7 @@ package primevc.core.dispatcher;
  * @author Danny Wilson
  * @creation-date Jun 09, 2010
  */
-class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements IUnbindable<FunctionSignature>, implements IDisposable, implements IDisablable
+class Signal <FunctionSignature> extends WireList<FunctionSignature> implements IUnbindable<FunctionSignature> implements IDisposable implements IDisablable
 {
 	static public #if !noinline inline #end function notifyEnabled<T>(s:Signal<T>, w:Wire<T>) : Void
 	{

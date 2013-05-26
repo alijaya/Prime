@@ -44,7 +44,7 @@ package primevc.gui.display;
  * @author			Ruben Weijers
  * @creation-date	Oct 28, 2010
  */
-class DisplayDataCursor extends DataCursor < IDisplayObject >, implements IDataCursor < IDisplayObject >
+class DisplayDataCursor extends DataCursor < IDisplayObject > implements IDataCursor < IDisplayObject >
 {
 	/**
 	 * Current x&y-coordinates of the target

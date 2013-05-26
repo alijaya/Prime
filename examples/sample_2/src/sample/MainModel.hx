@@ -12,7 +12,7 @@ import primevc.mvc.IMVCCore;
  * It defines and groups together proxies, provides a main 
  * access point for them and handles data logic.
  */
-class MainModel extends MVCNotifier, implements IMVCCore
+class MainModel extends MVCNotifier implements IMVCCore
 {
 	
     public var mainProxy (default, null):MainProxy;

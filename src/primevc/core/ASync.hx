@@ -39,7 +39,7 @@ package primevc.core;
  * @author Ruben Weijers
  * @creation-date May 16, 2011
  */
-class ASync <DataType> implements IDisposable, implements IUnbindable<DataType->Dynamic>
+class ASync <DataType> implements IDisposable implements IUnbindable<DataType->Dynamic>
 {
 	private static inline var NONE		= 0;
 	private static inline var CANCELED	= 1 << 0;

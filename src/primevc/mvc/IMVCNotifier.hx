@@ -37,7 +37,7 @@ package primevc.mvc;
  * @author Ruben Weijers
  * @creation-date May 17, 2011
  */
-interface IMVCNotifier implements IDisposable, implements IDisablable
+interface IMVCNotifier implements IDisposable implements IDisablable
 {
 	/**
 	 * State holder.. contains the flag of the current state of the notifier

@@ -41,7 +41,7 @@ package primevc.gui.graphics.shapes;
  * @author Ruben Weijers
  * @creation-date Apr 19, 2011
  */
-class Polygon extends ShapeBase, implements IGraphicShape
+class Polygon extends ShapeBase implements IGraphicShape
 {
 	private var sides : Int;
 	

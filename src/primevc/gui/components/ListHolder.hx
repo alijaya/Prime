@@ -49,7 +49,7 @@ package primevc.gui.components;
  * @author Ruben Weijers
  * @creation-date Feb 12, 2011
  */
-class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType>, implements IListHolder<ListDataType>
+class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType> implements IListHolder<ListDataType>
 {
 	public var list		(default, default)		: ListView<ListDataType>;
 	public var listData	(default, set_listData)	: IReadOnlyList < ListDataType >;

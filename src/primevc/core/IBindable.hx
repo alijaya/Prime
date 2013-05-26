@@ -37,7 +37,7 @@ package primevc.core;
  * @creation-date Jun 25, 2010
  */
 //#if (flash9 || cpp) @:generic #end
-interface IBindable <DataType> implements IBindableReadonly<DataType>, implements IEditEnabledValueObject
+interface IBindable <DataType> implements IBindableReadonly<DataType> implements IEditEnabledValueObject
 {
 	/**
 	 * Value property with write access.

@@ -50,7 +50,7 @@ package primevc.gui.behaviours.scroll;
  * @author Ruben Weijers
  * @creation-date Jul 29, 2010
  */
-class DragScrollBehaviour extends BehaviourBase<IScrollable>, implements IScrollBehaviour
+class DragScrollBehaviour extends BehaviourBase<IScrollable> implements IScrollBehaviour
 {
 #if !CSSParser
 	private var layout			: IScrollableLayout;

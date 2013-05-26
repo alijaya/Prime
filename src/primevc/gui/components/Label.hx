@@ -50,7 +50,7 @@ private typedef Flags		= primevc.gui.core.UIElementFlags;
  * @author Ruben Weijers
  * @creation-date Oct 29, 2010
  */
-class Label extends UIDataComponent <Bindable<String>>, implements ITextStylable
+class Label extends UIDataComponent <Bindable<String>> implements ITextStylable
 {
 	public var field				(default, null)				: UITextField;
 	public var displayHTML			(default, set_displayHTML)	: Bool;

@@ -39,7 +39,7 @@ package primevc.avm2.media;
  * @author Ruben Weijers
  * @creation-date Sep 28, 2011
  */
-class Sound extends flash.media.Sound, implements IDisposable
+class Sound extends flash.media.Sound implements IDisposable
 {
     public var events (default, null)   : SoundEvents;
     

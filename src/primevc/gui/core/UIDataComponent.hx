@@ -48,7 +48,7 @@ package primevc.gui.core;
  * @creation-date	Jun 17, 2010
  * @author			Ruben Weijers
  */
-class UIDataComponent <DataType> extends UIComponent, implements IUIDataElement <DataType>
+class UIDataComponent <DataType> extends UIComponent implements IUIDataElement <DataType>
 {
 	public var data (default, set_data)	: DataType;
 	

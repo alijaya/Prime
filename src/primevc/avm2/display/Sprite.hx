@@ -53,7 +53,7 @@ package primevc.avm2.display;
  * @author	Danny Wilson
  * @author	Ruben Weijers
  */
-class Sprite extends flash.display.Sprite, implements ISprite
+class Sprite extends flash.display.Sprite implements ISprite
 {
 	/**
 	 * List with all the children of the sprite

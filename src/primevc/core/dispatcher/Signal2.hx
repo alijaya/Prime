@@ -38,7 +38,7 @@ package primevc.core.dispatcher;
  * @author Danny Wilson
  * @creation-date Jun 09, 2010
  */
-class Signal2 <A,B> extends Signal<A->B->Void>, implements ISender2<A,B>, implements INotifier<A->B->Void>
+class Signal2 <A,B> extends Signal<A->B->Void> implements ISender2<A,B> implements INotifier<A->B->Void>
 {
 	public function new() enabled = true
 	

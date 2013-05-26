@@ -35,7 +35,7 @@ package primevc.core.geom;
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-class BindablePoint extends IntPoint, implements IDisposable
+class BindablePoint extends IntPoint implements IDisposable
 {
 	public var xProp (default, null)	: Bindable < Int >;
 	public var yProp (default, null)	: Bindable < Int >;

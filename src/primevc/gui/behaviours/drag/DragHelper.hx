@@ -56,7 +56,7 @@ package primevc.gui.behaviours.drag;
  * @author Ruben Weijers
  * @creation-date Jul 29, 2010
  */
-class DragHelper implements IDisposable, implements IDisablable
+class DragHelper implements IDisposable implements IDisablable
 {
 	private var target				: ISprite;
 	private var startHandler		: MouseState -> Void;

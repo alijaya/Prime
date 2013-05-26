@@ -37,7 +37,7 @@ package primevc.gui.components;
  * @author Ruben Weijers
  * @creation-date Feb 11, 2011
  */
-interface IItemRenderer <DataType> implements IUIElement, implements IIconOwner
+interface IItemRenderer <DataType> implements IUIElement implements IIconOwner
 {
 	public var data				(default, null)				: Bindable<String>;
 	public var vo				(default, null)				: Bindable<DataType>;

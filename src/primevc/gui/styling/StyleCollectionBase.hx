@@ -306,7 +306,7 @@ class StyleCollectionIteratorBase implements IDisposable
  * @creation-date Oct 22, 2010
  */
 //#if (flash9 || cpp) @:generic #end
-class StyleCollectionForwardIterator <StyleGroupType> extends StyleCollectionIteratorBase, implements IIterator < StyleGroupType >
+class StyleCollectionForwardIterator <StyleGroupType> extends StyleCollectionIteratorBase implements IIterator < StyleGroupType >
 {
 	public function new (elementStyle:UIElementStyle, groupFlag:Int) super(elementStyle, groupFlag)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 	override public function rewind () : Void	{ setCurrent( elementStyle.styles.first ); }

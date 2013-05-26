@@ -44,7 +44,7 @@ private typedef Handler = Int -> Void;
  * @author Ruben Weijers
  * @creation-date Mar 24, 2011
  */
-class HttpSignal extends Signal1<Int>, implements IWireWatcher <Handler> 
+class HttpSignal extends Signal1<Int> implements IWireWatcher <Handler> 
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;

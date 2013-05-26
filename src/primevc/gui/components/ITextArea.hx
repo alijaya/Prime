@@ -34,7 +34,7 @@ package primevc.gui.components;
  * @author Ruben Weijers
  * @creation-date Oct 26, 2010
  */
-interface ITextArea implements IUIElement, implements ITextStylable
+interface ITextArea implements IUIElement implements ITextStylable
 {
 	/**
 	 * Maximum number of columns that the textarea can have.

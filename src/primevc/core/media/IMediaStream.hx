@@ -40,7 +40,7 @@ package primevc.core.media;
  * @since   Sep 28, 2011
  * @author  Ruben Weijers
  */
-interface IMediaStream implements IFreezable, implements IDisposable
+interface IMediaStream implements IFreezable implements IDisposable
 {
     //
     // STREAM PROPERTIES

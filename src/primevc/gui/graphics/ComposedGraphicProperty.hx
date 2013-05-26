@@ -44,7 +44,7 @@ package primevc.gui.graphics;
  * @author Ruben Weijers
  * @creation-date Nov 04, 2010
  */
-class ComposedGraphicProperty extends GraphicElement, implements IComposedGraphicProperty 
+class ComposedGraphicProperty extends GraphicElement implements IComposedGraphicProperty 
 {
 	/**
 	 * Reference to the first cell with a GraphicProperty (needed to start looping)

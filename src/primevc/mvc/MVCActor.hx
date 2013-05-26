@@ -37,7 +37,7 @@ package primevc.mvc;
  * @author Ruben Weijers
  * @creation-date Nov 16, 2010
  */
-class MVCActor <FacadeDef> extends MVCNotifier, implements IMVCActor
+class MVCActor <FacadeDef> extends MVCNotifier implements IMVCActor
 {
 	//TODO: Ask Nicolas why you can't have typedefs as type constraint parameters...
 	@manual private var f : FacadeDef;

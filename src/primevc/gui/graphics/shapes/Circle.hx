@@ -41,7 +41,7 @@ package primevc.gui.graphics.shapes;
  * @author Ruben Weijers
  * @creation-date Aug 01, 2010
  */
-class Circle extends ShapeBase, implements IGraphicShape
+class Circle extends ShapeBase implements IGraphicShape
 {
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{

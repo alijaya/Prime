@@ -13,7 +13,7 @@ import js.Dom;
  * @author	Stanislav Sopov
  * @since	April 6, 2011
  */
-class ProgressSignal extends Signal2<Int, Int>, implements IWireWatcher <ProgressHandler> 
+class ProgressSignal extends Signal2<Int, Int> implements IWireWatcher <ProgressHandler> 
 {
 	
 	var request:XMLHttpRequest;

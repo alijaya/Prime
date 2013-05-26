@@ -38,7 +38,7 @@ package primevc.gui.graphics.borders;
  * @author Ruben Weijers
  * @creation-date Nov 04, 2010
  */
-class ComposedBorder extends ComposedGraphicProperty, implements IBorder
+class ComposedBorder extends ComposedGraphicProperty implements IBorder
 {
 	public var weight		(default, set_weight)		: Float;
 	public var innerBorder	(default, set_innerBorder)	: Bool;

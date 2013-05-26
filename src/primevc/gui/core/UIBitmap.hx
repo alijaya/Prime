@@ -53,7 +53,7 @@ package primevc.gui.core;
  * @author Ruben Weijers
  * @creation-date Jul 08, 2011
  */
-class UIBitmap extends primevc.gui.display.BitmapShape, implements IUIElement
+class UIBitmap extends primevc.gui.display.BitmapShape implements IUIElement
 {
     public var prevValidatable  : IValidatable;
     public var nextValidatable  : IValidatable;

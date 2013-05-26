@@ -56,7 +56,7 @@ private typedef Flags = RevertableBindableFlags;
  * @creation-date	Jun 18, 2010
  * @author			Danny Wilson
  */
-@:generic class RevertableBindable <DataType> extends Bindable<DataType>, implements primevc.core.traits.IEditableValueObject
+@:generic class RevertableBindable <DataType> extends Bindable<DataType> implements primevc.core.traits.IEditableValueObject
 {
 	/**
 	 * Keeps track of settings.

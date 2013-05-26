@@ -45,7 +45,7 @@ private typedef Flags = RevertableBindableFlags;
  * @author Danny Wilson
  * @creation-date Dec 03, 2010
  */
-class ValueObjectBase implements IValueObject, implements IFlagOwner
+class ValueObjectBase implements IValueObject implements IFlagOwner
 {
 	public var change (default, null) : Signal1<ObjectChangeSet>;
 	

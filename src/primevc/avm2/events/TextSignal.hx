@@ -43,7 +43,7 @@ package primevc.avm2.events;
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-class TextSignal extends Signal1 <String>, implements IWireWatcher < TextHandler > 
+class TextSignal extends Signal1 <String> implements IWireWatcher < TextHandler > 
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;

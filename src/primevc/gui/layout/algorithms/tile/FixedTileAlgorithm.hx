@@ -65,7 +65,7 @@ package primevc.gui.layout.algorithms.tile;
  * @creation-date	Jun 25, 2010
  * @author			Ruben Weijers
  */
-class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
+class FixedTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 {
 	/**
 	 * Maximum number of rows or columns that the layout can have. 

@@ -42,7 +42,7 @@ package primevc.gui.graphics.borders;
  * @author Ruben Weijers
  * @creation-date May 4, 2011
  */
-class EmptyBorder extends GraphicElement, implements IGraphicProperty, implements IBorder
+class EmptyBorder extends GraphicElement implements IGraphicProperty implements IBorder
 {
 	public var weight		(default, set_weight)		: Float;
 	public var innerBorder	(default, set_innerBorder)	: Bool;

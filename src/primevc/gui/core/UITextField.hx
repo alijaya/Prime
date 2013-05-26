@@ -64,7 +64,7 @@ package primevc.gui.core;
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-class UITextField extends TextField, implements IUIElement
+class UITextField extends TextField implements IUIElement
 {
 	public static #if !noinline inline #end function createLabelField (id:String = null, data:Bindable<String> = null, owner:ITextStylable = null, injectedLayout:AdvancedLayoutClient = null) : UITextField
 	{

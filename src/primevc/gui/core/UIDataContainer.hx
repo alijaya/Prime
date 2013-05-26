@@ -43,7 +43,7 @@ package primevc.gui.core;
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
-class UIDataContainer <DataType> extends UIDataComponent <DataType>, implements IUIContainer
+class UIDataContainer <DataType> extends UIDataComponent <DataType> implements IUIContainer
 {
     public function new (id:String = null, data:DataType = null)
     {

@@ -43,7 +43,7 @@ package primevc.gui.graphics;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-class GraphicElement extends Invalidatable, implements IGraphicElement 
+class GraphicElement extends Invalidatable implements IGraphicElement 
 {
 #if (CSSParser || debug)
 	public var _oid (default, null)	: Int;

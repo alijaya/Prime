@@ -40,7 +40,7 @@ package primevc.gui.graphics;
  * @author Ruben Weijers
  * @creation-date Mar 14, 2011
  */
-class EmptyGraphicProperty extends GraphicElement, implements IGraphicProperty
+class EmptyGraphicProperty extends GraphicElement implements IGraphicProperty
 {
 	public #if !noinline inline #end function begin (target:IGraphicsOwner, bounds:IRectangle)
 	{

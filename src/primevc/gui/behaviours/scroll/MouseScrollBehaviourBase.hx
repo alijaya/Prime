@@ -42,7 +42,7 @@ package primevc.gui.behaviours.scroll;
  * @author Ruben Weijers
  * @creation-date Jul 29, 2010
  */
-class MouseScrollBehaviourBase extends primevc.gui.behaviours.BehaviourBase<primevc.gui.traits.IScrollable>, implements IScrollBehaviour
+class MouseScrollBehaviourBase extends primevc.gui.behaviours.BehaviourBase<primevc.gui.traits.IScrollable> implements IScrollBehaviour
 {
 #if !CSSParser
 	private var activateBinding		: Wire < Dynamic >;

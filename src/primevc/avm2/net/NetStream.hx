@@ -36,7 +36,7 @@ package primevc.avm2.net;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-class NetStream extends flash.net.NetStream //, implements primevc.core.traits.IDisposable
+class NetStream extends flash.net.NetStream // implements primevc.core.traits.IDisposable
 {
 	public var events (default, null)	: NetStreamEvents;
 	

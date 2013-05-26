@@ -9,7 +9,7 @@ import primevc.mvc.core.MVCCore;
  * provides access point for them and
  * handles data logic. 
  */
-class MainModel extends MVCCore<MainFacade>, implements IModel
+class MainModel extends MVCCore<MainFacade> implements IModel
 {
     public var mainProxy (default, null):MainProxy;
     public function new (facade:MainFacade)		{ super(facade); }

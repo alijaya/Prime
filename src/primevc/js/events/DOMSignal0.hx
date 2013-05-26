@@ -10,7 +10,7 @@ import js.Dom;
  * @author	Stanislav Sopov
  * @since 	April 6, 2011
  */
-class DOMSignal0 extends Signal0, implements IWireWatcher<Void->Void>
+class DOMSignal0 extends Signal0 implements IWireWatcher<Void->Void>
 {
 	var eventDispatcher:Dynamic;
 	var event:String;

@@ -49,7 +49,7 @@ private typedef Flags = LayoutFlags;
  * @author Ruben Weijers
  * @creation-date Jul 12, 2010
  */
-class RelativeAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgorithm
+class RelativeAlgorithm extends LayoutAlgorithmBase implements ILayoutAlgorithm
 {
 	private var validatePreparedHor : Bool;
 	private var validatePreparedVer : Bool;

@@ -80,7 +80,7 @@ package primevc.gui.core;
  * @author Ruben Weijers
  * @creation-date Jun 07, 2010
  */
-class UIComponent extends Sprite, implements IUIComponent
+class UIComponent extends Sprite implements IUIComponent
 {
 	public var prevValidatable	: IValidatable;
 	public var nextValidatable	: IValidatable;

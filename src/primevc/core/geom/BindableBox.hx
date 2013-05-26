@@ -42,7 +42,7 @@ package primevc.core.geom;
  * @creation-date	Jun 21, 2010
  * @author			Ruben Weijers
  */
-class BindableBox implements IBox, implements IDisposable
+class BindableBox implements IBox implements IDisposable
 {
 	public var top			(get_top, set_top)		: Int;
 	public var bottom		(get_bottom, set_bottom): Int;

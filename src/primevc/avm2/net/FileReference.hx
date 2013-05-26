@@ -57,7 +57,7 @@ private typedef FlashFileRef = flash.net.FileReference;
  * @author Ruben Weijers
  * @creation-date Mar 29, 2011
  */
-class FileReference extends SelectEvents, implements ICommunicator, implements IFileReference
+class FileReference extends SelectEvents implements ICommunicator implements IFileReference
 {
 	public var events			(default,				null)		: LoaderSignals;
 	

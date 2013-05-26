@@ -44,7 +44,7 @@ package primevc.gui.layout.algorithms.float;
  * @creation-date	Jun 24, 2010
  * @author			Ruben Weijers
  */
-class VerticalFloatAlgorithm extends primevc.gui.layout.algorithms.VerticalBaseAlgorithm, implements primevc.gui.layout.algorithms.IVerticalAlgorithm
+class VerticalFloatAlgorithm extends primevc.gui.layout.algorithms.VerticalBaseAlgorithm implements primevc.gui.layout.algorithms.IVerticalAlgorithm
 {
 	/**
 	 * Method will return the total height of all the children.

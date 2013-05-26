@@ -39,7 +39,7 @@ interface IClient<T> implements IDisposable {
 	public var list : Vector<T>;
 }
 interface IClient2 {}
-@:generic class Client<T> implements IClient<T>, implements IClient2
+@:generic class Client<T> implements IClient<T> implements IClient2
 {
 	public var val (default, null) : Int;
 	public var list : Vector<T>;

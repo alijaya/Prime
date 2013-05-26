@@ -38,7 +38,7 @@ package primevc.core.dispatcher;
  * @author Danny Wilson
  * @creation-date Jun 09, 2010
  */
-interface INotifier <FunctionSignature> implements IUnbindable <FunctionSignature>, implements IDisposable
+interface INotifier <FunctionSignature> implements IUnbindable <FunctionSignature> implements IDisposable
 {
 	public function observe		    (owner:Dynamic, handler:Void->Void)			: Wire<FunctionSignature>;
 	public function observeOnce	    (owner:Dynamic, handler:Void->Void)			: Wire<FunctionSignature>;

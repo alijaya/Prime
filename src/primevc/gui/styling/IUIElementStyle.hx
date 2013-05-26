@@ -38,7 +38,7 @@ package primevc.gui.styling;
  * @author Ruben Weijers
  * @creation-date Oct 22, 2010
  */
-interface IUIElementStyle implements primevc.core.traits.IInvalidateListener, implements primevc.core.traits.IDisposable
+interface IUIElementStyle implements primevc.core.traits.IInvalidateListener implements primevc.core.traits.IDisposable
 {
 	public var target					(default, null) : IStylable;
 	public var styles					(default, null) : PriorityList < StyleBlock >;

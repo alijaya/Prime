@@ -392,7 +392,7 @@ class TileRotateFadeScaleMoveEffect extends SequenceEffect
 }
 */
 
-class Tile extends Button, implements IDraggable
+class Tile extends Button implements IDraggable
 {	
 	private var dynamicSize					: Bool;
 	public var dragEvents (default, null)	: DragEvents;
@@ -434,7 +434,7 @@ class Tile extends Button, implements IDraggable
 
 
 
-class DragButton extends Button, implements IDraggable
+class DragButton extends Button implements IDraggable
 {
 	public var dragEvents (default, null)	: DragEvents;
 	public var isDragging					: Bool;
@@ -588,7 +588,7 @@ class UIList <ListType:IEditableList, RenderType:IUIElement> extends UIDataConta
 }
 */
 
-class TileList extends Frame, implements IDropTarget
+class TileList extends Frame implements IDropTarget
 {
 	public var dragEvents				: DropTargetEvents;
 	public var allowDropFromOtherLists	: Bool;

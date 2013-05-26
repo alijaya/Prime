@@ -26,7 +26,7 @@ interface IUserEVO implements IEditEnabledValueObject
 	public var name (default,default) : String;
 }
 
-class UserVO implements IUserVO, implements IUserEVO, implements IEditableValueObject<IUserEVO>
+class UserVO implements IUserVO implements IUserEVO implements IEditableValueObject<IUserEVO>
 { // normaal gesproken gegenereerd.
 	public var name (default,default) : String;
 	

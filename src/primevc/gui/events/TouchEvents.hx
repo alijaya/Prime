@@ -82,7 +82,7 @@ class TouchSignals extends Signals
  * @author Ruben Weijers
  * @creation-date Nov 10, 2011
  */
-class TouchState implements IClonable<TouchState>, implements haxe.Public
+class TouchState implements IClonable<TouchState> implements haxe.Public
 {
     public static inline var fake = new TouchState( null, null, null );
     

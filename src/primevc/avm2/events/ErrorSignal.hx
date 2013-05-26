@@ -47,7 +47,7 @@ private typedef EventHandler	= Error -> Void;
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-class ErrorSignal extends Signal1 <String>, implements IWireWatcher < EventHandler > 
+class ErrorSignal extends Signal1 <String> implements IWireWatcher < EventHandler > 
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;

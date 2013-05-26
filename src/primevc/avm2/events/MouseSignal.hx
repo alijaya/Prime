@@ -44,7 +44,7 @@ package primevc.avm2.events;
  * @author Danny Wilson
  * @creation-date jun 15, 2010
  */
-class MouseSignal extends Signal1<MouseState>, implements IWireWatcher<MouseHandler>
+class MouseSignal extends Signal1<MouseState> implements IWireWatcher<MouseHandler>
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;

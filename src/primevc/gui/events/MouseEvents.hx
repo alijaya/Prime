@@ -127,7 +127,7 @@ class MouseSignals extends Signals
  * @author Danny Wilson
  * @creation-date jun 14, 2010
  */
-class MouseState extends KeyModState, implements IClonable<MouseState>
+class MouseState extends KeyModState implements IClonable<MouseState>
 {
 	public static var fake = new MouseState( 0, null, null, null, null );
 	

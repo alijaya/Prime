@@ -36,7 +36,7 @@ package primevc.gui.display;
  * @author Ruben Weijers
  * @creation-date Jul 13, 2010
  */
-interface IDisplayContainer implements IInteractive, implements IDisplayable
+interface IDisplayContainer implements IInteractive implements IDisplayable
 {
 #if !CSSParser
 	var children	(default, null)			: DisplayList;

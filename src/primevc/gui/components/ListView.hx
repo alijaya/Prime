@@ -53,7 +53,7 @@ package primevc.gui.components;
  * @creation-date Oct 26, 2010
  */
 //@:generic
-class ListView<ListDataType> extends primevc.gui.core.UIDataContainer < primevc.core.collections.IReadOnlyList < ListDataType > >, implements primevc.gui.traits.IDropTarget
+class ListView<ListDataType> extends primevc.gui.core.UIDataContainer < primevc.core.collections.IReadOnlyList < ListDataType > > implements primevc.gui.traits.IDropTarget
 {
 	/**
 	 * Signal which will dispatch mouse-clicks of interactive item-rendered 

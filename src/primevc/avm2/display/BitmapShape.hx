@@ -44,7 +44,7 @@ package primevc.avm2.display;
  * @author Ruben Weijers
  * @creation-date Jan 04, 2011
  */
-class BitmapShape extends flash.display.Bitmap, implements IDisplayObject
+class BitmapShape extends flash.display.Bitmap implements IDisplayObject
 {
 	public var container		(default, default)		: IDisplayContainer;
 	public var window			(default, set_window)	: Window;

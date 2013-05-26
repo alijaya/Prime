@@ -42,7 +42,7 @@ private typedef FlashFileReferenceList = flash.net.FileReferenceList;
  * @author Ruben Weijers
  * @creation-date Mar 30, 2011
  */
-class FileReferenceList extends SelectEvents, implements IFileReference
+class FileReferenceList extends SelectEvents implements IFileReference
 {
 	private var target	: FlashFileReferenceList;
 	public var list		(get_list, null)	: Array<FileReference>;

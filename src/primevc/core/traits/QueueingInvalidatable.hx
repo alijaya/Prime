@@ -40,7 +40,7 @@ package primevc.core.traits;
  * @author Ruben Weijers
  * @creation-date Nov 08, 2010
  */
-class QueueingInvalidatable extends Invalidatable, implements IQueueingInvalidatable
+class QueueingInvalidatable extends Invalidatable implements IQueueingInvalidatable
 {
 	/**
 	 * Flag indicating if the object should broadcast an invalidate call or do

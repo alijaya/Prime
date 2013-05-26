@@ -43,7 +43,7 @@ package primevc.gui.core;
  * @author Ruben Weijers
  * @creation-date Oct 29, 2010
  */
-class UIContainer extends UIComponent, implements IUIContainer
+class UIContainer extends UIComponent implements IUIContainer
 {
     public function new (id:String = null)
     {

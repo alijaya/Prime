@@ -37,7 +37,7 @@ package primevc.avm2.net;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-class NetConnection extends flash.net.NetConnection, implements IDisposable 
+class NetConnection extends flash.net.NetConnection implements IDisposable 
 {
 	public var events (default, null)	: NetConnectionEvents;
 	

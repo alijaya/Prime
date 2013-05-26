@@ -45,7 +45,7 @@ private typedef FocusHandler = FocusState -> Void;
  * @author Ruben Weijers
  * @creation-date jan 26, 2010
  */
-class FocusSignal extends Signal1<FocusState>, implements IWireWatcher<FocusHandler>
+class FocusSignal extends Signal1<FocusState> implements IWireWatcher<FocusHandler>
 {
 	var eventDispatcher	: IEventDispatcher;
 	var event			: String;

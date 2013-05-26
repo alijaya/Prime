@@ -45,7 +45,7 @@ package primevc.gui.layout.algorithms.float;
  * @creation-date	Jun 24, 2010
  * @author			Ruben Weijers
  */
-class HorizontalFloatAlgorithm extends HorizontalBaseAlgorithm, implements IHorizontalAlgorithm
+class HorizontalFloatAlgorithm extends HorizontalBaseAlgorithm implements IHorizontalAlgorithm
 {
 	public #if !noinline inline #end function validate ()
 	{

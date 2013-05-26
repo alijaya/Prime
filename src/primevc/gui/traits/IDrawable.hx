@@ -39,7 +39,7 @@ package primevc.gui.traits;
 interface IDrawable
 	#if !CSSParser
 			  implements ILayoutable
-			, implements IGraphicsOwner #end
+			 implements IGraphicsOwner #end
 {
 #if flash9
 	/**

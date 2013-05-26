@@ -38,7 +38,7 @@ package primevc.gui.graphics.shapes;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-class RegularRectangle extends ShapeBase, implements IGraphicShape
+class RegularRectangle extends ShapeBase implements IGraphicShape
 {
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{
