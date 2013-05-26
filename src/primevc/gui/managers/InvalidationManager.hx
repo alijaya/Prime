@@ -29,7 +29,6 @@
 package primevc.gui.managers;
  import primevc.gui.traits.IPropertyValidator;
  import primevc.gui.traits.IValidatable;
-  using primevc.utils.Bind;
   using primevc.utils.TypeUtil;
 
 
@@ -47,19 +46,12 @@ package primevc.gui.managers;
  */
 class InvalidationManager extends QueueManager
 {
-	public function new (owner)
-	{
-		super(owner);
-		
-		updateQueueBinding = validateQueue.on( owner.displayEvents.enterFrame, this );
-		updateQueueBinding.disable();
-	}
-	
-	
 	override private function validateQueue ()
 	{
+		if (first == null) // Nothing to validate.
+			return;
+
 		isValidating = true;
-		disableBinding();
 #if debug
 		var i = 0;
 		if (traceQueues)
@@ -67,7 +59,7 @@ class InvalidationManager extends QueueManager
 #end
 		while (first != null)
 		{
-#if debug 	if (i++ > 200) { trace("ERROR: INVALIDATION is stuck on "+first+" -> "+first.nextValidatable); first = null; break; } #end
+#if debug 	if (i++ > 20000) { trace("ERROR: INVALIDATION is stuck on "+first+" -> "+first.nextValidatable); first = null; break; } #end
 
 			var obj	= first.as(IPropertyValidator);
 			obj.validate();

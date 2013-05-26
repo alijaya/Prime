@@ -27,17 +27,14 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.validators;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.traits.IDisposable;
- 
 
 /**
  * @creation-date	Jun 20, 2010
  * @author			Ruben Weijers
  */
 #if (flash9 || cpp) @:generic #end
-interface IValueValidator <ValidateType> implements IDisposable
+interface IValueValidator <ValidateType> implements primevc.core.traits.IDisposable
 {
-	public var change (default, null)			: Signal0;
+	public var change (default, null)			: primevc.core.dispatcher.Signal0;
 	public function validate (v:ValidateType)	: ValidateType;
 }

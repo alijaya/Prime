@@ -190,6 +190,9 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 			
 			case AssetStates.empty:
 #if flash9		data = null; #end
+			
+			case AssetStates.loading:
+			case AssetStates.loadable:
 			default:
 		}
 	}

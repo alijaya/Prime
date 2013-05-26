@@ -110,8 +110,8 @@ class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, 
 #end
 	
 	
-	public #if !noinline inline #end function select ()		{ selected.value = true; }
+	public #if !noinline inline #end function select ()			{ selected.value = true; }
 	public #if !noinline inline #end function deselect ()		{ selected.value = false; }
 	public #if !noinline inline #end function toggleSelect ()	{ selected.value = !selected.value; }
-	public #if !noinline inline #end function isSelected ()	{ return selected.value; }
+	public #if !noinline inline #end function isSelected ()		{ return selected.value; }
 }

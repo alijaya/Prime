@@ -71,8 +71,8 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements
 	 * 
 	 * Saving a reference in the signal is needed for when an owner with 2 or 
 	 * more handlers for this signal is unbinded in Signal.unbind. Each wire will
-	 * update this reference when it's disabled (or disposed) to prevend the 
-	 * Signal.send method to lose it's reference to next usable wire. 
+	 * update this reference when it's disabled (or disposed) to prevent the
+	 * Signal.send method to lose its reference to next usable wire.
 	 */
 	public var nextSendable : Wire<FunctionSignature>;
 	
@@ -125,6 +125,19 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements
 	public #if !noinline inline #end function hasListeners () : Bool
 	{
 		return n.notNull();
+	}
+	
+	
+	public #if !noinline inline #end function hasListener( owner : Dynamic, ?handler : Null<FunctionSignature> ) : Bool
+	{
+		var b = this.n;
+		
+		var found = false;
+		while (b.notNull()) {
+			if ( b.isBoundTo(owner, handler) ) { b = null; found = true; }
+			else b = b.next();
+		}
+		return found;
 	}
 	
 	

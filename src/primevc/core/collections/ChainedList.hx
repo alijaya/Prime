@@ -27,7 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.collections;
- import primevc.utils.DuplicateUtil;
 
 
 /**
@@ -83,7 +82,7 @@ class ChainedList <DataType> extends SimpleList <DataType>
 		var inst	= new ChainedList<DataType>();
 		var length	= this.length;
 		for (i in 0...length)
-			inst.insertAt( DuplicateUtil.duplicateItem( getItemAt(i) ), i );
+			inst.insertAt( primevc.utils.DuplicateUtil.duplicateItem( getItemAt(i) ), i );
 		
 		return inst;
 	}

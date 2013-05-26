@@ -137,11 +137,11 @@ class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements 
 	{
 		if (v != fill) {
 			if (fill != null)
-				fill.listeners.remove(this);
+				fill.invalidated.unbind(this);
 			
 			fill = v;
 			if (fill != null)
-				fill.listeners.add(this);
+				fill.invalidated.bind(this, invalidateCall);
 			
 			invalidate( GraphicFlags.BORDER );
 		}

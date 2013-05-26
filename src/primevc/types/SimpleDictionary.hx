@@ -28,16 +28,8 @@
  */
 package primevc.types;
  import primevc.core.collections.iterators.FastArrayForwardIterator;
- import primevc.core.traits.IClonable;
- import primevc.core.traits.IDisposable;
 #if CSSParser
  import primevc.tools.generator.ICodeFormattable;
-#end
- import primevc.utils.FastArray;
-#if (CSSParser || debug)
- import primevc.tools.generator.ICodeGenerator;
- import primevc.utils.ID;
- import primevc.utils.TypeUtil;
 #end
   using primevc.utils.FastArray;
   using Std;
@@ -67,7 +59,7 @@ class SimpleDictionary < KType, VType >
 	public function new (size:Int = 0, fixed:Bool = false)
 	{
 #if (CSSParser || debug)
-		_oid	= ID.getNext();
+		_oid	= primevc.utils.ID.getNext();
 #end
 		_keys	= FastArrayUtil.create(size, fixed);
 		_values	= FastArrayUtil.create(size, fixed);
@@ -183,10 +175,10 @@ class SimpleDictionary < KType, VType >
 		
 		for (i in 0...length)
 		{
-			if (!TypeUtil.is( _values[i], ICodeFormattable))
+			if (!primevc.utils.TypeUtil.is( _values[i], ICodeFormattable))
 				continue;
 			
-			var item = TypeUtil.as( _values[i], ICodeFormattable);
+			var item = primevc.utils.TypeUtil.as( _values[i], ICodeFormattable);
 			item.cleanUp();
 			if (item.isEmpty())
 				keysToRemove.push(_keys[i]);
@@ -200,7 +192,7 @@ class SimpleDictionary < KType, VType >
 	}
 	
 	
-	public function toCode (code:ICodeGenerator) : Void
+	public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
 		{

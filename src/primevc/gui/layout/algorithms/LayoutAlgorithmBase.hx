@@ -61,8 +61,7 @@ class LayoutAlgorithmBase
 #if CSSParser
 	public var _oid						(default, null)				: Int;
 #end
-
-	private var validatePrepared		: Bool;
+	public var validatePrepared			(default, null)				: Bool;
 	
 	
 	public function new()

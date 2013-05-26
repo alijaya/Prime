@@ -74,6 +74,10 @@ class MouseSignal extends Signal1<MouseState>, implements IWireWatcher<MouseHand
 	
 	
 	private function dispatch(e:MouseEvent) {
+		// Prime GUI uses the RENDER event.
+		// Without updateAfterEvent, RenderManager is always called
+		// one frame too late when a mouse event causes graphics changes.
+		e.updateAfterEvent();
 #if debug
 			var state = stateFromFlashEvent(e, clickCount);
 			state.owner = this;

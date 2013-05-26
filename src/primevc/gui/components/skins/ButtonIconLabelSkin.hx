@@ -27,11 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.components.skins;
- import primevc.gui.components.Button;
  import primevc.gui.components.Image;
  import primevc.gui.core.UITextField;
- import primevc.gui.core.Skin;
- import primevc.gui.events.UserEventTarget;
   using primevc.utils.Bind;
   using primevc.utils.BitUtil;
 
@@ -46,7 +43,7 @@ private typedef Flags = primevc.gui.core.UIElementFlags;
  * @author Ruben Weijers
  * @creation-date Jan 19, 2011
  */
-class ButtonIconLabelSkin extends Skin<Button>
+class ButtonIconLabelSkin extends primevc.gui.core.Skin<primevc.gui.components.Button>
 {
 	private var iconGraphic		: Image;
 	private var labelField		: UITextField;
@@ -70,27 +67,20 @@ class ButtonIconLabelSkin extends Skin<Button>
 	
 	override public  function disposeChildren ()
 	{
-		if (iconGraphic != null) {
-			iconGraphic.dispose();
-			iconGraphic = null;
-		}
-		
-		if (labelField != null) {
-			labelField.dispose();
-			labelField	= null;
-		}
+		Assert.notNull(iconGraphic);
+		Assert.notNull(labelField);
+		iconGraphic.dispose();
+		iconGraphic = null;
+		labelField.dispose();
+		labelField	= null;
 	}
 	
 	
 	override public function validate (changes:Int)
 	{
-#if debug
-		Assert.notNull(iconGraphic, owner+"; "+iconGraphic+"; "+labelField+"; "+owner.isDisposed());
-#end	if (changes.has( Flags.ICON )) {
-			iconGraphic.data = owner.icon;
-	/*		if 		(owner.icon == null)		iconGraphic.detach();
-			else if (!iconGraphic.isOnStage()) 	iconGraphic.attachTo(owner, 0);
-	*/	}
+#if debug Assert.notNull(iconGraphic, owner+"; "+iconGraphic+"; "+labelField+"; "+owner.isDisposed()); #end
+
+		if (changes.has( Flags.ICON ))			iconGraphic.data = owner.icon;
 #if flash9
 		if (changes.has( Flags.ICON_FILL ))		iconGraphic.colorize( owner.iconFill );
 
@@ -104,7 +94,7 @@ class ButtonIconLabelSkin extends Skin<Button>
 	
 	
 #if flash9
-	override public function isFocusOwner (target:UserEventTarget)
+	override public function isFocusOwner (target:primevc.gui.events.UserEventTarget)
 	{
 		return labelField.isFocusOwner(target);
 	}

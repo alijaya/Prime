@@ -217,7 +217,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	public function add ( fill:GradientStop, depth:Int = -1 )
 	{
 		gradientStops.insertAt( fill, depth );
-		fill.listeners.add(this);
+		fill.invalidated.bind(this, invalidateCall);
 		invalidate( GraphicFlags.FILL );
 	}
 	
@@ -225,7 +225,6 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	public function remove ( fill:GradientStop )
 	{
 		gradientStops.removeItem(fill);
-		fill.listeners.remove(this);
 		fill.dispose();
 		invalidate( GraphicFlags.FILL );
 	}

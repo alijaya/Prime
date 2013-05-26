@@ -33,6 +33,7 @@ package primevc.gui.layout;
  import primevc.core.geom.RectangleFlags;
  import primevc.core.states.SimpleStateMachine;
  import primevc.core.validators.IntRangeValidator;
+ import primevc.core.traits.IInvalidatable;
  import primevc.types.Number;
  import primevc.gui.states.ValidateStates;
   using primevc.utils.Bind;
@@ -168,8 +169,8 @@ class LayoutClient extends primevc.core.traits.Invalidatable
 		(untyped this).margin			= EMPTY_BOX;
 		(untyped this).padding			= EMPTY_BOX;
 		
-		innerBounds	.listeners.add( this );
-		outerBounds	.listeners.add( this );
+		invalidatedInnerBounds.on(innerBounds.invalidated, this);
+		invalidatedOuterBounds.on(outerBounds.invalidated, this);
 		
 		//remove and set correct flags
 		changes = changes.set( Flags.X | Flags.Y | Flags.WIDTH * newWidth.isSet().boolCalc() | Flags.HEIGHT * newHeight.isSet().boolCalc() );
@@ -341,7 +342,7 @@ class LayoutClient extends primevc.core.traits.Invalidatable
 	}
 	
 
-	public #if !noinline inline #end function isChanged ()			{ return changes > 0; }
+	public #if !noinline inline #end function isChanged ()			{ return changes != 0; }
 	public #if !noinline inline #end function isValidated ()		{ return state.is(ValidateStates.validated); }
 	public #if !noinline inline #end function isValidating ()		{ return state == null ? false : state.is(ValidateStates.validating) || (parent != null && parent.isValidating()); }
 	public #if !noinline inline #end function isInvalidated ()		{ return state == null ? false : state.is(ValidateStates.invalidated) || state.is(ValidateStates.parent_invalidated); }
@@ -758,39 +759,30 @@ class LayoutClient extends primevc.core.traits.Invalidatable
 	
 	
 	
+
 	
-	
-	override public function invalidateCall (propChanges:Int, sender:primevc.core.traits.IInvalidatable)
+	private function invalidatedOuterBounds(propChanges:Int, box:IInvalidatable)
 	{
-		if (propChanges == 0)
-			return;
-		
-		if (!sender.is(IntRectangle)) {
-			super.invalidateCall( propChanges, sender );
-			return;
-		}
-		
-		
-		if (propChanges == RectangleFlags.BOTTOM || propChanges == RectangleFlags.RIGHT)
-			return;
-		
-		var box = sender.as(IntRectangle);
-		
-		if (box == outerBounds)
-		{
-			if (propChanges.has( RectangleFlags.LEFT ))		x		= box.left;
-			if (propChanges.has( RectangleFlags.TOP ))		y		= box.top;
-			if (propChanges.has( RectangleFlags.WIDTH ))	width	= box.width  - getHorPadding() - getHorMargin(); //.abs();
-			if (propChanges.has( RectangleFlags.HEIGHT ))	height	= box.height - getVerPadding() - getVerMargin(); //.abs();
-		}
-	
-		else if (box == innerBounds)
-		{
-			if (propChanges.has( RectangleFlags.LEFT ))		x		= /*margin == null ? box.left : */box.left - margin.left; //.abs();
-			if (propChanges.has( RectangleFlags.TOP ))		y		= /*margin == null ? box.top  : */box.top - margin.top; //.abs();
-			if (propChanges.has( RectangleFlags.WIDTH ))	width	= box.width - getHorPadding();
-			if (propChanges.has( RectangleFlags.HEIGHT ))	height	= box.height - getVerPadding();
-		}
+		Assert.notEqual(propChanges, 0);
+		Assert.equal(box, outerBounds);
+		var box:IntRectangle = cast box;
+
+		if (propChanges.has( RectangleFlags.LEFT   )) x      = box.left;
+		if (propChanges.has( RectangleFlags.TOP    )) y      = box.top;
+		if (propChanges.has( RectangleFlags.WIDTH  )) width  = box.width  - getHorPadding() - getHorMargin();
+		if (propChanges.has( RectangleFlags.HEIGHT )) height = box.height - getVerPadding() - getVerMargin();
+	}
+
+	private function invalidatedInnerBounds(propChanges:Int, box:IInvalidatable)
+	{
+		Assert.notEqual(propChanges, 0);
+		Assert.equal(box, innerBounds);
+		var box:IntRectangle = cast box;
+
+		if (propChanges.has( RectangleFlags.LEFT   )) x      = box.left   - margin.left;
+		if (propChanges.has( RectangleFlags.TOP    )) y      = box.top    - margin.top;
+		if (propChanges.has( RectangleFlags.WIDTH  )) width  = box.width  - getHorPadding();
+		if (propChanges.has( RectangleFlags.HEIGHT )) height = box.height - getVerPadding();
 	}
 	
 	
@@ -853,13 +845,13 @@ class LayoutClient extends primevc.core.traits.Invalidatable
 	}
 	
 	
-	public #if !noinline inline #end function getHorPadding () : Int	{ return /*padding == null ? 0 : */padding.left	+ padding.right; }
+	public #if !noinline inline #end function getHorPadding () : Int{ return /*padding == null ? 0 : */padding.left	+ padding.right; }
 	public #if !noinline inline #end function getVerPadding() : Int	{ return /*padding == null ? 0 : */padding.top	+ padding.bottom; }
 	public #if !noinline inline #end function getHorMargin () : Int	{ return /*margin  == null ? 0 : */margin.left	+ margin.right; }
-	public #if !noinline inline #end function getVerMargin() : Int		{ return /*margin  == null ? 0 : */margin.top	+ margin.bottom; }
+	public #if !noinline inline #end function getVerMargin() : Int	{ return /*margin  == null ? 0 : */margin.top	+ margin.bottom; }
 	
 	public #if !noinline inline #end function hasMaxWidth () : Bool	{ return widthValidator  != null && widthValidator.max.isSet(); }
-	public #if !noinline inline #end function hasMaxHeight () : Bool	{ return heightValidator != null && heightValidator.max.isSet(); }
+	public #if !noinline inline #end function hasMaxHeight () : Bool{ return heightValidator != null && heightValidator.max.isSet(); }
 	
 	
 	

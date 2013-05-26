@@ -150,6 +150,27 @@ class AdvancedLayoutClient extends LayoutClient, implements IAdvancedLayoutClien
 		var h = (measuredHeight.isSet() && explicitHeight.notSet()) ? measuredHeight : _height;
 		updateAllHeights( validateHeight( h, Flags.VALIDATE_ALL ));
 	}
+
+
+/*	override public function validateHorizontal ()
+	{
+		if (changes.has(Flags.PERCENT_WIDTH) && percentWidth.notSet()) {
+			untyped explicitWidth = width = Number.INT_NOT_SET;
+			changes = changes.set( Flags.EXPLICIT_WIDTH );
+		}
+		super.validateHorizontal();
+	}*/
+
+
+	/*override public function validateVertical ()
+	{
+		if (changes.has(Flags.PERCENT_HEIGHT) && percentHeight.notSet()) {
+			trace(this + " / " + explicitHeight + " / " + measuredHeight + " / " + percentHeight + " / " + height); // + "; " + Flags.readProperties(changes));
+			explicitHeight = height = Number.INT_NOT_SET;
+			changes = changes.set( Flags.EXPLICIT_HEIGHT );
+		}
+		super.validateVertical();
+	}*/
 	
 	
 	

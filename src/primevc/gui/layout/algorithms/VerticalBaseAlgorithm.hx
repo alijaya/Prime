@@ -27,13 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.layout.algorithms;
-#if CSSParser
- import primevc.tools.generator.ICodeGenerator;
-#end
  import primevc.core.geom.space.Horizontal;
  import primevc.core.geom.space.Vertical;
- import primevc.gui.layout.algorithms.LayoutAlgorithmBase;
- import primevc.gui.layout.AdvancedLayoutClient;
  import primevc.gui.layout.LayoutFlags;
   using primevc.utils.BitUtil;
   using primevc.utils.NumberUtil;
@@ -47,7 +42,7 @@ package primevc.gui.layout.algorithms;
  * @author Ruben Weijers
  * @creation-date Sep 03, 2010
  */
-class VerticalBaseAlgorithm extends LayoutAlgorithmBase
+class VerticalBaseAlgorithm extends primevc.gui.layout.algorithms.LayoutAlgorithmBase
 {
 	public var direction			(default, set_direction)	: Vertical;
 	
@@ -118,7 +113,7 @@ class VerticalBaseAlgorithm extends LayoutAlgorithmBase
 	{
 		if (!validatePrepared)
 		{
-			var width:Int = group.childWidth;
+			var width = group.childWidth;
 		
 			if (group.childWidth.notSet())
 			{
@@ -158,7 +153,7 @@ class VerticalBaseAlgorithm extends LayoutAlgorithmBase
 	
 	public function apply ()
 	{
-		if (horizontal != null)
+		if (horizontal != null && group.children.length > 0)
 			switch (horizontal) {
 				case Horizontal.left:	applyHorizontalLeft();
 				case Horizontal.center:	applyHorizontalCenter();
@@ -171,53 +166,38 @@ class VerticalBaseAlgorithm extends LayoutAlgorithmBase
 
 	private  function applyHorizontalLeft ()
 	{
-		if (group.children.length > 0)
-		{
-			var start = getLeftStartValue();
-			for (child in group.children) {
-				if (!child.includeInLayout)
-					continue;
-				
+		var start = getLeftStartValue();
+		for (child in group.children)
+			if (child.includeInLayout)
 				child.outerBounds.left = start;
-			}
-		}
 	}
 	
 	
 	private inline function applyHorizontalCenter ()
 	{
-		if (group.children.length > 0)
+		var start = getLeftStartValue();
+		if (group.childWidth.notSet())
 		{
-			var start = getLeftStartValue();
-			if (group.childWidth.notSet())
-			{
-				for (child in group.children) {
-					if (!child.includeInLayout)
-						continue;
-					
+			for (child in group.children)
+				if (child.includeInLayout)
 					child.outerBounds.left = start + ( (group.width - child.outerBounds.width) >> 1 ); // * .5 ).roundFloat();
-				}
-			}
-			else
-			{
-				var childX = start + ( (group.innerBounds.width - group.childWidth) >> 1 ); // * .5 ).roundFloat();
-				for (child in group.children)
-					if (child.includeInLayout)
-						child.outerBounds.left = childX;
-			}
+		}
+		else
+		{
+			var childX = start + ( (group.innerBounds.width - group.childWidth) >> 1 ); // * .5 ).roundFloat();
+			for (child in group.children)
+				if (child.includeInLayout)
+					child.outerBounds.left = childX;
 		}
 	}
 	
 	
 	private  function applyHorizontalRight ()
 	{
-		if (group.children.length > 0)
-		{
-			var start = getRightStartValue();
-			for (child in group.children)
-				if (child.includeInLayout)
-					child.outerBounds.right = start;
-		}
+		var start = getRightStartValue();
+		for (child in group.children)
+			if (child.includeInLayout)
+				child.outerBounds.right = start;
 	}
 
 	
@@ -226,7 +206,7 @@ class VerticalBaseAlgorithm extends LayoutAlgorithmBase
 	override public function toCSS (prefix:String = "") : String	{ Assert.abstractMethod(); return ""; }
 #end
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ direction, horizontal ] );
 	}

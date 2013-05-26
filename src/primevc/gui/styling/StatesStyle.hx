@@ -72,7 +72,7 @@ class StatesStyle extends StyleSubBlock
 		if (changedReference.has( StyleFlags.EXTENDED_STYLE ))
 		{
 			if (extendedStyle != null)
-				extendedStyle.listeners.remove( this );
+				extendedStyle.invalidated.unbind( this );
 			
 			extendedStyle = null;
 			if (owner != null && owner.extendedStyle != null)
@@ -80,7 +80,7 @@ class StatesStyle extends StyleSubBlock
 				extendedStyle = owner.extendedStyle.states;
 				
 				if (extendedStyle != null)
-					extendedStyle.listeners.add( this );
+					extendedStyle.invalidated.bind( this, invalidateCall );
 			}
 		}
 		
@@ -88,7 +88,7 @@ class StatesStyle extends StyleSubBlock
 		if (changedReference.has( StyleFlags.SUPER_STYLE ))
 		{
 			if (superStyle != null)
-				superStyle.listeners.remove( this );
+				superStyle.invalidated.unbind( this );
 			
 			superStyle = null;
 			if (owner != null && owner.superStyle != null)
@@ -96,7 +96,7 @@ class StatesStyle extends StyleSubBlock
 				superStyle = owner.superStyle.states;
 				
 				if (superStyle != null)
-					superStyle.listeners.add( this );
+					superStyle.invalidated.bind( this, invalidateCall );
 			}
 		}
 	}

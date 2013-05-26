@@ -205,7 +205,13 @@ class BaseMediaStream implements IMediaStream
         switch (state.current)
         {
             case frozen( prevState ):   state.current = prevState;
-            default:
+			case playing:
+			case paused:
+			case stopped:
+			case empty:
+			case error( str ):
+			case loading( origState ):
+			default:
         }
     }
 

@@ -44,7 +44,7 @@ private typedef Flags = EffectFlags;
  */
 class EffectsCollection extends StyleCollectionBase < EffectsStyle >
 {
-	public function new (elementStyle:IUIElementStyle)			super( elementStyle, StyleFlags.EFFECTS )
+	public function new (elementStyle:UIElementStyle)			super( elementStyle, StyleFlags.EFFECTS )
 	override public function forwardIterator ()					return new EffectsCollectionForwardIterator( elementStyle, propertyTypeFlag)
 	override public function reversedIterator ()				return new EffectsCollectionReversedIterator( elementStyle, propertyTypeFlag)
 #if debug

@@ -28,11 +28,7 @@
  */
 package primevc.core.collections;
  import haxe.FastList;
- import primevc.core.collections.iterators.FastArrayForwardIterator;
- import primevc.core.collections.iterators.FastArrayReversedIterator;
- import primevc.core.collections.iterators.IIterator;
  import primevc.core.events.ListChangeSignal;
- import primevc.utils.FastArray;
   using primevc.utils.Bind;
   using primevc.utils.FastArray;
   using primevc.utils.IfUtil;
@@ -91,8 +87,9 @@ package primevc.core.collections;
 	
 	@:keep private inline function get_length ()								return list.length
 	@:keep public  inline function iterator () : Iterator<DataType>				return forwardIterator()
-	@:keep public  inline function forwardIterator () : IIterator<DataType>		return new FastArrayForwardIterator<DataType>(list)
-	@:keep public  inline function reversedIterator () : IIterator<DataType>	return new FastArrayReversedIterator<DataType>(list)
+	@:keep public  inline function forwardIterator () : IIterator<DataType>		return new primevc.core.collections.iterators.FastArrayForwardIterator<DataType>(list)
+	@:keep public  inline function reversedIterator () : IIterator<DataType>	return new primevc.core.collections.iterators.FastArrayReversedIterator<DataType>(list)
+
 
 	public #if !noinline inline #end function disableEvents ()					{ beforeChange.disable(); change.disable(); }
 	public #if !noinline inline #end function enableEvents ()					{ beforeChange.enable();  change.enable(); }

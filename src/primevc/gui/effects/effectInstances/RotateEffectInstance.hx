@@ -35,7 +35,7 @@ package primevc.gui.effects.effectInstances;
  * @author Ruben Weijers
  * @creation-date Oct 04, 2010
  */
-class RotateEffectInstance extends EffectInstance < primevc.gui.display.IDisplayObject, primevc.gui.effects.RotateEffectt >
+class RotateEffectInstance extends EffectInstance < primevc.gui.display.IDisplayObject, primevc.gui.effects.RotateEffect >
 {
 	/**
 	 * start rotation value.
@@ -52,7 +52,7 @@ class RotateEffectInstance extends EffectInstance < primevc.gui.display.IDisplay
 	public function new (target, effect)
 	{
 		super(target, effect);
-		startValue = endValue = primvec.types.Number.FLOAT_NOT_SET;
+		startValue = endValue = primevc.types.Number.FLOAT_NOT_SET;
 	}
 
 

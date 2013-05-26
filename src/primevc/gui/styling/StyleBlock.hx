@@ -662,12 +662,12 @@ class StyleBlock extends StyleBlockBase
 #end
 
 			if (superStyle != null)
-				superStyle.listeners.remove( this );
+				superStyle.invalidated.unbind( this );
 			
 			superStyle = v;
 			
 			if (superStyle != null)
-				superStyle.listeners.add( this );
+				superStyle.invalidated.bind( this, invalidateCall );
 			
 			updateAllFilledPropertiesFlag();
 			markProperty( Flags.SUPER_STYLE, v != null );
@@ -686,12 +686,12 @@ class StyleBlock extends StyleBlockBase
 				throw "Changing the extendedStyle style after it's set is not yet supported!";
 #end
 			if (extendedStyle != null)
-				extendedStyle.listeners.remove( this );
+				extendedStyle.invalidated.unbind( this );
 			
 			extendedStyle = v;
 			
 			if (extendedStyle != null)
-				extendedStyle.listeners.add( this );
+				extendedStyle.invalidated.bind( this, invalidateCall );
 			
 			updateAllFilledPropertiesFlag();
 			markProperty( Flags.EXTENDED_STYLE, v != null );

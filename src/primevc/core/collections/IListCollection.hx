@@ -36,8 +36,7 @@ package primevc.core.collections;
  * @author			Ruben Weijers
  */
 //#if (flash9 || cpp) @:generic #end
-interface IListCollection <DataType, ListType:IEditableList<DataType>> 
-				implements IEditableList <DataType>
+interface IListCollection <DataType, ListType:IEditableList<DataType>> implements IEditableList <DataType>
 {
 	public var lists		(default, null)		: ArrayList <ListType>;
 	public function addList (list:ListType)		: ListType;

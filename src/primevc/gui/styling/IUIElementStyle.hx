@@ -29,8 +29,6 @@
 package primevc.gui.styling;
  import primevc.core.collections.PriorityList;
  import primevc.core.dispatcher.Signal0;
- import primevc.core.traits.IInvalidateListener;
- import primevc.core.traits.IDisposable;
  import primevc.gui.styling.StyleBlock;
  import primevc.gui.traits.IStylable;
  import primevc.utils.FastArray;
@@ -40,7 +38,7 @@ package primevc.gui.styling;
  * @author Ruben Weijers
  * @creation-date Oct 22, 2010
  */
-interface IUIElementStyle implements IInvalidateListener, implements IDisposable
+interface IUIElementStyle implements primevc.core.traits.IInvalidateListener, implements primevc.core.traits.IDisposable
 {
 	public var target					(default, null) : IStylable;
 	public var styles					(default, null) : PriorityList < StyleBlock >;

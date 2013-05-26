@@ -40,7 +40,7 @@ package primevc.core.dispatcher;
  * 
  * This allows to quickly (temporarily) disconnect (disable) the handler from the signal dispatcher.
  * 
- * Implementation detail: Wires are added to a bounded freelist (max 256 free objects) to reduce garbage collector pressure.
+ * Implementation detail: Wires are added to a bounded freelist (max 8096 free objects) to reduce garbage collector pressure.
  * This means you should never reuse a Wire after calling dispose() and/or after unbinding the handler from the signal (which returned this Wire).
  */
 class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements IDisposable, implements IDisablable
@@ -57,17 +57,18 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	static private var free : Wire<Dynamic>;
 	static public  var freeCount : Int = 0;
 	
-/*	static function __init__()
-	{	X_WIRES) {
-			var b  = new Wire();
-			b.n	   = W.free;
+	static function __init__()
+	{
+		var W = Wire;
+		var b = new Wire();
+			b.n	= W.free;
 		var W = Wire;
 		// Pre-allocate Wires
-		for (i in 0 ... MA
+		for (i in 0 ... MAX_WIRES) {
 			W.free = b;
 			++W.freeCount;
 		}
-	}*/
+	}
 		
 	static public function make<T>( dispatcher:Signal<T>, owner:Dynamic, handlerFn:T, flags:Int #if debug, ?pos : haxe.PosInfos #end ) : Wire<T>
 	{
@@ -80,7 +81,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 			W.free = (w = W.free).n; // i know it's unreadable.. but it's faster.
 			--W.freeCount;
 			w.n = null;
-			Assert.that(w.owner == null && w.handler == null && w.signal == null && w.n == null);
+			Assert.that(w.owner == null && w.handler == null && w.signal == null && w.n == null, w.owner + ", " + w.handler + ", " + w.signal + ", " + w.n);
 			w.flags	  = flags;
 		}
 		
@@ -168,13 +169,19 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 		return flags.has(ENABLED);
 	}
 	
-	private inline function set_handler( h:FunctionSignature )
+
+	private #if !noinline inline #end function set_handler( h:FunctionSignature )
 	{
 		// set_handler only accepts functions with FunctionSignature
 		// and this is not a VOID_HANDLER for Signal1..4
 		flags = flags.unset(VOID_HANDLER);
-		
 		return handler = h;
+	}
+
+	public #if !noinline inline #end function setVoidHandler( h:Void->Void )
+	{
+		flags = flags.set(VOID_HANDLER);
+		return handler = cast h;
 	}
 	
 	/** Enable propagation for the handler this link belongs too. **/

@@ -63,8 +63,11 @@ class Window implements IDisplayContainer, implements IDisablable
 #if flash9
 		stage = flash.Lib.current.stage;
 		stage.scaleMode	= flash.display.StageScaleMode.NO_SCALE;
-		
-	#if (debug && Monster2Trace)
+	
+	#if (debug && FlashTrace)
+		haxe.Log.trace	= primevc.utils.DebugTrace.trace;
+	
+	#elseif (debug && Monster2Trace)
 		var monster		= new nl.demonsters.debugger.MonsterDebugger(flash.Lib.current);
 		haxe.Log.trace	= primevc.utils.DebugTrace.trace;
 		haxe.Log.clear	= nl.demonsters.debugger.MonsterDebugger.clearTraces;
@@ -178,7 +181,6 @@ class Window implements IDisplayContainer, implements IDisablable
 	public function invalidate ()
 	{
 		target.invalidate();
-		displayEvents.render.send();
 	//	target.focus = target;
 	}
 	

@@ -117,7 +117,7 @@ class UIComponent extends Sprite, implements IUIComponent
 #end
 		this.id			= new Bindable<String>(id);
 		this.enabled	= new Bindable<Bool>(true);
-		visible			= false;
+	//	visible			= false;
 		changes			= 0;
 		
 		state			= new UIElementStates();
@@ -141,6 +141,7 @@ class UIComponent extends Sprite, implements IUIComponent
 		    layout = new LayoutClient();
 #if debug
         layout.name = id+"Layout";
+        this.name = id;
 #end
 		state.current = state.constructed;
 	}
@@ -267,13 +268,13 @@ class UIComponent extends Sprite, implements IUIComponent
 	// ATTACH METHODS
 	//
 	
-	public  inline function attachLayoutTo		(t:ILayoutContainer, pos:Int = -1)	: IUIElement	{ layout.attachTo( t, pos );												return this; }
-	public  inline function detachLayout		()									: IUIElement	{ layout.detach();															return this; }
-	public  inline function changeLayoutDepth	(pos:Int)							: IUIElement	{ layout.changeDepth( pos );												return this; }
-	public  inline function changeDepth			(pos:Int)							: IUIElement	{ changeLayoutDepth(pos);					changeDisplayDepth(pos);		return this; }
+	public  #if !noinline inline #end function attachLayoutTo	(t:ILayoutContainer, pos:Int = -1)	: IUIElement	{ layout.attachTo( t, pos );												return this; }
+	public  #if !noinline inline #end function detachLayout		()									: IUIElement	{ layout.detach();															return this; }
+	public  #if !noinline inline #end function changeLayoutDepth(pos:Int)							: IUIElement	{ layout.changeDepth( pos );												return this; }
+	public  #if !noinline inline #end function changeDepth		(pos:Int)							: IUIElement	{ changeLayoutDepth(pos);					changeDisplayDepth(pos);		return this; }
 
-	public  inline function attachTo			(t:IUIContainer, pos:Int = -1)		: IUIElement	{ attachLayoutTo(t.layoutContainer, pos);	attachToDisplayList(t, pos);	return this; }
-	private inline function applyDetach			()									: IUIElement	{ detachDisplay();							detachLayout();					return this; }
+	public  #if !noinline inline #end function attachTo			(t:IUIContainer, pos:Int = -1)		: IUIElement	{ attachLayoutTo(t.layoutContainer, pos);	attachToDisplayList(t, pos);	return this; }
+	private #if !noinline inline #end function applyDetach		()									: IUIElement	{ detachDisplay();							detachLayout();					return this; }
 	
 
 	public  /*inline*/ function attachToDisplayList (t:IDisplayContainer, pos:Int = -1)	: IUIElement
@@ -290,10 +291,10 @@ class UIComponent extends Sprite, implements IUIComponent
 			var hasEffect = effects != null && effects.show != null;
 			var isPlaying = hasEffect && effects.show.isPlaying();
 			
-			if (!hasEffect && !visible)
-				visible = true;
+		//	if (!hasEffect && !visible)
+		//		visible = true;
 			
-			else if (hasEffect && !isPlaying)
+			if (hasEffect && !isPlaying)
 			{
 				if (!wasDetaching)
 					visible = false;
@@ -341,9 +342,9 @@ class UIComponent extends Sprite, implements IUIComponent
 	public #if !noinline inline #end function show ()						{ this.doShow(); }
 	public #if !noinline inline #end function hide ()						{ this.doHide(); }
 	public #if !noinline inline #end function move (x:Int, y:Int)			{ this.doMove(x, y); }
-	public #if !noinline inline #end function resize (w:Int, h:Int)		{ this.doResize(w, h); }
+	public #if !noinline inline #end function resize (w:Int, h:Int)			{ this.doResize(w, h); }
 	public #if !noinline inline #end function rotate (v:Float)				{ this.doRotate(v); }
-	public function scale (sx:Float, sy:Float)			{ this.doScale(sx, sy); }
+	public function scale (sx:Float, sy:Float)								{ this.doScale(sx, sy); }
 	
 	public #if !noinline inline #end function enable ()					{ /*Assert.that(!isDisposed(), this);*/ enabled.value = true; }
 	public #if !noinline inline #end function disable ()					{ /*Assert.that(!isDisposed(), this);*/ enabled.value = false; }
@@ -453,7 +454,7 @@ class UIComponent extends Sprite, implements IUIComponent
 			return;
 		
 	    validateWire.disable();
-		if (changes > 0) {
+		if (changes != 0) {
 			if (skin != null)
 				skin.validate(changes);
 			

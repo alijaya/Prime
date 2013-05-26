@@ -108,12 +108,10 @@ class ToolTipManager implements IDisposable
 			updateToolTip.on( label.change, this );
 			
 			//move tooltip to right position
-			updatePosition();
-			toolTip.layout.x = toolTip.x.int();
-			toolTip.layout.y = toolTip.y.int(); // - toolTip.height - 5;
-			
 			if (!isVisible())
 				toolTip.attachDisplayTo(window);
+
+			updatePosition();
 		}
 		
 		lastObj		= obj;
@@ -184,17 +182,32 @@ class ToolTipManager implements IDisposable
 	
 	private function updatePosition ()
 	{
+		// The first time the Label is initialized,
+		//  text height is calculated, but graphics is not drawn yet:
+		//  toolTip height and width are just the size of the textfield.
+
+		// Use layout outerBounds for correct dimensions:
+		var toolTip = this.toolTip;
+		Assert.that(toolTip.field.isOnStage());
+		Assert.that(toolTip.field.text != "");
+		Assert.that(toolTip.field.textStyle != null);
+		Assert.that(toolTip.field.height > 0);
+
+		var width   = toolTip.layout.outerBounds.width;
+		var height  = toolTip.layout.outerBounds.height;
 		var newX	= window.mouse.x + 5;
-		var newY	= window.mouse.y - 5 + toolTip.height;
+		var newY	= window.mouse.y - 5 + height;
 		var bounds	= window.layout.innerBounds;
 		
-		if		(newX < bounds.left)						newX = 0;
-		else if ((newX + toolTip.width) > bounds.right)		newX = bounds.right - toolTip.width;
-		if		(newY < bounds.top)							newY = 0;
-		else if ((newY + toolTip.height) > bounds.bottom)	newY = bounds.bottom - toolTip.height;
+		if      ( newX < bounds.left)             newX = 0;
+		else if ((newX + width)  > bounds.right)  newX = bounds.right - width;
+		if      ( newY < bounds.top)              newY = 0;
+		else if ((newY + height) > bounds.bottom) newY = bounds.bottom - height;
 		
 		toolTip.x = newX;
 		toolTip.y = newY; // - toolTip.height - 5;
+		toolTip.layout.x = toolTip.x.int();
+		toolTip.layout.y = toolTip.y.int(); // - toolTip.height - 5;
 	}
 	
 	

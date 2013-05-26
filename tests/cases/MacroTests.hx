@@ -15,12 +15,16 @@ class MacroTests
 		var b = new Test3();
 		trace("=== traceValues");
 		b.traceFields();
+		trace("=== Value of testStrA");
+		trace( "testStrA:	"+ b.testStrA );
 		trace("=== autoTraceMe");
 	//	b.traceMe("blaaaaaaaa");
 		trace("=== dispose");
 		b.dispose();
 		trace("=== traceValues");
 		b.traceFields();
+		trace("=== Value of testStrA");
+		trace( "testStrA:	"+ b.testStrA );
 		trace("=== finish"); //*/
 	}
 }
@@ -41,7 +45,7 @@ interface IClient2 {}
 	public var list : Vector<T>;
 	
 	public function new ()				{ this.val = Test1.counter++; list = new Vector<T>(); }
-	public function dispose ()			{ this.val = -1; }
+	public function dispose ()			{ trace("Disposed called on "+this); this.val = -1;  }
 	public function toString ()			{ return ""+val; }
 	public function traceMe(v:String)	{ trace(val+" - "+v); }
 }
@@ -76,9 +80,11 @@ class Test1 //extends Test0
 	public  var clientB	: IClient<String>;
 	public  var clientC	: IClient<A>;
 	private var clientD : Client<Bool>;
-	public  var clientE	: IClient<A>;
-	public  var testStr	: String;
-	public function new () {}
+	@borrowed public  var clientE	: IClient<A>;
+	@manual public  var testStrA	: String;
+	public  var testStrB	: String;
+	public function new () { testStrA = testStrB = "TEST"; }
+	public function dispose() { trace("Custom dispose function here"); }
 //	public function new () { clientA = new Client(); testStr = "blaat1"; }
 //	public function traceFields() {}
 	
@@ -92,58 +98,3 @@ class Test2 extends Test1
 
 class Test3 extends Test2 {}
 
-
-
-
-
-/*
-@:autoBuild(primevc.utils.MacroUtils.autoBuildTest())
-class Foo
-{
-	public var a : Test;
-	public function new ()		{ a = new Test("test1"); }
-	public function test ()		{ MacroUtils.testMacro(); }
-}
-
-class Bar extends Foo
-{
-	public var b : Test;
-	public function new ()		{ super(); b = new Test("test2"); }
-}
-
-
-interface ITest {}
-class Test implements ITest
-{
-	public var name : String;
-	public function new (name:String) { this.name = name; }
-}
-*/
-
-/*class MacroUtil
-{
-	@:macro public static function testMacro () : Expr
-	{
-		var local = Context.getLocalClass().get();
-		var fields = local.fields.get();
-		
-		for (field in fields)
-			switch (field.kind) {
-				case FVar(read, write):
-					switch (field.type) {
-						case TInst(t, params): 
-							trace(t.get().interfaces);
-						default:
-					}
-				default:
-			}
-		
-		return {expr: EBlock([]), pos: Context.currentPos() }
-	}
-	
-	@:macro public static function autoBuildTest () : Array<Field>
-	{
-		trace(Context.getLocalClass().get().name);
-		return Context.getBuildFields();
-	}
-}*/

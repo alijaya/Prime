@@ -76,9 +76,10 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 			createFollowBindings();
 		containerLayoutBinding	= checkChanges			.on( target.container.as(ILayoutable).layout.changed,	this );
 		targetLayoutBinding		= checkTargetChanges	.on( target.layout.changed,								this );
+		target.layout.includeInLayout = false;
 		
-		updateTarget	.on( target.displayEvents.addedToStage, this );
-		disableWires	.on( target.displayEvents.removedFromStage, this );
+		updateTarget.on( target.displayEvents.addedToStage, this );
+		disableWires.on( target.displayEvents.removedFromStage, this );
 		
 		if (target.window == null)			disableWires();
 		else if (followedElement != null)	updatePosition();

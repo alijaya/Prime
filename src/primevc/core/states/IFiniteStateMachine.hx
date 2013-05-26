@@ -27,11 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.states;
- import primevc.core.traits.IDisablable;
- import primevc.core.traits.IDisposable;
- import primevc.core.dispatcher.Signal2;
- import primevc.utils.FastArray;
-
 
 private typedef NewState = IState;
 private typedef OldState = IState;
@@ -43,7 +38,7 @@ private typedef OldState = IState;
  * @creation-date	Jun 9, 2010
  * @author			Ruben Weijers
  */
-interface IFiniteStateMachine implements haxe.rtti.Infos, implements IDisposable, implements IDisablable
+interface IFiniteStateMachine implements primevc.core.traits.IDisposable, implements primevc.core.traits.IDisablable
 {
 	//
 	// PROPERTIES
@@ -52,7 +47,7 @@ interface IFiniteStateMachine implements haxe.rtti.Infos, implements IDisposable
 	/**
 	 * Collection of states that the current statemachine can have.
 	 */
-//	public var states		(default, null)				: FastArray < IState >;
+//	public var states		(default, null)				: primevc.utils.FastArray<IState>;
 	/**
 	 * Current state of the group. State must be in the <code>states</code>
 	 * list.
@@ -66,7 +61,7 @@ interface IFiniteStateMachine implements haxe.rtti.Infos, implements IDisposable
 	 * Change dispatcher. First parameter is the new state, the second parameter
 	 * is the old state.
 	 */
-	public var change		(default, null)				: Signal2 < NewState, OldState >;
+	public var change		(default, null)				: primevc.core.dispatcher.Signal2<NewState, OldState>;
 	
 	
 	

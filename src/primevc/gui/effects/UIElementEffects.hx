@@ -230,6 +230,8 @@ class UIElementEffects implements IDisposable
 				show.play.callback().onceOnEntering( target.layout.state, validated, this );
 			else
 				show.play();
+		} else {
+			target.visible = true;
 		}
 #end
 	}
@@ -248,6 +250,8 @@ class UIElementEffects implements IDisposable
 				if (show == hide)			hide.isReverted = !hide.effect.isReverted;
 			}
 			hide.play();
+		} else {
+			target.visible = false;
 		}
 #end
 	}

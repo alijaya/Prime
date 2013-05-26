@@ -27,11 +27,6 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package primevc.core;
- import primevc.core.dispatcher.Signal2;
- import primevc.core.traits.IValueObject;
-
-
-typedef OldValue <V> = V;
 
 
 /**
@@ -46,9 +41,10 @@ interface IBindableReadonly <DataType> implements primevc.core.traits.IValueObje
 {
 	/** 
 	 * Dispatched just before "value" is set to a new value.
-	 * Signal argument: The new value.
+	 * Signal arguments: new-value, old-value
+	 * 
 	 */
-	public var change	(default, null)	: Signal2<DataType, OldValue< DataType > >;
+	public var change	(default, null)	: primevc.core.dispatcher.Signal2<DataType, DataType>;
 	public var value	(default, null)	: DataType;
 	
 	/**
@@ -56,7 +52,7 @@ interface IBindableReadonly <DataType> implements primevc.core.traits.IValueObje
 	 * 
 	 * @return true when a connection was removed
 	 */
-	public function unbind( otherBindable:IBindableReadonly<DataType> ) : Bool;
+	public function unbind (otherBindable:IBindableReadonly<DataType>) : Bool;
 	
 	/**
 	 * Makes sure otherBindable.value is (and remains) equal
@@ -66,5 +62,5 @@ interface IBindableReadonly <DataType> implements primevc.core.traits.IValueObje
 	 * - sets otherBindable.value to this.value
 	 * - updates otherBindable.value when this.value changes
 	 */
-	private function keepUpdated( otherBindable:IBindable<DataType> ) : Void;
+	private function keepUpdated (otherBindable:IBindable<DataType>) : Void;
 }

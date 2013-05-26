@@ -27,12 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.geom;
-#if CSSParser
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.ICodeGenerator;
- import primevc.tools.generator.ICSSFormattable;
- import primevc.utils.ID;
-#end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
 
@@ -43,8 +37,8 @@ package primevc.core.geom;
  */
 class Box
 				implements IBox
-#if CSSParser,	implements ICSSFormattable
-			,	implements ICodeFormattable		#end
+#if CSSParser,	implements primevc.tools.generator.ICSSFormattable
+			,	implements primevc.tools.generator.ICodeFormattable		#end
 {
 	@:isVar public var left		(get_left, set_left)	: Int;
 	@:isVar public var right	(get_right, set_right)	: Int;
@@ -59,7 +53,7 @@ class Box
 	public function new ( top:Int = 0, right:Int = Number.INT_NOT_SET, bottom:Int = Number.INT_NOT_SET, left:Int = Number.INT_NOT_SET )
 	{
 #if CSSParser
-		this._oid	= ID.getNext();
+		this._oid	= primevc.utils.ID.getNext();
 #end
 		this.top	= top;
 		this.right	= (right.notSet())  ? this.top 	 : right;
@@ -103,7 +97,7 @@ class Box
 	
 	private inline function getCSSValue (v:Int) { return v == 0 ? "0" : v + "px"; }
 	public function cleanUp () : Void			{}
-	public function toCode (code:ICodeGenerator)
+	public function toCode (code:primevc.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 			code.construct( this, [ top, right, bottom, left ] );

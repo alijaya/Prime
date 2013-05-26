@@ -67,6 +67,11 @@ class KeyboardSignal extends Signal1<KeyboardState>, implements IWireWatcher<Key
 	}
 	
 	private function dispatch(e:KeyboardEvent) {
+		// Prime GUI uses the RENDER event.
+		// Without updateAfterEvent, RenderManager is always called
+		// one frame too late when a keyboard event causes graphics changes.
+		e.updateAfterEvent();
+
 		send( stateFromFlashEvent(e) );
 	}
 	

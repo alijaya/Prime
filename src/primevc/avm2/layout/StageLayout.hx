@@ -46,6 +46,7 @@ class StageLayout extends LayoutContainer
 	{
 		stage = target;
 		super(target.stageWidth, target.stageHeight);
+#if debug name = "stageLayout"; #end
 		
 		target.addEventListener( "resize", stageResizeHandler );
 		stageResizeHandler();

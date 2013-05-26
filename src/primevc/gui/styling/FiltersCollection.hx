@@ -48,7 +48,7 @@ class FiltersCollection extends StyleCollectionBase < FiltersStyle >
 	private var filterPositions	: FastArray<Int>;
 	
 	
-	public function new (elementStyle:IUIElementStyle, type:Filter)
+	public function new (elementStyle:UIElementStyle, type:Filter)
 	{
 		var flag = (type == Filter.background) ? StyleFlags.BACKGROUND_FILTERS : StyleFlags.BOX_FILTERS;
 		super( elementStyle, flag );
@@ -95,8 +95,8 @@ class FiltersCollection extends StyleCollectionBase < FiltersStyle >
 			if (filters == null)			filters			= new Array<flash.filters.BitmapFilter>();
 			if (filterPositions == null)	filterPositions	= FastArrayUtil.create();
 			
-#if debug	Assert.that( target.width < 10000 );
-			Assert.that( target.height < 10000 ); #end
+#if debug	Assert.that(target.width < 10000, "width: "+target.width + " >= " + 10000+"; target: "+target);
+			Assert.that(target.height < 10000, "height: "+target.height + " >= " + 10000+"; target: "+target); #end
 			
 			for (styleObj in this)
 			{
@@ -188,7 +188,7 @@ class FiltersCollectionForwardIterator extends StyleCollectionForwardIterator < 
 	private var type : Filter;
 	
 	
-	public function new (elementStyle:IUIElementStyle, groupFlag:Int, type:Filter)
+	public function new (elementStyle:UIElementStyle, groupFlag:Int, type:Filter)
 	{
 		this.type = type;
 		super( elementStyle, groupFlag );
@@ -209,7 +209,7 @@ class FiltersCollectionReversedIterator extends StyleCollectionReversedIterator 
 	private var type : Filter;
 	
 	
-	public function new (elementStyle:IUIElementStyle, groupFlag:Int, type:Filter)
+	public function new (elementStyle:UIElementStyle, groupFlag:Int, type:Filter)
 	{
 		this.type = type;
 		super( elementStyle, groupFlag );

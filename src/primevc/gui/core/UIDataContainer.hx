@@ -85,7 +85,8 @@ class UIDataContainer <DataType> extends UIDataComponent <DataType>, implements 
 
     public function enableClipping ()
     {
-        createScrollRect( rect.width, rect.height);
+        Assert.isNull(scrollRect, id.value);
+        createScrollRect( layout.outerBounds.width, layout.outerBounds.height);
         
         var s = layoutContainer.scrollPos;
         updateScrollRect.on( layoutContainer.changed, this );
@@ -96,6 +97,7 @@ class UIDataContainer <DataType> extends UIDataComponent <DataType>, implements 
 
     public function disableClipping ()
     {
+        Assert.notNull(scrollRect, id.value);
         var l = layoutContainer;
         l.changed.unbind(this);
         l.scrollPos.xProp.change.unbind( this );
@@ -110,8 +112,8 @@ class UIDataContainer <DataType> extends UIDataComponent <DataType>, implements 
             return;
         
         var r = getScrollRect();
-        r.width  = rect.width;
-        r.height = rect.height;
+        r.width  = layout.outerBounds.width;
+        r.height = layout.outerBounds.height;
         
         if (graphicData.border != null)
         {

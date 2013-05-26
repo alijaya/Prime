@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.traits;
- import haxe.FastList;
+ import primevc.core.dispatcher.Signal2;
 
 
 /**
@@ -42,6 +42,6 @@ interface IInvalidatable implements IInvalidateListener
 	 * List with IInvalidatables that want to be notified when values in this
 	 * instance changes
 	 */
-	public var listeners (default, null)	: FastList< IInvalidateListener >;
+	public var invalidated (default, null) : Signal2< Int, IInvalidatable >;
 	public function invalidate (change:Int)	: Void;
 }

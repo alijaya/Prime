@@ -449,11 +449,8 @@ class UITextField extends TextField, implements IUIElement
 		
 	//	trace(this+" - "+e+": ps: "+l.percentWidth+", "+l.percentHeight+"; ms: "+l.measuredWidth+", "+l.measuredHeight+"; s: "+l.width+", "+l.height+"; es: "+l.explicitWidth+"; "+l.explicitHeight+"; size: "+autoSize);
 
-		// Disabled since sometimes the validation will happen too soon (E.g. try tooltip).
-		// Although enabling this code can also solve some textfield 
-		// problems like setting the correct size for the titlefield of the mediapopup.
-	//	if (l.parent == null && l.changes > 0)
-	//		l.validate();
+		if (this.isOnStage() && l.parent == null && l.changes != 0)
+			l.validate();
 	}
 
 

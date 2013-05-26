@@ -27,8 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.graphics;
- import haxe.FastList;
  import primevc.core.dispatcher.Signal1;
+ import primevc.core.dispatcher.Signal2;
  import primevc.core.geom.Corners;
  import primevc.core.geom.IntRectangle;
  import primevc.core.geom.RectangleFlags;
@@ -62,7 +62,7 @@ package primevc.gui.graphics;
 class GraphicProperties implements IGraphicElement
 {
 	public var _oid			(default, null)				: Int;
-	public var listeners	(default, null)				: FastList< IInvalidateListener >;
+	public var invalidated (default, null)			: Signal2< Int, IInvalidatable >;
 	/**
 	 * Signal to notify other objects than IGraphicElement of changes within
 	 * the shape.
@@ -86,7 +86,7 @@ class GraphicProperties implements IGraphicElement
 #if (debug || CSSParser)
 		_oid = ID.getNext();
 #end
-		listeners			= new FastList< IInvalidateListener >();
+		invalidated		= new Signal2();
 		this.shape			= shape; // == null ? new RegularRectangle() : shape;
 		this.layout			= layout;
 		this.fill			= fill;
@@ -100,12 +100,10 @@ class GraphicProperties implements IGraphicElement
 	
 	public function dispose ()
 	{
-		while (!listeners.isEmpty())
-			listeners.pop();
-		
+		invalidated.dispose();
 		changeEvent.dispose();
+		invalidated = null;
 		changeEvent	= null;
-		listeners	= null;
 		borderRadius= null;
 		border		= null;
 		fill		= null;
@@ -118,12 +116,11 @@ class GraphicProperties implements IGraphicElement
 
 	public function invalidate (change:Int) : Void
 	{
-		if (change <= 0)
+		if (change == 0)
 			return;
 		
-		if (listeners != null)
-			for (listener in listeners)
-				listener.invalidateCall( change, this );
+		if (invalidated != null)
+			invalidated.send(change, this);
 		
 		if (changeEvent != null)
 			changeEvent.send( change );
@@ -132,6 +129,7 @@ class GraphicProperties implements IGraphicElement
 	
 	public function invalidateCall (changeFromOther:Int, sender:IInvalidatable) : Void
 	{
+		Assert.notEqual( sender, this );	// <-- prevent infinite loops
 		invalidate(switch (sender) {
 			case cast border:	GraphicFlags.BORDER;
 			case cast shape:	GraphicFlags.SHAPE;
@@ -279,12 +277,12 @@ class GraphicProperties implements IGraphicElement
 	{
 		if (v != shape)
 		{
-			if (shape != null && shape.listeners != null)
-				shape.listeners.remove(this);
+			if (shape != null && shape.invalidated != null)
+				shape.invalidated.unbind(this);
 
 			shape = v;
 			if (shape != null)
-				shape.listeners.add(this);
+				shape.invalidated.bind(this, invalidateCall);
 
 			invalidate( GraphicFlags.SHAPE );
 		}
@@ -296,12 +294,12 @@ class GraphicProperties implements IGraphicElement
 	{
 		if (v != fill)
 		{
-			if (fill != null && fill.listeners != null)
-				fill.listeners.remove(this);
+			if (fill != null && fill.invalidated != null)
+				fill.invalidated.unbind(this);
 			
 			fill = v;
 			if (fill != null)
-				fill.listeners.add(this);
+				fill.invalidated.bind(this, invalidateCall);
 
 			invalidate( GraphicFlags.FILL );
 		}
@@ -313,12 +311,12 @@ class GraphicProperties implements IGraphicElement
 	{
 		if (v != border)
 		{
-			if (border != null && border.listeners != null)
-				border.listeners.remove(this);
+			if (border != null && border.invalidated != null)
+				border.invalidated.unbind(this);
 
 			border = v;
 			if (border != null)
-				border.listeners.add(this);
+				border.invalidated.bind(this, invalidateCall);
 
 			invalidate( GraphicFlags.BORDER );
 		}
@@ -331,11 +329,11 @@ class GraphicProperties implements IGraphicElement
 		if (v != layout)
 		{
 			if (layout != null)
-				layout.listeners.remove(this);
+				layout.invalidated.unbind(this);
 
 			layout = v;
-			if (layout != null)
-				layout.listeners.add(this);
+			if (v != null)
+				v.invalidated.bind(this, invalidateCall);
 			
 			invalidate( GraphicFlags.LAYOUT );
 		}

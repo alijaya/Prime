@@ -27,11 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.collections;
- import primevc.core.collections.iterators.IIterator;
- import primevc.core.collections.iterators.FastDoubleCellForwardIterator;
- import primevc.core.collections.iterators.FastDoubleCellReversedIterator;
  import primevc.core.events.ListChangeSignal;
- import primevc.utils.DuplicateUtil;
   using primevc.utils.NumberUtil;
  
 
@@ -116,7 +112,7 @@ class SimpleList<DataType> implements IEditableList<DataType>
 		var inst	= new SimpleList<DataType>();
 		var length	= this.length;
 		for (i in 0...length)
-			inst.insertAt( DuplicateUtil.duplicateItem( getItemAt(i) ), i );
+			inst.insertAt( primevc.utils.DuplicateUtil.duplicateItem( getItemAt(i) ), i );
 		
 		return inst;
 	}

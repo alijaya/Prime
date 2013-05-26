@@ -63,7 +63,7 @@ class StyleCollectionBase <StyleGroupType:StyleSubBlock> implements IInvalidateL
 	public var propertyTypeFlag		(default, null)	: Int;
 //	public var change				(default, null)	: Signal1 < Int >;
 	
-	private var elementStyle		: IUIElementStyle;
+	private var elementStyle		: UIElementStyle;
 	
 	/**
 	 * Cached iterator that is only used to update the filled properties flag.
@@ -74,7 +74,7 @@ class StyleCollectionBase <StyleGroupType:StyleSubBlock> implements IInvalidateL
 	public  var changes				: Int;
 	
 	
-	public function new (elementStyle:IUIElementStyle, propertyTypeFlag:Int)
+	public function new (elementStyle:UIElementStyle, propertyTypeFlag:Int)
 	{
 		changes					= 0;
 		this.elementStyle		= elementStyle;
@@ -130,7 +130,7 @@ class StyleCollectionBase <StyleGroupType:StyleSubBlock> implements IInvalidateL
 		if (isListeningTo(style))
 			return 0;
 		
-		style.listeners.add( this );
+		style.invalidated.bind( this, invalidateCall );
 
 		var updatedProps = getRealChangesOf( style, style.allFilledProperties );
 		if (updatedProps > 0) {
@@ -144,8 +144,10 @@ class StyleCollectionBase <StyleGroupType:StyleSubBlock> implements IInvalidateL
 	public function remove ( style:StyleGroupType, isStyleStillInList:Bool = true ) : Int
 	{
 		Assert.notNull(style);
-		if (!style.listeners.remove( this ))
+
+		if (!style.invalidated.hasListener(this))
 			return 0;
+		else style.invalidated.unbind(this); //TODO: Optimize by getting unbind count from Signal
 		
 		updateFilledPropertiesFlag( style );	//exclude the to be removed style
 		
@@ -163,13 +165,7 @@ class StyleCollectionBase <StyleGroupType:StyleSubBlock> implements IInvalidateL
 
 	private inline function isListeningTo (style:StyleGroupType) : Bool
 	{
-		var l = false;
-		var c = style.listeners.head;
-		while (c != null && !l) {
-			l = this == c.elt;
-			c = c.next;
-		}
-		return l;
+		return style.invalidated.hasListener(this);
 	}
 	
 	
@@ -250,7 +246,7 @@ class StyleCollectionBase <StyleGroupType:StyleSubBlock> implements IInvalidateL
  */
 class StyleCollectionIteratorBase implements IDisposable
 {
-	private var elementStyle	: IUIElementStyle;
+	private var elementStyle	: UIElementStyle;
 	public var currentCell		: FastDoubleCell<StyleBlock>;
 	/**
 	 * Flag to search for in target styles to see if the style contains the group
@@ -258,7 +254,7 @@ class StyleCollectionIteratorBase implements IDisposable
 	private var flag		: Int;
 	
 	
-	public function new (elementStyle:IUIElementStyle, groupFlag:Int)
+	public function new (elementStyle:UIElementStyle, groupFlag:Int)
 	{
 		this.elementStyle	= elementStyle;
 		flag				= groupFlag;
@@ -312,7 +308,7 @@ class StyleCollectionIteratorBase implements IDisposable
 //#if (flash9 || cpp) @:generic #end
 class StyleCollectionForwardIterator <StyleGroupType> extends StyleCollectionIteratorBase, implements IIterator < StyleGroupType >
 {
-	public function new (elementStyle:IUIElementStyle, groupFlag:Int) super(elementStyle, groupFlag)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
+	public function new (elementStyle:UIElementStyle, groupFlag:Int) super(elementStyle, groupFlag)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 	override public function rewind () : Void	{ setCurrent( elementStyle.styles.first ); }
 	public function next () : StyleGroupType	{ Assert.abstractMethod(); return null; }
 	public function value () : StyleGroupType	{ Assert.abstractMethod(); return null; }
@@ -327,7 +323,7 @@ class StyleCollectionForwardIterator <StyleGroupType> extends StyleCollectionIte
 	
 	
 #if (unitTesting && debug)
-	public function new (elementStyle:IUIElementStyle, groupFlag:Int)
+	public function new (elementStyle:UIElementStyle, groupFlag:Int)
 	{
 		super( elementStyle, groupFlag );
 		test();
@@ -359,7 +355,7 @@ class StyleCollectionReversedIterator < StyleGroupType > extends StyleCollection
 			,	implements IIterator < StyleGroupType >
 //#if flash9	,	implements haxe.rtti.Generic #end
 {
-	public function new (elementStyle:IUIElementStyle, groupFlag:Int) { super(elementStyle, groupFlag); }	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
+	public function new (elementStyle:UIElementStyle, groupFlag:Int) { super(elementStyle, groupFlag); }	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 	override public function rewind () : Void	{ setCurrent( elementStyle.styles.last ); }
 	public function next () : StyleGroupType	{ Assert.abstractMethod(); return null; }
 	public function value () : StyleGroupType	{ Assert.abstractMethod(); return null; }
@@ -374,7 +370,7 @@ class StyleCollectionReversedIterator < StyleGroupType > extends StyleCollection
 
 
 #if (unitTesting && debug)
-	public function new (elementStyle:IUIElementStyle, groupFlag:Int)
+	public function new (elementStyle:UIElementStyle, groupFlag:Int)
 	{
 		super( elementStyle, groupFlag );
 		test();

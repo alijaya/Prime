@@ -29,7 +29,6 @@
 package primevc.core.states;
  import primevc.core.dispatcher.Signal2;
  import primevc.core.dispatcher.Wire;
- import primevc.core.traits.IDisposable;
  
 
 /**
@@ -44,7 +43,7 @@ package primevc.core.states;
  * @author			Ruben Weijers
  */
 //#if (flash9 || cpp) @:generic #end
-class SimpleStateMachine <StateType> implements IDisposable
+class SimpleStateMachine <StateType> implements primevc.core.traits.IDisposable
 {
 	public var current		(default, set_current)		: StateType;
 	public var defaultState	(default, set_defaultState)	: StateType;
@@ -137,7 +136,7 @@ class StateMachineUtil
 				fn();
 			}
 		}
-		w.handler = f;
+		w.setArgsHandler(f);
 		return w;
 	}
 	
@@ -151,7 +150,7 @@ class StateMachineUtil
 				fn();
 			}
 		}
-		w.handler = f;
+		w.setArgsHandler(f);
 		return w;
 	}
 

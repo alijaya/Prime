@@ -52,6 +52,7 @@ interface ILayoutAlgorithm
 	 */
 	public var algorithmChanged (default, null)				: Signal0;
 	public var group			(default, set_group)		: ILayoutContainer;
+//	public var validatePrepared	(default, null)				: Bool;
 	
 	
 	/**

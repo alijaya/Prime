@@ -243,6 +243,9 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 		{
 			case AssetStates.ready:	applyAsset();
 			case AssetStates.empty:	unsetAsset();
+			
+			case AssetStates.loading:
+			case AssetStates.loadable:
 			default:
 		}
 	}

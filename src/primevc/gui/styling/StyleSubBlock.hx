@@ -53,14 +53,14 @@ class StyleSubBlock extends StyleBlockBase
 		if (owner != v)
 		{
 			if (owner != null)
-				owner.listeners.remove(this);
+				owner.invalidated.unbind( this );
 			
 			owner = v;
 			updateOwnerReferences( StyleFlags.EXTENDED_STYLE | StyleFlags.SUPER_STYLE | StyleFlags.NESTING_STYLE | StyleFlags.PARENT_STYLE );
 			updateAllFilledPropertiesFlag();
 			
 			if (owner != null)
-				owner.listeners.add(this);
+				owner.invalidated.bind( this, invalidateCall );
 		}
 		return v;
 	}

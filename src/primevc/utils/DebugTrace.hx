@@ -79,6 +79,12 @@ class DebugTrace
 			var name = getClassName( infos );
 			Tracer.trace(name +':' + infos.lineNumber +'\t -> ' + infos.methodName + "\t " + v, getLevel(name));
 		}
+	
+	#elseif FlashTrace
+		public static function trace (v : Dynamic, ?infos : haxe.PosInfos)
+		{
+			flash.Lib.trace(v);
+		}
 		
 	#end
 	

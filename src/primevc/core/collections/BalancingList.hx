@@ -27,8 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.collections;
- import primevc.core.collections.IEditableList;
- import primevc.utils.DuplicateUtil;
  
 
 /**
@@ -66,7 +64,7 @@ class BalancingList <DataType> extends SimpleList <DataType>
 		var inst	= new BalancingList<DataType>();
 		var length	= this.length;
 		for (i in 0...length)
-			inst.insertAt( DuplicateUtil.duplicateItem( getItemAt(i) ), i );
+			inst.insertAt( primevc.utils.DuplicateUtil.duplicateItem( getItemAt(i) ), i );
 		
 		return inst;
 	}

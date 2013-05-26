@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.core;
-#if (flash9 && stats)
- import net.hires.debug.Stats;
-#end
  import primevc.core.geom.Rectangle;
  import primevc.core.Bindable;
 
@@ -50,6 +47,9 @@ package primevc.gui.core;
 #if flash9
  import primevc.core.collections.SimpleList;
  import primevc.gui.display.VectorShape;
+#end
+#if debug
+ import primevc.gui.events.KeyboardEvents;
 #end
 
 
@@ -130,20 +130,16 @@ class UIWindow extends primevc.gui.display.Window
 		rendering		= new RenderManager(this);
 		invalidation	= new InvalidationManager(this);
 		toolTip			= new ToolTipManager(this);
-		
 		behaviours		= new BehaviourList();
-		
 #if flash9		
 		graphicData		= new GraphicProperties(rect);
 		styleClasses	= new SimpleList<String>();
 #end
-		
 		behaviours.add( new primevc.gui.behaviours.layout.WindowLayoutBehaviour(this) );
 		behaviours.add( new primevc.gui.behaviours.RenderGraphicsBehaviour(this) );
 		
 		createBehaviours();
 		createLayout();
-		
 #if flash9
 		bgShape			= new VectorShape();
 		graphics		= bgShape.graphics;
@@ -159,9 +155,14 @@ class UIWindow extends primevc.gui.display.Window
 		layout.invalidatable = false;
 		behaviours.init();
 		createChildren();
-
+#if debug 
+		var debugBar = new primevc.gui.components.DebugBar();
+		function(ks:KeyboardState) { 
+			if (ks.keyCode() == primevc.gui.input.KeyCodes.KeyCodes.ESCAPE) { debugBar.isAttached() ? debugBar.detach() : attach(debugBar); }
+		}.on(this.userEvents.key.up, this);
+#end
 #if (flash9 && stats)
-		children.add( new Stats() );
+		children.add( new net.hires.debug.Stats() );
 #end
 		layout.invalidatable = true;
 	}
@@ -208,7 +209,7 @@ class UIWindow extends primevc.gui.display.Window
 		topLayout	=	#if flash9	new primevc.avm2.layout.StageLayout( target );
 						#else		new LayoutContainer();	#end
 		
-		layout		= new VirtualLayoutContainer( #if debug "contentLayout" #end );
+		layout		= new VirtualLayoutContainer( #if debug "stagecontentLayout" #end );
 		popupLayout	= new VirtualLayoutContainer( #if debug "popupLayout" #end );
 		layout.invalidatable 	= popupLayout.invalidatable = false;
 		
@@ -230,9 +231,7 @@ class UIWindow extends primevc.gui.display.Window
 	private function createBehaviours ()	: Void
 	{
 	//	behaviours.add( new AutoChangeLayoutChildlistBehaviour(this) );
-#if flash9
-		target.stageFocusRect = false;
-#end
+#if flash9 target.stageFocusRect = false; #end
 	}
 	
 	

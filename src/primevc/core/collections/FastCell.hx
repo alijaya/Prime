@@ -27,7 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.collections;
- import primevc.core.traits.IDisposable;
 
 
 /**
@@ -35,7 +34,7 @@ package primevc.core.collections;
  * @since	20 okt 2010
  */
 #if (flash9 || cpp) @:generic #end
-class FastCell<T> implements IDisposable
+class FastCell<T> implements primevc.core.traits.IDisposable
 {
 	public var data : T;
 	public var next : FastCell<T>;

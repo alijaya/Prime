@@ -78,9 +78,9 @@ class Bindable <DataType> implements IBindable<DataType>, implements IClonable<B
 	
 	/** 
 	 * Dispatched just before "value" is set to a new value.
-	 * Signal argument: The new value.
+	 * Signal arguments: new-value, old-value
 	 */
-	public var change	(default, null)	: Signal2 < DataType, OldValue < DataType > >;
+	public var change	(default, null)	: Signal2 <DataType, DataType>;
 	
 	/**
 	 * Keeps track of which Bindables update this.value

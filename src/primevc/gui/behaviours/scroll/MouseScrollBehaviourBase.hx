@@ -27,14 +27,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.behaviours.scroll;
- import primevc.gui.behaviours.BehaviourBase;
- import primevc.gui.traits.IScrollable;
 #if !CSSParser
  import primevc.core.dispatcher.Wire;
  import primevc.gui.events.MouseEvents;
- import primevc.gui.layout.IScrollableLayout;
   using primevc.utils.Bind;
   using primevc.utils.TypeUtil;
+  using Std;
 #end
 
 
@@ -44,50 +42,62 @@ package primevc.gui.behaviours.scroll;
  * @author Ruben Weijers
  * @creation-date Jul 29, 2010
  */
-class MouseScrollBehaviourBase extends BehaviourBase<IScrollable>, implements IScrollBehaviour
+class MouseScrollBehaviourBase extends primevc.gui.behaviours.BehaviourBase<primevc.gui.traits.IScrollable>, implements IScrollBehaviour
 {
 #if !CSSParser
-	private var scrollLayout		: IScrollableLayout;
 	private var activateBinding		: Wire < Dynamic >;
 	private var deactivateBinding	: Wire < Dynamic >;
 	private var calcScrollBinding	: Wire < Dynamic >;
-	
+	/**
+	 * Flag indicating if the target already was clipped before the behaviour was applied. Needed for resetting
+	 */
+	private var hadClipping 		: Bool;
 	
 	override private function init ()
 	{
 		Assert.notNull( target.scrollableLayout, "target.layout of "+target+" must be a IScrollableLayout" );
-		target.enableClipping();
-		var mouse = target.container.userEvents.mouse;
-		scrollLayout = target.scrollableLayout;
-		activateBinding		= activateScrolling		.on( mouse.rollOver, this );
-		deactivateBinding	= deactivateScrolling	.on( mouse.rollOut, this );
-		calcScrollBinding	= calculateScroll		.on( mouse.move, this );
-		deactivateBinding.disable();
-		calcScrollBinding.disable();
+		if (target.container == null)
+			addListeners.onceOn(target.displayEvents.addedToStage, this);
+		else
+			addListeners();
+	}
+
+
+	private function addListeners ()
+	{
+		hadClipping = target.getScrollRect() != null;
+		if (!hadClipping)
+			target.enableClipping();
+		var mouseEvt 		= target.container.userEvents.mouse;
+		activateBinding		= mouseEvt.rollOver.bind(this, activateScrolling);
+		deactivateBinding	= mouseEvt.rollOut.observeDisabled(this, deactivateScrolling);
+		calcScrollBinding	= mouseEvt.move.bindDisabled(this, calculateScroll);
+
+		var mouse = target.container.globalToLocal(target.window.mouse.pos);
+		if (target.rect.containsPoint(mouse.x.int(), mouse.y.int()))
+			callback(activateScrolling, new MouseState(0, cast target, mouse, target.window.mouse.pos, cast target)).onceOn(target.displayEvents.enterFrame, this);
 	}
 	
 	
 	override private function reset ()
 	{
-		scrollLayout = null;
+		target.displayEvents.addedToStage.unbind(this);
 		calcScrollBinding.dispose();
 		activateBinding.dispose();
 		deactivateBinding.dispose();
 		activateBinding		= null;
 		deactivateBinding	= null;
 		calcScrollBinding	= null;
-		target.disableClipping();
+		if (!hadClipping)
+			target.disableClipping();
 	}
 
 
-	private function activateScrolling (mouseObj:MouseState) {
-		if (!target.isScrollable)
-			return;
-		
+	private function activateScrolling (mouseObj:MouseState) if (target.isScrollable)
+	{
 		activateBinding.disable();
 		deactivateBinding.enable();
 		calcScrollBinding.enable();
-		
 		calculateScroll( mouseObj );
 	}
 

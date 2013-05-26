@@ -36,7 +36,7 @@ package primevc.utils;
 extern class TimerUtil
 {
 #if !neko
-	public static inline function after (method:Void -> Void, delayMs:Int) : Void
+	public static inline function after (method:Dynamic, delayMs:Int) : Void
 	{
 		haxe.Timer.delay( method, delayMs );
 	}

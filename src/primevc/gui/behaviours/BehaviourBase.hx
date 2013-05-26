@@ -40,8 +40,8 @@ class BehaviourBase < TargetType > implements IBehaviour < TargetType >
 	public var target			(default, set_target)	: TargetType;
 	public var initialized		(default, null)			: Bool;
 	
-	public function new( newTarget:TargetType )			{ initialized = false; target = newTarget; }
-	public function dispose ()							{ target = null; }	// setting the target to null will trigger the reset method
+	public  function new( newTarget:TargetType )		{ initialized = false; target = newTarget; }
+	public  function dispose ()							{ target = null; }	// setting the target to null will trigger the reset method
 	private function init()								{ Assert.abstractMethod(this+""); }
 	private function reset()							{ Assert.abstractMethod(this+""); }
 	

@@ -41,8 +41,8 @@ private typedef BehaviourType = IBehaviour<Dynamic>;
  */
 class BehaviourList implements IDisposable
 {
-	private var list			: FastList < BehaviourType >;
-	public var isInitialized	: Bool;
+	public var list				(default, null) : FastList < BehaviourType >;
+	public var isInitialized	(default, null) : Bool;
 	
 	public function new ()
 	{

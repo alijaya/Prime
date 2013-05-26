@@ -50,7 +50,7 @@ private typedef Flags = GraphicFlags;
  */
 class GraphicsCollection extends StyleCollectionBase < GraphicsStyle >
 {
-	public function new (elementStyle:IUIElementStyle)			super( elementStyle, StyleFlags.GRAPHICS )
+	public function new (elementStyle:UIElementStyle)			super( elementStyle, StyleFlags.GRAPHICS )
 	override public function forwardIterator ()					return new GraphicsCollectionForwardIterator(elementStyle, propertyTypeFlag)
 	override public function reversedIterator ()				return new GraphicsCollectionReversedIterator(elementStyle, propertyTypeFlag)
 #if debug
@@ -122,14 +122,20 @@ class GraphicsCollection extends StyleCollectionBase < GraphicsStyle >
 		}
 		
 		
-		if ( propsToSet.has( Flags.OVERFLOW ) && !empty)
+		if (propsToSet.has( Flags.OVERFLOW ))
 		{
-			if (styleObj.overflow != null) {
-				var c = target.as(IUIContainer);
-				c.behaviours.add( styleObj.overflow(c) );
-			}
-		//	else
-		//		target.behaviours.remove(  )		FIXME -> remove old overflow behaviours..
+			var target = target.as(IUIContainer);
+			
+			//remove old overflow behaviours
+			for (b in target.behaviours.list)
+				if (b.is(primevc.gui.behaviours.scroll.IScrollBehaviour)) {
+					target.behaviours.remove(b);
+					break;
+				}
+
+			//create new overflow behaviour
+			if (!empty && styleObj.overflow != null)
+				target.behaviours.add(styleObj.overflow(target));
 		}
 		
 		

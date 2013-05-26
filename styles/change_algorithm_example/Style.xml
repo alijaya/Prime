@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<componentPackage>	
+	<component id="IDisplayObject"		superClass=""					fullname="primevc.gui.display.IDisplayObject" />
+	<component id="UIComponent"			superClass="IDisplayObject"		fullname="primevc.gui.core.UIComponent" />
+	<component id="UIContainer"			superClass="UIComponent"		fullname="primevc.gui.core.UIContainer" />
+	<component id="UIGraphic"			superClass="IDisplayObject"		fullname="primevc.gui.core.UIGraphic" />
+	<component id="UIWindow"			superClass="IDisplayObject"		fullname="primevc.gui.core.UIWindow" />
+	<component id="ChangeLayoutAlgorithm" superClass="UIWindow"			fullname="examples.layout.ChangeLayoutAlgorithm" />
+</componentPackage>

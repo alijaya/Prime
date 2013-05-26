@@ -178,7 +178,9 @@ class EffectInstance<TargetType, PropertiesType:primevc.gui.effects.IEffect>
 	//		tweenUpdater( startPos );	<-- done within the effect instance implementation 'initStartValues'
 		
 		state = EffectStates.playing;
-		
+#if (debug && flash9)
+		if (frozen)	return;
+#end
 		if (startPos == endPos || calcStartPos == -1)
 		{
 			onTweenReady();
@@ -189,7 +191,7 @@ class EffectInstance<TargetType, PropertiesType:primevc.gui.effects.IEffect>
 			var valDiff:Float			= startPos > endPos ? startPos - endPos : endPos - startPos;
 			var calcDuration:Int		= ( effect.duration * valDiff ).roundFloat();
 #if (debug && flash9)
-			if (slowMotion)			calcDuration *= 10;
+			if (slowMotion)			calcDuration *= 20;
 #end
 			prevTween = new feffects.Tween( startPos, endPos, calcDuration, effect.easing );
 		//	prevTween.setTweenHandlers( tweenUpdater, onTweenReady );	<-- feffects 1.2.0
@@ -287,13 +289,18 @@ class EffectInstance<TargetType, PropertiesType:primevc.gui.effects.IEffect>
 	
 #if (debug && flash9)
 	@:keep static public function __init__ () {
-		flash.Lib.current.addEventListener(flash.events.KeyboardEvent.KEY_DOWN, 
-			function(e) { if (e.keyCode == flash.ui.Keyboard.SHIFT) { slowMotion = true; trace("shiftDown"); } }
-		);
-		flash.Lib.current.addEventListener(flash.events.KeyboardEvent.KEY_UP, 
-			function(e) { if (e.keyCode == flash.ui.Keyboard.SHIFT) { slowMotion = false; trace("shiftUp"); } }
-		);
+		flash.Lib.current.stage.addEventListener(flash.events.KeyboardEvent.KEY_DOWN, 
+			function(e) { switch (e.keyCode) {
+				case flash.ui.Keyboard.SHIFT: 	slowMotion = true;
+				case flash.ui.Keyboard.TAB: 	frozen = true;
+			}});
+		flash.Lib.current.stage.addEventListener(flash.events.KeyboardEvent.KEY_UP, 
+			function(e) { switch (e.keyCode) {
+				case flash.ui.Keyboard.SHIFT: 	slowMotion = false;
+				case flash.ui.Keyboard.TAB: 	frozen = false;
+			}});
 	}
 	static public var slowMotion = false;
+	static public var frozen = false;
 #end
 }

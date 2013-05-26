@@ -6,7 +6,7 @@ MainWindow {
     algorithm: float-ver(center, center);
 }
 
-Button			{ background: #aaa; color: #fff; skin: Class( primevc.gui.components.skins.ButtonLabelSkin ); }
+Button			{ background: #aaa; color: #fff; skin: Class( primevc.gui.components.skins.ButtonLabelSkin ); algorithm: none; }
 Button:hover	{ background: #faa; color: #000; }
 
 Image {

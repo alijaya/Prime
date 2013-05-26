@@ -62,12 +62,13 @@ class FloatRangeValidator implements IValueValidator <Float>
 	}
 	
 	
-		public #if !noinline inline #end function getDiff () : Float
-		{
-#if debug	Assert.that(min.isSet());
-			Assert.that(max.isSet());
-#end		return max - min;
-		}
+	public #if !noinline inline #end function getDiff () : Float
+	{
+#if debug
+		Assert.that(min.isSet());
+		Assert.that(max.isSet());
+#end	return max - min;
+	}
 	
 	
 	private inline function set_min (v)

@@ -43,7 +43,7 @@ class StatesCollection extends StyleCollectionBase < StatesStyle >
 	public var change				(default, null)	: Signal1 < Int >;
 	
 	
-	public function new (elementStyle:IUIElementStyle)
+	public function new (elementStyle:UIElementStyle)
 	{
 		change = new Signal1();
 		super( elementStyle, StyleFlags.STATES );

@@ -40,6 +40,8 @@ interface IUnbindable<T>
 	 * Unbind all handlers for the given listener object,
 	 *  or when a handler != null: unbound that specific handler.
 	 * 
+	 * FIXME: Should returns the number of handlers unbound.
+	 * 
 	 * @param	listener	Handler owner object
 	 * @param	?handler	Handler method. When handler == null, all methods owned by listener will be unbound.
 	 */

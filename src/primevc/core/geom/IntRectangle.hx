@@ -259,6 +259,12 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 		invalidatable = c;
 		return !isChanged;
 	}
+
+
+	public #if !noinline inline #end function containsPoint (x:Int, y:Int) : Bool
+	{
+		return x >= left && x <= right && y >= top && y <= bottom;
+	}
 	
 	
 #if debug

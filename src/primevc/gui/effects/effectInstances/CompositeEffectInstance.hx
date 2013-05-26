@@ -114,6 +114,8 @@ class CompositeEffectInstance extends EffectInstance < Dynamic, CompositeEffect 
 		{
 			case added( effect, newPos ):	addEffectInstance( effect, newPos );
 			case removed( effect, oldPos ):	removeEffectInstance( effect, oldPos );
+			case moved ( item, newPos, oldPos ):
+			case reset:
 			default:
 		}
 	}

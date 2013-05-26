@@ -28,11 +28,7 @@
  */
 package primevc.core.collections;
  import primevc.core.collections.iterators.IIterator;
- import primevc.core.collections.IEditableList;
- import primevc.core.collections.SimpleList;
  import primevc.core.dispatcher.Signal1;
- import primevc.utils.DuplicateUtil;
- import primevc.utils.NumberUtil;
   using primevc.utils.NumberUtil;
   using primevc.utils.TypeUtil; 
 
@@ -98,7 +94,7 @@ class ChainedListCollection <DataType>
 		var inst	= new ChainedListCollection<DataType>(maxPerList);
 		var length	= this.length;
 		for (i in 0...length)
-			inst.insertAt( DuplicateUtil.duplicateItem( getItemAt(i) ), i );
+			inst.insertAt( primevc.utils.DuplicateUtil.duplicateItem( getItemAt(i) ), i );
 		
 		return inst;
 	}

@@ -6,7 +6,7 @@ ComponentsTest	{ algorithm: float-ver(top, center); overflow: scrollbars; max-he
 
 InputField		{ margin: 10px; padding: 5px; min-width: 100px; border: 1px solid #000; background: #aaf; color: #000; font-weight: bold; icon: url(images/checkmark8x8.png); }
 Label			{ margin: 10px; background: #fcf; color: #000; padding: 5px; }
-Button			{ margin: 10px; background: #aaa; padding: 5px; skin: Class( primevc.gui.components.skins.ButtonLabelSkin ); }
+Button			{ margin: 10px; background: #aaa; padding: 5px; skin: Class( primevc.gui.components.skins.ButtonLabelSkin ); algorithm: none; }
 /*Button:hover	{ font-weight: bold; font: "Courier New"; }
 Button:down		{ font: "Courier New"; text-decoration: underline; }*/
 Image			{ max-height: 200px; max-width: 100px; }

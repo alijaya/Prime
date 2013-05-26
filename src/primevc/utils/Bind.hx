@@ -1,18 +1,3 @@
-/**
- * Binding helper functions.
- * With super duper special power function overload faking action ..!
- * 
- * Usage:
- *  
- *  using primevc.utils.Bind;
- *  ...
- *  eventHandler.on(eventDispatcher);
- *  reDispatcher.on(eventDispatcher);
- *  
- * 
- * @author Danny Wilson
- * @creation-date Jun 09, 2010
- */
 /*
  * Copyright (c) 2010, The PrimeVC Project Contributors
  * All rights reserved.
@@ -40,6 +25,21 @@
  *
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
+ */
+/**
+ * Binding helper functions.
+ * With super duper special power function overload faking action ..!
+ * 
+ * Usage:
+ *  
+ *  using primevc.utils.Bind;
+ *  ...
+ *  eventHandler.on(eventDispatcher);
+ *  reDispatcher.on(eventDispatcher);
+ *  
+ * 
+ * @author Danny Wilson
+ * @creation-date Jun 09, 2010
  */
 package primevc.utils;
  import primevc.core.dispatcher.Sender;

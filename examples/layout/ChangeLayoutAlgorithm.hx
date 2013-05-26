@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, The PrimeVC Project Contributors
+ * Copyright (c) 2013, The PrimeVC Project Contributors
  * All rights reserved.
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -24,28 +24,50 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.gui.behaviours.layout;
- import primevc.gui.behaviours.scroll.IScrollBehaviour;
- import primevc.gui.behaviours.BehaviourBase;
- import primevc.gui.traits.IScrollable;
-
+package examples.layout;
+ import primevc.gui.core.UIComponent;
+ import primevc.gui.core.UIContainer;
+// import primevc.gui.core.UIGraphic;
+  using primevc.utils.Bind;
 
 
 /**
- * Behaviour to overwrite the ClippedLayoutBehaviour. Behaviour will remove
- * the scrollrect of the target to represent the css property 
- * "overflow = visible;".
- * UNUSED
- * 
- * @author Ruben Weijers
- * @creation-date Oct 13, 2010
+ * Demo to show how you can switch between layout algorithms
+ *
+ * @author			Ruben Weijers
+ * @creation-date	Mar 26, 2013
  */
-class UnclippedLayoutBehaviour extends BehaviourBase < IScrollable >, implements IScrollBehaviour
+class ChangeLayoutAlgorithm extends primevc.gui.core.UIWindow
 {
-#if !CSSParser
-	override private function init ()	{ target.removeScrollRect(); }
-	override private function reset ()	{}
-#end
+	public static function main ()
+		primevc.gui.display.Window.startup(function (stage) { return new ChangeLayoutAlgorithm(stage); })
+
+
+	private var holder 	: UIContainer;
+	private var menu    : UIComponent;
+	private var content : UIComponent;
+	private var footer  : UIComponent;
+	private var hasStyle2 = false;
+
+
+	override private function createChildren () {
+		holder = new UIContainer("holder");
+		holder.attach(menu    = new UIComponent("menu"));
+		holder.attach(content = new UIComponent("content"));
+		holder.attach(footer  = new UIComponent("footer"));
+		attach(holder);
+
+		changeAlgorithm.on(userEvents.mouse.click, this);
+	}
+
+
+	private function changeAlgorithm ()
+	{
+		trace("change " + hasStyle2);
+		if (hasStyle2)	styleClasses.remove("style2");
+		else 			styleClasses.add("style2");
+		hasStyle2 = !hasStyle2;
+	}
 }

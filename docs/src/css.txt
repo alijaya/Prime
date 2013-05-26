@@ -557,7 +557,7 @@ IMPORTANT: Transions are automaticly triggered when the specific property of the
 ==== Effects
 Effects are describing an animation with one or more properties. *All effects* are using the syntax below, and will aditionally add some properties.
 [source,css]
-<effect-name>(<duration>ms <ease>? <delay>ms? reverted?)
+<effect-name>(<duration>ms <ease>? <delay>ms? reversed?)
 
 [options="header", cols="1m,2,3m"]
 |=====
@@ -583,7 +583,7 @@ Effects are describing an animation with one or more properties. *All effects* a
 
 [cols="1header,6m"]
 |=====
-|ease 		| {back \| bounce \| circ \| cubic \| elastic \| expo \| linear \| quad \| quart \| quint \| sine }-{in\|out\|inout}
+|ease 		| {back \| bounce \| circ \| cubic \| elastic \| expo \| linear \| quad \| quart \| quint \| sine }-{in\|out\|in-out}
 |=====
 
 .Examples

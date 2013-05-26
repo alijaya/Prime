@@ -28,13 +28,10 @@
  */
 package primevc.gui.components;
  import primevc.core.geom.space.Direction;
- import primevc.core.Bindable;
  import primevc.gui.behaviours.components.DirectToolTipBehaviour;
  import primevc.gui.behaviours.UpdateMaskBehaviour;
- import primevc.gui.core.UIElementFlags;
  import primevc.gui.core.UIGraphic;
  import primevc.gui.display.VectorShape;
-  using primevc.utils.BitUtil;
   using primevc.utils.NumberUtil;
   using Std;
 
@@ -48,34 +45,12 @@ package primevc.gui.components;
  */
 class Slider extends SliderBase
 {
-	/**
-	 * String displaying the value in %
-	 */
-	public var label	(default, null)		: Bindable<String>;
-	
-	
-	public function new (id:String = null, value:Float = 0.0, minValue:Float = 0.0, maxValue:Float = 1.0, direction:Direction = null)
-	{
-		super(id, value, minValue, maxValue, direction);
-		label = new Bindable<String>();
-	}
-	
-	
 	override private function init ()
 	{
 		super.init();
 		behaviours.add( new UpdateMaskBehaviour( maskShape, this ) );
 		dragBtn.behaviours.add( new DirectToolTipBehaviour( dragBtn, dragBtn.data ) );
 	}
-	
-	
-	override public function dispose ()
-	{
-		label.dispose();
-		label = null;
-		super.dispose();
-	}
-	
 	
 	
 	//
@@ -134,14 +109,4 @@ class Slider extends SliderBase
 		}
 		return v;
 	}
-	
-	
-/*	override public function validate ()
-	{
-		var changes = this.changes;
-		super.validate();
-		
-		if (changes.has(UIElementFlags.PERCENTAGE))
-			label.value = percentage.roundFloat() + "%";
-	}*/
 }

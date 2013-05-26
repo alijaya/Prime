@@ -27,10 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.components.skins;
- import primevc.gui.components.Button;
  import primevc.gui.core.UITextField;
- import primevc.gui.core.Skin;
- import primevc.gui.events.UserEventTarget;
   using primevc.utils.BitUtil;
 
 
@@ -41,7 +38,7 @@ package primevc.gui.components.skins;
  * @author Ruben Weijers
  * @creation-date Jan 19, 2011
  */
-class ButtonLabelSkin extends Skin<Button>
+class ButtonLabelSkin extends primevc.gui.core.Skin<primevc.gui.components.Button>
 {
 	private var labelField : UITextField;
 
@@ -50,6 +47,7 @@ class ButtonLabelSkin extends Skin<Button>
 	{
 		owner.attach( labelField = UITextField.createLabelField(owner.id.value + "TextField", owner.data, owner, owner.layoutContainer) );
 		owner.layoutContainer.algorithm = null;
+		//Assert.isNull(owner.layoutContainer.algorithm, "Skin of " + owner.id.value);
 	}
 
 
@@ -73,7 +71,7 @@ class ButtonLabelSkin extends Skin<Button>
 	}
 	
 	
-	override public function isFocusOwner (target:UserEventTarget)
+	override public function isFocusOwner (target:primevc.gui.events.UserEventTarget)
 	{
 		return labelField.isFocusOwner(target);
 	}

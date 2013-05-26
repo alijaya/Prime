@@ -27,16 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.components.skins;
- import primevc.gui.behaviours.components.DirectToolTipBehaviour;
- import primevc.gui.components.Button;
  import primevc.gui.components.Image;
- import primevc.gui.core.Skin;
   using primevc.utils.BitUtil;
-
-
-
-private typedef Flags = primevc.gui.core.UIElementFlags;
-
 
 
 /**
@@ -45,19 +37,21 @@ private typedef Flags = primevc.gui.core.UIElementFlags;
  * @author Ruben Weijers
  * @creation-date Jan 19, 2011
  */
-class ButtonIconSkin extends Skin<Button>
+class ButtonIconSkin extends primevc.gui.core.Skin<primevc.gui.components.Button>
 {
 	public var iconGraphic (default, null) : Image;
 	
 	
 	override private function createBehaviours ()
 	{
-		behaviours.add( new DirectToolTipBehaviour( owner, owner.data ) );
+		behaviours.add( new primevc.gui.behaviours.components.DirectToolTipBehaviour( owner, owner.data ) );
 	}
 	
 
 	override public function createChildren ()
 	{
+		if (owner.layoutContainer.algorithm == null)
+			owner.layoutContainer.algorithm = new primevc.gui.layout.algorithms.float.HorizontalFloatAlgorithm(primevc.core.geom.space.Horizontal.center, primevc.core.geom.space.Vertical.center);
 		owner.attach( iconGraphic = new Image(#if debug owner.id.value + "Icon" #else null #end, owner.icon) );
 		iconGraphic.maintainAspectRatio = true;
 	}
@@ -76,7 +70,7 @@ class ButtonIconSkin extends Skin<Button>
 
 	override public function validate (changes:Int)
 	{
-		if (changes.has( Flags.ICON ))			iconGraphic.data = owner.icon;
-		if (changes.has( Flags.ICON_FILL ))		iconGraphic.colorize( owner.iconFill );
+		if (changes.has( primevc.gui.core.UIElementFlags.ICON ))			iconGraphic.data = owner.icon;
+		if (changes.has( primevc.gui.core.UIElementFlags.ICON_FILL ))		iconGraphic.colorize( owner.iconFill );
 	}
 }

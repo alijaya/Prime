@@ -53,7 +53,7 @@ class FastDoubleCellForwardIterator <DataType> implements IIterator <DataType>
 	
 	
 	@:keep public #if !noinline inline #end function setCurrent (val:Dynamic)	{ current = val; }
-	@:keep public #if !noinline inline #end function rewind ()				{ current = first; }
+	@:keep public #if !noinline inline #end function rewind ()					{ current = first; }
 	@:keep public #if !noinline inline #end function hasNext () 				{ return current != null; }
 	@:keep public #if !noinline inline #end function value ()					{ return current.data; }
 	

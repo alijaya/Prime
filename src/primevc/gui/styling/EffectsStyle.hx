@@ -119,7 +119,7 @@ class EffectsStyle extends StyleSubBlock
 		if (changedReference.has( StyleFlags.EXTENDED_STYLE ))
 		{
 			if (extendedStyle != null)
-				extendedStyle.listeners.remove( this );
+				extendedStyle.invalidated.unbind( this );
 			
 			extendedStyle = null;
 			if (owner != null && owner.extendedStyle != null)
@@ -127,7 +127,7 @@ class EffectsStyle extends StyleSubBlock
 				extendedStyle = owner.extendedStyle.effects;
 				
 				if (extendedStyle != null)
-					extendedStyle.listeners.add( this );
+					extendedStyle.invalidated.bind( this, invalidateCall );
 			}
 		}
 		
@@ -135,7 +135,7 @@ class EffectsStyle extends StyleSubBlock
 		if (changedReference.has( StyleFlags.SUPER_STYLE ))
 		{
 			if (superStyle != null)
-				superStyle.listeners.remove( this );
+				superStyle.invalidated.unbind( this );
 			
 			superStyle = null;
 			if (owner != null && owner.superStyle != null)
@@ -143,7 +143,7 @@ class EffectsStyle extends StyleSubBlock
 				superStyle = owner.superStyle.effects;
 				
 				if (superStyle != null)
-					superStyle.listeners.add( this );
+					superStyle.invalidated.bind( this, invalidateCall );
 			}
 		}
 	}

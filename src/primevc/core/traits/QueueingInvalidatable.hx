@@ -80,7 +80,7 @@ class QueueingInvalidatable extends Invalidatable, implements IQueueingInvalidat
 			invalidatable = v;
 			
 			//broadcast queued changes?
-			if (v && changes > 0) {
+			if (v && changes != 0) {
 				invalidate(changes);
 				changes = 0;
 			}

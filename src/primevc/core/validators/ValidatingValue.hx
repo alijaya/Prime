@@ -27,7 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.validators;
- import primevc.core.traits.QueueingInvalidatable;
   using primevc.utils.Bind;
   using primevc.utils.BitUtil;
   using Std;
@@ -38,7 +37,7 @@ package primevc.core.validators;
  * @author			Ruben Weijers
  */
 #if (flash9 || cpp) @:generic #end
-class ValidatingValue < DataType > extends QueueingInvalidatable
+class ValidatingValue < DataType > extends primevc.core.traits.QueueingInvalidatable
 {
 	public var validator			(default, set_validator)	: IValueValidator < DataType >;
 	public var value				(default, set_value)		: DataType;

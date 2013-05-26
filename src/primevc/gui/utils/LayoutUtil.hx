@@ -1,14 +1,11 @@
 package primevc.gui.utils;
-import primevc.core.collections.IEditableList;
-import primevc.core.collections.iterators.IIterator;
-import primevc.gui.core.IUIElement;
-import primevc.gui.display.DisplayList;
-import primevc.gui.display.IDisplayContainer;
-import primevc.gui.display.IDisplayObject;
-import primevc.gui.layout.ILayoutClient;
-import primevc.gui.layout.LayoutClient;
-import primevc.gui.traits.IDisplayable;
-import primevc.gui.traits.ILayoutable;
+ import primevc.core.collections.IEditableList;
+ import primevc.core.collections.iterators.IIterator;
+ import primevc.gui.core.IUIElement;
+ import primevc.gui.display.DisplayList;
+ import primevc.gui.display.IDisplayObject;
+ import primevc.gui.layout.ILayoutClient;
+ import primevc.gui.layout.LayoutClient;
   using primevc.utils.TypeUtil;
 
 /**

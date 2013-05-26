@@ -231,6 +231,7 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 								? ((curMouse.x - layout.padding.left) / layout.width).within(0, 1)
 								: ((curMouse.y - layout.padding.top) / layout.height).within(0, 1);
 		
+		dragBtn.layout.includeInLayout = false;
 		validate();
 		
 		//enable dragging as long as the mouse is down
@@ -266,6 +267,8 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 		mouseMoveBinding.disable();
 		
 	//	calculateValue( mouseObj );
+		if (direction == horizontal)	dragBtn.layout.relative.left 		= dragBtn.layout.x;
+		else							dragBtn.layout.relative.top 		= dragBtn.layout.y;
 		dragBtn.mouseEnabled				= true;
 		dragBtn.layout.includeInLayout		= true;
 		sliding.apply.send();
@@ -329,7 +332,7 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 				return false;
 			
 			dragBtn.x			= layout.padding.left + ( data.percentage * ( layout.width - dragBtn.layout.outerBounds.width ) );
-			dragBtn.layout.x	= dragBtn.x.roundFloat();
+			dragBtn.layout.x	= dragBtn.layout.relative.left = dragBtn.x.roundFloat();
 		}
 		else
 		{
@@ -337,7 +340,7 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 				return false;
 			
 			dragBtn.y			= layout.padding.top + ( data.percentage * (layout.height - dragBtn.layout.outerBounds.height) );
-			dragBtn.layout.y	= dragBtn.y.roundFloat();
+			dragBtn.layout.y	= dragBtn.layout.relative.top = dragBtn.y.roundFloat();
 		}
 		return true;
 	}

@@ -33,7 +33,7 @@ class ArrayUtils
 	public static function sortAlphabetically(arr:Array<String>)
 	{
 		#if flash9
-		untyped arr.sort()
+		untyped arr.sort();
 		#else
 		arr.sort(compareAlphabetically);
 		#end

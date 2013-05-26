@@ -61,11 +61,13 @@ class LangMacro
 		//}
 		for (currentDir in Context.getClassPath())
 		{
-			#if !fdb //TODO: diff o/s fs problem 
-			try { currentDir = sys.FileSystem.fullPath(currentDir); }
-	        catch (e:Dynamic) {} //{ trace("errror "+e); }
-			if (!sys.FileSystem.exists(currentDir))         continue;
-			#end
+			if (!sys.FileSystem.exists(currentDir))
+				continue;
+			//#if !fdb //TODO: diff o/s fs problem 
+			//try { currentDir = sys.FileSystem.fullPath(currentDir); }
+	        //catch (e:Dynamic) {} //{ trace("errror "+e); }
+			//if (!sys.FileSystem.exists(currentDir))         continue;
+			//#end
 			for (file in sys.FileSystem.readDirectory(currentDir))
 			{
 				if (file.endsWith(".yaml") || file.endsWith(".yml") )

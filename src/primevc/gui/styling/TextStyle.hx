@@ -155,7 +155,7 @@ class TextStyle extends StyleSubBlock
 		if (changedReference.has( StyleFlags.EXTENDED_STYLE ))
 		{
 			if (extendedStyle != null)
-				extendedStyle.listeners.remove( this );
+				extendedStyle.invalidated.unbind( this );
 			
 			extendedStyle = null;
 			if (owner != null && owner.extendedStyle != null)
@@ -163,7 +163,7 @@ class TextStyle extends StyleSubBlock
 				extendedStyle = owner.extendedStyle.font;
 				
 				if (extendedStyle != null)
-					extendedStyle.listeners.add( this );
+					extendedStyle.invalidated.bind( this, invalidateCall );
 			}
 		}
 		
@@ -172,7 +172,7 @@ class TextStyle extends StyleSubBlock
 		if (changedReference.has( StyleFlags.NESTING_STYLE ))
 		{
 			if (nestingStyle != null)
-				nestingStyle.listeners.remove( this );
+				nestingStyle.invalidated.unbind( this );
 			
 			nestingStyle = null;
 			if (owner != null && owner.nestingInherited != null)
@@ -180,7 +180,7 @@ class TextStyle extends StyleSubBlock
 				nestingStyle = owner.nestingInherited.font;
 				
 				if (nestingStyle != null)
-					nestingStyle.listeners.add( this );
+					nestingStyle.invalidated.bind( this, invalidateCall );
 			}
 		}
 		
@@ -189,7 +189,7 @@ class TextStyle extends StyleSubBlock
 		if (changedReference.has( StyleFlags.SUPER_STYLE ))
 		{
 			if (superStyle != null)
-				superStyle.listeners.remove( this );
+				superStyle.invalidated.unbind( this );
 			
 			superStyle = null;
 			if (owner != null && owner.superStyle != null)
@@ -197,7 +197,7 @@ class TextStyle extends StyleSubBlock
 				superStyle = owner.superStyle.font;
 				
 				if (superStyle != null)
-					superStyle.listeners.add( this );
+					superStyle.invalidated.bind( this, invalidateCall );
 			}
 		}
 		
@@ -206,7 +206,7 @@ class TextStyle extends StyleSubBlock
 		if (changedReference.has( StyleFlags.PARENT_STYLE ))
 		{
 			if (parentStyle != null)
-				parentStyle.listeners.remove( this );
+				parentStyle.invalidated.unbind( this );
 			
 			parentStyle = null;
 			if (owner != null && owner.parentStyle != null)
@@ -214,7 +214,7 @@ class TextStyle extends StyleSubBlock
 				parentStyle = owner.parentStyle.font;
 				
 				if (parentStyle != null)
-					parentStyle.listeners.add( this );
+					parentStyle.invalidated.bind( this, invalidateCall );
 			}
 		}
 	}

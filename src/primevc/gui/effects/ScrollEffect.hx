@@ -40,7 +40,7 @@ package primevc.gui.effects;
  * @author Ruben Weijers
  * @creation-date Jul 15, 2011
  */
-class ScrollEffect extends Effect<primevc.gui.traits.IScrollable, ScrollEffect>
+class ScrollEffect extends #if !CSSParser Effect<primevc.gui.traits.IScrollable, ScrollEffect> #else Effect<Dynamic, Dynamic> #end
 {
     /**
      * Explicit start x value. If this value is not set, the effect will 
@@ -98,7 +98,7 @@ class ScrollEffect extends Effect<primevc.gui.traits.IScrollable, ScrollEffect>
     
     
 #if !CSSParser
-    override public function createEffectInstance (target) : primevc.gui.effects.effectInstances.IEffectInstance<primevc.gui.traits.IScrollable,ScrollEffect>
+    override public function createEffectInstance (target)
         return new primevc.gui.effects.effectInstances.ScrollEffectInstance(target, this)
 #else
 

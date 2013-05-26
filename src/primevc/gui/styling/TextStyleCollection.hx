@@ -59,7 +59,7 @@ class TextStyleCollection extends StyleCollectionBase < TextStyle >
 #end
 
 
-	public function new (elementStyle:IUIElementStyle)			{ super( elementStyle, StyleFlags.FONT ); }
+	public function new (elementStyle:UIElementStyle)			{ super( elementStyle, StyleFlags.FONT ); }
 	override public function forwardIterator ()					{ return new TextStyleCollectionForwardIterator( elementStyle, propertyTypeFlag); }
 	override public function reversedIterator ()				{ return new TextStyleCollectionReversedIterator( elementStyle, propertyTypeFlag); }
 

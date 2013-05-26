@@ -27,10 +27,10 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.managers;
- import primevc.core.dispatcher.Wire;
  import primevc.core.traits.IDisposable;
  import primevc.gui.display.Window;
  import primevc.gui.traits.IValidatable;
+  using primevc.utils.Bind;
 
 
 /**
@@ -50,15 +50,10 @@ class QueueManager implements IDisposable, implements IValidatable
 	private var last				: IValidatable;
 	private var isValidating		: Bool;
 	
-	/**
-	 * Binding reference to the wire that will apply the update to the queue
-	 * of objects
-	 */
-	private var updateQueueBinding	: Wire <Dynamic>;
-	
 	
 	public function new (owner:Window)
 	{
+		validateQueue.on( owner.displayEvents.render, this );
 		this.owner		= owner;
 		isValidating	= false;
 	}
@@ -66,11 +61,6 @@ class QueueManager implements IDisposable, implements IValidatable
 	
 	public function dispose ()
 	{
-		if (updateQueueBinding != null) {
-			updateQueueBinding.dispose();
-			updateQueueBinding = null;
-		}
-		
 		while (last != null)
 		{
 			var obj = last;
@@ -86,10 +76,6 @@ class QueueManager implements IDisposable, implements IValidatable
 	//
 	// VALIDATION METHODS
 	//
-	
-	
-	private function enableBinding ()			{ updateQueueBinding.enable(); }
-	private inline function disableBinding ()	{ updateQueueBinding.disable(); }
 	private function validateQueue ()			{ Assert.abstractMethod(); }
 	
 	
@@ -128,7 +114,7 @@ class QueueManager implements IDisposable, implements IValidatable
 			first = obj;
 			obj.prevValidatable = this;
 			obj.nextValidatable = last;
-			enableBinding();
+			owner.invalidate();
 		}
 		else
 		{
@@ -145,19 +131,16 @@ class QueueManager implements IDisposable, implements IValidatable
 	 */
 	public function remove ( obj:IValidatable )
 	{
-		if (obj.prevValidatable == this)
-			obj.prevValidatable = null;
-		
-		if (obj == first)	first = obj.nextValidatable;
-		if (obj == last)	last  = obj.prevValidatable;
-		
-		if (obj.prevValidatable != null)	obj.prevValidatable.nextValidatable = obj.nextValidatable;
-		if (obj.nextValidatable != null)	obj.nextValidatable.prevValidatable = obj.prevValidatable;
-		
+		var next = obj.nextValidatable;
+		var prev = obj.prevValidatable;
+		if (prev == this) prev = null;
+
 		obj.nextValidatable = obj.prevValidatable = null;
-		
-		if (first == null)
-			disableBinding();
+
+		if (obj  == first) first = next;
+		if (obj  == last ) last  = prev;
+		if (prev != null ) prev.nextValidatable = next;
+		if (next != null ) next.prevValidatable = prev;
 	}
 	
 	
@@ -186,7 +169,7 @@ class QueueManager implements IDisposable, implements IValidatable
 		
 		var curCell = first;
 		var i = 0;
-		var s = "\n\t\t\tlistQueue; isValidating? "+isValidating+"; isListening? "+updateQueueBinding.isEnabled();
+		var s = "\n\t\t\tlistQueue; isValidating? "+isValidating;
 		while (curCell != null)
 		{
 			s += "\n\t\t\t\t\t\t\t[ "+i+" ] = "+curCell;
