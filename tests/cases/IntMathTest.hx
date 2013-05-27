@@ -1,6 +1,6 @@
 package cases;
  import Benchmark;
-  using primevc.utils.NumberUtil;
+  using prime.utils.NumberUtil;
  
 
 /**

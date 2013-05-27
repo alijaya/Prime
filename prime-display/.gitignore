@@ -1,0 +1,7 @@
+/report
+/tmp
+.mcover
+TestMain.hx
+.temp
+/build
+/bin

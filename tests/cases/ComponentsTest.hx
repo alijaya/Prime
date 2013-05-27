@@ -1,22 +1,22 @@
 package cases;
- import primevc.core.Bindable;
- import primevc.core.collections.ArrayList;
- import primevc.core.geom.space.Direction;
- import primevc.core.geom.space.Horizontal;
- import primevc.gui.core.IUIElement;
- import primevc.gui.components.Button;
- import primevc.gui.components.ComboBox;
- import primevc.gui.components.Form;
- import primevc.gui.components.Image;
- import primevc.gui.components.InputField;
- import primevc.gui.components.Label;
- import primevc.gui.components.ProgressBar;
- import primevc.gui.components.Slider;
- import primevc.gui.components.TextArea;
- import primevc.gui.core.UIWindow;
- import primevc.gui.display.Window;
- import primevc.types.Asset;
-  using primevc.utils.Bind;
+ import prime.bindable.Bindable;
+ import prime.bindable.collections.ArrayList;
+ import prime.core.geom.space.Direction;
+ import prime.core.geom.space.Horizontal;
+ import prime.gui.core.IUIElement;
+ import prime.gui.components.Button;
+ import prime.gui.components.ComboBox;
+ import prime.gui.components.Form;
+ import prime.gui.components.Image;
+ import prime.gui.components.InputField;
+ import prime.gui.components.Label;
+ import prime.gui.components.ProgressBar;
+ import prime.gui.components.Slider;
+ import prime.gui.components.TextArea;
+ import prime.gui.core.UIWindow;
+ import prime.gui.display.Window;
+ import prime.types.Asset;
+  using prime.utils.Bind;
 
 
 /**
@@ -136,7 +136,7 @@ class ComponentsTest extends UIWindow
 	
 	
 	private function addTestVO ()					{ trace("add "+combo.listData.length); untyped combo.listData.add( createTestVO( combo.listData.length ) ); }
-	private inline function createTestVO (l:Int)	{ l *= 2; return new Bindable<String>(primevc.utils.StringUtil.randomString(l) + " " + (l)); }
+	private inline function createTestVO (l:Int)	{ l *= 2; return new Bindable<String>(prime.utils.StringUtil.randomString(l) + " " + (l)); }
 	private function updateFixedInput () 			{ fixedInput.vo.value = dynInput.vo.value = dynInput.data.value; }
 	private function updateDynInput () 				{ fixedInput.vo.value = dynInput.vo.value = fixedInput.data.value; }
 }

@@ -1,9 +1,9 @@
 package cases;
  import apparat.math.FastMath;
- import primevc.gui.display.Sprite;
- import primevc.gui.display.VectorShape;
- import primevc.utils.Formulas;
-  using primevc.gui.utils.GraphicsUtil;
+ import prime.gui.display.Sprite;
+ import prime.gui.display.VectorShape;
+ import prime.utils.Formulas;
+  using prime.gui.utils.GraphicsUtil;
 
 
 /**

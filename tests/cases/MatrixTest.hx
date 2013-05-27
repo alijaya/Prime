@@ -1,9 +1,9 @@
 package cases;
- import primevc.core.geom.Matrix2D;
- import primevc.core.geom.IntMatrix2D;
- import primevc.gui.display.Sprite;
+ import prime.core.geom.Matrix2D;
+ import prime.core.geom.InlineMatrix2D;
+ import prime.gui.display.Sprite;
  import Benchmark;
-  using primevc.utils.Bind;
+  using prime.utils.Bind;
 
 
 class MatrixTest extends Sprite
@@ -16,7 +16,7 @@ class MatrixTest extends Sprite
 	
 	private var sprite		: Sprite;
 	private var matrix2D	: Matrix2D;
-	private var intMatrix	: IntMatrix2D;
+	private var intMatrix	: InlineMatrix2D;
 	private var bench		: Benchmark;
 	
 	public function new ()
@@ -32,7 +32,7 @@ class MatrixTest extends Sprite
 		g.endFill();
 		
 		matrix2D	= new Matrix2D();
-		intMatrix	= new IntMatrix2D();
+		intMatrix	= new InlineMatrix2D();
 	//	matrix.translate( 3, 3 );
 		
 		var group = new Comparison( "compare moving matrix classes", 100000 );
@@ -96,7 +96,7 @@ class MatrixTest extends Sprite
 	public function moveIntMatrix ()	{ intMatrix.translate( .3, 9.1 ); }
 	
 	public function concatMatrix2D ()	{ matrix2D.concat( new Matrix2D() ); }
-	public function concatIntMatrix ()	{ intMatrix.concatMatrix( new IntMatrix2D() ); }
+	public function concatIntMatrix ()	{ intMatrix.concatMatrix( new InlineMatrix2D() ); }
 	
 	
 	private function runTest () { bench.start(); }

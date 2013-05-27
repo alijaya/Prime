@@ -1,6 +1,6 @@
 package sample;
 
-import primevc.gui.core.UIWindow;
+import prime.gui.core.UIWindow;
 
 
 /**

@@ -1,7 +1,7 @@
 package cases;
- import primevc.utils.FastArray;
+ import prime.utils.FastArray;
  import Benchmark;
-  using primevc.utils.FastArray;
+  using prime.utils.FastArray;
  
 
 /**

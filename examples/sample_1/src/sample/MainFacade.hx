@@ -1,17 +1,20 @@
 package sample;
 
 
-import primevc.mvc.Facade;
-
+import prime.mvc.Facade;
+import prime.core.traits.IDisposable;
 
 /**
  * Initializes the main application parts
  * and provides an access point for them.
  * This is the core class of the application.
  */
-class MainFacade extends Facade<MainEvents, MainModel, MainView, MainController>
+class MainFacade extends Facade<MainEvents, MainModel, IDisposable, MainController, MainView>
 {
-    public static function main ()	{ new MainFacade(); }
+    public static function main ()	
+    {
+      new MainFacade().start();
+    }
     private function new ()			{ super(); }
 
 

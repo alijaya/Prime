@@ -1,8 +1,6 @@
 package sample;
-
-
-import primevc.core.dispatcher.Signal1;
-import primevc.core.dispatcher.Signals;
+ import prime.signals.Signal1;
+ import prime.signals.Signals;
 
 /**
  * MainEvents defines and groups together the events used 

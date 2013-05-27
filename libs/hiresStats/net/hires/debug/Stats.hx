@@ -19,7 +19,7 @@
  *	08.07.12		1.3		Mr.doob			+ Some speed and code optimisations
  *	08.02.15		1.2		Mr.doob			+ Class renamed to Stats (previously FPS)
  *	08.01.05		1.2		Mr.doob			+ Click changes the fps of flash (half up increases, half down decreases)
- *	08.01.04		1.1		Mr.doob			+ Shameless ripoff of Alternativa's FPS look :P
+ *	08.01.04		1.1		Mr.doob			+ Shameless ripoff of Alternativas FPS look :P
  *							Theo			+ Log shape for MEM
  *											+ More room for MS
  * 	07.12.13		1.0		Mr.doob			+ First version
@@ -36,7 +36,7 @@ package net.hires.debug;
  import flash.text.StyleSheet;
  import flash.text.TextField;
  import haxe.xml.Fast;
- import primevc.gui.display.Sprite;
+ import prime.gui.display.Sprite;
   using Std;
 
 

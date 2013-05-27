@@ -1,8 +1,8 @@
 package cases;
- import primevc.types.Number;
+ import prime.types.Number;
  import Benchmark;
-  using primevc.utils.BitUtil;
-  using primevc.utils.NumberUtil;
+  using prime.utils.BitUtil;
+  using prime.utils.NumberUtil;
 
 /**
  * @creation-date	Jun 15, 2010
@@ -150,9 +150,9 @@ class UtilFlagAssertTest
 		Assert.that( !flags.has( Flags.FLAG_5 ) );
 		
 		flags = Flags.FLAG_1 | Flags.FLAG_2 | Flags.FLAG_3 | Flags.FLAG_4;
-		Assert.equal( flags, 15 );
+		Assert.isEqual( flags, 15 );
 		flags = flags.unset( Flags.FLAG_1 | Flags.FLAG_2 | Flags.FLAG_3 );
-		Assert.equal( flags, 8);
+		Assert.isEqual( flags, 8);
 		Assert.that( !flags.has( Flags.FLAG_1 ) );
 		Assert.that( !flags.has( Flags.FLAG_2 ) );
 		Assert.that( !flags.has( Flags.FLAG_3 ) );

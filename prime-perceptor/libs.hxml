@@ -1,0 +1,5 @@
+-lib munit
+-lib hamcrest
+-cp ../prime-core/src
+-cp ../prime-signals/src
+-cp src

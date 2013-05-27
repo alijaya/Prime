@@ -1,0 +1,7 @@
+<project name="prime-signals" url="http://prime.vc" license="BSD">
+	<user name=""/>
+	<description>Prime signals.</description>
+	<version name="0.0.0.0"></version>
+
+	<depends name="prime-core"/>
+</project>

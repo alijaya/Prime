@@ -1,0 +1,8 @@
+<project name="prime-perceptor" url="http://perceptor.prime.vc" license="BSD">
+	<user name=""/>
+	<description>Prime Perceptor: client library</description>
+	<version name="0.0.0.0"></version>
+
+	<depends name="prime-signals"/>
+	<depends name="prime-core"/>
+</project>

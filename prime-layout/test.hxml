@@ -1,0 +1,34 @@
+## Flash 11
+-main TestMain
+libs.hxml
+-swf-version 11
+-swf build/as3_test.swf
+
+--next
+
+-main TestMain
+libs.hxml
+-debug
+-swf-version 11
+-swf build/as3_test.swf
+
+--next
+
+## Flash 10
+-main TestMain
+libs.hxml
+-swf-version 10
+-swf build/as3_test.swf
+
+--next
+
+-main TestMain
+libs.hxml
+-debug
+-swf-version 10
+-swf build/as3_test.swf
+
+--next
+
+
+

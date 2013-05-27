@@ -1,0 +1,8 @@
+# Flash 9+
+-main TestMain
+libs.hxml
+-cp test
+-swf-version 9
+-swf tmp/as3_test.swf
+
+# TODO: all other platforms

@@ -27,14 +27,14 @@ package jac.image;
  import flash.display.DisplayObject;
  import flash.display.IBitmapDrawable;
  import flash.geom.Matrix;
- import primevc.core.geom.IntRectangle;
- import primevc.core.geom.Point;
- import primevc.core.geom.Rectangle;
- import primevc.types.Number;
+ import prime.core.geom.IntRectangle;
+ import prime.core.geom.Point;
+ import prime.core.geom.Rectangle;
+ import prime.types.Number;
   using jac.image.ImageUtils;
-  using primevc.utils.BitUtil;
-  using primevc.utils.NumberUtil;
-  using primevc.utils.TypeUtil;
+  using prime.utils.BitUtil;
+  using prime.utils.NumberUtil;
+  using prime.utils.TypeUtil;
 
 
 private typedef Flags = ResizeStyle;

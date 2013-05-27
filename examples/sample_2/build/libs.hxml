@@ -1,0 +1,17 @@
+-cp src
+-cp ../../prime-core/src
+-cp ../../prime-signals/src
+-cp ../../prime-mvc/src
+-cp ../../prime-layout/src
+-cp ../../prime-media/src
+-cp ../../prime-components/src
+-cp ../../prime-fsm/src
+-cp ../../prime-css/src
+-cp ../../prime-bindable/src
+-cp ../../prime-data/src
+-cp ../../prime-core/src
+-cp ../../prime-display/src
+-cp ../../prime-locale/src
+-cp ../../prime-mvc/src
+-cp ../../prime-signals/src
+

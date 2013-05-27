@@ -1,37 +1,37 @@
 package cases;
-// import primevc.core.net.URLLoader;
- import primevc.core.geom.space.Direction;
- import primevc.core.geom.space.Horizontal;
- import primevc.core.geom.space.MoveDirection;
- import primevc.core.geom.space.Position;
- import primevc.core.geom.space.Vertical;
- import primevc.gui.effects.AnchorScaleEffect;
- import primevc.gui.effects.CompositeEffect;
- import primevc.gui.effects.Easing;
- import primevc.gui.effects.EffectProperties;
- import primevc.gui.effects.FadeEffect;
- import primevc.gui.effects.IEffect;
- import primevc.gui.effects.MoveEffect;
- import primevc.gui.effects.ParallelEffect;
- import primevc.gui.effects.ResizeEffect;
- import primevc.gui.effects.RotateEffect;
- import primevc.gui.effects.ScaleEffect;
- import primevc.gui.effects.SequenceEffect;
- import primevc.gui.effects.SetAction;
- import primevc.gui.effects.WipeEffect;
- import primevc.gui.styling.StyleBlock;
- import primevc.gui.styling.CSSParser;
- import primevc.tools.generator.HaxeCodeGenerator;
- import primevc.tools.Manifest;
-  using primevc.utils.Color;
-  using primevc.utils.ERegUtil;
-  using primevc.utils.NumberUtil;
-  using primevc.utils.TypeUtil;
+// import prime.net.URLLoader;
+ import prime.core.geom.space.Direction;
+ import prime.core.geom.space.Horizontal;
+ import prime.core.geom.space.MoveDirection;
+ import prime.core.geom.space.Position;
+ import prime.core.geom.space.Vertical;
+ import prime.gui.effects.AnchorScaleEffect;
+ import prime.gui.effects.CompositeEffect;
+ import prime.gui.effects.Easing;
+ import prime.gui.effects.EffectProperties;
+ import prime.gui.effects.FadeEffect;
+ import prime.gui.effects.IEffect;
+ import prime.gui.effects.MoveEffect;
+ import prime.gui.effects.ParallelEffect;
+ import prime.gui.effects.ResizeEffect;
+ import prime.gui.effects.RotateEffect;
+ import prime.gui.effects.ScaleEffect;
+ import prime.gui.effects.SequenceEffect;
+ import prime.gui.effects.SetAction;
+ import prime.gui.effects.WipeEffect;
+ import prime.gui.styling.StyleBlock;
+ import prime.gui.styling.CSSParser;
+ import prime.tools.generator.HaxeCodeGenerator;
+ import prime.tools.Manifest;
+  using prime.utils.Color;
+  using prime.utils.ERegUtil;
+  using prime.utils.NumberUtil;
+  using prime.utils.TypeUtil;
   using Std;
   using Type;
 
 
-typedef BType = primevc.gui.filters.BitmapFilterType;
+typedef BType = prime.gui.filters.BitmapFilterType;
 
 
 class StyleParserTest
@@ -683,81 +683,81 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "5px 10px 12px 3 90deg #ff00aadd inner hide-object knockout high";
 		var f = parseShadowFilter(v);
-		Assert.equal( f.distance,	5,				"distance" );
-		Assert.equal( f.blurX,		10,				"blurX" );
-		Assert.equal( f.blurY,		12,				"blurY" );
-		Assert.equal( f.strength,	3,				"strength" );
-		Assert.equal( f.angle,		90,				"angle" );
-		Assert.equal( f.color,		0xff00aa,		"color" );
-		Assert.equal( f.alpha,		0xdd.float(),	"alpha" );
-		Assert.equal( f.inner,		true,			"inner" );
-		Assert.equal( f.hideObject,	true,			"hideObject" );
-		Assert.equal( f.knockout,	true,			"knockout" );
-		Assert.equal( f.quality,	3,				"quality" );
+		Assert.isEqual( f.distance,	5,				"distance" );
+		Assert.isEqual( f.blurX,		10,				"blurX" );
+		Assert.isEqual( f.blurY,		12,				"blurY" );
+		Assert.isEqual( f.strength,	3,				"strength" );
+		Assert.isEqual( f.angle,		90,				"angle" );
+		Assert.isEqual( f.color,		0xff00aa,		"color" );
+		Assert.isEqual( f.alpha,		0xdd.float(),	"alpha" );
+		Assert.isEqual( f.inner,		true,			"inner" );
+		Assert.isEqual( f.hideObject,	true,			"hideObject" );
+		Assert.isEqual( f.knockout,	true,			"knockout" );
+		Assert.isEqual( f.quality,	3,				"quality" );
 		
 		
 		
 		var v = ".789px 3 90deg #ff0000 medium";
 		var f = parseShadowFilter(v);
-		Assert.equal( f.distance,	.789,			"distance" );
-		Assert.equal( f.blurX,		4,				"blurX" );
-		Assert.equal( f.blurY,		4,				"blurY" );
-		Assert.equal( f.strength,	3,				"strength" );
-		Assert.equal( f.angle,		90,				"angle" );
-		Assert.equal( f.color,		0xff0000,		"color" );
-		Assert.equal( f.alpha,		0xff.float(),	"alpha" );
-		Assert.equal( f.inner,		false,			"inner" );
-		Assert.equal( f.hideObject,	false,			"hideObject" );
-		Assert.equal( f.knockout,	false,			"knockout" );
-		Assert.equal( f.quality,	2,				"quality" );
+		Assert.isEqual( f.distance,	.789,			"distance" );
+		Assert.isEqual( f.blurX,		4,				"blurX" );
+		Assert.isEqual( f.blurY,		4,				"blurY" );
+		Assert.isEqual( f.strength,	3,				"strength" );
+		Assert.isEqual( f.angle,		90,				"angle" );
+		Assert.isEqual( f.color,		0xff0000,		"color" );
+		Assert.isEqual( f.alpha,		0xff.float(),	"alpha" );
+		Assert.isEqual( f.inner,		false,			"inner" );
+		Assert.isEqual( f.hideObject,	false,			"hideObject" );
+		Assert.isEqual( f.knockout,	false,			"knockout" );
+		Assert.isEqual( f.quality,	2,				"quality" );
 		
 		
 		
 		var v = "inner 210 knockout 12.701deg";
 		var f = parseShadowFilter(v);
-		Assert.equal( f.distance,	4,				"distance" );
-		Assert.equal( f.blurX,		4,				"blurX" );
-		Assert.equal( f.blurY,		4,				"blurY" );
-		Assert.equal( f.strength,	210,			"strength" );
-		Assert.equal( f.angle,		12.701,			"angle" );
-		Assert.equal( f.color,		0x00000,		"color" );
-		Assert.equal( f.alpha,		0xff.float(),	"alpha" );
-		Assert.equal( f.inner,		true,			"inner" );
-		Assert.equal( f.hideObject,	false,			"hideObject" );
-		Assert.equal( f.knockout,	true,			"knockout" );
-		Assert.equal( f.quality,	1,				"quality" );
+		Assert.isEqual( f.distance,	4,				"distance" );
+		Assert.isEqual( f.blurX,		4,				"blurX" );
+		Assert.isEqual( f.blurY,		4,				"blurY" );
+		Assert.isEqual( f.strength,	210,			"strength" );
+		Assert.isEqual( f.angle,		12.701,			"angle" );
+		Assert.isEqual( f.color,		0x00000,		"color" );
+		Assert.isEqual( f.alpha,		0xff.float(),	"alpha" );
+		Assert.isEqual( f.inner,		true,			"inner" );
+		Assert.isEqual( f.hideObject,	false,			"hideObject" );
+		Assert.isEqual( f.knockout,	true,			"knockout" );
+		Assert.isEqual( f.quality,	1,				"quality" );
 		
 		
 		
 		var v = "5px 10px 12px";
 		var f = parseShadowFilter(v);
-		Assert.equal( f.distance,	5,				"distance" );
-		Assert.equal( f.blurX,		10,				"blurX" );
-		Assert.equal( f.blurY,		12,				"blurY" );
-		Assert.equal( f.strength,	1,				"strength" );
-		Assert.equal( f.angle,		45,				"angle" );
-		Assert.equal( f.color,		0x00,			"color" );
-		Assert.equal( f.alpha,		0xff.float(),	"alpha" );
-		Assert.equal( f.inner,		false,			"inner" );
-		Assert.equal( f.hideObject,	false,			"hideObject" );
-		Assert.equal( f.knockout,	false,			"knockout" );
-		Assert.equal( f.quality,	1,				"quality" );
+		Assert.isEqual( f.distance,	5,				"distance" );
+		Assert.isEqual( f.blurX,		10,				"blurX" );
+		Assert.isEqual( f.blurY,		12,				"blurY" );
+		Assert.isEqual( f.strength,	1,				"strength" );
+		Assert.isEqual( f.angle,		45,				"angle" );
+		Assert.isEqual( f.color,		0x00,			"color" );
+		Assert.isEqual( f.alpha,		0xff.float(),	"alpha" );
+		Assert.isEqual( f.inner,		false,			"inner" );
+		Assert.isEqual( f.hideObject,	false,			"hideObject" );
+		Assert.isEqual( f.knockout,	false,			"knockout" );
+		Assert.isEqual( f.quality,	1,				"quality" );
 		
 		
 		
 		var v = "4px 4px 4px #ff0000 180deg";
 		var f = parseShadowFilter(v);
-		Assert.equal( f.distance,	4,				"distance" );
-		Assert.equal( f.blurX,		4,				"blurX" );
-		Assert.equal( f.blurY,		4,				"blurY" );
-		Assert.equal( f.strength,	1,				"strength" );
-		Assert.equal( f.angle,		180,			"angle" );
-		Assert.equal( f.color,		0xff0000,		"color" );
-		Assert.equal( f.alpha,		0xff.float(),	"alpha" );
-		Assert.equal( f.inner,		false,			"inner" );
-		Assert.equal( f.hideObject,	false,			"hideObject" );
-		Assert.equal( f.knockout,	false,			"knockout" );
-		Assert.equal( f.quality,	1,				"quality" );
+		Assert.isEqual( f.distance,	4,				"distance" );
+		Assert.isEqual( f.blurX,		4,				"blurX" );
+		Assert.isEqual( f.blurY,		4,				"blurY" );
+		Assert.isEqual( f.strength,	1,				"strength" );
+		Assert.isEqual( f.angle,		180,			"angle" );
+		Assert.isEqual( f.color,		0xff0000,		"color" );
+		Assert.isEqual( f.alpha,		0xff.float(),	"alpha" );
+		Assert.isEqual( f.inner,		false,			"inner" );
+		Assert.isEqual( f.hideObject,	false,			"hideObject" );
+		Assert.isEqual( f.knockout,	false,			"knockout" );
+		Assert.isEqual( f.quality,	1,				"quality" );
 	}
 	
 	
@@ -775,52 +775,52 @@ class CSSParserMethodTest extends CSSParser
 
 		var v = "5px 10px 12px 3 90deg #ff00aadd #00aadd full knockout high";
 		var f = parseBevelFilter(v);
-		Assert.equal( f.distance,		5,				"distance" );
-		Assert.equal( f.blurX,			10,				"blurX" );
-		Assert.equal( f.blurY,			12,				"blurY" );
-		Assert.equal( f.strength,		3,				"strength" );
-		Assert.equal( f.angle,			90,				"angle" );
-		Assert.equal( f.highlightColor,	0xff00aa,		"highlightColor" );
-		Assert.equal( f.highlightAlpha,	0xdd.float(),	"highlightAlpha" );
-		Assert.equal( f.shadowColor,	0x00aadd,		"shadowColor" );
-		Assert.equal( f.shadowAlpha,	0xff.float(),	"shadowAlpha" );
-		Assert.equal( f.type,			BType.FULL,		"type" );
-		Assert.equal( f.knockout,		true,			"knockout" );
-		Assert.equal( f.quality,		3,				"quality" );
+		Assert.isEqual( f.distance,		5,				"distance" );
+		Assert.isEqual( f.blurX,			10,				"blurX" );
+		Assert.isEqual( f.blurY,			12,				"blurY" );
+		Assert.isEqual( f.strength,		3,				"strength" );
+		Assert.isEqual( f.angle,			90,				"angle" );
+		Assert.isEqual( f.highlightColor,	0xff00aa,		"highlightColor" );
+		Assert.isEqual( f.highlightAlpha,	0xdd.float(),	"highlightAlpha" );
+		Assert.isEqual( f.shadowColor,	0x00aadd,		"shadowColor" );
+		Assert.isEqual( f.shadowAlpha,	0xff.float(),	"shadowAlpha" );
+		Assert.isEqual( f.type,			BType.FULL,		"type" );
+		Assert.isEqual( f.knockout,		true,			"knockout" );
+		Assert.isEqual( f.quality,		3,				"quality" );
 
 
 
 		var v = ".789px 3 90deg #ff0000 medium";
 		var f = parseBevelFilter(v);
-		Assert.equal( f.distance,		.789,			"distance" );
-		Assert.equal( f.blurX,			4,				"blurX" );
-		Assert.equal( f.blurY,			4,				"blurY" );
-		Assert.equal( f.strength,		3,				"strength" );
-		Assert.equal( f.angle,			90,				"angle" );
-		Assert.equal( f.highlightColor,	0xff0000,		"color" );
-		Assert.equal( f.highlightAlpha,	0xff.float(),	"alpha" );
-		Assert.equal( f.shadowColor,	0x000000,		"shadowColor" );
-		Assert.equal( f.shadowAlpha,	0xff.float(),	"shadowAlpha" );
-		Assert.equal( f.type,			BType.INNER,	"type" );
-		Assert.equal( f.knockout,		false,			"knockout" );
-		Assert.equal( f.quality,		2,				"quality" );
+		Assert.isEqual( f.distance,		.789,			"distance" );
+		Assert.isEqual( f.blurX,			4,				"blurX" );
+		Assert.isEqual( f.blurY,			4,				"blurY" );
+		Assert.isEqual( f.strength,		3,				"strength" );
+		Assert.isEqual( f.angle,			90,				"angle" );
+		Assert.isEqual( f.highlightColor,	0xff0000,		"color" );
+		Assert.isEqual( f.highlightAlpha,	0xff.float(),	"alpha" );
+		Assert.isEqual( f.shadowColor,	0x000000,		"shadowColor" );
+		Assert.isEqual( f.shadowAlpha,	0xff.float(),	"shadowAlpha" );
+		Assert.isEqual( f.type,			BType.INNER,	"type" );
+		Assert.isEqual( f.knockout,		false,			"knockout" );
+		Assert.isEqual( f.quality,		2,				"quality" );
 		
 
 
 		var v = "60 #abcdef12 #fedcba98 low outer";
 		var f = parseBevelFilter(v);
-		Assert.equal( f.distance,		4,				"distance" );
-		Assert.equal( f.blurX,			4,				"blurX" );
-		Assert.equal( f.blurY,			4,				"blurY" );
-		Assert.equal( f.strength,		60,				"strength" );
-		Assert.equal( f.angle,			45,				"angle" );
-		Assert.equal( f.highlightColor,	0xabcdef,		"color" );
-		Assert.equal( f.highlightAlpha,	0x12.float(),	"alpha" );
-		Assert.equal( f.shadowColor,	0xfedcba,		"shadowColor" );
-		Assert.equal( f.shadowAlpha,	0x98.float(),	"shadowAlpha" );
-		Assert.equal( f.type,			BType.OUTER,	"type" );
-		Assert.equal( f.knockout,		false,			"knockout" );
-		Assert.equal( f.quality,		1,				"quality" );
+		Assert.isEqual( f.distance,		4,				"distance" );
+		Assert.isEqual( f.blurX,			4,				"blurX" );
+		Assert.isEqual( f.blurY,			4,				"blurY" );
+		Assert.isEqual( f.strength,		60,				"strength" );
+		Assert.isEqual( f.angle,			45,				"angle" );
+		Assert.isEqual( f.highlightColor,	0xabcdef,		"color" );
+		Assert.isEqual( f.highlightAlpha,	0x12.float(),	"alpha" );
+		Assert.isEqual( f.shadowColor,	0xfedcba,		"shadowColor" );
+		Assert.isEqual( f.shadowAlpha,	0x98.float(),	"shadowAlpha" );
+		Assert.isEqual( f.type,			BType.OUTER,	"type" );
+		Assert.isEqual( f.knockout,		false,			"knockout" );
+		Assert.isEqual( f.quality,		1,				"quality" );
 	}
 
 
@@ -838,39 +838,39 @@ class CSSParserMethodTest extends CSSParser
 
 		var v = "10px 12px 3 #ff00aadd inner knockout high";
 		var f = parseGlowFilter(v);
-		Assert.equal( f.blurX,		10,				"blurX" );
-		Assert.equal( f.blurY,		12,				"blurY" );
-		Assert.equal( f.strength,	3,				"strength");
-		Assert.equal( f.color,		0xff00aa,		"color" );
-		Assert.equal( f.alpha,		0xdd.float(),	"alpha" );
-		Assert.equal( f.inner,		true,			"inner" );
-		Assert.equal( f.knockout,	true,			"knockout" );
-		Assert.equal( f.quality,	3,				"quality" );
+		Assert.isEqual( f.blurX,		10,				"blurX" );
+		Assert.isEqual( f.blurY,		12,				"blurY" );
+		Assert.isEqual( f.strength,	3,				"strength");
+		Assert.isEqual( f.color,		0xff00aa,		"color" );
+		Assert.isEqual( f.alpha,		0xdd.float(),	"alpha" );
+		Assert.isEqual( f.inner,		true,			"inner" );
+		Assert.isEqual( f.knockout,	true,			"knockout" );
+		Assert.isEqual( f.quality,	3,				"quality" );
 
 
 
 		var v = "10 #ff0000 medium";
 		var f = parseGlowFilter(v);
-		Assert.equal( f.blurX,		4,				"blurX" );
-		Assert.equal( f.blurY,		4,				"blurY" );
-		Assert.equal( f.strength,	10,				"strength");
-		Assert.equal( f.color,		0xff0000,		"color" );
-		Assert.equal( f.alpha,		0xff.float(),	"alpha" );
-		Assert.equal( f.inner,		false,			"inner" );
-		Assert.equal( f.knockout,	false,			"knockout" );
-		Assert.equal( f.quality,	2,				"quality" );
+		Assert.isEqual( f.blurX,		4,				"blurX" );
+		Assert.isEqual( f.blurY,		4,				"blurY" );
+		Assert.isEqual( f.strength,	10,				"strength");
+		Assert.isEqual( f.color,		0xff0000,		"color" );
+		Assert.isEqual( f.alpha,		0xff.float(),	"alpha" );
+		Assert.isEqual( f.inner,		false,			"inner" );
+		Assert.isEqual( f.knockout,	false,			"knockout" );
+		Assert.isEqual( f.quality,	2,				"quality" );
 		
 		
 		var v = "knockout #abcdef12 low";
 		var f = parseGlowFilter(v);
-		Assert.equal( f.blurX,		4,				"blurX" );
-		Assert.equal( f.blurY,		4,				"blurY" );
-		Assert.equal( f.strength,	1,				"strength");
-		Assert.equal( f.color,		0xabcdef,		"color" );
-		Assert.equal( f.alpha,		0x12.float(),	"alpha" );
-		Assert.equal( f.inner,		false,			"inner" );
-		Assert.equal( f.knockout,	true,			"knockout" );
-		Assert.equal( f.quality,	1,				"quality" );
+		Assert.isEqual( f.blurX,		4,				"blurX" );
+		Assert.isEqual( f.blurY,		4,				"blurY" );
+		Assert.isEqual( f.strength,	1,				"strength");
+		Assert.isEqual( f.color,		0xabcdef,		"color" );
+		Assert.isEqual( f.alpha,		0x12.float(),	"alpha" );
+		Assert.isEqual( f.inner,		false,			"inner" );
+		Assert.isEqual( f.knockout,	true,			"knockout" );
+		Assert.isEqual( f.quality,	1,				"quality" );
 		
 	}
 
@@ -889,31 +889,31 @@ class CSSParserMethodTest extends CSSParser
 
 		var v = "5px 10px high";
 		var f = parseBlurFilter(v);
-		Assert.equal( f.blurX,			5,				"blurX" );
-		Assert.equal( f.blurY,			10,				"blurY" );
-		Assert.equal( f.quality,		3,				"quality" );
+		Assert.isEqual( f.blurX,			5,				"blurX" );
+		Assert.isEqual( f.blurY,			10,				"blurY" );
+		Assert.isEqual( f.quality,		3,				"quality" );
 
 
 
 		var v = "medium";
 		var f = parseBlurFilter(v);
-		Assert.equal( f.blurX,			4,				"blurX" );
-		Assert.equal( f.blurY,			4,				"blurY" );
-		Assert.equal( f.quality,		2,				"quality" );
+		Assert.isEqual( f.blurX,			4,				"blurX" );
+		Assert.isEqual( f.blurY,			4,				"blurY" );
+		Assert.isEqual( f.quality,		2,				"quality" );
 
 
 
 		var v = "10px 0px low";
 		var f = parseBlurFilter(v);
-		Assert.equal( f.blurX,			10,				"blurX" );
-		Assert.equal( f.blurY,			0,				"blurY" );
-		Assert.equal( f.quality,		1,				"quality" );
+		Assert.isEqual( f.blurX,			10,				"blurX" );
+		Assert.isEqual( f.blurY,			0,				"blurY" );
+		Assert.isEqual( f.quality,		1,				"quality" );
 
 		var v = "0px 0px";
 		var f = parseBlurFilter(v);
-		Assert.equal( f.blurX,			0,				"blurX" );
-		Assert.equal( f.blurY,			0,				"blurY" );
-		Assert.equal( f.quality,		1,				"quality" );
+		Assert.isEqual( f.blurX,			0,				"blurX" );
+		Assert.isEqual( f.blurY,			0,				"blurY" );
+		Assert.isEqual( f.quality,		1,				"quality" );
 	}
 	
 	
@@ -930,57 +930,57 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "5px 10px 12px 3 90deg #ff00aadd, #00aadd inner knockout high";
 		var f = parseGradientBevelFilter(v);
-		Assert.equal( f.distance,	5,				"distance" );
-		Assert.equal( f.blurX,		10,				"blurX" );
-		Assert.equal( f.blurY,		12,				"blurY" );
-		Assert.equal( f.strength,	3,				"strength" );
-		Assert.equal( f.angle,		90,				"angle" );
+		Assert.isEqual( f.distance,	5,				"distance" );
+		Assert.isEqual( f.blurX,		10,				"blurX" );
+		Assert.isEqual( f.blurY,		12,				"blurY" );
+		Assert.isEqual( f.strength,	3,				"strength" );
+		Assert.isEqual( f.angle,		90,				"angle" );
 		
-		Assert.equal( f.colors.length,	2,			"colors" );
-		Assert.equal( f.alphas.length,	2,			"alphas" );
-		Assert.equal( f.ratios.length,	2,			"ratios" );
+		Assert.isEqual( f.colors.length,	2,			"colors" );
+		Assert.isEqual( f.alphas.length,	2,			"alphas" );
+		Assert.isEqual( f.ratios.length,	2,			"ratios" );
 		
-		Assert.equal( f.colors[0],	0xff00aa,		"color" );
-		Assert.equal( f.alphas[0],	0xdd.float(),	"alpha" );
-		Assert.equal( f.ratios[0],	0,				"ratio" );
+		Assert.isEqual( f.colors[0],	0xff00aa,		"color" );
+		Assert.isEqual( f.alphas[0],	0xdd.float(),	"alpha" );
+		Assert.isEqual( f.ratios[0],	0,				"ratio" );
 		
-		Assert.equal( f.colors[1],	0x00aadd,		"color" );
-		Assert.equal( f.alphas[1],	0xff.float(),	"alpha" );
-		Assert.equal( f.ratios[1],	255,			"ratio" );
+		Assert.isEqual( f.colors[1],	0x00aadd,		"color" );
+		Assert.isEqual( f.alphas[1],	0xff.float(),	"alpha" );
+		Assert.isEqual( f.ratios[1],	255,			"ratio" );
 		
-		Assert.equal( f.type,		BType.INNER,	"inner" );
-		Assert.equal( f.knockout,	true,			"knockout" );
-		Assert.equal( f.quality,	3,				"quality" );
+		Assert.isEqual( f.type,		BType.INNER,	"inner" );
+		Assert.isEqual( f.knockout,	true,			"knockout" );
+		Assert.isEqual( f.quality,	3,				"quality" );
 		
 		
 		
 		var v = "outer .789px 3 90deg #ff0000, #abcdef12 60px, #333 medium";
 		var f = parseGradientBevelFilter(v);
-		Assert.equal( f.distance,	.789,			"distance" );
-		Assert.equal( f.blurX,		4,				"blurX" );
-		Assert.equal( f.blurY,		4,				"blurY" );
-		Assert.equal( f.strength,	3,				"strength" );
-		Assert.equal( f.angle,		90,				"angle" );
+		Assert.isEqual( f.distance,	.789,			"distance" );
+		Assert.isEqual( f.blurX,		4,				"blurX" );
+		Assert.isEqual( f.blurY,		4,				"blurY" );
+		Assert.isEqual( f.strength,	3,				"strength" );
+		Assert.isEqual( f.angle,		90,				"angle" );
 		
-		Assert.equal( f.colors.length,	3,			"colors" );
-		Assert.equal( f.alphas.length,	3,			"alphas" );
-		Assert.equal( f.ratios.length,	3,			"ratios" );
+		Assert.isEqual( f.colors.length,	3,			"colors" );
+		Assert.isEqual( f.alphas.length,	3,			"alphas" );
+		Assert.isEqual( f.ratios.length,	3,			"ratios" );
 		
-		Assert.equal( f.colors[0],	0xff0000,		"color" );
-		Assert.equal( f.alphas[0],	0xff.float(),	"alpha" );
-		Assert.equal( f.ratios[0],	0,				"ratio" );
+		Assert.isEqual( f.colors[0],	0xff0000,		"color" );
+		Assert.isEqual( f.alphas[0],	0xff.float(),	"alpha" );
+		Assert.isEqual( f.ratios[0],	0,				"ratio" );
 		
-		Assert.equal( f.colors[1],	0xabcdef,		"color" );
-		Assert.equal( f.alphas[1],	0x12.float(),	"alpha" );
-		Assert.equal( f.ratios[1],	60,				"ratio" );
+		Assert.isEqual( f.colors[1],	0xabcdef,		"color" );
+		Assert.isEqual( f.alphas[1],	0x12.float(),	"alpha" );
+		Assert.isEqual( f.ratios[1],	60,				"ratio" );
 		
-		Assert.equal( f.colors[2],	0x333333,		"color" );
-		Assert.equal( f.alphas[2],	0xff.float(),	"alpha" );
-		Assert.equal( f.ratios[2],	255,			"ratio" );
+		Assert.isEqual( f.colors[2],	0x333333,		"color" );
+		Assert.isEqual( f.alphas[2],	0xff.float(),	"alpha" );
+		Assert.isEqual( f.ratios[2],	255,			"ratio" );
 		
-		Assert.equal( f.type,		BType.OUTER,	"type" );
-		Assert.equal( f.knockout,	false,			"knockout" );
-		Assert.equal( f.quality,	2,				"quality" );
+		Assert.isEqual( f.type,		BType.OUTER,	"type" );
+		Assert.isEqual( f.knockout,	false,			"knockout" );
+		Assert.isEqual( f.quality,	2,				"quality" );
 	}
 	
 	
@@ -997,32 +997,32 @@ class CSSParserMethodTest extends CSSParser
 		var v = "anchor-scale";
 		var e = parseEffect(v).as(AnchorScaleEffect);
 		trace(e);
-		Assert.equal( e.duration,			350,				"duration" );
+		Assert.isEqual( e.duration,			350,				"duration" );
 		Assert.that( e.delay.notSet(),							"delay" );
-		Assert.equal( e.easing,				null,				"easing" );
-		Assert.equal( e.zoomPosition,		Position.TopLeft,	"zoom-position" );
+		Assert.isEqual( e.easing,				null,				"easing" );
+		Assert.isEqual( e.zoomPosition,		Position.TopLeft,	"zoom-position" );
 		Assert.that( e.startValue.notSet(),						"start-value" );
 		Assert.that( e.endValue.notSet(),						"end-value" );
 		
 		var v = "anchor-scale bottom-left 400ms 50ms";
 		var e = parseEffect(v).as(AnchorScaleEffect);
 		trace(e);
-		Assert.equal( e.duration,			400,				"duration" );
-		Assert.equal( e.delay,				50,					"delay" );
-		Assert.equal( e.easing,				null,				"easing" );
-		Assert.equal( e.zoomPosition,		Position.BottomLeft,"zoom-position" );
+		Assert.isEqual( e.duration,			400,				"duration" );
+		Assert.isEqual( e.delay,				50,					"delay" );
+		Assert.isEqual( e.easing,				null,				"easing" );
+		Assert.isEqual( e.zoomPosition,		Position.BottomLeft,"zoom-position" );
 		Assert.that( e.startValue.notSet(),						"start-value" );
 		Assert.that( e.endValue.notSet(),						"end-value" );
 		
 		var v = "anchor-scale 400ms 50ms Bounce-Out middle-right 100% 312.3%";
 		var e = parseEffect(v).as(AnchorScaleEffect);
 		trace(e);
-		Assert.equal( e.duration,			400,					"duration" );
-		Assert.equal( e.delay,				50,						"delay" );
-		Assert.equal( e.easingName,			"bounce-out",			"easing-name" );
-		Assert.equal( e.zoomPosition,		Position.MiddleRight,	"zoom-position" );
-		Assert.equal( e.startValue,			1.0,					"start-value" );
-		Assert.equal( e.endValue,			3.123,					"end-value" );
+		Assert.isEqual( e.duration,			400,					"duration" );
+		Assert.isEqual( e.delay,				50,						"delay" );
+		Assert.isEqual( e.easingName,			"bounce-out",			"easing-name" );
+		Assert.isEqual( e.zoomPosition,		Position.MiddleRight,	"zoom-position" );
+		Assert.isEqual( e.startValue,			1.0,					"start-value" );
+		Assert.isEqual( e.endValue,			3.123,					"end-value" );
 		
 		
 		//
@@ -1034,29 +1034,29 @@ class CSSParserMethodTest extends CSSParser
 		var v = "fade";
 		var e = parseEffect(v).as(FadeEffect);
 		trace(e);
-		Assert.equal( e.duration,			350,				"duration" );
+		Assert.isEqual( e.duration,			350,				"duration" );
 		Assert.that( e.delay.notSet(),							"delay" );
-		Assert.equal( e.easing,				null,				"easing" );
+		Assert.isEqual( e.easing,				null,				"easing" );
 		Assert.that( e.startValue.notSet(),						"start-value" );
 		Assert.that( e.endValue.notSet(),						"end-value" );
 		
 		var v = "fade 400ms 50ms";
 		var e = parseEffect(v).as(FadeEffect);
 		trace(e);
-		Assert.equal( e.duration,			400,				"duration" );
-		Assert.equal( e.delay,				50,					"delay" );
-		Assert.equal( e.easing,				null,				"easing" );
+		Assert.isEqual( e.duration,			400,				"duration" );
+		Assert.isEqual( e.delay,				50,					"delay" );
+		Assert.isEqual( e.easing,				null,				"easing" );
 		Assert.that( e.startValue.notSet(),						"start-value" );
 		Assert.that( e.endValue.notSet(),						"end-value" );
 		
 		var v = "fade 400ms elastic-in-out 0% 99%";
 		var e = parseEffect(v).as(FadeEffect);
 		trace(e);
-		Assert.equal( e.duration,			400,				"duration" );
+		Assert.isEqual( e.duration,			400,				"duration" );
 		Assert.that( e.delay.notSet(),							"delay" );
-		Assert.equal( e.easingName,			"elastic-in-out",	"easing-name" );
-		Assert.equal( e.startValue,			0,					"start-value" );
-		Assert.equal( e.endValue,			0.99,				"end-value" );
+		Assert.isEqual( e.easingName,			"elastic-in-out",	"easing-name" );
+		Assert.isEqual( e.startValue,			0,					"start-value" );
+		Assert.isEqual( e.endValue,			0.99,				"end-value" );
 		
 		
 		
@@ -1069,9 +1069,9 @@ class CSSParserMethodTest extends CSSParser
 		var v = "move";
 		var e = parseEffect(v).as(MoveEffect);
 		trace(e);
-		Assert.equal( e.duration,		350,				"duration" );
+		Assert.isEqual( e.duration,		350,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easing,			null,				"easing" );
+		Assert.isEqual( e.easing,			null,				"easing" );
 		Assert.that( e.startX.notSet(),						"start-x-value" );
 		Assert.that( e.startY.notSet(),						"start-y-value" );
 		Assert.that( e.endX.notSet(),						"end-x-value" );
@@ -1080,9 +1080,9 @@ class CSSParserMethodTest extends CSSParser
 		var v = "move 400ms 50ms";
 		var e = parseEffect(v).as(MoveEffect);
 		trace(e);
-		Assert.equal( e.duration,		400,				"duration" );
-		Assert.equal( e.delay,			50,					"delay" );
-		Assert.equal( e.easing,			null,				"easing" );
+		Assert.isEqual( e.duration,		400,				"duration" );
+		Assert.isEqual( e.delay,			50,					"delay" );
+		Assert.isEqual( e.easing,			null,				"easing" );
 		Assert.that( e.startX.notSet(),						"start-x-value" );
 		Assert.that( e.startY.notSet(),						"start-y-value" );
 		Assert.that( e.endX.notSet(),						"end-x-value" );
@@ -1091,24 +1091,24 @@ class CSSParserMethodTest extends CSSParser
 		var v = "move 400ms circ-in 20px, 0px";
 		var e = parseEffect(v).as(MoveEffect);
 		trace(e);
-		Assert.equal( e.duration,		400,				"duration" );
+		Assert.isEqual( e.duration,		400,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easingName,		"circ-in",			"easing-name" );
+		Assert.isEqual( e.easingName,		"circ-in",			"easing-name" );
 		Assert.that( e.startX.notSet(),						"start-x-value" );
 		Assert.that( e.startY.notSet(),						"start-y-value" );
-		Assert.equal( e.endX,			20,					"end-x-value" );
-		Assert.equal( e.endY,			0,					"end-y-value" );
+		Assert.isEqual( e.endX,			20,					"end-x-value" );
+		Assert.isEqual( e.endY,			0,					"end-y-value" );
 		
 		var v = "move 20px ,40px 100px,-50.4px";
 		var e = parseEffect(v).as(MoveEffect);
 		trace(e);
-		Assert.equal( e.duration,		350,				"duration" );
+		Assert.isEqual( e.duration,		350,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easingName,		null,				"easing-name" );
-		Assert.equal( e.startX,			20,					"start-x-value" );
-		Assert.equal( e.startY,			40,					"start-y-value" );
-		Assert.equal( e.endX,			100,				"end-x-value" );
-		Assert.equal( e.endY,			-50.4,				"end-y-value" );
+		Assert.isEqual( e.easingName,		null,				"easing-name" );
+		Assert.isEqual( e.startX,			20,					"start-x-value" );
+		Assert.isEqual( e.startY,			40,					"start-y-value" );
+		Assert.isEqual( e.endX,			100,				"end-x-value" );
+		Assert.isEqual( e.endY,			-50.4,				"end-y-value" );
 		
 		
 		
@@ -1121,9 +1121,9 @@ class CSSParserMethodTest extends CSSParser
 		var v = "resize";
 		var e = parseEffect(v).as(ResizeEffect);
 		trace(e);
-		Assert.equal( e.duration,		350,				"duration" );
+		Assert.isEqual( e.duration,		350,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easing,			null,				"easing" );
+		Assert.isEqual( e.easing,			null,				"easing" );
 		Assert.that( e.startW.notSet(),						"start-w-value" );
 		Assert.that( e.startH.notSet(),						"start-h-value" );
 		Assert.that( e.endW.notSet(),						"end-w-value" );
@@ -1132,9 +1132,9 @@ class CSSParserMethodTest extends CSSParser
 		var v = "resize 400ms";
 		var e = parseEffect(v).as(ResizeEffect);
 		trace(e);
-		Assert.equal( e.duration,		400,				"duration" );
+		Assert.isEqual( e.duration,		400,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easing,			null,				"easing" );
+		Assert.isEqual( e.easing,			null,				"easing" );
 		Assert.that( e.startW.notSet(),						"start-w-value" );
 		Assert.that( e.startH.notSet(),						"start-h-value" );
 		Assert.that( e.endW.notSet(),						"end-w-value" );
@@ -1143,24 +1143,24 @@ class CSSParserMethodTest extends CSSParser
 		var v = "resize 400ms sine-out 0px,20px";
 		var e = parseEffect(v).as(ResizeEffect);
 		trace(e);
-		Assert.equal( e.duration,		400,				"duration" );
+		Assert.isEqual( e.duration,		400,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easingName,		"sine-out",			"easing-name" );
+		Assert.isEqual( e.easingName,		"sine-out",			"easing-name" );
 		Assert.that( e.startW.notSet(),						"start-w-value" );
 		Assert.that( e.startH.notSet(),						"start-h-value" );
-		Assert.equal( e.endW,			0,					"end-w-value" );
-		Assert.equal( e.endH,			20,					"end-h-value" );
+		Assert.isEqual( e.endW,			0,					"end-w-value" );
+		Assert.isEqual( e.endH,			20,					"end-h-value" );
 		
 		var v = "resize 0px ,		0px .123px,-50.4px";
 		var e = parseEffect(v).as(ResizeEffect);
 		trace(e);
-		Assert.equal( e.duration,		350,				"duration" );
+		Assert.isEqual( e.duration,		350,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easingName,		null,				"easing-name" );
-		Assert.equal( e.startW,			0,					"start-w-value" );
-		Assert.equal( e.startH,			0,					"start-h-value" );
-		Assert.equal( e.endW,			.123,				"end-w-value" );
-		Assert.equal( e.endH,			-50.4,				"end-h-value" );
+		Assert.isEqual( e.easingName,		null,				"easing-name" );
+		Assert.isEqual( e.startW,			0,					"start-w-value" );
+		Assert.isEqual( e.startH,			0,					"start-h-value" );
+		Assert.isEqual( e.endW,			.123,				"end-w-value" );
+		Assert.isEqual( e.endH,			-50.4,				"end-h-value" );
 		
 		
 		
@@ -1173,38 +1173,38 @@ class CSSParserMethodTest extends CSSParser
 		var v = "rotate";
 		var e = parseEffect(v).as(RotateEffect);
 		trace(e);
-		Assert.equal( e.duration,			350,				"duration" );
+		Assert.isEqual( e.duration,			350,				"duration" );
 		Assert.that( e.delay.notSet(),							"delay" );
-		Assert.equal( e.easing,				null,				"easing" );
+		Assert.isEqual( e.easing,				null,				"easing" );
 		Assert.that( e.startValue.notSet(),						"start-value" );
 		Assert.that( e.endValue.notSet(),						"end-value" );
 		
 		var v = "rotate 400ms 50ms";
 		var e = parseEffect(v).as(RotateEffect);
 		trace(e);
-		Assert.equal( e.duration,			400,				"duration" );
-		Assert.equal( e.delay,				50,					"delay" );
-		Assert.equal( e.easing,				null,				"easing" );
+		Assert.isEqual( e.duration,			400,				"duration" );
+		Assert.isEqual( e.delay,				50,					"delay" );
+		Assert.isEqual( e.easing,				null,				"easing" );
 		Assert.that( e.startValue.notSet(),						"start-value" );
 		Assert.that( e.endValue.notSet(),						"end-value" );
 		
 		var v = "rotate 400ms expo-out 51deg 315deg";
 		var e = parseEffect(v).as(RotateEffect);
 		trace(e);
-		Assert.equal( e.duration,			400,				"duration" );
+		Assert.isEqual( e.duration,			400,				"duration" );
 		Assert.that( e.delay.notSet(),							"delay" );
-		Assert.equal( e.easingName,			"expo-out",			"easing-name" );
-		Assert.equal( e.startValue,			51,					"start-value" );
-		Assert.equal( e.endValue,			315,				"end-value" );
+		Assert.isEqual( e.easingName,			"expo-out",			"easing-name" );
+		Assert.isEqual( e.startValue,			51,					"start-value" );
+		Assert.isEqual( e.endValue,			315,				"end-value" );
 		
 		var v = "rotate 400ms expo-out 51deg ";
 		var e = parseEffect(v).as(RotateEffect);
 		trace(e);
-		Assert.equal( e.duration,			400,				"duration" );
+		Assert.isEqual( e.duration,			400,				"duration" );
 		Assert.that( e.delay.notSet(),							"delay" );
-		Assert.equal( e.easingName,			"expo-out",			"easing-name" );
+		Assert.isEqual( e.easingName,			"expo-out",			"easing-name" );
 		Assert.that( e.startValue.notSet(),						"start-value" );
-		Assert.equal( e.endValue,			51,					"end-value" );
+		Assert.isEqual( e.endValue,			51,					"end-value" );
 		
 		
 		
@@ -1217,9 +1217,9 @@ class CSSParserMethodTest extends CSSParser
 		var v = "scale";
 		var e = parseEffect(v).as(ScaleEffect);
 		trace(e);
-		Assert.equal( e.duration,		350,				"duration" );
+		Assert.isEqual( e.duration,		350,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easing,			null,				"easing" );
+		Assert.isEqual( e.easing,			null,				"easing" );
 		Assert.that( e.startX.notSet(),						"start-x-value" );
 		Assert.that( e.startY.notSet(),						"start-y-value" );
 		Assert.that( e.endX.notSet(),						"end-x-value" );
@@ -1228,9 +1228,9 @@ class CSSParserMethodTest extends CSSParser
 		var v = "scale 400ms";
 		var e = parseEffect(v).as(ScaleEffect);
 		trace(e);
-		Assert.equal( e.duration,		400,				"duration" );
+		Assert.isEqual( e.duration,		400,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easing,			null,				"easing" );
+		Assert.isEqual( e.easing,			null,				"easing" );
 		Assert.that( e.startX.notSet(),						"start-x-value" );
 		Assert.that( e.startY.notSet(),						"start-y-value" );
 		Assert.that( e.endX.notSet(),						"end-x-value" );
@@ -1239,24 +1239,24 @@ class CSSParserMethodTest extends CSSParser
 		var v = "scale 40ms linear-out 0%,20%";
 		var e = parseEffect(v).as(ScaleEffect);
 		trace(e);
-		Assert.equal( e.duration,		40,					"duration" );
+		Assert.isEqual( e.duration,		40,					"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easingName,		"linear-out",		"easing-name" );
+		Assert.isEqual( e.easingName,		"linear-out",		"easing-name" );
 		Assert.that( e.startX.notSet(),						"start-x-value" );
 		Assert.that( e.startY.notSet(),						"start-y-value" );
-		Assert.equal( e.endX,			0,					"end-x-value" );
-		Assert.equal( e.endY,			.2,					"end-y-value" );
+		Assert.isEqual( e.endX,			0,					"end-x-value" );
+		Assert.isEqual( e.endY,			.2,					"end-y-value" );
 		
 		var v = "scale 0% , 0% 400.123%, 50%";
 		var e = parseEffect(v).as(ScaleEffect);
 		trace(e);
-		Assert.equal( e.duration,		350,				"duration" );
+		Assert.isEqual( e.duration,		350,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easingName,		null,				"easing-name" );
-		Assert.equal( e.startX,			0,					"start-x-value" );
-		Assert.equal( e.startY,			0,					"start-y-value" );
-		Assert.equal( e.endX,			4.00123,			"end-x-value" );
-		Assert.equal( e.endY,			.5,					"end-y-value" );
+		Assert.isEqual( e.easingName,		null,				"easing-name" );
+		Assert.isEqual( e.startX,			0,					"start-x-value" );
+		Assert.isEqual( e.startY,			0,					"start-y-value" );
+		Assert.isEqual( e.endX,			4.00123,			"end-x-value" );
+		Assert.isEqual( e.endY,			.5,					"end-y-value" );
 		
 		
 		//
@@ -1269,7 +1269,7 @@ class CSSParserMethodTest extends CSSParser
 		var prop = parseEffectProperties(v);
 		Assert.isNull(prop);
 		var e = parseEffect(v).as(SetAction);
-		Assert.notNull(e);
+		Assert.isNotNull(e);
 		
 		trace("\n\nTESTING PARSE SET-ACTION ALPHA EFFECT");
 		
@@ -1279,12 +1279,12 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action alpha(80% 40%)";
 		var prop = parseEffectProperties(v);
-		Assert.notNull(prop);
+		Assert.isNotNull(prop);
 		trace(prop);
 		switch (prop) {
 			case alpha(from, to):
-				Assert.equal(from, 0.8, "alpha-from");
-				Assert.equal(to, 0.4, "alpha-to");
+				Assert.isEqual(from, 0.8, "alpha-from");
+				Assert.isEqual(to, 0.4, "alpha-to");
 			
 			default:
 				Assert.that(false);
@@ -1292,12 +1292,12 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action alpha(45.1%)";
 		var prop = parseEffectProperties(v);
-		Assert.notNull(prop);
+		Assert.isNotNull(prop);
 		trace(prop);
 		switch (prop) {
 			case alpha(from, to):
 				Assert.that(from.notSet(), "alpha-from");
-				Assert.equal(to, 0.451, "alpha-to");
+				Assert.isEqual(to, 0.451, "alpha-to");
 			
 			default:
 				Assert.that(false);
@@ -1314,14 +1314,14 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action position(20px,809047px 4px,6px)";
 		var prop = parseEffectProperties(v);
-		Assert.notNull(prop);
+		Assert.isNotNull(prop);
 		trace(prop);
 		switch (prop) {
 			case position(fromX, fromY, toX, toY):
-				Assert.equal(fromX, 20, "pos-fromX");
-				Assert.equal(fromY, 809047, "pos-fromY");
-				Assert.equal(toX, 4, "pos-toX");
-				Assert.equal(toY, 6, "pos-toY");
+				Assert.isEqual(fromX, 20, "pos-fromX");
+				Assert.isEqual(fromY, 809047, "pos-fromY");
+				Assert.isEqual(toX, 4, "pos-toX");
+				Assert.isEqual(toY, 6, "pos-toY");
 			
 			default:
 				Assert.that(false);
@@ -1330,14 +1330,14 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action position(4px,6px)";
 		var prop = parseEffectProperties(v);
-		Assert.notNull(prop);
+		Assert.isNotNull(prop);
 		trace(prop);
 		switch (prop) {
 			case position(fromX, fromY, toX, toY):
 				Assert.that(fromX.notSet(), "pos-fromX");
 				Assert.that(fromY.notSet(), "pos-fromY");
-				Assert.equal(toX, 4, "pos-toX");
-				Assert.equal(toY, 6, "pos-toY");
+				Assert.isEqual(toX, 4, "pos-toX");
+				Assert.isEqual(toY, 6, "pos-toY");
 			
 			default:
 				Assert.that(false);
@@ -1353,12 +1353,12 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action rotation(	4deg	987deg	)";
 		var prop = parseEffectProperties(v);
-		Assert.notNull(prop);
+		Assert.isNotNull(prop);
 		trace(prop);
 		switch (prop) {
 			case rotation(from, to):
-				Assert.equal(from, 4, "rotation-from");
-				Assert.equal(to, 987, "rotation-to");
+				Assert.isEqual(from, 4, "rotation-from");
+				Assert.isEqual(to, 987, "rotation-to");
 			
 			default:
 				Assert.that(false);
@@ -1371,7 +1371,7 @@ class CSSParserMethodTest extends CSSParser
 		switch (prop) {
 			case rotation(from, to):
 				Assert.that(from.notSet(), "rotation-from");
-				Assert.equal(to, 987, "rotation-to");
+				Assert.isEqual(to, 987, "rotation-to");
 			
 			default:
 				Assert.that(false);
@@ -1387,14 +1387,14 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action size(	3px,4px	 650px,40px	 )";
 		var prop = parseEffectProperties(v);
-		Assert.notNull(prop);
+		Assert.isNotNull(prop);
 		trace(prop);
 		switch (prop) {
 			case size(fromW, fromH, toW, toH):
-				Assert.equal(fromW, 3, "size-width-from");
-				Assert.equal(fromH, 4, "size-height-from");
-				Assert.equal(toW, 650, "size-width-to");
-				Assert.equal(toH, 40, "size-height-to");
+				Assert.isEqual(fromW, 3, "size-width-from");
+				Assert.isEqual(fromH, 4, "size-height-from");
+				Assert.isEqual(toW, 650, "size-width-to");
+				Assert.isEqual(toH, 40, "size-height-to");
 			
 			default:
 				Assert.that(false);
@@ -1408,8 +1408,8 @@ class CSSParserMethodTest extends CSSParser
 			case size(fromW, fromH, toW, toH):
 				Assert.that(fromW.notSet(), "size-width-from");
 				Assert.that(fromH.notSet(), "size-height-from");
-				Assert.equal(toW, 650, "size-width-to");
-				Assert.equal(toH, 40, "size-height-to");
+				Assert.isEqual(toW, 650, "size-width-to");
+				Assert.isEqual(toH, 40, "size-height-to");
 			
 			default:
 				Assert.that(false);
@@ -1426,14 +1426,14 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action scale(4% , 95% 100%  , 0.12%)";
 		var prop = parseEffectProperties(v);
-		Assert.notNull(prop);
+		Assert.isNotNull(prop);
 		trace(prop);
 		switch (prop) {
 			case scale(fromX, fromY, toX, toY):
-				Assert.equal(fromX, .04,	"scale-x-from");
-				Assert.equal(fromY, .95,	"scale-y-from");
-				Assert.equal(toX, 1,		"scale-x-to");
-				Assert.equal(toY, .0012,	"scale-y-to");
+				Assert.isEqual(fromX, .04,	"scale-x-from");
+				Assert.isEqual(fromY, .95,	"scale-y-from");
+				Assert.isEqual(toX, 1,		"scale-x-to");
+				Assert.isEqual(toY, .0012,	"scale-y-to");
 			
 			default:
 				Assert.that(false);
@@ -1442,14 +1442,14 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action scale(4% , 95%)";
 		var prop = parseEffectProperties(v);
-		Assert.notNull(prop);
+		Assert.isNotNull(prop);
 		trace(prop);
 		switch (prop) {
 			case scale(fromX, fromY, toX, toY):
 				Assert.that(fromX.notSet(),	"scale-x-from");
 				Assert.that(fromY.notSet(),	"scale-y-from");
-				Assert.equal(toX, .04,		"scale-x-to");
-				Assert.equal(toY, .95,		"scale-y-to");
+				Assert.isEqual(toX, .04,		"scale-x-to");
+				Assert.isEqual(toY, .95,		"scale-y-to");
 			
 			default:
 				Assert.that(false);
@@ -1466,13 +1466,13 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action any(skewX, 10, 5)";
 		var prop = parseEffectProperties(v);
-		Assert.notNull(prop);
+		Assert.isNotNull(prop);
 		trace(prop);
 		switch (prop) {
 			case any(propName, from, to):
-				Assert.equal(propName,	"skewX",	"prop-name");
-				Assert.equal(from,		"10",		"start-value");
-				Assert.equal(to,		"5",		"end-value");
+				Assert.isEqual(propName,	"skewX",	"prop-name");
+				Assert.isEqual(from,		"10",		"start-value");
+				Assert.isEqual(to,		"5",		"end-value");
 			
 			default:
 				Assert.that(false);
@@ -1481,13 +1481,13 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action any(skewX, 10)";
 		var prop = parseEffectProperties(v);
-		Assert.notNull(prop);
+		Assert.isNotNull(prop);
 		trace(prop);
 		switch (prop) {
 			case any(propName, from, to):
-				Assert.equal(propName,	"skewX",	"prop-name");
+				Assert.isEqual(propName,	"skewX",	"prop-name");
 				Assert.isNull(from,					"start-value");
-				Assert.equal(to,		"10",		"end-value");
+				Assert.isEqual(to,		"10",		"end-value");
 			
 			default:
 				Assert.that(false);
@@ -1503,43 +1503,43 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "wipe";
 		var e = parseEffect(v).as(WipeEffect);
-		Assert.notNull(e);
+		Assert.isNotNull(e);
 		trace(e);
-		Assert.equal( e.duration,			350,		"duration" );
+		Assert.isEqual( e.duration,			350,		"duration" );
 		Assert.that( e.delay.notSet(),					"delay" );
-		Assert.equal( e.easing,				null,		"easing" );
+		Assert.isEqual( e.easing,				null,		"easing" );
 		Assert.that( e.startValue.notSet(),				"start-value" );
 		Assert.that( e.endValue.notSet(),				"end-value" );
 		
 		var v = "wipe 400ms";
 		var e = parseEffect(v).as(WipeEffect);
-		Assert.notNull(e);
+		Assert.isNotNull(e);
 		trace(e);
-		Assert.equal( e.duration,			400,		"duration" );
+		Assert.isEqual( e.duration,			400,		"duration" );
 		Assert.that( e.delay.notSet(),					"delay" );
-		Assert.equal( e.easing,				null,		"easing" );
+		Assert.isEqual( e.easing,				null,		"easing" );
 		Assert.that( e.startValue.notSet(),				"start-value" );
 		Assert.that( e.endValue.notSet(),				"end-x-value" );
 		
 		var v = "wipe 40ms linear-out 0px 400px";
 		var e = parseEffect(v).as(WipeEffect);
-		Assert.notNull(e);
+		Assert.isNotNull(e);
 		trace(e);
-		Assert.equal( e.duration,			40,				"duration" );
+		Assert.isEqual( e.duration,			40,				"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easingName,			"linear-out",	"easing-name" );
-		Assert.equal( e.startValue,			0,				"start-value" );
-		Assert.equal( e.endValue,			400,			"end-value" );
+		Assert.isEqual( e.easingName,			"linear-out",	"easing-name" );
+		Assert.isEqual( e.startValue,			0,				"start-value" );
+		Assert.isEqual( e.endValue,			400,			"end-value" );
 		
 		var v = "wipe 400px";
 		var e = parseEffect(v).as(WipeEffect);
-		Assert.notNull(e);
+		Assert.isNotNull(e);
 		trace(e);
-		Assert.equal( e.duration,			350,			"duration" );
+		Assert.isEqual( e.duration,			350,			"duration" );
 		Assert.that( e.delay.notSet(),						"delay" );
-		Assert.equal( e.easingName,			null,			"easing-name" );
+		Assert.isEqual( e.easingName,			null,			"easing-name" );
 		Assert.that( e.startValue.notSet(),					"start-value" );
-		Assert.equal( e.endValue,			400,			"end-value" );
+		Assert.isEqual( e.endValue,			400,			"end-value" );
 		
 		
 		
@@ -1561,33 +1561,33 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "parallel (fade 15ms)";
 		var e = parseEffect(v).as(ParallelEffect);
-		Assert.notNull(e, "effect");
+		Assert.isNotNull(e, "effect");
 		trace(e);
-		Assert.equal( e.duration,			350,				"duration" );
+		Assert.isEqual( e.duration,			350,				"duration" );
 		Assert.that( e.delay.notSet(),							"delay" );
-		Assert.equal( e.easing,				null,				"easing" );
-		Assert.equal( e.effects.length,		1,					"child-length" );
+		Assert.isEqual( e.easing,				null,				"easing" );
+		Assert.isEqual( e.effects.length,		1,					"child-length" );
 		Assert.that( e.effects.getItemAt(0).is(FadeEffect),		"first child-effect");
-		Assert.equal( e.effects.getItemAt(0).duration, 15,		"first child-effect duration");
+		Assert.isEqual( e.effects.getItemAt(0).duration, 15,		"first child-effect duration");
 		Assert.that( e.effects.getItemAt(0).delay.notSet(),		"first child-effect delay");
 		
 		var v = "parallel 900ms 50ms bounce-out (wipe left-to-right 200ms, fade 15ms elastic-in)";
 		var e = parseEffect(v).as(ParallelEffect);
-		Assert.notNull(e, "effect");
+		Assert.isNotNull(e, "effect");
 		trace(e);
-		Assert.equal( e.duration,			900,				"duration" );
-		Assert.equal( e.delay,				50,					"delay" );
-		Assert.equal( e.easingName,			"bounce-out",		"easing" );
-		Assert.notNull( e.effects,								"child-collection");
-		Assert.equal( e.effects.length,		2,					"child-length" );
+		Assert.isEqual( e.duration,			900,				"duration" );
+		Assert.isEqual( e.delay,				50,					"delay" );
+		Assert.isEqual( e.easingName,			"bounce-out",		"easing" );
+		Assert.isNotNull( e.effects,								"child-collection");
+		Assert.isEqual( e.effects.length,		2,					"child-length" );
 		Assert.that( e.effects.getItemAt(0).is(WipeEffect),		"first child-effect");
-		Assert.equal( e.effects.getItemAt(0).duration, 200,		"first child-effect duration");
+		Assert.isEqual( e.effects.getItemAt(0).duration, 200,		"first child-effect duration");
 		Assert.isNull( e.effects.getItemAt(0).easingName,			"first-child-effect easing" );
 		Assert.that( e.effects.getItemAt(0).delay.notSet(),		"first child-effect delay");
 		
 		Assert.that( e.effects.getItemAt(1).is(FadeEffect),		"second child-effect");
-		Assert.equal( e.effects.getItemAt(1).duration, 15,		"second child-effect duration");
-		Assert.equal( e.effects.getItemAt(1).easingName,		"elastic-in",		"second-child-effect easing" );
+		Assert.isEqual( e.effects.getItemAt(1).duration, 15,		"second child-effect duration");
+		Assert.isEqual( e.effects.getItemAt(1).easingName,		"elastic-in",		"second-child-effect easing" );
 		Assert.that( e.effects.getItemAt(1).delay.notSet(),		"second child-effect delay");
 		
 		
@@ -1608,57 +1608,57 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "sequence (fade 15ms)";
 		var e = parseEffect(v).as(SequenceEffect);
-		Assert.notNull(e, "effect");
+		Assert.isNotNull(e, "effect");
 		trace(e);
-		Assert.equal( e.duration,			350,				"duration" );
+		Assert.isEqual( e.duration,			350,				"duration" );
 		Assert.that( e.delay.notSet(),							"delay" );
-		Assert.equal( e.easing,				null,				"easing" );
-		Assert.equal( e.effects.length,		1,					"child-length" );
+		Assert.isEqual( e.easing,				null,				"easing" );
+		Assert.isEqual( e.effects.length,		1,					"child-length" );
 		Assert.that( e.effects.getItemAt(0).is(FadeEffect),		"first child-effect");
-		Assert.equal( e.effects.getItemAt(0).duration, 15,		"first child-effect duration");
+		Assert.isEqual( e.effects.getItemAt(0).duration, 15,		"first child-effect duration");
 		Assert.that( e.effects.getItemAt(0).delay.notSet(),		"first child-effect delay");
 		
 		var v = "sequence 900ms 50ms bounce-out (wipe left-to-right 200ms, fade 15ms)";
 		var e = parseEffect(v).as(SequenceEffect);
-		Assert.notNull(e, "effect");
+		Assert.isNotNull(e, "effect");
 		trace(e);
-		Assert.equal( e.duration,			900,				"duration" );
-		Assert.equal( e.delay,				50,					"delay" );
-		Assert.equal( e.easingName,			"bounce-out",		"easing" );
-		Assert.notNull( e.effects,								"child-collection");
-		Assert.equal( e.effects.length,		2,					"child-length" );
+		Assert.isEqual( e.duration,			900,				"duration" );
+		Assert.isEqual( e.delay,				50,					"delay" );
+		Assert.isEqual( e.easingName,			"bounce-out",		"easing" );
+		Assert.isNotNull( e.effects,								"child-collection");
+		Assert.isEqual( e.effects.length,		2,					"child-length" );
 		Assert.that( e.effects.getItemAt(0).is(WipeEffect),		"first child-effect");
-		Assert.equal( e.effects.getItemAt(0).duration, 200,		"first child-effect duration");
+		Assert.isEqual( e.effects.getItemAt(0).duration, 200,		"first child-effect duration");
 		Assert.that( e.effects.getItemAt(0).delay.notSet(),		"first child-effect delay");
 		
 		Assert.that( e.effects.getItemAt(1).is(FadeEffect),		"second child-effect");
-		Assert.equal( e.effects.getItemAt(1).duration, 15,		"second child-effect duration");
+		Assert.isEqual( e.effects.getItemAt(1).duration, 15,		"second child-effect duration");
 		Assert.that( e.effects.getItemAt(1).delay.notSet(),		"second child-effect delay");
 		
 		trace("\n\nTESTING PARSE NESTED SEQUENCE EFFECT");
 		var v = "sequence (parallel ( fade 500ms 40%, move 300ms elastic-out ), fade 600ms 100% )";
 		var e = parseEffect(v).as(SequenceEffect);
-		Assert.notNull(e, "effect");
+		Assert.isNotNull(e, "effect");
 		trace(e);
-	//	Assert.equal( e.duration,			900,				"duration" );	
+	//	Assert.isEqual( e.duration,			900,				"duration" );	
 		Assert.that( e.delay.notSet(),							"delay" );
-		Assert.equal( e.easingName,			null,				"easing" );
-		Assert.notNull( e.effects,								"child-collection");
-		Assert.equal( e.effects.length,		2,					"child-length" );
+		Assert.isEqual( e.easingName,			null,				"easing" );
+		Assert.isNotNull( e.effects,								"child-collection");
+		Assert.isEqual( e.effects.length,		2,					"child-length" );
 		Assert.that( e.effects.getItemAt(0).is(ParallelEffect),	"first child-effect = '" + e.effects.getItemAt(0) + "' but should be a ParallelEffect");
 		var parallel = e.effects.getItemAt(0).as(ParallelEffect);
-		Assert.equal( parallel.effects.length, 2,					"nested child-effect");
+		Assert.isEqual( parallel.effects.length, 2,					"nested child-effect");
 		Assert.that( parallel.effects.getItemAt(0).is(FadeEffect),	"first nested child-effect");
-		Assert.equal( parallel.effects.getItemAt(0).duration, 500,	"first nested child-effect duration");
+		Assert.isEqual( parallel.effects.getItemAt(0).duration, 500,	"first nested child-effect duration");
 		Assert.that( parallel.effects.getItemAt(0).delay.notSet(),	"first child-effect delay");
 		Assert.that( parallel.effects.getItemAt(1).is(MoveEffect),	"second nested child-effect");
-		Assert.equal( parallel.effects.getItemAt(1).duration, 300,	"second nested child-effect duration");
+		Assert.isEqual( parallel.effects.getItemAt(1).duration, 300,	"second nested child-effect duration");
 		Assert.that( parallel.effects.getItemAt(1).delay.notSet(),	"second child-effect delay");
-	//	Assert.equal( e.effects.getItemAt(0).duration, 200,		"first child-effect duration");
-	//	Assert.equal( e.effects.getItemAt(0).delay, 0,			"first child-effect delay");
+	//	Assert.isEqual( e.effects.getItemAt(0).duration, 200,		"first child-effect duration");
+	//	Assert.isEqual( e.effects.getItemAt(0).delay, 0,			"first child-effect delay");
 		
 		Assert.that( e.effects.getItemAt(1).is(FadeEffect),		"second child-effect");
-		Assert.equal( e.effects.getItemAt(1).duration, 600,		"second child-effect duration");
+		Assert.isEqual( e.effects.getItemAt(1).duration, 600,		"second child-effect duration");
 		Assert.that( e.effects.getItemAt(1).delay.notSet(),		"second child-effect delay");
 	}
 #end

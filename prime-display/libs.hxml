@@ -1,0 +1,19 @@
+-lib munit
+-lib hamcrest
+-lib tink_macros
+-lib feffects
+
+-cp ../libs/apparat
+
+-cp ../prime-components/src
+-cp ../prime-core/src
+-cp ../prime-signals/src
+-cp ../prime-bindable/src
+-cp ../prime-data/src
+-cp ../prime-layout/src
+-cp ../prime-fsm/src
+-cp ../prime-css/src
+
+-cp ../src
+-cp ./src
+-cp ./test

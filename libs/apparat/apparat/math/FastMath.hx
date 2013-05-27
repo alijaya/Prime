@@ -35,7 +35,7 @@ package apparat.math;
  *
  * @author Joa Ebert
  * 
- * //TODO use apparat's memory class instead of the flash class
+ * //TODO use apparats memory class instead of the flash class
  * //TODO write a js implementation for the Memory using methods
  */
 extern class FastMath
@@ -115,7 +115,7 @@ extern class FastMath
 
 	/**
 	 * Computes and returns the angle of the poInt <code>y/x</code> in radians, when measured counterclockwise
-	 * from a circle's <em>x</em> axis (where 0,0 represents the center of the circle).
+	 * from a circles <em>x</em> axis (where 0,0 represents the center of the circle).
 	 * The return value is between positive pi and negative pi.
 	 *
 	 * @author Eugene Zatepyakin

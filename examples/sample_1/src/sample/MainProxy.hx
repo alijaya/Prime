@@ -1,8 +1,8 @@
 package sample;
 
 
-import primevc.mvc.Proxy;
-import primevc.core.Bindable;
+import prime.mvc.Proxy;
+import prime.bindable.Bindable;
 
 /**
  * Provides access to data and handles data logic.
@@ -12,7 +12,6 @@ class MainProxy extends Proxy<Bindable<String>, {}>
     public function new(events)
     {
         super(events);
-        
-        vo = new Bindable<String>("http://www.bentours.com.au/images/product/extra_image/st_basils_cathedral_moscow.jpg");
+        vo = new Bindable<String>("http://i286.photobucket.com/albums/ll87/amandakendle/StBasilsCathedralMoscow.jpg");
     }
 }

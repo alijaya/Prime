@@ -1,0 +1,11 @@
+<project name="prime-media" url="http://prime.vc" license="BSD">
+	<user name=""/>
+	<description></description>
+	<version name="0.0.0.0"></version>
+
+	<depends name="prime-core"/>
+	<depends name="prime-signals"/>
+	<depends name="prime-bindable"/>
+	<depends name="prime-display"/>
+	<depends name="prime-fsm"/>
+</project>

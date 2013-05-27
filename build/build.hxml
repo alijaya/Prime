@@ -15,7 +15,7 @@
 -swf-header 1000:750:24:FFFFFF
 #-swf bin-debug/app.swf
 
-#-main primevc.Main
+#-main prime.Main
 
 -cp libs/apparat
 -cp libs/haxe

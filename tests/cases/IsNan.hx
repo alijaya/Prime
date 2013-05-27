@@ -1,5 +1,5 @@
 package cases;
-  using primevc.utils.NumberUtil;
+  using prime.utils.NumberUtil;
 
 class IsNan
 {

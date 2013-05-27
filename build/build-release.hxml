@@ -13,6 +13,6 @@
 #-cp skins/flair
 #-cp tests/
 -lib feffects
-#-main primevc.Main
+#-main prime.Main
 #-main cases.LayoutTest
 #-main cases.ComponentsTest

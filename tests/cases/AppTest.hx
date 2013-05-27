@@ -27,21 +27,21 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package cases;
- import primevc.core.collections.ArrayList;
- import primevc.core.Bindable;
- import primevc.gui.components.Button;
- import primevc.gui.components.Image;
- import primevc.gui.components.Label;
- import primevc.gui.components.ListView;
- import primevc.gui.components.Slider;
- import primevc.gui.core.UIComponent;
- import primevc.gui.core.UIContainer;
- import primevc.gui.core.UIDataContainer;
- import primevc.gui.core.UIWindow;
- import primevc.gui.display.Window;
- import primevc.gui.layout.LayoutClient;
- import primevc.gui.layout.LayoutContainer;
-  using primevc.utils.Bind;
+ import prime.bindable.collections.ArrayList;
+ import prime.bindable.Bindable;
+ import prime.gui.components.Button;
+ import prime.gui.components.Image;
+ import prime.gui.components.Label;
+ import prime.gui.components.ListView;
+ import prime.gui.components.Slider;
+ import prime.gui.core.UIComponent;
+ import prime.gui.core.UIContainer;
+ import prime.gui.core.UIDataContainer;
+ import prime.gui.core.UIWindow;
+ import prime.gui.display.Window;
+ import prime.layout.LayoutClient;
+ import prime.layout.LayoutContainer;
+  using prime.utils.Bind;
   using Std;
 
 
@@ -254,7 +254,7 @@ class SpreadView extends UIComponent
 	
 	override public function scale (sx:Float, sy:Float)
 	{
-		Assert.notNull( content );
+		Assert.isNotNull( content );
 		resetLayoutScale();
 		content.scaleX = sx;
 		content.scaleY = sy;

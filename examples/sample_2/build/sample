@@ -7,6 +7,7 @@ PRIMEVC_DIR="$PRJROOT/../.."
 bash "${PRIMEVC_DIR}/build/build" \
 	-m sample.MainFacade \
 	-p "$PRJROOT" \
+	-e build/libs.hxml \
 	-s sample \
 	-o Sample.swf \
 	$*

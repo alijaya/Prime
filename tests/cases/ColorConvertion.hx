@@ -1,5 +1,5 @@
 package cases;
-  using primevc.utils.Color;
+  using prime.utils.Color;
 
 
 /**

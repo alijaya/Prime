@@ -1,7 +1,7 @@
 package sample;
 
-import primevc.mvc.MVCNotifier;
-import primevc.mvc.IMVCCore;
+import prime.mvc.MVCNotifier;
+import prime.mvc.IMVCCore;
 
 
 /**
@@ -16,10 +16,9 @@ class MainModel extends MVCNotifier implements IMVCCore
 {
 	
     public var mainProxy (default, null):MainProxy;
-    public function new ()		{ super(); }
-
-    public function init (facade:MainFacade)
-    {
-        mainProxy = new MainProxy( facade.events );
+    public function new (facade:MainFacade, enabled = true)		
+    { 
+      super(enabled); 
+      mainProxy = new MainProxy( facade.events );
     }
 }

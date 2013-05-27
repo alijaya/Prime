@@ -27,13 +27,13 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package cases;
- import primevc.gui.core.UIComponent;
- import primevc.gui.styling.FontStyle;
- import primevc.gui.styling.GraphicStyleDeclarations;
- import primevc.gui.styling.LayoutStyle;
- import primevc.gui.styling.StyleChildren;
- import primevc.gui.styling.StyleBlock;
- import primevc.gui.styling.UIElementStyle;
+ import prime.gui.core.UIComponent;
+ import prime.gui.styling.FontStyle;
+ import prime.gui.styling.GraphicStyleDeclarations;
+ import prime.gui.styling.LayoutStyle;
+ import prime.gui.styling.StyleChildren;
+ import prime.gui.styling.StyleBlock;
+ import prime.gui.styling.UIElementStyle;
 
 
 /**
@@ -76,7 +76,7 @@ class TestStyles extends StyleChildren
 	override private function createElementSelectors ()
 	{
 		var c = elementSelectors;
-		c.set("primevc.gui.display.Sprite", new StyleBlock(
+		c.set("prime.gui.display.Sprite", new StyleBlock(
 			null,
 			new FontStyle(11, "Verdana")
 		));
@@ -108,7 +108,7 @@ class TestStyles extends StyleChildren
 		
 		c.set("fillingButton", new StyleBlock(
 			new LayoutStyle(
-				new RelativeLayout( 5, 5, 5, 5 ), //t r b l	-> make button as big as it's parent with 5 px margin on all sides
+				new RelativeLayout( 5, 5, 5, 5 ), //t r b l	-> make button as big as its parent with 5 px margin on all sides
 			)
 		));
 	}

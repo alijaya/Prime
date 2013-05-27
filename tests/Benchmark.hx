@@ -1,9 +1,9 @@
  import flash.display.DisplayObject;
  import flash.events.Event;
  import flash.system.System;
- import primevc.tools.StopWatch;
- import primevc.types.Number;
- import primevc.utils.FastArray;
+ import prime.tools.StopWatch;
+ import prime.types.Number;
+ import prime.utils.FastArray;
  
 
 

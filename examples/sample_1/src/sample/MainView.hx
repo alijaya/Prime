@@ -1,13 +1,13 @@
 package sample;
- import primevc.gui.display.Window;
- import primevc.mvc.MVCActor;
+ import prime.gui.display.Window;
+ import prime.mvc.MVCActor;
 
 
 /**
  * Defines and groups together and couples 
  * mediators and application windows.
  */
-class MainView extends MVCActor<MainFacade>
+class MainView extends prime.mvc.MVCActor<MainFacade>, implements prime.mvc.IMVCCoreActor
 {
     private var window:MainWindow;
     public var buttonMediator(default, null):ButtonMediator;
@@ -16,17 +16,17 @@ class MainView extends MVCActor<MainFacade>
     public function new (facade:MainFacade)
     {
         super(facade);
-        window				= Window.startup( MainWindow );
-		buttonMediator		= new ButtonMediator(facade, window.loadButton);
-        imageLoaderMediator = new ImageLoaderMediator(facade, window.imageLoader);
+        window		    		  = Window.startup( function (s) return new MainWindow(s) );
+        buttonMediator	  	= new ButtonMediator(facade, true, window.loadButton);
+        imageLoaderMediator = new ImageLoaderMediator(facade, true, window.imageLoader);
     }
 	
 	
     override public function dispose ()
     {
-		if (isDisposed())
-			return;
-		
+        if (!isListening())
+            return;
+
         buttonMediator.dispose();
         imageLoaderMediator.dispose();
         window.dispose();
@@ -41,21 +41,21 @@ class MainView extends MVCActor<MainFacade>
 	
     override public function startListening ()
     {
-        if (isListening())
-			return;
-        
+        if (!isListening())
+            return;
+
         buttonMediator.startListening();
         imageLoaderMediator.startListening();
-		super.startListening();
+        super.startListening();
     }
 	
 	
-	override public function stopListening ()
+    override public function stopListening ()
     {
         if (!isListening())
-			return;
-        
-		super.stopListening();
+            return;
+
+        super.stopListening();
         buttonMediator.stopListening();
         imageLoaderMediator.stopListening();
     }

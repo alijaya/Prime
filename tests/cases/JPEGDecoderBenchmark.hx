@@ -3,17 +3,17 @@ package cases;
  import flash.display.Bitmap;
  import flash.geom.Point;
  import flash.geom.Rectangle;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.net.URLLoader;
- import primevc.utils.FastArray;
- import primevc.utils.TimerUtil;
-  using primevc.utils.FastArray;
-  using primevc.utils.TypeUtil;
-  using primevc.utils.Bind;
+ import prime.signals.Signal0;
+ import prime.net.URLLoader;
+ import prime.utils.FastArray;
+ import prime.utils.TimerUtil;
+  using prime.utils.FastArray;
+  using prime.utils.TypeUtil;
+  using prime.utils.Bind;
 
 
 private typedef FlashLoader = flash.display.Loader;
-private typedef PrimeLoader = primevc.gui.display.Loader;
+private typedef PrimeLoader = prime.gui.display.Loader;
 
 
 class JPEGDecoderBenchmark
@@ -122,7 +122,7 @@ class JPEGLoaderPrime extends LoaderTestBase
     public function load ()
     {
         stamp();
-        loader.load(new primevc.types.URI(url));
+        loader.load(new prime.types.URI(url));
     }
 
 
@@ -162,7 +162,7 @@ class JPEGURLLoaderManual extends LoaderTestBase
     public function load ()
     {
         stamp();
-        urlLoader.load(new primevc.types.URI(url));
+        urlLoader.load(new prime.types.URI(url));
     }
 
 

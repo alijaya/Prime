@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="WWX JS App" package="prime.examples.nme_test" version="1.0.0" company="Prime" />
+	<app main="nme.test.Main" path="Export" file="NME_Test" />
+	<window width="1000" height="100" background="0xF0F0F0" fps="30" />
+
+	<source path="src" />
+	
+	<haxelib name="nme" />
+
+	<!--
+	Using local prime source
+	-->
+	<source path="../../prime-bindable/src" />
+	<source path="../../prime-layout/src" />
+	<source path="../../prime-signals/src" />
+	<source path="../../prime-core/src" />
+	<source path="../../prime-data/src" />
+	<source path="../../prime-fsm/src" />
+
+	<!--
+	Using haxelibs
+	<haxelib name="prime-bindable" />
+	<haxelib name="prime-layout" />
+
+	<haxelib name="prime-signals" />
+	<haxelib name="prime-core" />
+	<haxelib name="prime-data" />
+	<haxelib name="prime-fsm" />	
+	-->
+	<assets path="assets" include="*" />
+	
+</project>

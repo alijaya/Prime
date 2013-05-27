@@ -1,6 +1,6 @@
 package cases;
  import flash.Vector;
- import primevc.utils.MacroUtils;
+ import prime.utils.MacroUtils;
 
 
 /**
@@ -52,26 +52,26 @@ interface IClient2 {}
 
 class A {}
 
-/*@:build(primevc.utils.MacroUtils.autoDispose())
-@:build(primevc.utils.MacroUtils.autoTraceFields())
-@:build(primevc.utils.MacroUtils.autoTraceMe())*/
-/*@:build(primevc.utils.MacroUtils.autoInstantiate("IDisposable", "Client"))
-@:autoBuild(primevc.utils.MacroUtils.autoDispose())
-@:autoBuild(primevc.utils.MacroUtils.autoTraceMe())
-@:autoBuild(primevc.utils.MacroUtils.autoTraceFields())
-@:autoBuild(primevc.utils.MacroUtils.autoInstantiate("IDisposable", "Client"))
+/*@:build(prime.utils.MacroUtils.autoDispose())
+@:build(prime.utils.MacroUtils.autoTraceFields())
+@:build(prime.utils.MacroUtils.autoTraceMe())*/
+/*@:build(prime.utils.MacroUtils.autoInstantiate("IDisposable", "Client"))
+@:autoBuild(prime.utils.MacroUtils.autoDispose())
+@:autoBuild(prime.utils.MacroUtils.autoTraceMe())
+@:autoBuild(prime.utils.MacroUtils.autoTraceFields())
+@:autoBuild(prime.utils.MacroUtils.autoInstantiate("IDisposable", "Client"))
 class Test0
 {
 	public function new() {}
 }*/
-@:build(primevc.utils.MacroUtils.autoDispose())
-@:build(primevc.utils.MacroUtils.autoTraceFields())
-//@:build(primevc.utils.MacroUtils.autoTraceMe())
-@:build(primevc.utils.MacroUtils.autoInstantiate("IDisposable", "Client"))
-@:autoBuild(primevc.utils.MacroUtils.autoDispose())
-//@:autoBuild(primevc.utils.MacroUtils.autoTraceMe())
-@:autoBuild(primevc.utils.MacroUtils.autoTraceFields())
-@:autoBuild(primevc.utils.MacroUtils.autoInstantiate("IDisposable", "Client"))
+@:build(prime.utils.MacroUtils.autoDispose())
+@:build(prime.utils.MacroUtils.autoTraceFields())
+//@:build(prime.utils.MacroUtils.autoTraceMe())
+@:build(prime.utils.MacroUtils.autoInstantiate("IDisposable", "Client"))
+@:autoBuild(prime.utils.MacroUtils.autoDispose())
+//@:autoBuild(prime.utils.MacroUtils.autoTraceMe())
+@:autoBuild(prime.utils.MacroUtils.autoTraceFields())
+@:autoBuild(prime.utils.MacroUtils.autoInstantiate("IDisposable", "Client"))
 class Test1 //extends Test0
 {
 	public static var counter = 1;
@@ -97,4 +97,5 @@ class Test2 extends Test1
 }
 
 class Test3 extends Test2 {}
+
 

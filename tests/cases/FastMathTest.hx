@@ -1,8 +1,8 @@
 package cases;
  import apparat.math.FastMath;
- import primevc.utils.NumberUtil;
+ import prime.utils.NumberUtil;
  import Benchmark;
-  using primevc.utils.NumberUtil;
+  using prime.utils.NumberUtil;
 
 
 
@@ -19,41 +19,41 @@ class FastMathTest extends Benchmark
 	{
 		super();
 		
-		Assert.equal( Math.round(.5)  , 1 );
-		Assert.equal( Math.round(.3)  , 0 );
-		Assert.equal( Math.round(.1)  , 0 );
-		Assert.equal( Math.round(.6)  , 1 );
-		Assert.equal( Math.round(-.5) , 0 );
-		Assert.equal( Math.round(-.3) , 0 );
-		Assert.equal( Math.round(-.6) , -1 );
+		Assert.isEqual( Math.round(.5)  , 1 );
+		Assert.isEqual( Math.round(.3)  , 0 );
+		Assert.isEqual( Math.round(.1)  , 0 );
+		Assert.isEqual( Math.round(.6)  , 1 );
+		Assert.isEqual( Math.round(-.5) , 0 );
+		Assert.isEqual( Math.round(-.3) , 0 );
+		Assert.isEqual( Math.round(-.6) , -1 );
 		
-		Assert.equal( IntMath.roundFloat(.5)  , 1 );
-		Assert.equal( IntMath.roundFloat(.3)  , 0 );
-		Assert.equal( IntMath.roundFloat(.1)  , 0 );
-		Assert.equal( IntMath.roundFloat(.6)  , 1 );
-		Assert.equal( IntMath.roundFloat(-.5) , -1 );
-		Assert.equal( IntMath.roundFloat(-.3) , 0 );
-		Assert.equal( IntMath.roundFloat(-.6) , -1 );
+		Assert.isEqual( IntMath.roundFloat(.5)  , 1 );
+		Assert.isEqual( IntMath.roundFloat(.3)  , 0 );
+		Assert.isEqual( IntMath.roundFloat(.1)  , 0 );
+		Assert.isEqual( IntMath.roundFloat(.6)  , 1 );
+		Assert.isEqual( IntMath.roundFloat(-.5) , -1 );
+		Assert.isEqual( IntMath.roundFloat(-.3) , 0 );
+		Assert.isEqual( IntMath.roundFloat(-.6) , -1 );
 		
-		Assert.equal( Math.floor(.5)  , 0 );
-		Assert.equal( Math.floor(.3)  , 0 );
-		Assert.equal( Math.floor(.1)  , 0 );
-		Assert.equal( Math.floor(.6)  , 0 );
-		Assert.equal( Math.floor(-.5) , -1 );
-		Assert.equal( Math.floor(-.3) , -1 );
-		Assert.equal( Math.floor(-.6) , -1 );
-		Assert.equal( Math.floor(-2) , -2 );
-		Assert.equal( Math.floor(-2.1) , -3 );
+		Assert.isEqual( Math.floor(.5)  , 0 );
+		Assert.isEqual( Math.floor(.3)  , 0 );
+		Assert.isEqual( Math.floor(.1)  , 0 );
+		Assert.isEqual( Math.floor(.6)  , 0 );
+		Assert.isEqual( Math.floor(-.5) , -1 );
+		Assert.isEqual( Math.floor(-.3) , -1 );
+		Assert.isEqual( Math.floor(-.6) , -1 );
+		Assert.isEqual( Math.floor(-2) , -2 );
+		Assert.isEqual( Math.floor(-2.1) , -3 );
 		
-		Assert.equal( IntMath.floorFloat(.5)  , 0 );
-		Assert.equal( IntMath.floorFloat(.3)  , 0 );
-		Assert.equal( IntMath.floorFloat(.1)  , 0 );
-		Assert.equal( IntMath.floorFloat(.6)  , 0 );
-		Assert.equal( IntMath.floorFloat(-.5) , -1 );
-		Assert.equal( IntMath.floorFloat(-.3) , -1 );
-		Assert.equal( IntMath.floorFloat(-.6) , -1 );
-		Assert.equal( IntMath.floorFloat(-2) , -2 );
-		Assert.equal( IntMath.floorFloat(-2.1) , -3 );
+		Assert.isEqual( IntMath.floorFloat(.5)  , 0 );
+		Assert.isEqual( IntMath.floorFloat(.3)  , 0 );
+		Assert.isEqual( IntMath.floorFloat(.1)  , 0 );
+		Assert.isEqual( IntMath.floorFloat(.6)  , 0 );
+		Assert.isEqual( IntMath.floorFloat(-.5) , -1 );
+		Assert.isEqual( IntMath.floorFloat(-.3) , -1 );
+		Assert.isEqual( IntMath.floorFloat(-.6) , -1 );
+		Assert.isEqual( IntMath.floorFloat(-2) , -2 );
+		Assert.isEqual( IntMath.floorFloat(-2.1) , -3 );
 		
 		var group = new Comparison( "compare abs in if statement", 1000000 );
 		add( group );

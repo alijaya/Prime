@@ -1,8 +1,8 @@
 package sample;
 
-import primevc.gui.core.UIWindow;
-import primevc.gui.components.Button;
-import primevc.gui.components.Image;
+import prime.gui.core.UIWindow;
+import prime.gui.components.Button;
+import prime.gui.components.Image;
 
 
 /**

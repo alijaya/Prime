@@ -40,7 +40,7 @@ There are still quite a lot of features awaiting to be implemented in the CSS-Pa
 The proeprties listed in this document also display if the properties are supported for flash and html.
 
 - The properties that are supported by flash are already implemented in the CSS-Parser and the PrimeVC-components
-- The properties that are *not* supported by flash are still waiting for an primevc-implementation
+- The properties that are *not* supported by flash are still waiting for an prime-implementation
 - The properties that are supported by HTML are equal to the properties specified by W3C-CSS3
 - The properties that are *not supported by HTML are implemented for PrimeVC and are still waiting for a correct implementation in HTML/CSS
 
@@ -72,7 +72,7 @@ More info about these units can be fount at http://www.w3.org/TR/css3-values/[w3
 [options="header", cols="1m,2,3,1,1"]
 |=====
 |Unit 	| Full name 	| Relative to 					|Flash 	|HTML
-|ex 	| x-height 		| x-height of element's font 	r| 		g|
+|ex 	| x-height 		| x-height of elements font 	r| 		g|
 |em 	| 				| font-size of parent 			r| 		g|
 |px 	| Pixels 		| Absolute value 				g| 		g|
 |in 	| 				| 								r| 		g| 
@@ -84,7 +84,7 @@ More info about these units can be fount at http://www.w3.org/TR/css3-values/[w3
 |=====
 :t_fontsize: xref:_font[&#91;unit&#93;]
 
-Support for other units then `%` and `px` is not yet implemented for flash. The css-parser will use `px` for all unit's that flash doesn't know.
+Support for other units then `%` and `px` is not yet implemented for flash. The css-parser will use `px` for all units that flash doesn't know.
 
 === Distance
 [options="header", cols="1m,2,1,1"]
@@ -101,7 +101,7 @@ Support for other units then `%` and `px` is not yet implemented for flash. The 
 :t_distance: xref:_distance[&#91;unit&#93;]
 ~* Explanations shamelessly copied from http://www.w3.org/TR/css3-values/#absolute-lengths[w3c]~
 
-Support for other units then `%` and `px` is not yet implemented for flash. The css-parser will use `px` for all unit's that flash doesn't know.
+Support for other units then `%` and `px` is not yet implemented for flash. The css-parser will use `px` for all units that flash doesn't know.
 
 
 === Angles
@@ -280,12 +280,12 @@ IMPORTANT: Quotes around an url or class is *not* allowed!
 image-bitmapdata is already embedded in the application: 
 external Class Test1.png extends flash.display.BitmapData {}
 */
-.style1 	{ background: class( primevc.examples.Test1.png ); }
+.style1 	{ background: class( prime.examples.Test1.png ); }
 
 /* image will be loaded at runtime */
 .style2 	{ background: url( examples/assets/Test1.png ); }
 
-.style3 	{ shape: class( primevc.exanples.shapes.Star ); }
+.style3 	{ shape: class( prime.exanples.shapes.Star ); }
 -----
 
 NOTE: `class` will maybe be change to `embed` in the future when the parser won't embed external files automaticly yet.

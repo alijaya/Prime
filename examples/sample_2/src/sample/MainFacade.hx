@@ -1,8 +1,8 @@
 package sample;
 
 
-import primevc.mvc.Facade;
-import primevc.core.traits.IDisposable;
+import prime.mvc.Facade;
+import prime.core.traits.IDisposable;
 
 
 
@@ -17,11 +17,11 @@ import primevc.core.traits.IDisposable;
 class MainFacade extends Facade<MainEvents, MainModel, IDisposable, MainController, MainView>
 {
 	// Initialize the application and create and instance of MainFacade.
-    public static function main ()	{ new MainFacade(); }
+    public static function main ()	{ new MainFacade().start(); }
     private function new ()			{ super(); }
 	
 	// Initialize the core singletons model, view, controller and events.
-    override private function setupModel ()			{ model			= new MainModel(); } 
+    override private function setupModel ()			{ model			= new MainModel(this); } 
     override private function setupEvents ()		{ events		= new MainEvents(); } 
     override private function setupView ()			{ view			= new MainView(this); }
     override private function setupController ()	{ controller	= new MainController(this); }

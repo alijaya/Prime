@@ -1,9 +1,9 @@
 package cases;
- import primevc.core.traits.IUIdentifiable;
- import primevc.tools.generator.HaxeCodeGenerator;
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.ICodeGenerator;
- import primevc.utils.StringUtil;
+ import prime.core.traits.IUIdentifiable;
+ import prime.tools.generator.HaxeCodeGenerator;
+ import prime.tools.generator.ICodeFormattable;
+ import prime.tools.generator.ICodeGenerator;
+ import prime.utils.StringUtil;
 
 
 /**

@@ -91,7 +91,7 @@ ProgressBar:determinate {
 	border-radius: 8px;
 	background: linear-gradient( 90deg, #7B7B7B 0%, #969696 33%, #A7A7A7 100% );
 	border: 1px solid #000 outside;
-	skin: Class(primevc.gui.components.skins.CircleProgressSkin);
+	skin: Class(prime.gui.components.skins.CircleProgressSkin);
 }
 
 ProgressBar:determinate #indicator {

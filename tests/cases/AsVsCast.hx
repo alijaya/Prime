@@ -1,7 +1,7 @@
 package cases;
  import Benchmark;
- import primevc.utils.TypeUtil;
-  using primevc.utils.TypeUtil;
+ import prime.utils.TypeUtil;
+  using prime.utils.TypeUtil;
  
 
 /**

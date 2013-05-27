@@ -1,0 +1,6 @@
+/report
+/tmp
+.mcover
+.temp
+/build
+/bin

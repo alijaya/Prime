@@ -1,7 +1,7 @@
 package sample;
- import primevc.mvc.MVCActor;
- import primevc.mvc.IMVCCoreActor;
-  using primevc.utils.Bind;
+ import prime.mvc.MVCActor;
+ import prime.mvc.IMVCCoreActor;
+  using prime.utils.Bind;
 
 /**
  * Receives and dispatches global events.

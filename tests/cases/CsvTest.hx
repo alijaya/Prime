@@ -1,7 +1,7 @@
 package cases;
- import primevc.utils.Csv;
- import primevc.utils.FastArray;
- import primevc.utils.TimerUtil;
+ import prime.utils.Csv;
+ import prime.utils.FastArray;
+ import prime.utils.TimerUtil;
 
 
 class CsvTest extends haxe.unit.TestCase

@@ -1,0 +1,88 @@
+## Flash 11
+-main TestMain
+libs.hxml
+-swf-version 11
+-swf build/as3_test.swf
+-debug
+-D dragEnabled
+
+--next
+
+-main TestMain
+libs.hxml
+-swf-version 11
+-swf build/as3_test.swf
+-debug
+
+--next
+
+-main TestMain
+libs.hxml
+-swf-version 11
+-swf build/as3_test.swf
+-D dragEnabled
+
+--next
+
+-main TestMain
+libs.hxml
+-swf-version 11
+-swf build/as3_test.swf
+
+--next
+
+## Flash 10
+-main TestMain
+libs.hxml
+-swf-version 10
+-swf build/as3_test.swf
+-debug
+-D dragEnabled
+
+--next
+
+-main TestMain
+libs.hxml
+-swf-version 10
+-swf build/as3_test.swf
+-debug
+
+--next
+
+-main TestMain
+libs.hxml
+-swf-version 10
+-swf build/as3_test.swf
+-D dragEnabled
+
+--next
+
+-main TestMain
+libs.hxml
+-swf-version 10
+-swf build/as3_test.swf
+
+#--next
+
+
+## JavaScript
+#-main TestMain
+#libs.hxml
+#-js build/js_test.js
+
+#--next
+
+## Neko
+#-main TestMain
+#libs.hxml
+#-neko build/neko_test.n
+
+#--next
+
+## CPP
+#-main TestMain
+#libs.hxml
+#-D HXCPP_M64
+#-cpp build/cpp_test
+
+

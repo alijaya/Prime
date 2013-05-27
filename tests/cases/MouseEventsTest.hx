@@ -1,7 +1,7 @@
 package cases;
- import primevc.gui.events.MouseEvents;
- import primevc.gui.events.MouseButton;
- import primevc.avm2.events.MouseEvents;
+ import prime.gui.events.MouseEvents;
+ import prime.gui.events.MouseButton;
+ import prime.avm2.events.MouseEvents;
  import Benchmark;
 
 /**
@@ -43,7 +43,7 @@ class MouseEventsTest
 	
 	static function testState(test, clickCount)
 	{
-		var m = primevc.avm2.events.MouseSignal.stateFromFlashEvent(test, clickCount);
+		var m = prime.avm2.events.MouseSignal.stateFromFlashEvent(test, clickCount);
 		
 		Assert.that(test.altKey  == m.altKey(),			 "alt: "+m.altKey() +" - "+ StringTools.hex(m.flags));
 		Assert.that(test.ctrlKey == m.ctrlKey(),		 "ctrl: "+m.ctrlKey() +" - "+ StringTools.hex(m.flags));

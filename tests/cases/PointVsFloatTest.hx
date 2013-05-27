@@ -4,7 +4,7 @@ package cases;
 /*/
  import Benchmark;
 //*/
- import primevc.core.geom.Point;
+ import prime.core.geom.Point;
  
 
 /**

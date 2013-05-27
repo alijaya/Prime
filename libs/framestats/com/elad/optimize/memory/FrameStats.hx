@@ -36,7 +36,7 @@ package com.elad.optimize.memory;
  import flash.text.TextFormat;
  import flash.utils.Timer;
  import flash.Lib;
-  using primevc.utils.FloatUtil;
+  using prime.utils.FloatUtil;
   using StringTools;
 
 
