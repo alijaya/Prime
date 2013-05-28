@@ -1,10 +1,10 @@
 #!/bin/bash
-INPUT=docs/src
-OUTPUT=docs/output
+cd "`dirname "$0"`/..";
 
+OUTPUT="docs/output"
 THEMEDIR="theme"
 THEME="prime"
-INPUT_EXT="txt"
+INPUT_EXT="asciidoc"
 OUTPUT_EXT="html"
 COUNTER=0
 
@@ -17,10 +17,11 @@ function generateDocs {
     orig_dir=$themes_dir
 #   echo "$file_in $2"
     themes_dir="../$2"
+    echo Themes: $themes_dir
     #cd $1
     for file_in in $1/*
     do
-        file_out=${file_in/$INPUT/$OUTPUT}
+        file_out=${file_in/$1/$OUTPUT}
         file_out=${file_out/$INPUT_EXT/$OUTPUT_EXT}
 
         #skip . entries
@@ -35,9 +36,11 @@ function generateDocs {
                 removeEmptyDir $file_out                        #remove empty output directories
             fi;
         
-        #generate docs for .txt files which are newer then there output
+        #generate docs for files which are newer then their output
         elif [[ $file_in == *.$INPUT_EXT ]] && [[ -f $file_in ]]; then
             if [[ ! -f $file_out ]] || test "$file_in" -nt "$file_out"; then
+                export INPUT=`dirname $file_in`
+                echo INPUT is now $INPUT
                 asciidoc -b html5 --theme=$THEME -a linkcss -a "scriptsdir=$themes_dir" -a "stylesdir=$themes_dir" -o $file_out $file_in > /dev/null &&
                 COUNTER=$((COUNTER+1))
             #    echo "f $file_in => $file_out"
@@ -57,7 +60,10 @@ function removeEmptyDir {
     fi;
 }
 
-generateDocs $INPUT $THEMEDIR
+for docdir in prime-*/doc docs/src; do
+    echo Generating docs in: $docdir;
+    generateDocs $docdir $THEMEDIR
+done
 echo -e "\tCreated $COUNTER docs"
 
 #asciidoc -b html5 --theme=bare -o docs/output/Test.html docs/src/Test.txt
