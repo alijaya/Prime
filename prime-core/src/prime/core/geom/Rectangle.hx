@@ -35,19 +35,6 @@ package prime.core.geom;
  */
 #if flash9
  typedef Rectangle = flash.geom.Rectangle;
-/*
- import prime.core.traits.IDisposable;
-
-class Rectangle extends flash.geom.Rectangle implements IDisposable
-{
-	public function dispose () {}
-}*/
 #else
-
-class Rectangle
-{
-    
-}
-
-
+class Rectangle {}
 #end

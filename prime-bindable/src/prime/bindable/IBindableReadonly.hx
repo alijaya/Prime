@@ -40,10 +40,10 @@ typedef OldValue <V> = V;
  * @author Danny Wilson
  * @creation-date Jun 25, 2010
  */
+//#if flash9 @:generic #end
 interface IBindableReadonly<T>
-					implements prime.core.traits.IDisposable
-#if prime_data 	,	implements prime.core.traits.IValueObject #end
-//	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
+					extends prime.core.traits.IDisposable
+#if prime_data 		extends prime.core.traits.IValueObject #end
 {
 	/** 
 	 * Dispatched just before "value" is set to a new value.

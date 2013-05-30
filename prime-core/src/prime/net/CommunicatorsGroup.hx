@@ -28,7 +28,7 @@
  */
 package prime.net;
  import haxe.io.BytesData;
- import haxe.FastList;
+ import haxe.ds.GenericStack;
  import prime.core.events.LoaderEvents;
  import prime.bindable.Bindable;
  import prime.types.Number;
@@ -72,13 +72,13 @@ class CommunicatorsGroup implements ICommunicator
 	public var isStarted		(default,			null)		: Bool;
 	
 	
-	private var list			: FastList<ICommunicator>;
+	private var list			: GenericStack<ICommunicator>;
 	
 	
 	public function new ()
 	{
 		events	= new LoaderGroupEvents();
-		list	= new FastList<ICommunicator>();
+		list	= new GenericStack<ICommunicator>();
 		length	= new Bindable<Int>(0);
 		
 		bytesProgress = bytesTotal = Number.INT_NOT_SET;

@@ -36,7 +36,7 @@ package prime.gui.traits;
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
-interface ISkinnable implements IDisplayable
+interface ISkinnable extends IDisplayable
 {
 	public var skin		(default, set_skin)	: ISkin;
 	

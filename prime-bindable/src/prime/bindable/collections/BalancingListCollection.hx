@@ -492,8 +492,8 @@ class BalancingListCollection<T> implements IEditableList<T> implements IListCol
  * @creation-date	Jul 1, 2010
  * @author			Ruben Weijers
  */
+#if flash9 @:generic #end
 class BalancingListCollectionForwardIterator<T> implements IIterator<T>
-	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
 	private var target			(default, null) : BalancingListCollection<T>;
 	private var currentListNum	: Int;

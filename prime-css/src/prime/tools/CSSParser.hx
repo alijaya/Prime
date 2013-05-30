@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.tools;
-// import haxe.FastList;
+// import haxe.ds.GenericStack;
  import prime.bindable.collections.SimpleList;
  import prime.core.geom.space.Direction;
  import prime.core.geom.space.Horizontal;
@@ -37,7 +37,6 @@ package prime.tools;
  import prime.core.geom.Box;
  import prime.core.geom.Corners;
  import prime.core.geom.IntPoint;
- import prime.core.traits.IDisposable;
  import prime.gui.effects.AnchorScaleEffect;
  import prime.gui.effects.CompositeEffect;
  import prime.gui.effects.Easing;
@@ -977,7 +976,7 @@ class CSSParser
 	 * Searches recursivly to all superclasses until a super is found or null
 	 * when there is no super class.
 	 */
-	/*private function findParentElemStyle (name:String, list:Hash<StyleBlock>) : StyleBlock
+	/*private function findParentElemStyle (name:String, list:Map<String,StyleBlock>) : StyleBlock
 	{
 		//get parent from manifest
 		var parent = manifest.getFullParentName( name );
@@ -4025,7 +4024,7 @@ class CSSParser
 
 
 
-class StyleQueueItem implements IDisposable
+class StyleQueueItem implements prime.core.traits.IDisposable
 {
 	public var path		: String;
 	public var filename	: String;

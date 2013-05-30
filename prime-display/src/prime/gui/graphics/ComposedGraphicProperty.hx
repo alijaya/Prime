@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.bindable.collections.FastCell;
  import prime.core.geom.IRectangle;
  import prime.gui.traits.IGraphicsOwner;
@@ -221,7 +218,7 @@ class ComposedGraphicProperty extends GraphicElement implements IComposedGraphic
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this );
 		

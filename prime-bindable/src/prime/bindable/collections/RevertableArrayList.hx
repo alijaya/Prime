@@ -212,6 +212,6 @@ class RevertableArrayList<T> extends ReadOnlyArrayList<T> implements IRevertable
 
 #if debug
 	public #if !noinline inline #end function readFlags ()
-		return Flags.readProperties(flags)
+		return Flags.readProperties(flags);
 #end
 }

@@ -78,7 +78,7 @@ class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.
 
 		var mouse = target.container.globalToLocal(target.window.mouse.pos);
 		if (target.rect.containsPoint(mouse.x.int(), mouse.y.int()))
-			callback(activateScrolling, new MouseState(0, cast target, mouse, target.window.mouse.pos, cast target)).onceOn(target.displayEvents.enterFrame, this);
+			activateScrolling.bind(new MouseState(0, cast target, mouse, target.window.mouse.pos, cast target)).onceOn(target.displayEvents.enterFrame, this);
 	}
 	
 	

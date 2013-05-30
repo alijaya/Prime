@@ -27,14 +27,15 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
+ import prime.bindable.collections.iterators.IIterator;
  import prime.core.events.ListChangeSignal;
   using prime.utils.NumberUtil;
  
 
 /**
- *.IEditableList implementation as FastList. When this list is iterated it will
+ *.IEditableList implementation as GenericStack. When this list is iterated it will
  * start with the first added item instead of the last added item as with
- * FastList.
+ * GenericStack.
  * 
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
@@ -207,7 +208,7 @@ class SimpleList<T> implements IEditableList<T>
 	
 	
 	@:keep public inline function has (item:T) : Bool
-		return indexOf(item) > -1
+		return indexOf(item) > -1;
 	
 	
 	/**

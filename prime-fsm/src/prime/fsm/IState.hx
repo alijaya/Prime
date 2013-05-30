@@ -35,7 +35,7 @@ package prime.fsm;
  * @creation-date	Jun 9, 2010
  * @author			Ruben Weijers
  */
-interface IState implements IDisposable
+interface IState extends IDisposable
 {
 //	public var id		(default, null)		: Int;
 	public var entering	(default, null)		: Signal0;

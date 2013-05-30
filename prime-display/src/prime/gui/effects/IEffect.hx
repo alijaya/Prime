@@ -27,25 +27,17 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.effects;
-#if CSSParser
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICSSFormattable;
-#end
- import prime.core.traits.IClonable;
- import prime.core.traits.IInvalidatable;
- import prime.core.traits.IDisposable;
-
 
 /**
  * @author Ruben Weijers
  * @creation-date Oct 02, 2010
  */
 interface IEffect
-				implements IDisposable
-			,	implements IInvalidatable	
-#if CSSParser,	implements ICSSFormattable
-			,	implements ICodeFormattable		#end
-			,	implements IClonable < IEffect >
+				extends prime.core.traits.IDisposable
+				extends prime.core.traits.IInvalidatable	
+#if CSSParser	extends prime.tools.generator.ICSSFormattable
+				extends prime.tools.generator.ICodeFormattable		#end
+				extends prime.core.traits.IClonable < IEffect >
 {
 	/**
 	 * The easing type that the effect should use

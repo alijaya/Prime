@@ -53,8 +53,8 @@ private typedef Flags = LayoutFlags;
  * @author			Ruben Weijers
  */
 class LayoutClient extends prime.core.traits.Invalidatable
-			,	implements prime.layout.ILayoutClient
-#if debug	,	implements prime.core.traits.IUIdentifiable #end
+				implements prime.layout.ILayoutClient
+#if debug		implements prime.core.traits.IUIdentifiable #end
 {
 	private static var EMPTY_BOX 	 = new Box(0,0,0,0);
 

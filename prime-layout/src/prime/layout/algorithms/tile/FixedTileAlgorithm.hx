@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout.algorithms.tile;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.bindable.collections.BalancingListCollection;
  import prime.bindable.collections.BalancingList;
  import prime.bindable.collections.ChainedListCollection;
@@ -517,7 +514,7 @@ class FixedTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 	
 	
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ startDirection, maxTilesInDirection, horizontalDirection, verticalDirection ] );
 	}

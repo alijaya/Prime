@@ -35,9 +35,9 @@ package prime.bindable;
  * @author Danny Wilson
  * @creation-date Jun 25, 2010
  */
-interface IBindable<T> implements IBindableReadonly<T>
-#if prime_data implements prime.core.traits.IEditableValueObject #end
-//	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
+//#if flash9 @:generic #end
+interface IBindable<T> extends IBindableReadonly<T>
+	#if prime_data extends prime.core.traits.IEditableValueObject #end
 {
 	/**
 	 * Value property with write access.

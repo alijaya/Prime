@@ -27,9 +27,7 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.bindable;
- import prime.signals.IUnbindable;
  import prime.signals.Signal1;
- import prime.core.traits.IDisposable;
   using prime.utils.Bind;
   using prime.utils.BitUtil;
 
@@ -38,7 +36,7 @@ package prime.bindable;
  * @author Ruben Weijers
  * @creation-date May 16, 2011
  */
-class ASync<T> implements IDisposable implements IUnbindable<T->Dynamic>
+class ASync<T> implements prime.core.traits.IDisposable implements prime.signals.IUnbindable<T->Dynamic>
 {
 	private static inline var NONE		= 0;
 	private static inline var CANCELED	= 1 << 0;

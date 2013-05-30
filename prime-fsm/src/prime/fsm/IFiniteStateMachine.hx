@@ -38,7 +38,7 @@ private typedef OldState = IState;
  * @creation-date	Jun 9, 2010
  * @author			Ruben Weijers
  */
-interface IFiniteStateMachine implements prime.core.traits.IDisposable implements prime.core.traits.IDisablable
+interface IFiniteStateMachine extends prime.core.traits.IDisposable extends prime.core.traits.IDisablable
 {
 	//
 	// PROPERTIES

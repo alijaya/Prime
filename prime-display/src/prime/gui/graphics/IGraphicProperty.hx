@@ -35,7 +35,7 @@ package prime.gui.graphics;
  * @author Ruben Weijers
  * @creation-date Nov 04, 2010
  */
-interface IGraphicProperty implements IGraphicElement
+interface IGraphicProperty extends IGraphicElement
 {
 	public function begin (target:IGraphicsOwner, bounds:IRectangle) : Void;
 	public function end (target:IGraphicsOwner, bounds:IRectangle) : Void;

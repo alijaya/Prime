@@ -27,15 +27,7 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout;
-#if CSSParser
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICodeGenerator;
- import prime.tools.generator.ICSSFormattable;
- import prime.utils.ID;
-#end
  import prime.signals.Signal0;
- import prime.core.geom.IBox;
- import prime.core.traits.IDisposable;
  import prime.types.Number;
   using prime.utils.NumberUtil;
 
@@ -63,10 +55,10 @@ package prime.layout;
  * @author			Ruben Weijers
  */
 class RelativeLayout 
-				implements IBox
-			,	implements IDisposable	
-#if CSSParser,	implements ICSSFormattable
-			,	implements ICodeFormattable		#end
+				implements prime.core.geom.IBox
+				implements prime.core.traits.IDisposable	
+#if CSSParser	implements prime.tools.generator.ICSSFormattable
+				implements prime.tools.generator.ICodeFormattable		#end
 {
 	
 #if CSSParser
@@ -159,7 +151,7 @@ class RelativeLayout
 	public function new ( top:Int = Number.INT_NOT_SET, right:Int = Number.INT_NOT_SET, bottom:Int = Number.INT_NOT_SET, left:Int = Number.INT_NOT_SET, hCenter:Int = Number.INT_NOT_SET, vCenter:Int = Number.INT_NOT_SET )
 	{
 #if CSSParser
-		this._oid		= ID.getNext();
+		this._oid		= prime.utils.ID.getNext();
 #end
 		this.enabled	= true;
 		this.change		= new Signal0();
@@ -182,7 +174,7 @@ class RelativeLayout
 	}
 	
 	
-	public #if !noinline inline #end function clone () : IBox
+	public #if !noinline inline #end function clone () : prime.core.geom.IBox
 	{
 		return new RelativeLayout( top, right, bottom, left, hCenter, vCenter );
 	}
@@ -337,7 +329,7 @@ class RelativeLayout
 #if CSSParser
 	public function cleanUp () : Void {}
 	
-	public function toCode (code:ICodeGenerator)
+	public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 		{

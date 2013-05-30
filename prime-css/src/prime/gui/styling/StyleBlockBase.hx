@@ -27,8 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
- import prime.core.traits.IInvalidatable;
- import prime.core.traits.Invalidatable;
   using prime.utils.BitUtil;
   using Type;
 
@@ -39,7 +37,7 @@ package prime.gui.styling;
  * @author Ruben Weijers
  * @creation-date Aug 05, 2010
  */
-class StyleBlockBase extends Invalidatable implements IStyleBlock
+class StyleBlockBase extends prime.core.traits.Invalidatable implements IStyleBlock
 {
 #if (debug || CSSParser)
 	public var _oid					(default, null)		: Int;

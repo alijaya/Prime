@@ -28,16 +28,6 @@
  */
 package prime.types;
  import prime.bindable.collections.iterators.FastArrayForwardIterator;
- import prime.core.traits.IClonable;
- import prime.core.traits.IDisposable;
-#if CSSParser
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICodeGenerator;
- import prime.utils.TypeUtil;
-#end
-#if (CSSParser || debug)
- import prime.utils.ID;
-#end
   using prime.utils.FastArray;
   using Std;
 
@@ -50,9 +40,9 @@ package prime.types;
  */
 #if !CSSParser @:generic #end
 class SimpleDictionary <KType, VType>
-				implements IDisposable
-				implements IClonable<SimpleDictionary<KType, VType>>
-#if CSSParser	implements ICodeFormattable	#end
+				implements prime.core.traits.IDisposable
+				implements prime.core.traits.IClonable<SimpleDictionary<KType, VType>>
+#if CSSParser	implements prime.tools.generator.ICodeFormattable	#end
 {
 	private var _keys	: FastArray < KType >;
 	private var _values	: FastArray < VType >;
@@ -66,7 +56,7 @@ class SimpleDictionary <KType, VType>
 	public function new (size:Int = 0, fixed:Bool = false)
 	{
 #if (CSSParser || debug)
-		_oid	= ID.getNext();
+		_oid	= prime.utils.ID.getNext();
 #end
 		_keys	= FastArrayUtil.create(size, fixed);
 		_values	= FastArrayUtil.create(size, fixed);
@@ -165,9 +155,9 @@ class SimpleDictionary <KType, VType>
 #end
 
 #if CSSParser
-	public function toHash () : Hash<VType>
+	public function toHash () : Map<String,VType>
 	{
-		var hash = new Hash<VType>();
+		var hash = new Map<String,VType>();
 		
 		for (i in 0...length)
 			hash.set( Std.string( _keys[i] ), _values[i] );
@@ -182,10 +172,10 @@ class SimpleDictionary <KType, VType>
 		
 		for (i in 0...length)
 		{
-			if (!TypeUtil.is( _values[i], ICodeFormattable))
+			if (!prime.utils.TypeUtil.is( _values[i], ICodeFormattable))
 				continue;
 			
-			var item = TypeUtil.as( _values[i], ICodeFormattable);
+			var item = prime.utils.TypeUtil.as( _values[i], ICodeFormattable);
 			item.cleanUp();
 			if (item.isEmpty())
 				keysToRemove.push(_keys[i]);
@@ -199,7 +189,7 @@ class SimpleDictionary <KType, VType>
 	}
 	
 	
-	public function toCode (code:ICodeGenerator) : Void
+	public function toCode (code:prime.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
 		{
@@ -207,8 +197,8 @@ class SimpleDictionary <KType, VType>
 			if (length > 0)
 			{
 				var key0 = _keys[0];
-				if		(key0.is(Int))		type = IntHash;
-				else if (key0.is(String))	type = Hash;
+				if		(key0.is(Int))		type = Map; //IntHash;
+				else if (key0.is(String))	type = Map; //Hash;
 			}
 			
 			if (type == null)	code.construct( this, [ _values.length ] );

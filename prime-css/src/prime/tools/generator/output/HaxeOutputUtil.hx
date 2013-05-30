@@ -56,7 +56,7 @@ class HaxeOutputUtil
 	}
 	
 	
-	public static function writeImports (list:Hash<String>) : StringBuf
+	public static function writeImports (list:Map<String,String>) : StringBuf
 	{
 		var output	= new StringBuf();
 		

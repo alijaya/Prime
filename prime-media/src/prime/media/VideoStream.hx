@@ -27,19 +27,14 @@
  *  Ruben Weijers   <ruben @ prime.vc>
  */
 package prime.media;
- import haxe.Timer;
 #if flash9
- import prime.avm2.net.stream.NetStreamInfo;
  import prime.avm2.net.stream.NetStreamInfoCode;
- import prime.avm2.net.stream.NetStreamInfoLevel;
  import prime.avm2.net.NetConnection;
  import prime.avm2.net.NetStream;
 #end
- import prime.fsm.SimpleStateMachine;
  import prime.fsm.states.MediaStates;
  import prime.bindable.Bindable;
  import prime.core.Error;
- import prime.types.Number;
  import prime.types.URI;
   using prime.utils.Bind;
   using prime.utils.NumberUtil;
@@ -235,7 +230,7 @@ class VideoStream extends BaseMediaStream
 		if (!isPlaying())	return currentTime;
 		
 		if (updateTimer == null) {
-			updateTimer			= new Timer(250);
+			updateTimer			= new haxe.Timer(250);
 			updateTimer.run		= updateTime;
 			updateTime();
 		}
@@ -271,7 +266,7 @@ class VideoStream extends BaseMediaStream
 	
 	
 #if flash9
-	private function handleNetStatus (event:NetStreamInfo)
+	private function handleNetStatus (event:prime.avm2.net.stream.NetStreamInfo)
 	{
 		switch (event.code)
 		{
@@ -319,12 +314,12 @@ class VideoStream extends BaseMediaStream
 	}
 	
 	
-	private function handleSecurityError (error:String)		trace(error)
-	private function handleASyncError (error:Error)			trace(error)
-	public  function handleCuePoint (metaData:Dynamic)		trace("cuePoint: " + metaData)
-	public  function handlePlayStatus (metaData:Dynamic)	trace("onPlayStatus: " + metaData)
-	public  function handleXMPData (metaData:Dynamic)		trace("onXMPData: " + metaData)
-	public  function handleImageData (metaData:Dynamic)		trace("onImageData: " + metaData)
-	public  function handleTextData  (metaData:Dynamic)		trace("onTextData: " + metaData)
+	private function handleSecurityError (error:String)		trace(error);
+	private function handleASyncError (error:Error)			trace(error);
+	public  function handleCuePoint (metaData:Dynamic)		trace("cuePoint: " + metaData);
+	public  function handlePlayStatus (metaData:Dynamic)	trace("onPlayStatus: " + metaData);
+	public  function handleXMPData (metaData:Dynamic)		trace("onXMPData: " + metaData);
+	public  function handleImageData (metaData:Dynamic)		trace("onImageData: " + metaData);
+	public  function handleTextData  (metaData:Dynamic)		trace("onTextData: " + metaData);
 #end
 }

@@ -27,14 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout.algorithms;
-#if CSSParser
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICSSFormattable;
-#end
- import prime.signals.Signal0;
- import prime.core.geom.IRectangle;
- import prime.core.traits.IDisposable;
- import prime.layout.ILayoutContainer;
 
 
 /**
@@ -42,16 +34,16 @@ package prime.layout.algorithms;
  * @author	Ruben Weijers
  */
 interface ILayoutAlgorithm
-				implements IDisposable	
-#if CSSParser,	implements ICSSFormattable	
-			,	implements ICodeFormattable		#end
+				extends prime.core.traits.IDisposable	
+#if CSSParser	extends prime.tools.generator.ICSSFormattable	
+				extends prime.tools.generator.ICodeFormattable		#end
 {
 	/**
 	 * Signal that will be dispatched when properties of the algorithm have 
 	 * been changed and the layout needs to be validated again.
 	 */
-	public var algorithmChanged (default, null)				: Signal0;
-	public var group			(default, set_group)		: ILayoutContainer;
+	public var algorithmChanged (default, null)				: prime.signals.Signal0;
+	public var group			(default, set_group)		: prime.layout.ILayoutContainer;
 //	public var validatePrepared	(default, null)				: Bool;
 	
 	
@@ -100,7 +92,7 @@ interface ILayoutAlgorithm
 	 * Before calling this method, the method 'removeStartPosFromPoint' should
 	 * be called to make sure the point is valid within the algorithms.
 	 */
-	public function getDepthForBounds (bounds:IRectangle)	: Int;
+	public function getDepthForBounds (bounds:prime.core.geom.IRectangle)	: Int;
 	
 	/**
 	 * Method to change to scroll-position of the layoutcontainer to make the

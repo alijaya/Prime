@@ -27,14 +27,13 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
- import prime.core.traits.IDisposable;
 
 
 /**
  * @author			Ruben Weijers
  * @creation-date	Oct 28, 2010
  */
-interface IDataCursor<T> implements IDisposable
+interface IDataCursor<T> extends prime.core.traits.IDisposable
 {
 	public var list		(default, null)	: IEditableList<T>;
 	public var target	(default, null)	: T;

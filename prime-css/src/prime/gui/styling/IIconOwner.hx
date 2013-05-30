@@ -36,7 +36,7 @@ package prime.gui.styling;
  * @author Ruben Weijers
  * @creation-date Oct 29, 2010
  */
-interface IIconOwner implements IUIElement
+interface IIconOwner extends IUIElement
 {
 	public var icon			(default, set_icon)		: Asset;
 	public var iconFill		(default, set_iconFill)	: IGraphicProperty;

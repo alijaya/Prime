@@ -147,7 +147,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 		private function get_isSet() return
 		 	(string.notNull() && string.length.not0()) ||
 		 	(  host.notNull() &&   host.length.not0()) ||
-		 	(  path.notNull() &&   path.length.not0())
+		 	(  path.notNull() &&   path.length.not0());
 	
 	
 #if CSSParser

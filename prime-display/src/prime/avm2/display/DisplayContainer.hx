@@ -47,7 +47,7 @@ package prime.avm2.display;
  * @author Ruben Weijers
  * @creation-date Jul 22, 2010
  */
-class DisplayContainer extends DisplayObjectContainer, implements IDisplayContainer, implements IDisplayObject
+class DisplayContainer extends DisplayObjectContainer implements IDisplayContainer implements IDisplayObject
 {
 	public var children			(default, null)				: DisplayList;
 	public var displayEvents	(default, null)				: DisplayEvents;

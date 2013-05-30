@@ -27,10 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.fills;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
- import prime.gui.graphics.GraphicElement;
  import prime.gui.graphics.GraphicFlags;
  import prime.types.RGBA;
 #if (debug || CSSParser)
@@ -45,7 +41,7 @@ package prime.gui.graphics.fills;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-class GradientStop extends GraphicElement
+class GradientStop extends prime.gui.graphics.GraphicElement
 {
 	public var color		(default, set_color)	: RGBA;
 	public var position		(default, set_position)	: Int;
@@ -80,7 +76,7 @@ class GradientStop extends GraphicElement
 	
 	
 #if CSSParser
-	override public function toCSS (prefix:String = "")		{ return color.string() + " " + ((position / 255) * 100).roundFloat() + "%"; }
-	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [ color, position ] ); }
+	override public function toCSS (prefix:String = "")							{ return color.string() + " " + ((position / 255) * 100).roundFloat() + "%"; }
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)	{ code.construct( this, [ color, position ] ); }
 #end
 }

@@ -27,13 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.fills;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.IRectangle;
- import prime.gui.graphics.GraphicElement;
  import prime.gui.graphics.GraphicFlags;
- import prime.gui.graphics.IGraphicProperty;
  import prime.gui.traits.IGraphicsOwner;
  import prime.types.RGBA;
   using prime.utils.Color;
@@ -45,10 +40,10 @@ package prime.gui.graphics.fills;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-class SolidFill extends GraphicElement implements IGraphicProperty
+class SolidFill extends prime.gui.graphics.GraphicElement implements prime.gui.graphics.IGraphicProperty
 {
 	public var color		(default, set_color)	: RGBA;
-	public var isFinished	(default, null)		: Bool;
+	public var isFinished	(default, null)			: Bool;
 	
 	
 	public function new ( color:RGBA )
@@ -91,6 +86,6 @@ class SolidFill extends GraphicElement implements IGraphicProperty
 	override public function toCSS (prefix:String = "")		{ return color.string(); }
 #end
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [ color ] ); }
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)	{ code.construct( this, [ color ] ); }
 #end
 }

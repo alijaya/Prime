@@ -27,35 +27,30 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.effects.effectInstances;
- import haxe.Timer;
- import prime.signals.Signal0;
- import prime.core.traits.IDisposable;
  import prime.gui.effects.EffectProperties;
  import prime.gui.effects.IEffect;
- import prime.gui.states.EffectStates;
 
 
 /**
  * @author Ruben Weijers
  * @creation-date Oct 02, 2010
  */
-interface IEffectInstance < TargetType, PropertiesType:IEffect > 
-		implements IDisposable
+interface IEffectInstance<TargetType, PropertiesType:IEffect> extends prime.core.traits.IDisposable
 {
 	/**
 	 * Event that is dispatched when the effect starts playing
 	 */
-	public var started		(default, null)				: Signal0;
+	public var started		(default, null)				: prime.signals.Signal0;
 	/**
 	 * Event that is dispatched when the effect is finished or stopped
 	 */
-	public var ended		(default, null)				: Signal0;
+	public var ended		(default, null)				: prime.signals.Signal0;
 	
 	/**
 	 * State of the effect
 	 * @default		EffectStates.empty
 	 */
-	public var state		(default, null)				: EffectStates;
+	public var state		(default, null)				: prime.gui.states.EffectStates;
 	
 	/**
 	 * Flag indicating if the effect should play reverted or not

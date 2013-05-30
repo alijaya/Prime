@@ -425,8 +425,8 @@ class ChainedListCollection<T>
  * @creation-date	Jun 30, 2010
  * @author			Ruben Weijers
  */
+#if flash9 @:generic #end
 class ChainedListCollectionIterator<T> implements IIterator<T>
-	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
 	private var target			(default, null)					: ChainedListCollection<T>;
 	private var currentList 	(default, set_currentList)		: ChainedList<T>;

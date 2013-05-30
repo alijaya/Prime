@@ -866,6 +866,6 @@ class LayoutStyle extends StyleSubBlock
 
 #if debug
 	override public function readProperties (flags:Int = -1) : String
-		return Flags.read(flags == -1 ? filledProperties : flags)
+		return Flags.read(flags == -1 ? filledProperties : flags);
 #end
 }

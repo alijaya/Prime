@@ -32,11 +32,8 @@ package prime.gui.core;
  import prime.signals.Wire;
  import prime.bindable.Bindable;
  
- import prime.gui.behaviours.layout.ValidateLayoutBehaviour;
  import prime.gui.behaviours.BehaviourList;
- import prime.gui.behaviours.RenderGraphicsBehaviour;
  import prime.gui.display.IDisplayContainer;
- import prime.gui.display.VectorShape;
  import prime.gui.effects.UIElementEffects;
  import prime.gui.graphics.GraphicProperties;
  import prime.layout.ILayoutContainer;
@@ -46,7 +43,6 @@ package prime.gui.core;
 #if flash9
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
- import prime.gui.traits.IDrawable;
 #end
  import prime.gui.traits.IValidatable;
   using prime.gui.utils.UIElementActions;
@@ -59,9 +55,9 @@ package prime.gui.core;
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
-class UIGraphic extends VectorShape
-			,	implements IUIElement
-#if flash9	,	implements IDrawable	#end
+class UIGraphic extends prime.gui.display.VectorShape
+				implements IUIElement
+#if flash9		implements prime.gui.traits.IDrawable	#end
 {
 	public var prevValidatable	: IValidatable;
 	public var nextValidatable	: IValidatable;
@@ -69,7 +65,7 @@ class UIGraphic extends VectorShape
 	
 	
 	public var behaviours		(default, null)					: BehaviourList;
-	public var id				(default, null)					: Bindable < String >;
+	public var id				(default, null)					: Bindable<String>;
 	public var state			(default, null)					: UIElementStates;
 	public var effects			(default, default)				: UIElementEffects;
 	
@@ -79,7 +75,7 @@ class UIGraphic extends VectorShape
 #if flash9	
 	public var graphicData		(default, null)					: GraphicProperties;
 	public var style			(default, null)					: UIElementStyle;
-	public var styleClasses		(default, null)					: SimpleList< String >;
+	public var styleClasses		(default, null)					: SimpleList<String>;
 	public var stylingEnabled	(default, set_stylingEnabled)	: Bool;
 #end
 	
@@ -105,8 +101,8 @@ class UIGraphic extends VectorShape
 #end
 		
 		//add default behaviours
-		behaviours.add( new RenderGraphicsBehaviour(this) );
-		behaviours.add( new ValidateLayoutBehaviour(this) );
+		behaviours.add( new prime.gui.behaviours.RenderGraphicsBehaviour(this) );
+		behaviours.add( new prime.gui.behaviours.layout.ValidateLayoutBehaviour(this) );
 		
 		createBehaviours();
 		if (layout == null)
@@ -296,13 +292,13 @@ class UIGraphic extends VectorShape
 	// GETTERS / SETTESR
 	//
 	
-	private inline function get_system () : ISystem		{ return window.as(ISystem); }
+	private inline function get_system () : ISystem							return window.as(ISystem);
 #if flash9
-	public #if !noinline inline #end function isOnStage () : Bool			{ return stage != null; }			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
+	public #if !noinline inline #end function isOnStage () : Bool			return stage != null;			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
 #else
-	public #if !noinline inline #end function isOnStage () : Bool			{ return window != null; }
+	public #if !noinline inline #end function isOnStage () : Bool			return window != null;
 #end
-	public #if !noinline inline #end function isQueued () : Bool			{ return nextValidatable != null || prevValidatable != null; }
+	public #if !noinline inline #end function isQueued () : Bool			return nextValidatable != null || prevValidatable != null;
 	
 	
 #if flash9
@@ -328,12 +324,12 @@ class UIGraphic extends VectorShape
 	// ACTIONS (actual methods performed by UIElementActions util)
 	//
 
-	public #if !noinline inline #end function show ()						{ this.doShow(); }
-	public #if !noinline inline #end function hide ()						{ this.doHide(); }
-	public #if !noinline inline #end function move (x:Int, y:Int)			{ this.doMove(x, y); }
-	public #if !noinline inline #end function resize (w:Int, h:Int)		{ this.doResize(w, h); }
-	public #if !noinline inline #end function rotate (v:Float)				{ this.doRotate(v); }
-	public #if !noinline inline #end function scale (sx:Float, sy:Float)	{ this.doScale(sx, sy); }
+	public #if !noinline inline #end function show ()					 this.doShow();
+	public #if !noinline inline #end function hide ()					 this.doHide();
+	public #if !noinline inline #end function move (x:Int, y:Int)		 this.doMove(x, y);
+	public #if !noinline inline #end function resize (w:Int, h:Int)		 this.doResize(w, h);
+	public #if !noinline inline #end function rotate (v:Float)			 this.doRotate(v);
+	public #if !noinline inline #end function scale (sx:Float, sy:Float) this.doScale(sx, sy);
 	
 	
 	
@@ -345,6 +341,6 @@ class UIGraphic extends VectorShape
 	
 	
 #if debug
-	override public function toString() { return id.value; }
+	override public function toString() return id.value;
 #end
 }

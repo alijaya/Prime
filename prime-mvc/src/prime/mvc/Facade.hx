@@ -28,9 +28,9 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.mvc;
+ import prime.core.traits.IDisposable;
  import prime.signals.Signal0;
  import prime.signals.Signals;
- import prime.core.traits.IDisposable;
 
 
 /**

@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout.algorithms;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.space.Horizontal;
  import prime.core.geom.space.Vertical;
  import prime.layout.algorithms.LayoutAlgorithmBase;
@@ -234,7 +231,7 @@ class HorizontalBaseAlgorithm extends LayoutAlgorithmBase
 #end
 
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ direction, vertical ] );
 	}

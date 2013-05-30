@@ -35,4 +35,4 @@ package prime.mvc;
  */
 @:autoBuild(prime.utils.MacroUtils.autoStartListening())
 @:autoBuild(prime.utils.MacroUtils.autoStopListening())
-interface IMVCCoreActor implements IMVCCore implements IMVCActor {}
+interface IMVCCoreActor extends IMVCCore extends IMVCActor {}

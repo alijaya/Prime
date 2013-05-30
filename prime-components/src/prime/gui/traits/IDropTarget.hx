@@ -42,7 +42,7 @@ package prime.gui.traits;
  * @author Ruben Weijers
  * @creation-date Jul 22, 2010
  */
-interface IDropTarget implements IUIContainer
+interface IDropTarget extends IUIContainer
 {
 	/**
 	 * Eventgroup which will dispatch events when an IDraggable object is 

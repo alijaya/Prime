@@ -29,15 +29,13 @@
 package prime.gui.effects;
  import prime.bindable.collections.ArrayList;
 #if CSSParser
- import prime.tools.generator.ICodeGenerator;
   using prime.types.Reference;
 #end
  import prime.types.Number;
- import prime.utils.NumberUtil;
   using prime.utils.NumberUtil;
 
 
-typedef ChildEffectType = Effect < Dynamic, Dynamic >;
+typedef ChildEffectType = Effect<Dynamic, Dynamic>;
 
 
 /**
@@ -48,15 +46,15 @@ typedef ChildEffectType = Effect < Dynamic, Dynamic >;
  * @author Ruben Weijers
  * @creation-date Aug 31, 2010
  */
-class CompositeEffect extends Effect < Dynamic, CompositeEffect >
+class CompositeEffect extends Effect<Dynamic, CompositeEffect>
 {
-	public var effects				(default, null)					: ArrayList < ChildEffectType >;
+	public var effects				(default, null)					: ArrayList<ChildEffectType>;
 	public var compositeDuration	(get_compositeDuration, never)	: Int;
 	
 	
 	public function new (duration:Int = 0, delay:Int = 0, easing:Easing = null, isReverted:Bool = false)
 	{
-		effects		= new ArrayList < ChildEffectType > ();
+		effects		= new ArrayList<ChildEffectType> ();
 		duration	= duration <= 0	? Number.INT_NOT_SET : duration;
 		super(duration, delay, easing, isReverted);
 		init();
@@ -139,7 +137,7 @@ class CompositeEffect extends Effect < Dynamic, CompositeEffect >
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator) : Void
+	override public function toCode (code:prime.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty()) {
 			code.construct( this, [ duration, delay, easing, isReverted ] );

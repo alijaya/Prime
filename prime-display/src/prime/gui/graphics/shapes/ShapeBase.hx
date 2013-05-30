@@ -27,11 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.shapes;
- import prime.gui.graphics.GraphicElement;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
-
 
 /**
  * Base class for shapes, adding a toCode method for shapes.
@@ -39,10 +34,10 @@ package prime.gui.graphics.shapes;
  * @author Ruben Weijers
  * @creation-date Sep 14, 2010
  */
-class ShapeBase extends GraphicElement 
+class ShapeBase extends prime.gui.graphics.GraphicElement 
 {
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this );
 	}

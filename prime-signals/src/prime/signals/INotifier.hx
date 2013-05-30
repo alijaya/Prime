@@ -27,8 +27,6 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.signals;
- import prime.core.traits.IDisposable;
-
 
 /**
  * An INotifier calls message handlers of type <FunctionSignature> that are registered using bind().
@@ -38,7 +36,7 @@ package prime.signals;
  * @author Danny Wilson
  * @creation-date Jun 09, 2010
  */
-interface INotifier <FunctionSignature> implements IUnbindable <FunctionSignature> implements IDisposable
+interface INotifier <FunctionSignature> extends IUnbindable <FunctionSignature> extends prime.core.traits.IDisposable
 {
 	public function observe		    (owner:Dynamic, handler:Void->Void)			: Wire<FunctionSignature>;
 	public function observeOnce	    (owner:Dynamic, handler:Void->Void)			: Wire<FunctionSignature>;

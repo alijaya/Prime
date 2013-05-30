@@ -43,15 +43,6 @@ package prime.gui.graphics;
   using prime.utils.TypeUtil;
 
 
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
-#if (debug || CSSParser)
- import prime.utils.ID;
-#end
-
-
-
 /**
  * Collection of a fill, border, layout and shape object.
  * Object can fire an event when a property in one of these objects is changed.
@@ -84,7 +75,7 @@ class GraphicProperties implements IGraphicElement
 	public function new (layout:IntRectangle = null, shape:IGraphicShape = null, fill:IGraphicProperty = null, border:IBorder = null, borderRadius:Corners = null)
 	{
 #if (debug || CSSParser)
-		_oid = ID.getNext();
+		_oid = prime.utils.ID.getNext();
 #end
 		invalidated		= new Signal2();
 		this.shape			= shape; // == null ? new RegularRectangle() : shape;
@@ -365,8 +356,8 @@ class GraphicProperties implements IGraphicElement
 	
 	
 #if CSSParser
-	public function toString ()						{ return "GraphicProperties: l: "+layout+"; s: "+shape+"; f: "+fill+"; b: "+border; }
-	public function toCSS (prefix:String = "")		{ Assert.abstractMethod(); return ""; }
-	public function toCode (code:ICodeGenerator)	{ code.construct(this, [ layout, shape, fill, border, borderRadius ]); }
+	public function toString ()											return "GraphicProperties: l: "+layout+"; s: "+shape+"; f: "+fill+"; b: "+border;
+	public function toCSS (prefix:String = "")							Assert.abstractMethod(); return "";
+	public function toCode (code:prime.tools.generator.ICodeGenerator)	code.construct(this, [ layout, shape, fill, border, borderRadius ]);
 #end
 }

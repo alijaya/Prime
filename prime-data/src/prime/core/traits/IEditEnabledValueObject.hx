@@ -35,6 +35,6 @@ package prime.core.traits;
  * @author Danny Wilson
  * @creation-date Jul 06, 2010
  */
-interface IEditEnabledValueObject implements IValueObject {
+interface IEditEnabledValueObject extends IValueObject {
 	public function isEmpty() : Bool;
 }

@@ -101,7 +101,7 @@ class ScrollEffect extends Effect<prime.gui.traits.IScrollable, ScrollEffect>
     
 #if !CSSParser
     override public function createEffectInstance (target) // : prime.gui.effects.effectInstances.IEffectInstance<prime.gui.traits.IScrollable,ScrollEffect> remove if it doesnt break anything
-        return new prime.gui.effects.effectInstances.ScrollEffectInstance(target, this)
+        return new prime.gui.effects.effectInstances.ScrollEffectInstance(target, this);
 #else
 
     override public function toCSS (prefix:String = "") : String

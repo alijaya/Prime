@@ -33,7 +33,7 @@ package prime.gui.traits;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-interface IDisplayable implements prime.core.traits.IDisposable	
+interface IDisplayable extends prime.core.traits.IDisposable	
 {
 #if !CSSParser
 	var displayEvents			(default, null)				: prime.gui.events.DisplayEvents;

@@ -39,5 +39,5 @@ class ID
 {
 #if neko 	public static function __init__ ()	next = 0 #end
 	static var next : Int = 0;
-	static inline public function getNext ()	return next++
+	static inline public function getNext ()	return next++;
 }

@@ -27,16 +27,10 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.fills;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.IRectangle;
  import prime.core.geom.Matrix2D;
- import prime.gui.graphics.GraphicElement;
  import prime.gui.graphics.GraphicFlags;
- import prime.gui.graphics.IGraphicProperty;
  import prime.gui.traits.IGraphicsOwner;
- import prime.utils.FastArray;
   using prime.utils.Color;
   using prime.utils.FastArray;
   using prime.utils.RectangleUtil;
@@ -54,7 +48,7 @@ typedef FlashGradientType = flash.display.GradientType;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-class GradientFill extends GraphicElement implements IGraphicProperty 
+class GradientFill extends prime.gui.graphics.GraphicElement implements prime.gui.graphics.IGraphicProperty 
 {
 	public var gradientStops	(default, null)					: FastArray <GradientStop>;
 	public var type				(default, set_type)				: GradientType;
@@ -241,7 +235,7 @@ class GradientFill extends GraphicElement implements IGraphicProperty
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ type, spread, focalPointRatio, rotation ] );
 		for (stop in gradientStops)

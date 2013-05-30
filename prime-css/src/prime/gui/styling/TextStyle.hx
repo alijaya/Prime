@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.traits.IInvalidatable;
  import prime.gui.text.FontStyle;
  import prime.gui.text.FontWeight;
@@ -684,7 +681,7 @@ class TextStyle extends StyleSubBlock
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 			code.construct( this, [ filledProperties, _size, _family, _embeddedFont, _color, _weight, _style, _letterSpacing, _align, _decoration, _indent, _transform, _textWrap, _columnCount, _columnGap, _columnWidth ] );

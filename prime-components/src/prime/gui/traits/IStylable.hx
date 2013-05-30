@@ -29,29 +29,21 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.traits;
- import prime.core.traits.IIdentifiable;
-#if flash9
- import prime.bindable.collections.SimpleList;
- import prime.bindable.Bindable;
- import prime.gui.styling.UIElementStyle;
-#end
 
 
 /**
  * @author Ruben Weijers
  * @creation-date Aug 04, 2010
  */
-interface IStylable
-		implements IIdentifiable
-//	,	implements IDisplayable
+interface IStylable extends prime.core.traits.IIdentifiable
 {
 #if flash9
-	public var style			(default, null)					: UIElementStyle;
+	public var style			(default, null)					: prime.gui.styling.UIElementStyle;
 	
 	/**
 	 * List containing all the css-classes that the IStyleable should use.
 	 */
-	public var styleClasses		(default, null)					: SimpleList < String >;
+	public var styleClasses		(default, null)					: prime.bindable.collections.SimpleList<String>;
 	
 	/**
 	 * Flag indicating if the object should use styling or not

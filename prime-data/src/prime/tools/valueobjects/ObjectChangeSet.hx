@@ -27,7 +27,6 @@
  *  Danny Wilson    <danny @ onlinetouch.nl>
  */
 package prime.tools.valueobjects;
- import prime.bindable.collections.IRevertableList;
   using prime.tools.valueobjects.ChangesUtil;
   using prime.utils.DateUtil;
   using prime.utils.IfUtil;
@@ -78,7 +77,7 @@ class ObjectChangeSet extends ChangeSet
     }
     
     
-    public #if !noinline inline #end function addListChanges<T> (id:Int, flagBit:Int, list:IRevertableList<T>)
+    public #if !noinline inline #end function addListChanges<T> (id:Int, flagBit:Int, list:prime.bindable.collections.IRevertableList<T>)
     {
         if (flagBit.not0())
             add(ListChangeVO.make(id, list.changes));

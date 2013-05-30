@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.shapes;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.space.Position;
  import prime.core.geom.Corners;
  import prime.core.geom.IntPoint;
@@ -197,7 +194,7 @@ class Triangle extends ShapeBase implements IGraphicShape
 #end
 
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ direction ] );
 	}

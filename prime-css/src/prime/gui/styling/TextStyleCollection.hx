@@ -55,7 +55,7 @@ private typedef Flags = TextStyleFlags;
 class TextStyleCollection extends StyleCollectionBase < TextStyle >
 {
 #if flash9
-	private static var embeddedFonts = new Hash<Font>();
+	private static var embeddedFonts = new Map<String,Font>();
 #end
 
 

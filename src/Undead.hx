@@ -6,13 +6,13 @@ package;
 //UNUSED!
 class Undead
 {
-	@:macro public static function keepAlive() {
+	macro public static function keepAlive() {
 		
         var pos = haxe.macro.Context.currentPos();
 		
 	//	keep("haxe.io.BytesInput",  pos);
-		keep("haxe.Public", pos);
-		keep("haxe.rtti.Infos", pos);
+	//	keep("haxe.Public", pos);
+	//	keep("haxe.rtti.Infos", pos);
 		keep("prime.types.RGBAType", pos);
 		
         return { expr : EReturn(null), pos : pos };

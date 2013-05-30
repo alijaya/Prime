@@ -33,7 +33,7 @@ package prime.core.geom;
  * @author Ruben Weijers
  * @creation-date Jul 25, 2010
  */
-interface IRectangle implements IBox
+interface IRectangle extends IBox
 {
 	public var centerX	(get_centerX, set_centerX)	: Int;
 	public var centerY	(get_centerY, set_centerY)	: Int;

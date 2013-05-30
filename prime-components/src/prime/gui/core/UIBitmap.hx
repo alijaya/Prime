@@ -64,7 +64,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     
     
     public var behaviours       (default, null)                 : BehaviourList;
-    public var id               (default, null)                 : Bindable < String >;
+    public var id               (default, null)                 : Bindable<String>;
     public var state            (default, null)                 : UIElementStates;
     public var effects          (default, default)              : prime.gui.effects.UIElementEffects;
     
@@ -73,7 +73,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     
 #if flash9
     public var style            (default, null)                 : UIElementStyle;
-    public var styleClasses     (default, null)                 : SimpleList< String >;
+    public var styleClasses     (default, null)                 : SimpleList<String>;
     public var stylingEnabled   (default, set_stylingEnabled)    : Bool;
 #end
     
@@ -151,9 +151,9 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     }
 
 
-    public #if !noinline inline #end function isDisposed ()    { return state == null || state.is(state.disposed); }
-    public #if !noinline inline #end function isInitialized () { return state != null && state.is(state.initialized); }
-    public function isResizable ()          { return true; }
+    public #if !noinline inline #end function isDisposed ()    return state == null || state.is(state.disposed);
+    public #if !noinline inline #end function isInitialized () return state != null && state.is(state.initialized);
+    public function isResizable ()                             return true;
     
     
     //
@@ -263,8 +263,8 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     }
 
 
-    public #if !noinline inline #end function isDetaching ()               { return effects != null && effects.isPlayingHide(); }
-    public #if !noinline inline #end function isAttached ()                { return window  != null; }
+    public #if !noinline inline #end function isDetaching ()    return effects != null && effects.isPlayingHide();
+    public #if !noinline inline #end function isAttached ()     return window  != null;
 
 
     
@@ -316,13 +316,13 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     // GETTERS / SETTESR
     //
     
-    private inline function get_system () : ISystem      { return window.as(ISystem); }
+    private inline function get_system () : ISystem                 return window.as(ISystem);
 #if flash9
-    public #if !noinline inline #end function isOnStage () : Bool          { return stage != null; }           // <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
+    public #if !noinline inline #end function isOnStage () : Bool   return stage != null;           // <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
 #else
-    public #if !noinline inline #end function isOnStage () : Bool          { return window != null; }
+    public #if !noinline inline #end function isOnStage () : Bool   return window != null;
 #end
-    public #if !noinline inline #end function isQueued () : Bool           { return nextValidatable != null || prevValidatable != null; }
+    public #if !noinline inline #end function isQueued () : Bool    return nextValidatable != null || prevValidatable != null;
     
 
     override private function set_data (v:BitmapData) : BitmapData
@@ -361,12 +361,12 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     // ACTIONS (actual methods performed by UIElementActions util)
     //
 
-    public #if !noinline inline #end function show ()                      { this.doShow(); }
-    public #if !noinline inline #end function hide ()                      { this.doHide(); }
-    public #if !noinline inline #end function move (x:Int, y:Int)          { this.doMove(x, y); }
-    public #if !noinline inline #end function resize (w:Int, h:Int)        { this.doResize(w, h); }
-    public #if !noinline inline #end function rotate (v:Float)             { this.doRotate(v); }
-    public #if !noinline inline #end function scale (sx:Float, sy:Float)   { this.doScale(sx, sy); }
+    public #if !noinline inline #end function show ()                      this.doShow();
+    public #if !noinline inline #end function hide ()                      this.doHide();
+    public #if !noinline inline #end function move (x:Int, y:Int)          this.doMove(x, y);
+    public #if !noinline inline #end function resize (w:Int, h:Int)        this.doResize(w, h);
+    public #if !noinline inline #end function rotate (v:Float)             this.doRotate(v);
+    public #if !noinline inline #end function scale (sx:Float, sy:Float)   this.doScale(sx, sy);
     
     
     
@@ -378,6 +378,6 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     
     
 #if debug
-    override public function toString() { return id.value; }
+    override public function toString() return id.value;
 #end
 }

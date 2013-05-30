@@ -28,12 +28,9 @@
  */
 
 package prime.avm2.events;
-private typedef MouseSignal = prime.avm2.events.MouseSignal; // override import
- import prime.core.geom.Point;
  import prime.gui.events.MouseEvents;
- import prime.gui.events.KeyModState;
- import flash.events.IEventDispatcher;
  import flash.events.MouseEvent;
+ import prime.avm2.events.MouseSignal; // override import from MouseEvents
 
 
 /**
@@ -44,9 +41,9 @@ private typedef MouseSignal = prime.avm2.events.MouseSignal; // override import
  */
 class MouseEvents extends MouseSignals
 {
-	private var eventDispatcher : IEventDispatcher;
+	private var eventDispatcher : flash.events.IEventDispatcher;
 	
-	public function new (eventDispatcher:IEventDispatcher)
+	public function new (eventDispatcher)
 	{
 		super();
 		this.eventDispatcher = eventDispatcher;

@@ -33,7 +33,7 @@ package prime.layout;
  * @creation-date	Jun 17, 2010
  * @author			Ruben Weijers
  */
-interface IAdvancedLayoutClient implements ILayoutClient
+interface IAdvancedLayoutClient extends ILayoutClient
 {
 	public var explicitWidth	(default, set_explicitWidth)	: Int;
 	public var explicitHeight	(default, set_explicitHeight)	: Int;

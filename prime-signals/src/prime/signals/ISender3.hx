@@ -34,7 +34,7 @@ package prime.signals;
  * @author Danny Wilson
  * @creation-date Jun 09, 2010
  */
-interface ISender3 <A,B,C> implements ISender
+interface ISender3 <A,B,C> extends ISender
 {
 	public function send (a:A, b:B, c:C)		: Void;
 }

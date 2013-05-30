@@ -33,8 +33,8 @@ package prime.gui.graphics;
  * @creation-date Jul 30, 2010
  */
 interface IGraphicElement 
-				implements prime.core.traits.IInvalidatable
-			,	implements prime.core.traits.IDisposable
-#if CSSParser,	implements prime.tools.generator.ICodeFormattable
-			,	implements prime.tools.generator.ICSSFormattable #end
+				extends prime.core.traits.IInvalidatable
+				extends prime.core.traits.IDisposable
+#if CSSParser	extends prime.tools.generator.ICodeFormattable
+				extends prime.tools.generator.ICSSFormattable #end
 {}

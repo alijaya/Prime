@@ -684,4 +684,3 @@ extern class FloatMath
 }
 
 #end
->>>>>>> haxe3

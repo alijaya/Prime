@@ -35,10 +35,10 @@ package prime.bindable.collections;
  * @creation-date Nov 16, 2010
  */
 interface IReadOnlyList<T>
-	  implements prime.core.traits.IClonable<IReadOnlyList<T> >
-	  implements prime.core.traits.IDuplicatable<IReadOnlyList<T> >
-	  implements prime.core.traits.IDisposable
-#if prime_data implements prime.core.traits.IValueObject #end
+	  extends prime.core.traits.IClonable<IReadOnlyList<T> >
+	  extends prime.core.traits.IDuplicatable<IReadOnlyList<T> >
+	  extends prime.core.traits.IDisposable
+#if prime_data extends prime.core.traits.IValueObject #end
 {
 	public var change		(default, null)									: ListChangeSignal<T>;
 	/**

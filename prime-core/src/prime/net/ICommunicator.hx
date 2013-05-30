@@ -40,7 +40,7 @@ package prime.net;
  * @author Ruben Weijers
  * @creation-date Mar 28, 2011
  */
-interface ICommunicator implements IDisposable
+interface ICommunicator extends IDisposable
 {
 	public var events		(default,				null)		: LoaderSignals;
 	public var bytes		(get_bytes,				set_bytes)	: BytesData;

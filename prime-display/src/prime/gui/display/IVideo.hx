@@ -33,7 +33,7 @@ package prime.gui.display;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-interface IVideo implements IDisplayObject
+interface IVideo extends IDisplayObject
 {
 #if flash9
 	/**

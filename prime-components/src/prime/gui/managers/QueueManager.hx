@@ -29,9 +29,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.managers;
- import prime.core.traits.IDisposable;
- import prime.gui.display.Window;
  import prime.gui.traits.IValidatable;
+ import prime.gui.display.Window;
   using prime.utils.Bind;
 
 
@@ -42,7 +41,7 @@ package prime.gui.managers;
  * @author Ruben Weijers
  * @creation-date Sep 03, 2010
  */
-class QueueManager implements IDisposable implements IValidatable
+class QueueManager implements prime.core.traits.IDisposable implements IValidatable
 {	
 	/**
 	 * Reference to the object that owns the object

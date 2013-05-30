@@ -38,7 +38,6 @@ package prime.gui.core;
  import prime.gui.behaviours.RenderGraphicsBehaviour;
 
  import prime.gui.display.IDisplayContainer;
- import prime.gui.display.Sprite;
 
  import prime.gui.effects.UIElementEffects;
  import prime.gui.events.UserEventTarget;
@@ -82,7 +81,7 @@ package prime.gui.core;
  * @author Ruben Weijers
  * @creation-date Jun 07, 2010
  */
-class UIComponent extends Sprite implements IUIComponent
+class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 {
 	public var prevValidatable	: IValidatable;
 	public var nextValidatable	: IValidatable;
@@ -263,9 +262,9 @@ class UIComponent extends Sprite implements IUIComponent
 	}
 	
 	
-	public #if !noinline inline #end function isDisposed ()	{ return state == null || state.is(state.disposed); }
-	public #if !noinline inline #end function isInitialized ()	{ return state != null && state.is(state.initialized); }
-	public function isResizable ()			{ return true; }
+	public #if !noinline inline #end function isDisposed ()		return state == null || state.is(state.disposed);
+	public #if !noinline inline #end function isInitialized ()	return state != null && state.is(state.initialized);
+	public function isResizable ()								return true;
 	
 	
 	//
@@ -343,16 +342,16 @@ class UIComponent extends Sprite implements IUIComponent
 	// ACTIONS (actual methods performed by UIElementActions util)
 	//
 	
-	public #if !noinline inline #end function show ()						{ this.doShow(); }
-	public #if !noinline inline #end function hide ()						{ this.doHide(); }
-	public #if !noinline inline #end function move (x:Int, y:Int)			{ this.doMove(x, y); }
-	public #if !noinline inline #end function resize (w:Int, h:Int)			{ this.doResize(w, h); }
-	public #if !noinline inline #end function rotate (v:Float)				{ this.doRotate(v); }
-	public function scale (sx:Float, sy:Float)								{ this.doScale(sx, sy); }
+	public #if !noinline inline #end function show ()				this.doShow();
+	public #if !noinline inline #end function hide ()				this.doHide();
+	public #if !noinline inline #end function move (x:Int, y:Int)	this.doMove(x, y);
+	public #if !noinline inline #end function resize (w:Int, h:Int)	this.doResize(w, h);
+	public #if !noinline inline #end function rotate (v:Float)		this.doRotate(v);
+	public function scale (sx:Float, sy:Float)						this.doScale(sx, sy);
 	
-	public #if !noinline inline #end function enable ()					{ /*Assert.that(!isDisposed(), this);*/ enabled.value = true; }
-	public #if !noinline inline #end function disable ()					{ /*Assert.that(!isDisposed(), this);*/ enabled.value = false; }
-	public #if !noinline inline #end function isEnabled ()					{ return enabled.value; }
+	public #if !noinline inline #end function enable ()				enabled.value = true;
+	public #if !noinline inline #end function disable ()			enabled.value = false;
+	public #if !noinline inline #end function isEnabled ()			return enabled.value;
 	
 	
 	//
@@ -371,13 +370,13 @@ class UIComponent extends Sprite implements IUIComponent
 	    return _behaviours;
 	}*/
 	
-	private inline function get_system () : ISystem		{ return window.as(ISystem); }
+	private inline function get_system () : ISystem					return window.as(ISystem);
 #if flash9
-	public #if !noinline inline #end function isOnStage () : Bool			{ return stage != null; }			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
+	public #if !noinline inline #end function isOnStage () : Bool	return stage != null;			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
 #else
-	public #if !noinline inline #end function isOnStage () : Bool			{ return window != null; }
+	public #if !noinline inline #end function isOnStage () : Bool	return window != null;
 #end
-	public #if !noinline inline #end function isQueued () : Bool			{ return nextValidatable != null || prevValidatable != null; }
+	public #if !noinline inline #end function isQueued () : Bool	return nextValidatable != null || prevValidatable != null;
 	
 
 	private inline function set_skin (newSkin)
@@ -504,7 +503,7 @@ class UIComponent extends Sprite implements IUIComponent
 	
 	
 #if debug
-	override public function toString ()	{ return id == null ? Type.getClassName(Type.getClass(this))+"" : id.value; }
-	public function readChanges ()			{ return UIElementFlags.readProperties(changes); }
+	override public function toString ()	return id == null ? Type.getClassName(Type.getClass(this))+"" : id.value;
+	public function readChanges ()			return UIElementFlags.readProperties(changes);
 #end
 }

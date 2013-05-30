@@ -27,12 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.types;
- /*
-
-typedef IntType = 
-	#if neko	neko.Int32;
-	#else		Int;	#end
-*/
 
 /**
  * Defines the min and max values of integers

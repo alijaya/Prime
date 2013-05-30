@@ -40,7 +40,7 @@ package prime.media;
  * @since   Sep 28, 2011
  * @author  Ruben Weijers
  */
-interface IMediaStream implements IFreezable implements IDisposable
+interface IMediaStream extends IFreezable extends IDisposable
 {
     //
     // STREAM PROPERTIES

@@ -29,14 +29,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.components;
- import prime.gui.core.IUIContainer;
-
 
 /**
  * @author Ruben Weijers
  * @creation-date May 06, 2011
  */
-interface IListHolder <ListDataType> implements IUIContainer
+interface IListHolder<T> extends prime.gui.core.IUIContainer
 {
-	public var list				(default, null)	: ListView<ListDataType>;
+	public var list (default, null)	: ListView<T>;
 }

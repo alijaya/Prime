@@ -36,7 +36,7 @@ package prime.mvc;
  * @author Ruben Weijers
  * @creation-date May 17, 2011
  */
-interface IMVCActor implements IMVCNotifier 
+interface IMVCActor extends IMVCNotifier 
 {
 	/**
 	 * Method in which the actor can begin to listen to events of the MVC

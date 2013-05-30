@@ -35,7 +35,7 @@ package prime.core.traits;
  * @author Danny Wilson
  * @creation-date Jul 06, 2010
  */
-interface IEditableValueObject implements IEditEnabledValueObject 
+interface IEditableValueObject extends IEditEnabledValueObject 
 {
 	public function beginEdit()  : Void;
 	public function commitEdit() : Void;

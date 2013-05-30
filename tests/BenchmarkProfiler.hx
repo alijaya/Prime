@@ -18,7 +18,7 @@ interface IThread {
 }
 
 
-interface ITest implements IThread {
+interface ITest extends IThread {
 	function getSummery()	: String;
 }
 

@@ -36,7 +36,7 @@ package prime.bindable.collections;
  */
 @:generic class ArrayList <T> extends ReadOnlyArrayList <T> implements IEditableList <T>
 {
-	public function new( wrapAroundList:FastArray<T> = null ) super(wrapAroundList)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
+	//public function new( wrapAroundList:FastArray<T> = null ) super(wrapAroundList);	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 
 	override public function dispose ()
 	{
@@ -107,6 +107,6 @@ package prime.bindable.collections;
 		return item;
 	}
 	
-	override public function clone () : IReadOnlyList<T>		return new ArrayList<T>( list.clone() )
-	override public function duplicate () : IReadOnlyList<T>	return new ArrayList<T>( list.duplicate() )
+	override public function clone () : IReadOnlyList<T>		return new ArrayList<T>( list.clone() );
+	override public function duplicate () : IReadOnlyList<T>	return new ArrayList<T>( list.duplicate() );
 }

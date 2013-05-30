@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.fills;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.IRectangle;
  import prime.core.geom.Matrix2D;
  import prime.gui.display.BitmapData;
@@ -48,7 +45,7 @@ package prime.gui.graphics.fills;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-class BitmapFill extends GraphicElement implements IGraphicProperty 
+class BitmapFill extends prime.gui.graphics.GraphicElement implements prime.gui.graphics.IGraphicProperty 
 {
 	public var asset		(default, set_asset)		: Asset;
 	public var assetFactory	(default, set_assetFactory)	: Factory<Dynamic>;
@@ -244,8 +241,8 @@ class BitmapFill extends GraphicElement implements IGraphicProperty
 	
 	
 #if CSSParser
-	override public function toString ()					{ return "BitmapFill( " + asset + ", " + smooth + ", " + repeat + " )"; }
-	override public function toCSS (prefix:String = "")		{ return asset + " " + repeat; }
-	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [ assetFactory, asset, matrix, repeat, smooth ] ); }
+	override public function toString ()										{ return "BitmapFill( " + asset + ", " + smooth + ", " + repeat + " )"; }
+	override public function toCSS (prefix:String = "")							{ return asset + " " + repeat; }
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)	{ code.construct( this, [ assetFactory, asset, matrix, repeat, smooth ] ); }
 #end
 }

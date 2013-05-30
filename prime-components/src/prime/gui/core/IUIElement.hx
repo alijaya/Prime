@@ -29,49 +29,35 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.core;
- import prime.core.traits.IIdentifiable;
- import prime.core.traits.IDisposable;
-
  import prime.gui.display.IDisplayContainer;
- import prime.gui.display.IDisplayObject;
-
- import prime.gui.effects.UIElementEffects;
  import prime.layout.ILayoutContainer;
- import prime.gui.managers.ISystem;
- import prime.gui.states.UIElementStates;
- 
- import prime.gui.traits.IBehaving;
- import prime.gui.traits.ILayoutable;
- import prime.gui.traits.IPropertyValidator;
- import prime.gui.traits.IStylable;
-
 
 /**
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
 interface IUIElement	
-				implements IDisplayObject
-			,	implements ILayoutable
-			,	implements IBehaving
-			,	implements IIdentifiable
-			,	implements IDisposable
-			,	implements IStylable
-			,	implements IPropertyValidator
+				extends prime.gui.display.IDisplayObject
+				extends prime.gui.traits.ILayoutable
+				extends prime.gui.traits.IBehaving
+				extends prime.core.traits.IIdentifiable
+				extends prime.core.traits.IDisposable
+				extends prime.gui.traits.IStylable
+				extends prime.gui.traits.IPropertyValidator
 {
-	public var state	(default, null)		: UIElementStates;
+	public var state	(default, null)		: prime.gui.states.UIElementStates;
 	
 	/**
 	 * Collection of effects that are defined for this UIElement. The 
 	 * UIElementEffects object won't be created by an UIElement but has to be
 	 * set the first time an effect is added to the UIElement.
 	 */
-	public var effects	(default, default)	: UIElementEffects;
+	public var effects	(default, default)	: prime.gui.effects.UIElementEffects;
 	
 	/**
 	 * Reference to the window manager objects
 	 */
-	public var system	(get_system, never)	: ISystem;
+	public var system	(get_system, never)	: prime.gui.managers.ISystem;
 	
 	
 	public function isDisposed ()			: Bool;

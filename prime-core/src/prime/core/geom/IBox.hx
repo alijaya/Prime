@@ -34,7 +34,7 @@ package prime.core.geom;
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
-interface IBox implements IClonable<IBox>
+interface IBox extends IClonable<IBox>
 {
 	public var left		(get_left, set_left)	: Int;
 	public var right	(get_right, set_right)	: Int;

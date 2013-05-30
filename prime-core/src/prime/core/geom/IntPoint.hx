@@ -27,13 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.core.geom;
- import prime.core.traits.IClonable;
-#if CSSParser
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICodeGenerator;
- import prime.tools.generator.ICSSFormattable;
- import prime.utils.ID;
-#end
   using prime.utils.NumberUtil;
  
 
@@ -43,9 +36,9 @@ package prime.core.geom;
  * @creation-date	Jun 17, 2010
  * @author			Ruben Weijers
  */
-class IntPoint	implements IClonable <IntPoint>	
-#if CSSParser,	implements ICSSFormattable
-			,	implements ICodeFormattable		#end
+class IntPoint	implements prime.core.traits.IClonable<IntPoint>	
+#if CSSParser	implements prime.tools.generator.ICSSFormattable
+				implements prime.tools.generator.ICodeFormattable		#end
 {
 	public static #if !noinline inline #end function fromFloat (x:Float, y:Float)	: IntPoint	{ return new IntPoint( x.roundFloat(), y.roundFloat() ); }
 	public static #if !noinline inline #end function fromPoint (p:Point)			: IntPoint	{ return new IntPoint( p.x.roundFloat(), p.y.roundFloat() ); }
@@ -63,7 +56,7 @@ class IntPoint	implements IClonable <IntPoint>
 	public function new(x = 0, y = 0)
 	{
 #if CSSParser
-		this._oid	= ID.getNext();
+		this._oid	= prime.utils.ID.getNext();
 #end
 		this.x		= x;
 		this.y		= y;
@@ -112,7 +105,7 @@ class IntPoint	implements IClonable <IntPoint>
 	public #if !noinline inline #end function toString () { return "IntPoint( "+x+", "+y+" )"; }
 	public function toCSS (prefix:String = "")            { return x + "px, " + y + "px"; }
 	public function cleanUp () : Void                     {}
-	public function toCode (code:ICodeGenerator)          { code.construct( this, [ x, y ] ); }
 	public function isEmpty ()                            { return x.notSet() && y.notSet(); }
+	public function toCode (code:prime.tools.generator.ICodeGenerator) { code.construct( this, [ x, y ] ); }
 #end
 }

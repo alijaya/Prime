@@ -40,7 +40,7 @@ package prime.bindable.collections;
  * @creation-date Oct 20, 2010
  */
 #if flash9 @:generic #end
-class PriorityList<DataType:prime.core.traits.IPrioritizable>
+class PriorityList<T:prime.core.traits.IPrioritizable>
 		implements prime.core.traits.IDisposable
 		implements prime.core.traits.IClonable<PriorityList<T>>
 {

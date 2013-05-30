@@ -28,7 +28,6 @@
  */
 package prime.avm2.net;
  import prime.avm2.events.NetConnectionEvents;
- import prime.core.traits.IDisposable;
 
 
 /**
@@ -37,7 +36,7 @@ package prime.avm2.net;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-class NetConnection extends flash.net.NetConnection implements IDisposable 
+class NetConnection extends flash.net.NetConnection implements prime.core.traits.IDisposable 
 {
 	public var events (default, null)	: NetConnectionEvents;
 	

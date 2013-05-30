@@ -27,7 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.effects;
- import prime.gui.traits.IPositionable;
 #if CSSParser
   using prime.types.Reference;
 #end
@@ -41,7 +40,7 @@ package prime.gui.effects;
  * @author Ruben Weijers
  * @creation-date Aug 31, 2010
  */
-class MoveEffect extends Effect < IPositionable, MoveEffect >
+class MoveEffect extends Effect<prime.gui.traits.IPositionable, MoveEffect>
 {
 	/**
 	 * Explicit start x value. If this value is not set, the effect will 
@@ -84,7 +83,7 @@ class MoveEffect extends Effect < IPositionable, MoveEffect >
 	
 	
 #if !CSSParser
-	override public function createEffectInstance (target:IPositionable)
+	override public function createEffectInstance (target:prime.gui.traits.IPositionable)
 	{
 		return new prime.gui.effects.effectInstances.MoveEffectInstance(target, this);
 	}

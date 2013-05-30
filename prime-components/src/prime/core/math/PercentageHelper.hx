@@ -30,7 +30,6 @@
  */
 package prime.core.math;
  import prime.signals.Wire;
- import prime.core.traits.IDisposable;
  import prime.bindable.Bindable;
  import prime.core.validators.FloatRangeValidator;
   using prime.utils.Bind;
@@ -44,7 +43,7 @@ package prime.core.math;
  * @author Ruben Weijers
  * @creation-date Mar 24, 2011
  */
-class PercentageHelper extends Bindable<Float> implements IDisposable
+class PercentageHelper extends Bindable<Float> implements prime.core.traits.IDisposable
 {
 	//
 	// PUBLIC VARS

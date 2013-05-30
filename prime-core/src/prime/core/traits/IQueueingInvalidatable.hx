@@ -34,7 +34,7 @@ package prime.core.traits;
  * @author Ruben Weijers
  * @creation-date Feb 06, 2011
  */
-interface IQueueingInvalidatable implements IInvalidatable
+interface IQueueingInvalidatable extends IInvalidatable
 {
 	/**
 	 * Flag indicating if the object should broadcast an invalidate call or do

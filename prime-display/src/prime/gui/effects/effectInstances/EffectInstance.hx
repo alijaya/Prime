@@ -44,8 +44,8 @@ package prime.gui.effects.effectInstances;
  * @creation-date Oct 01, 2010
  */
 class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect> 
-				extends prime.core.ListNode < EffectInstance < TargetType, PropertiesType > >
-			,	implements IEffectInstance < TargetType, PropertiesType > 
+				extends prime.core.ListNode<EffectInstance<TargetType, PropertiesType>>
+				implements IEffectInstance<TargetType, PropertiesType> 
 {
 	public var started		(default, null)				: Signal0;
 	public var ended		(default, null)				: Signal0;
@@ -60,7 +60,7 @@ class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect>
 	
 	
 #if flash9
-	private var cachedFilters	: Array < flash.filters.BitmapFilter >;
+	private var cachedFilters	: Array<flash.filters.BitmapFilter>;
 #end
 	
 	

@@ -33,7 +33,7 @@ package prime.gui.traits;
  * @author Ruben Weijers
  * @creation-date Aug 04, 2010
  */
-interface IPositionable #if !CSSParser implements IDisplayable #end
+interface IPositionable #if !CSSParser extends IDisplayable #end
 {
 #if flash9
 	

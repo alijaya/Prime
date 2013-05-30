@@ -28,9 +28,7 @@
  */
 package prime.gui.graphics.borders;
  import prime.core.geom.IRectangle;
- import prime.gui.graphics.GraphicElement;
  import prime.gui.graphics.GraphicFlags;
- import prime.gui.graphics.IGraphicProperty;
  import prime.gui.traits.IGraphicsOwner;
   using prime.utils.IfUtil;
   using prime.utils.NumberUtil;
@@ -42,7 +40,7 @@ package prime.gui.graphics.borders;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-class BorderBase <FillType:IGraphicProperty> extends GraphicElement implements IBorder
+class BorderBase <FillType:prime.gui.graphics.IGraphicProperty> extends prime.gui.graphics.GraphicElement implements IBorder
 {
 	public var weight		(default, set_weight)		: Float;
 	public var fill			(default, set_fill)			: FillType;

@@ -92,7 +92,7 @@ class TestFSM
 
 
 
-class AutoFSM implements haxe.rtti.Infos
+@:rtti class AutoFSM
 {
 	public var states : Vector < State >;
 	
@@ -151,7 +151,7 @@ class TestAutoFSM extends AutoFSM
 
 
 
-class ShortAutoFSM implements haxe.rtti.Infos
+@:rtti class ShortAutoFSM
 {
 	public var states : Vector < State >;
 	
@@ -213,7 +213,7 @@ class TestShortAutoFSM extends ShortAutoFSM
 
 
 
-class ShortAutoFSM2 implements haxe.rtti.Infos
+@:rtti class ShortAutoFSM2
 {
 	public var sts : Vector < State >;
 	

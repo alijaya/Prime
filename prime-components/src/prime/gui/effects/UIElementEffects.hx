@@ -29,7 +29,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.effects;
- import prime.core.traits.IDisposable;
  import prime.gui.core.IUIElement;
  import prime.gui.effects.effectInstances.IEffectInstance;
 // import prime.types.Number;
@@ -50,7 +49,7 @@ private typedef Flags 				= prime.gui.effects.EffectFlags;
  * @author Ruben Weijers
  * @creation-date Sep 01, 2010
  */
-class UIElementEffects implements IDisposable
+class UIElementEffects implements prime.core.traits.IDisposable
 {
 	public  var target		(default, null)			: IUIElement;
 	/**

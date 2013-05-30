@@ -37,7 +37,7 @@ package prime.utils;
  */
 extern class HashUtil
 {
-	public static inline function dispose<T> (hash:Hash<T>) : Void
+	public static inline function dispose<T> (hash:Map<String,T>) : Void
 	{
 		for (key in hash.keys())
 			hash.remove(key);

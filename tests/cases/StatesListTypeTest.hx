@@ -1,6 +1,6 @@
 package cases;
 import flash.Vector;
-import haxe.FastList;
+import haxe.ds.GenericStack;
 import Benchmark;
  
 
@@ -15,7 +15,7 @@ class StatesListTypeTest
 		var bench = new Benchmark();
 		
 		var test1 = new FSMWithList();
-		var test2 = new FSMWithFastList();
+		var test2 = new FSMWithGenericStack();
 		var test3 = new FSMWithDynamicVector();
 		var test4 = new FSMWithStaticVector();
 		var test5 = new FSMWithArray();
@@ -24,7 +24,7 @@ class StatesListTypeTest
 		var group = new Comparison( "Create with 2001 children", 1 );
 		bench.add( group );
 		
-		group.add( new Test( test2.init,			"FastList") );
+		group.add( new Test( test2.init,			"GenericStack") );
 		group.add( new Test( test3.init,			"Dynamic Vector") );
 		group.add( new Test( test6.init,			"Indexed Static Vector") );
 		group.add( new Test( test4.init,			"Static Vector") );
@@ -34,7 +34,7 @@ class StatesListTypeTest
 		group = new Comparison("Find first state", 20000);
 		bench.add( group );
 		
-		group.add( new Test( test2.searchFirst,		"FastList") );
+		group.add( new Test( test2.searchFirst,		"GenericStack") );
 		group.add( new Test( test3.searchFirst,		"Dynamic Vector") );
 		group.add( new Test( test6.searchFirst,		"Indexed Static Vector") );
 		group.add( new Test( test4.searchFirst,		"Static Vector") );
@@ -44,7 +44,7 @@ class StatesListTypeTest
 		group = new Comparison("Find last state", 20000);
 		bench.add( group );
 		
-		group.add( new Test( test2.searchLast,		"FastList") );
+		group.add( new Test( test2.searchLast,		"GenericStack") );
 		group.add( new Test( test3.searchLast,		"Dynamic Vector") );
 		group.add( new Test( test3.searchLast2,		"Dynamic Vector2") );
 		group.add( new Test( test6.searchLast,		"Indexed Static Vector") );
@@ -98,16 +98,16 @@ class FSMWithList
 }
 
 
-class FSMWithFastList
+class FSMWithGenericStack
 {
-	var states		: FastList < State >;
+	var states		: GenericStack < State >;
 	var firstState	: State;
 	var lastState	: State;
 	
 	public function new () {}
 	
 	public function init () {
-		states = new FastList <State>();
+		states = new GenericStack <State>();
 		states.add( firstState = new State() );
 		for ( i in 0...2000 ) {
 			states.add( lastState = new State() );

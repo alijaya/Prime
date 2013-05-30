@@ -39,12 +39,12 @@ class Base implements IUIdentifiable
 
 class HolderList extends Base implements ICodeFormattable
 {
-	public var children : haxe.FastList < Holder >;
+	public var children : haxe.ds.GenericStack < Holder >;
 	
 	public function new ()
 	{
 		super();
-		children = new haxe.FastList();
+		children = new haxe.ds.GenericStack();
 	}
 	
 	

@@ -37,7 +37,7 @@ package prime.gui.traits;
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
-interface IScrollable implements IDisplayable implements IInteractive
+interface IScrollable extends IDisplayable extends IInteractive
 {
 	public var scrollableLayout (get_scrollableLayout, never) : IScrollableLayout;
 	

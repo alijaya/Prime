@@ -52,11 +52,11 @@ private typedef PValidator	= PercentIntRangeValidator;
  */
 class LayoutCollection extends StyleCollectionBase < LayoutStyle >
 {
-	public function new (elementStyle:UIElementStyle)			super( elementStyle, StyleFlags.LAYOUT )
-	override public function forwardIterator ()					return new LayoutCollectionForwardIterator( elementStyle, propertyTypeFlag)
-	override public function reversedIterator ()				return new LayoutCollectionReversedIterator( elementStyle, propertyTypeFlag)
+	public function new (elementStyle:UIElementStyle)			super( elementStyle, StyleFlags.LAYOUT );
+	override public function forwardIterator ()					return new LayoutCollectionForwardIterator( elementStyle, propertyTypeFlag);
+	override public function reversedIterator ()				return new LayoutCollectionReversedIterator( elementStyle, propertyTypeFlag);
 #if debug
-	override public function readProperties (props:Int = -1)	return Flags.read( (props == -1) ? filledProperties : props )
+	override public function readProperties (props:Int = -1)	return Flags.read( (props == -1) ? filledProperties : props );
 #end
 
 	

@@ -38,7 +38,7 @@ package prime.gui.core;
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
-interface IUIContainer implements IUIComponent implements IScrollable
+interface IUIContainer extends IUIComponent extends IScrollable
 {
 	public var layoutContainer		(get_layoutContainer, never) : LayoutContainer;
 	public function attach			(child:IUIElement)			: IUIContainer;

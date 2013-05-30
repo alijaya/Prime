@@ -27,12 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
- import prime.types.SimpleDictionary;
-#end
- import prime.core.traits.IInvalidatable;
- import prime.core.traits.IPrioritizable;
  import prime.gui.styling.StyleChildren;	//needed for SelectorMapType typedef
   using prime.gui.styling.StyleFlags;
   using prime.utils.BitUtil;
@@ -47,7 +41,7 @@ package prime.gui.styling;
 private typedef Flags	= StyleFlags;
 private typedef SType	= StyleBlockType;
 
-typedef ChildrenList = #if CSSParser SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
+typedef ChildrenList = #if CSSParser prime.types.SimpleDictionary<String, StyleBlock> #else Map<String,StyleBlock> #end;
 
 
 /**
@@ -56,9 +50,7 @@ typedef ChildrenList = #if CSSParser SimpleDictionary<String, StyleBlock> #else 
  * @author Ruben Weijers
  * @creation-date Aug 04, 2010
  */
-class StyleBlock extends StyleBlockBase
-	,	implements IStyleBlock
-	,	implements IPrioritizable
+class StyleBlock extends StyleBlockBase implements IStyleBlock implements prime.core.traits.IPrioritizable
 {
 	/**
 	 * Reference to style of which this style is inheriting when the requested
@@ -494,7 +486,7 @@ class StyleBlock extends StyleBlockBase
 	 * nested-style is changed. If the property is not set in this style-object,
 	 * it means that the allFilledPropertiesFlag needs to be changed..
 	 */
-	override public function invalidateCall ( changeFromOther:Int, sender:IInvalidatable ) : Void
+	override public function invalidateCall ( changeFromOther:Int, sender:prime.core.traits.IInvalidatable ) : Void
 	{
 		Assert.that(sender != null);
 		
@@ -1069,7 +1061,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 		{

@@ -27,18 +27,16 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
- import prime.utils.FastArray;
-
 
 /**
  * @author Ruben Weijers
  * @creation-date Nov 18, 2010
  */
-interface IRevertableList<T> implements IEditableList<T>
-	#if prime_data implements prime.core.traits.IEditableValueObject #end
+interface IRevertableList<T> extends IEditableList<T>
+	#if prime_data extends prime.core.traits.IEditableValueObject #end
 {
 	/**
 	 * List with all the changes that are made when the list is in editing mode.
 	 */
-	public var changes (default,null) : FastArray<ListChange<T>>;
+	public var changes (default,null) : prime.utils.FastArray<ListChange<T>>;
 }

@@ -27,11 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
- import prime.core.traits.IInvalidatable;
  import prime.gui.filters.BitmapFilter;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
   using prime.utils.BitUtil;
 
 
@@ -156,7 +152,7 @@ class FiltersStyle extends StyleSubBlock
 	 * changed. If the property is not set in this style-object, it means that 
 	 * the allFilledPropertiesFlag needs to be changed..
 	 */
-	override public function invalidateCall ( changeFromOther:Int, sender:IInvalidatable ) : Void
+	override public function invalidateCall ( changeFromOther:Int, sender:prime.core.traits.IInvalidatable ) : Void
 	{
 		Assert.that(sender != null);
 		
@@ -346,7 +342,7 @@ class FiltersStyle extends StyleSubBlock
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 			code.construct( this, [ filledProperties, type, _shadow, _bevel, _blur, _glow, _gradientBevel, _gradientGlow ] );

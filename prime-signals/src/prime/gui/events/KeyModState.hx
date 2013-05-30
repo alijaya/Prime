@@ -35,7 +35,7 @@ package prime.gui.events;
  * @author Danny Wilson
  * @creation-date jun 14, 2010
  */
-class KeyModState implements haxe.Public
+@:publicFields class KeyModState
 {
 	static inline var SHIFT	= 0x1;
 	static inline var CTRL	= 0x2;

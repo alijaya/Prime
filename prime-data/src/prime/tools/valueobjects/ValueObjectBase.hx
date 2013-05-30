@@ -121,7 +121,7 @@ class ValueObjectBase implements IValueObject implements IFlagOwner
 	public function objectChangedHandler(propertyID : Int) : ObjectChangeSet -> Void
 	{
 		// Same ObjectPathVO instance reused
-		return objectChangedHandlerBody.callback(propertyID, ObjectPathVO.make(this, propertyID));
+		return objectChangedHandlerBody.bind(propertyID, ObjectPathVO.make(this, propertyID));
 	}
 	
 	private function objectChangedHandlerBody(propertyID : Int, pathNode : ObjectPathVO, change : ObjectChangeSet)

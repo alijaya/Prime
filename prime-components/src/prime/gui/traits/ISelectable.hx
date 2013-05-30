@@ -1,5 +1,3 @@
-
-
 package prime.gui.traits;
  import prime.bindable.Bindable;
  import prime.gui.core.IUIComponent;
@@ -11,7 +9,7 @@ package prime.gui.traits;
  * @author Ruben Weijers
  * @creation-date Dec 23, 2010
  */
-interface ISelectable implements IUIComponent
+interface ISelectable extends IUIComponent
 {
 	public var selected	(default, null) : Bindable<Bool>;
 	

@@ -30,7 +30,6 @@
  */
 package prime.gui.managers;
  import prime.signals.Wire;
- import prime.core.traits.IDisposable;
  import prime.bindable.Bindable;
  import prime.gui.components.Label;
  import prime.gui.core.UIComponent;
@@ -45,7 +44,7 @@ package prime.gui.managers;
  * @author Ruben Weijers
  * @creation-date Jan 24, 2011
  */
-class ToolTipManager implements IDisposable
+class ToolTipManager implements prime.core.traits.IDisposable
 {
 	private var toolTip 	: Label;
 	private var window		: UIWindow;

@@ -33,7 +33,7 @@ package prime.layout;
  * @since	mar 19, 2010
  * @author	Ruben Weijers
  */
-interface ILayoutContainer implements ILayoutClient
+interface ILayoutContainer extends ILayoutClient
 {
 	public var algorithm			(default, set_algorithm)	: prime.layout.algorithms.ILayoutAlgorithm;
 	

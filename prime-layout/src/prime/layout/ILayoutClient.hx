@@ -27,18 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout;
- import prime.core.geom.Box;
- import prime.core.geom.IntRectangle;
- import prime.core.traits.IQueueingInvalidatable;
-// import prime.core.validators.ValidatingValue;
- import prime.core.validators.IntRangeValidator;
- import prime.core.traits.IDisposable;
- import prime.fsm.SimpleStateMachine;
- import prime.fsm.states.ValidateStates;
- import prime.signals.Signal1;
-
-
-//typedef SizeType = ValidatingValue < Int >;
 
 
 /**
@@ -48,9 +36,7 @@ package prime.layout;
  * @since	mar 19, 2010
  * @author	Ruben Weijers
  */
-interface ILayoutClient 
-		implements IQueueingInvalidatable
-	,	implements IDisposable
+interface ILayoutClient extends prime.core.traits.IQueueingInvalidatable extends prime.core.traits.IDisposable
 {
 	/**
 	 * Flag indicating if the layout should be automaticly revalidated when a 
@@ -176,9 +162,9 @@ interface ILayoutClient
 	 * can still be validated by its layout-container when the containers 
 	 * displayobject is still on the stage.
 	 */
-	public var changed				(default, null)						: Signal1<Int>;
+	public var changed				(default, null)						: prime.signals.Signal1<Int>;
 	
-	public var state				(default, null)						: SimpleStateMachine < ValidateStates >;
+	public var state				(default, null)						: prime.fsm.SimpleStateMachine<prime.fsm.states.ValidateStates>;
 	public var hasValidatedWidth	(default, null)						: Bool;
 	public var hasValidatedHeight	(default, null)						: Bool;
 	
@@ -248,11 +234,11 @@ interface ILayoutClient
 	 * 		- right:	470 (400 + 50 + 20)
 	 * 		- bottom:	380 (300 + 60 + 20)
 	 */
-	public var padding	(default, set_padding)	: Box;
-	public var margin	(default, set_margin)	: Box;
+	public var padding	(default, set_padding)	: prime.core.geom.Box;
+	public var margin	(default, set_margin)	: prime.core.geom.Box;
 	
-	public var widthValidator		(default, set_widthValidator)		: IntRangeValidator;
-	public var heightValidator		(default, set_heightValidator)		: IntRangeValidator;
+	public var widthValidator		(default, set_widthValidator)		: prime.core.validators.IntRangeValidator;
+	public var heightValidator		(default, set_heightValidator)		: prime.core.validators.IntRangeValidator;
 	
 	
 	//
@@ -265,11 +251,11 @@ interface ILayoutClient
 	/**
 	 * Size of the layouclient including the padding but without the margin
 	 */
-	public var innerBounds	(default, null)		: IntRectangle;
+	public var innerBounds	(default, null)		: prime.core.geom.IntRectangle;
 	/**
 	 * Size of the layouclient including the padding and margin
 	 */
-	public var outerBounds	(default, null)		: IntRectangle;
+	public var outerBounds	(default, null)		: prime.core.geom.IntRectangle;
 	
 	public function hasMaxWidth () : Bool;
 	public function hasMaxHeight () : Bool;

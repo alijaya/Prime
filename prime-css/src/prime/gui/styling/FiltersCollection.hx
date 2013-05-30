@@ -56,10 +56,10 @@ class FiltersCollection extends StyleCollectionBase < FiltersStyle >
 	}
 	
 	
-	override public function forwardIterator ()					return new FiltersCollectionForwardIterator( elementStyle, propertyTypeFlag, type)
-	override public function reversedIterator ()				return new FiltersCollectionReversedIterator( elementStyle, propertyTypeFlag, type)
+	override public function forwardIterator ()					return new FiltersCollectionForwardIterator( elementStyle, propertyTypeFlag, type);
+	override public function reversedIterator ()				return new FiltersCollectionReversedIterator( elementStyle, propertyTypeFlag, type);
 #if debug
-	override public function readProperties (props:Int = -1)	return Flags.readProperties( (props == -1) ? filledProperties : props )
+	override public function readProperties (props:Int = -1)	return Flags.readProperties( (props == -1) ? filledProperties : props );
 #end
 	
 	

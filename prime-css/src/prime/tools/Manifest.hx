@@ -27,10 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.tools;
- import haxe.xml.Fast;
- import prime.core.traits.IDisposable;
  import prime.types.SimpleDictionary;
- import prime.utils.FastArray;
   using prime.utils.FastArray;
   using Xml;
 
@@ -42,7 +39,7 @@ package prime.tools;
  * @author Ruben Weijers
  * @creation-date Sep 21, 2010
  */
-class Manifest implements IDisposable
+class Manifest implements prime.core.traits.IDisposable
 {
 	/**
 	 * Hash containing references from single class names to their full names 
@@ -89,7 +86,7 @@ class Manifest implements IDisposable
 	{
 #if CSSParser
 		var c 		= #if nodejs Std.string(js.Node.fs.readFileSync(file)); #else sys.io.File.getContent(file); #end
-		var content	= new Fast( c.parse().firstElement() );
+		var content	= new haxe.xml.Fast( c.parse().firstElement() );
 		
 		for (item in content.nodes.component)
 		{

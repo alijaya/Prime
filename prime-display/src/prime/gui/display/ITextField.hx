@@ -28,29 +28,18 @@
  */
 package prime.gui.display;
 #if flash9
- import flash.text.AntiAliasType;
- import flash.text.GridFitType;
- import flash.text.StyleSheet;
- import flash.text.TextFieldAutoSize;
- import flash.text.TextFieldType;
  import flash.text.TextFormat;
- import flash.text.TextLineMetrics;
 #end
- import prime.bindable.Bindable;
- import prime.gui.events.TextEvents;
- import prime.gui.traits.ITextStylable;
 
 
 /**
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-interface ITextField 
-		implements IInteractiveObject
-	,	implements ITextStylable
+interface ITextField extends IInteractiveObject extends prime.gui.traits.ITextStylable
 {
 	
-	public var textEvents			(default, null)			: TextEvents;
+	public var textEvents			(default, null)			: prime.gui.events.TextEvents;
 	
 	/**
 	 * The real text-value of the inputfield. The UITextField can apply a
@@ -59,7 +48,7 @@ interface ITextField
 	 * 
 	 * TODO: not implemented for the htmlText property
 	 */
-	public var data					(default, set_data)		: Bindable < String >;
+	public var data					(default, set_data)		: prime.bindable.Bindable<String>;
 	public var value				(get_value, set_value)	: String;
 	
 	
@@ -75,7 +64,7 @@ interface ITextField
 	// SIZE
 	//
 	
-	public var autoSize								: TextFieldAutoSize;
+	public var autoSize								: flash.text.TextFieldAutoSize;
 	public var textHeight			(default, null)	: Float;
 	public var textWidth			(default, null)	: Float;
 	
@@ -96,7 +85,7 @@ interface ITextField
 	
 	public var displayAsPassword					: Bool;
 	public var embedFonts							: Bool;
-	public var type									: TextFieldType;
+	public var type									: flash.text.TextFieldType;
 	public var useRichTextClipboard					: Bool;
 	
 	
@@ -104,9 +93,9 @@ interface ITextField
 	// FONT SETTINGS
 	//
 	
-	public var antiAliasType						: AntiAliasType;
+	public var antiAliasType						: flash.text.AntiAliasType;
 	public var condenseWhite						: Bool;
-	public var gridFitType							: GridFitType;
+	public var gridFitType							: flash.text.GridFitType;
 	public var sharpness							: Float;
 	
 	
@@ -115,7 +104,7 @@ interface ITextField
 	//
 	
 //	public var defaultTextFormat					: TextFormat;
-	public var styleSheet							: StyleSheet;
+	public var styleSheet							: flash.text.StyleSheet;
 	public var textColor							: UInt;
 	public var thickness							: Float;
 	
@@ -175,7 +164,7 @@ interface ITextField
 	public function getLineIndexAtPoint (x : Float, y : Float)			: Int;
 	public function getLineIndexOfChar (charIndex : Int)				: Int;
 	public function getLineLength (lineIndex : Int)						: Int;
-	public function getLineMetrics (lineIndex : Int)					: TextLineMetrics;
+	public function getLineMetrics (lineIndex : Int)					: flash.text.TextLineMetrics;
 	public function getLineOffset (lineIndex : Int)						: Int;
 	public function getLineText (lineIndex : Int)						: String;
 	

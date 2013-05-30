@@ -126,12 +126,12 @@ private typedef Flags = RevertableBindableFlags;
 	// FLAG METHODS
 	//
 	
-	@:keep public override inline function isEditable ()		return  flags.has(   Flags.IN_EDITMODE)
-	public  inline function dispatchBeforeCommit ()		flags = flags.set(   Flags.DISPATCH_CHANGES_BEFORE_COMMIT )
-	public  inline function dispatchAfterCommit ()		flags = flags.unset( Flags.DISPATCH_CHANGES_BEFORE_COMMIT )
-	public  inline function updateBeforeCommit ()		flags = flags.set(   Flags.UPDATE_BINDINGS_BEFORE_COMMIT )
-	public  inline function updateAfterCommit ()		flags = flags.unset( Flags.UPDATE_BINDINGS_BEFORE_COMMIT )
-	public  inline function isChanged () 				return  flags.hasNone(Flags.MAKE_SHADOW_COPY )
+	override public #if !noinline inline #end function isEditable ()	return  flags.has(   Flags.IN_EDITMODE);
+	public #if !noinline inline #end function dispatchBeforeCommit ()	flags = flags.set(   Flags.DISPATCH_CHANGES_BEFORE_COMMIT );
+	public #if !noinline inline #end function dispatchAfterCommit ()	flags = flags.unset( Flags.DISPATCH_CHANGES_BEFORE_COMMIT );
+	public #if !noinline inline #end function updateBeforeCommit ()		flags = flags.set(   Flags.UPDATE_BINDINGS_BEFORE_COMMIT );
+	public #if !noinline inline #end function updateAfterCommit ()		flags = flags.unset( Flags.UPDATE_BINDINGS_BEFORE_COMMIT );
+	public #if !noinline inline #end function isChanged () 				return  flags.hasNone(Flags.MAKE_SHADOW_COPY );
 
 
 
@@ -143,7 +143,7 @@ private typedef Flags = RevertableBindableFlags;
 	 * Puts this in editing-mode and keeps a copy of the current value
 	 * if not already in edit-mode.
 	 */
-	@:keep public override #if !noinline inline #end function beginEdit()
+	@:keep override public function beginEdit()
 	{
 		Assert.isEqual(Flags.IN_EDITMODE << 11, Flags.MAKE_SHADOW_COPY);
 		flags = flags.set( (((flags & Flags.IN_EDITMODE) << 11) ^ Flags.MAKE_SHADOW_COPY) | Flags.IN_EDITMODE );	// Only set MAKE_SHADOW_COPY if IN_EDITMODE is not set
@@ -153,7 +153,7 @@ private typedef Flags = RevertableBindableFlags;
 	/**
 	 * Finishes edit-mode and propagates the new value if needed.
 	 */
-	public override /*inline*/ function commitEdit()
+	override public function commitEdit()
 	{
 		if (isEditable())
 		{
@@ -175,7 +175,7 @@ private typedef Flags = RevertableBindableFlags;
 	/**
 	 * Discards the new value and finishes edit-mode.
 	 */
-	public override /*inline*/ function cancelEdit()
+	override public function cancelEdit()
 	{
 		if (isEditable())
 		{
@@ -188,8 +188,6 @@ private typedef Flags = RevertableBindableFlags;
 	
 	
 #if debug
-	public function readFlags (f:Int = -1) : String {
-		return Flags.readProperties( f == -1 ? flags : f );
-	}
+	public function readFlags (f:Int = -1) return Flags.readProperties( f == -1 ? flags : f );
 #end
 }

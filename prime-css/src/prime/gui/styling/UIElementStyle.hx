@@ -36,10 +36,6 @@ package prime.gui.styling;
  import prime.signals.Wire;
  import prime.gui.traits.IDisplayable;
  import prime.gui.traits.IStylable;
- import prime.utils.FastArray;
-#if debug
- import prime.utils.ID;
-#end
   using prime.gui.styling.StyleFlags;
   using prime.utils.Bind;
   using prime.utils.BitUtil;
@@ -72,7 +68,7 @@ private typedef Flags = StyleFlags;
  * @author Ruben Weijers
  * @creation-date Sep 22, 2010
  */
-class UIElementStyle implements prime.core.traits.IInvalidateListener, implements prime.core.traits.IDisposable
+class UIElementStyle implements prime.core.traits.IInvalidateListener implements prime.core.traits.IDisposable
 {
 #if debug
 	public var _oid						(default, null)			: Int;
@@ -528,8 +524,8 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener, implement
 	//
 	
 
-	private function invalidateStyleNames ()	invalidated = invalidated.set(Flags.STYLE_NAME_CHILDREN)
-	private function invalidateIdStyle ()		invalidated = invalidated.set(Flags.ID_CHILDREN)
+	private function invalidateStyleNames ()	invalidated = invalidated.set(Flags.STYLE_NAME_CHILDREN);
+	private function invalidateIdStyle ()		invalidated = invalidated.set(Flags.ID_CHILDREN);
 	
 	
 	/**
@@ -553,7 +549,7 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener, implement
 	
 	
 	private inline function updateIdStyle () : Int
-		return broadcastChanges( replaceStylesOfType( StyleBlockType.id, parentStyle.getChildStyles( this, target.id.value, StyleBlockType.id ) ) )
+		return broadcastChanges( replaceStylesOfType( StyleBlockType.id, parentStyle.getChildStyles( this, target.id.value, StyleBlockType.id ) ) );
 	
 	
 	private function updateStyleNameStyles (change:ListChange<String>) : Int

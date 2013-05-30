@@ -30,13 +30,13 @@ package prime.locale;
 class YamlHX extends Fast
 {
 	private static inline var LINE_SEPARATOR = "\n";
-	public var anchors: Hash<Xml>;
+	public var anchors: Map<String,Xml>;
 	
 	public function new(input:String)
 	{
-	  anchors = new Hash<Xml>();
+	  anchors = new Map<String,Xml>();
 		var x:Xml = Xml.parse('<YamlHX xmlns="tag:yaml.org,2002" xmlns:yaml="tag:yaml.org,2002"></YamlHX>');
-		x.addChild(Xml.createProlog('xml version="1.0" encoding="utf-8"'));
+		x.addChild(Xml.createProcessingInstruction('xml version="1.0" encoding="utf-8"'));
 		
 		var line = 0;
 		var lines = input.split(LINE_SEPARATOR);

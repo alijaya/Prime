@@ -48,7 +48,7 @@ typedef TextSignal  = prime.signals.INotifier<TextHandler>;
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-class TextSignals extends Signals implements haxe.Public 
+@:publicFields class TextSignals extends Signals
 {
 	public var change		(default,null) : Signal0;
 	public var link			(default,null) : TextSignal;

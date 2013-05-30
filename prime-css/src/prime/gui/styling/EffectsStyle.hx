@@ -27,10 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
- import prime.core.traits.IInvalidatable;
  import prime.gui.effects.Effect;
  import prime.gui.effects.EffectFlags;
   using prime.utils.BitUtil;
@@ -174,7 +170,7 @@ class EffectsStyle extends StyleSubBlock
 	 * changed. If the property is not set in this style-object, it means that 
 	 * the allFilledPropertiesFlag needs to be changed..
 	 */
-	override public function invalidateCall ( changeFromOther:Int, sender:IInvalidatable ) : Void
+	override public function invalidateCall ( changeFromOther:Int, sender:prime.core.traits.IInvalidatable ) : Void
 	{
 		Assert.that(sender != null);
 		
@@ -414,7 +410,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 
 
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 			code.construct( this, [ filledProperties, _move, _resize, _rotate, _scale, _show, _hide ] );

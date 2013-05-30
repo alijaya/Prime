@@ -39,7 +39,7 @@ package prime.gui.managers;
  * @author Ruben Weijers
  * @creation-date Jan 17, 2011
  */
-interface IPopupManager implements IDisposable
+interface IPopupManager extends IDisposable
 {
 	private var window	: UIWindow;
 	

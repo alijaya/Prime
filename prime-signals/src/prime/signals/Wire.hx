@@ -27,11 +27,9 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.signals;
- import prime.core.traits.IDisablable;
- import prime.core.traits.IDisposable;
  import prime.core.ListNode;
   using prime.utils.BitUtil;
-  using prime.signals.Signal;
+ // using prime.signals.Signal;
 
 /**
  * A Wire is the connection between a Signal0-4 dispatcher, and a handler object+function.
@@ -41,7 +39,7 @@ package prime.signals;
  * Implementation detail: Wires are added to a bounded freelist (max MAX_WIRES free objects) to reduce garbage collector pressure.
  * This means you should never reuse a Wire after calling dispose() and/or after unbinding the handler from the signal (which returned this Wire).
  */
-class Wire <FunctionSignature> extends WireList<FunctionSignature> implements IDisposable implements IDisablable
+class Wire <FunctionSignature> extends WireList<FunctionSignature> implements prime.core.traits.IDisposable implements prime.core.traits.IDisablable
 {
 	static private inline var MAX_WIRES		= 8096;
 	

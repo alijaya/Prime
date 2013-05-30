@@ -27,8 +27,7 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout.algorithms;
- import prime.core.geom.space.Horizontal;
- 
+
 
 /**
  * Interface to make sure that a given algorithm is meant for horizontal
@@ -37,7 +36,7 @@ package prime.layout.algorithms;
  * @creation-date	Jun 24, 2010
  * @author			Ruben Weijers
  */
-interface IHorizontalAlgorithm implements ILayoutAlgorithm
+interface IHorizontalAlgorithm extends ILayoutAlgorithm
 {
-	public var direction			(default, set_direction)	: Horizontal;
+	public var direction			(default, set_direction)	: prime.core.geom.space.Horizontal;
 }

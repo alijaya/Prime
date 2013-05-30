@@ -29,10 +29,6 @@
 package prime.gui.display;
  import prime.core.geom.Point;
  import prime.core.geom.Rectangle;
- import prime.gui.traits.IDisplayable;
- import prime.gui.traits.IPositionable;
- import prime.gui.traits.IScaleable;
- import prime.gui.traits.ISizeable;
 
 
 /**
@@ -40,11 +36,11 @@ package prime.gui.display;
  * @creation-date Aug 04, 2010
  */
 interface IDisplayObject 
-				implements IDisplayable
-			,	implements IPositionable
-			,	implements IScaleable
-			,	implements ISizeable
-#if flash9  ,	implements flash.display.IBitmapDrawable #end
+				extends prime.gui.traits.IDisplayable
+				extends prime.gui.traits.IPositionable
+				extends prime.gui.traits.IScaleable
+				extends prime.gui.traits.ISizeable
+#if flash9  	extends flash.display.IBitmapDrawable #end
 {
 	
 	public function isObjectOn			(otherObj:IDisplayObject)					: Bool;

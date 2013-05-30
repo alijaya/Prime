@@ -29,9 +29,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.traits;
-#if flash9
- import prime.gui.graphics.GraphicProperties;
-#end
 
 
 /**
@@ -39,16 +36,14 @@ package prime.gui.traits;
  * @creation-date Jul 13, 2010
  */
 interface IDrawable
-	#if !CSSParser
-			  implements ILayoutable
-			 implements IGraphicsOwner #end
+	#if !CSSParser extends ILayoutable extends IGraphicsOwner #end
 {
 #if flash9
 	/**
 	 * Object containing graphical data. One object will be enough in general
 	 * since it can be a ComposedShape that contains multiple shapes.
 	 */
-	public var graphicData		(default, null)		: GraphicProperties;
+	public var graphicData		(default, null)		: prime.gui.graphics.GraphicProperties;
 	
 //	private function createGraphics ()				: Void;
 //	private function removeGraphics ()				: Void;

@@ -63,13 +63,13 @@ package prime.gui.core;
  * @creation-date Aug 04, 2010
  */
 class UIWindow extends prime.gui.display.Window		
-	,	implements prime.core.traits.IIdentifiable
-	,	implements prime.gui.managers.ISystem
-	,	implements prime.gui.traits.IBehaving
-	,	implements prime.gui.traits.IDrawable
-	,	implements prime.gui.traits.ILayoutable
-	,	implements prime.gui.traits.IStylable
-	, 	implements prime.gui.traits.IScrollable
+		implements prime.core.traits.IIdentifiable
+		implements prime.gui.managers.ISystem
+		implements prime.gui.traits.IBehaving
+		implements prime.gui.traits.IDrawable
+		implements prime.gui.traits.ILayoutable
+		implements prime.gui.traits.IStylable
+	 	implements prime.gui.traits.IScrollable
 {
 	public var layout				(default, null)					: LayoutClient;
 	

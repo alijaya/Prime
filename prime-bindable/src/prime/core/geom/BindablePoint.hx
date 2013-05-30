@@ -28,14 +28,13 @@
  */
 package prime.core.geom;
  import prime.bindable.Bindable;
- import prime.core.traits.IDisposable;
 
 
 /**
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-class BindablePoint extends IntPoint implements IDisposable
+class BindablePoint extends IntPoint implements prime.core.traits.IDisposable
 {
 	public var xProp (default, null)	: Bindable < Int >;
 	public var yProp (default, null)	: Bindable < Int >;

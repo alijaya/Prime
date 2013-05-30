@@ -27,9 +27,9 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.avm2.events;
-private typedef KeyboardSignal = prime.avm2.events.KeyboardSignal; // override import
  import prime.gui.events.KeyboardEvents;
  import flash.events.KeyboardEvent;
+ import prime.avm2.events.KeyboardSignal; // override import from KeyboardEvents
 
 /**
  * AVM2 keyboard events to signal proxy implementation.

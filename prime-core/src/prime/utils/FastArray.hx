@@ -64,7 +64,7 @@ typedef FastArray<T> =
 #end
 	}
 	
-	static public inline function toVector<T> ( array:Array<T> ) : FastArray<T> return ofArray(array) 		//alias for ofArray
+	static public inline function toVector<T> ( array:Array<T> ) : FastArray<T> return ofArray(array); 		//alias for ofArray
 	static public inline function ofArray<T>  ( array:Array<T> ) : FastArray<T>
 	{
 	#if flash10
@@ -118,7 +118,7 @@ typedef FastArray<T> =
 
 
 	static public #if flash10 inline #end function validateNewIndex<T>( list:FastArray<T>, pos:Int ) : Int
-		return pos < 0 || pos > list.length.int() ? list.length : pos
+		return pos < 0 || pos > list.length.int() ? list.length : pos;
 
 
 	static public inline function add<T>( list:FastArray<T>, item:T ) : T

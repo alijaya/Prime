@@ -30,8 +30,6 @@ package prime.types;
  import prime.core.geom.Matrix2D;
  import prime.net.ICommunicator;
  import prime.fsm.SimpleStateMachine;
- import prime.core.traits.IDisposable;
- import prime.core.traits.IValueObject;
  import prime.gui.display.BitmapData;
  import prime.gui.display.DisplayObject;
  import prime.types.Number;
@@ -47,9 +45,6 @@ package prime.types;
  import prime.gui.display.Loader;
 
 #elseif CSSParser
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICodeGenerator;
- import prime.types.Reference;
   using prime.types.Reference;
 #end
 
@@ -67,9 +62,9 @@ private typedef BytesData		= haxe.io.BytesData;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-class Asset		implements IDisposable
-			,	implements IValueObject
-#if CSSParser,	implements ICodeFormattable		#end
+class Asset		implements prime.core.traits.IDisposable
+				implements prime.core.traits.IValueObject
+#if CSSParser	implements prime.tools.generator.ICodeFormattable		#end
 {
 	//
 	// FACTORY METHODS
@@ -252,7 +247,7 @@ class Asset		implements IDisposable
 
 #if CSSParser
 	public  function cleanUp () : Void				{}
-	public  function toCode (code:ICodeGenerator)
+	public  function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		var method:String = null;
 		if		(source.is(URI))			method = "fromURI";

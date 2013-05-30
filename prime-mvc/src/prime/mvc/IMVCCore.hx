@@ -36,4 +36,4 @@ package prime.mvc;
 @:autoBuild(prime.utils.MacroUtils.autoDisable())
 @:autoBuild(prime.utils.MacroUtils.autoEnable())
 @:autoBuild(prime.utils.MacroUtils.autoDispose())
-interface IMVCCore implements IMVCNotifier {}
+interface IMVCCore extends IMVCNotifier {}

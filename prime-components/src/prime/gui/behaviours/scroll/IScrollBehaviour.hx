@@ -29,13 +29,12 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.gui.behaviours.scroll;
- import prime.gui.behaviours.IBehaviour;
 
 /**
  * @author Ruben Weijers
  * @creation-date May 26, 2011
  */
-interface IScrollBehaviour implements IBehaviour<prime.gui.traits.IScrollable>
+interface IScrollBehaviour extends prime.gui.behaviours.IBehaviour<prime.gui.traits.IScrollable>
 {
 	
 }

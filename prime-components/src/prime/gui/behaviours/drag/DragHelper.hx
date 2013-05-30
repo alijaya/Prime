@@ -31,8 +31,6 @@
 package prime.gui.behaviours.drag;
  import haxe.Timer;
  import prime.signals.Wire;
- import prime.core.traits.IDisablable;
- import prime.core.traits.IDisposable;
  import prime.gui.display.ISprite;
  import prime.gui.events.KeyboardEvents;
  import prime.gui.events.MouseEvents;
@@ -67,7 +65,7 @@ class DragHelper
 	}
 }
 #else
-class DragHelper implements IDisposable implements IDisablable
+class DragHelper implements prime.core.traits.IDisposable implements prime.core.traits.IDisablable
 {
 	private var target				: ISprite;
 	private var startHandler		: MouseState -> Void;

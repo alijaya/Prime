@@ -28,12 +28,10 @@
  */
 package prime.core.traits;
 
-import prime.core.traits.IDisposable;
-
 /**
  * Implemented by every Value-Object class.
  * 
  * @author Danny Wilson
  * @creation-date Jul 06, 2010
  */
-interface IValueObject implements IDisposable {}
+interface IValueObject extends prime.core.traits.IDisposable {}

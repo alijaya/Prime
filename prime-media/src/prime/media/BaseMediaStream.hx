@@ -195,7 +195,7 @@ class BaseMediaStream implements IMediaStream
     
     
     private inline function freezeState ()
-        state.current = MediaStates.frozen( state.current )
+        state.current = MediaStates.frozen( state.current );
     
     
     private inline function defrostState ()

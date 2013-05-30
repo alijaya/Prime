@@ -16,12 +16,12 @@ package;
  import prime.core.traits.IEditEnabledValueObject;
 
 
-interface IUserVO implements IValueObject
+interface IUserVO extends IValueObject
 {
 	var name (default,null) : String;
 }
 
-interface IUserEVO implements IEditEnabledValueObject
+interface IUserEVO extends IEditEnabledValueObject
 {
 	public var name (default,default) : String;
 }
