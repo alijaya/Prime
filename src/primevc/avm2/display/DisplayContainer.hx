@@ -26,11 +26,11 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.display;
+package prime.avm2.display;
  import flash.display.DisplayObjectContainer;
- import primevc.gui.display.IDisplayContainer;
- import primevc.gui.display.IDisplayObject;
- import primevc.gui.display.DisplayList;
+ import prime.gui.display.IDisplayContainer;
+ import prime.gui.display.IDisplayObject;
+ import prime.gui.display.DisplayList;
 
 
 /**

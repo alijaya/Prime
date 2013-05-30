@@ -27,8 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
- import flash.events.Event;
- import flash.events.TextEvent;
  import prime.gui.events.TextEvents;
 
 
@@ -44,9 +42,9 @@ class TextEvents extends TextSignals
 	public function new (eventDispatcher)
 	{
 		super();
-		change		= new FlashSignal0 (eventDispatcher, Event.CHANGE );
-		scroll		= new FlashSignal0 (eventDispatcher, Event.SCROLL );
-		link		= new primevc.avm2.events.TextSignal (	eventDispatcher, TextEvent.LINK );
-		textInput	= new primevc.avm2.events.TextSignal (	eventDispatcher, TextEvent.TEXT_INPUT );
+		change		= new FlashSignal0 (eventDispatcher, flash.events.Event.CHANGE );
+		scroll		= new FlashSignal0 (eventDispatcher, flash.events.Event.SCROLL );
+		link		= new prime.avm2.events.TextSignal (eventDispatcher, flash.events.TextEvent.LINK );
+		textInput	= new prime.avm2.events.TextSignal (eventDispatcher, flash.events.TextEvent.TEXT_INPUT );
 	}
 }

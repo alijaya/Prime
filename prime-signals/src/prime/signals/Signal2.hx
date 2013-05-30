@@ -40,7 +40,7 @@ package prime.signals;
  */
 class Signal2 <A,B> extends Signal<A->B->Void> implements ISender2<A,B> implements INotifier<A->B->Void>
 {
-	public function new() enabled = true
+	public function new() enabled = true;
 	
 	public #if !debug inline #end function send( _1:A, _2:B ) : Void if (enabled)
 	{
@@ -72,10 +72,10 @@ class Signal2 <A,B> extends Signal<A->B->Void> implements ISender2<A,B> implemen
 		nextSendable = null;
 	}
 	
-	public #if !noinline inline #end function bind 			(owner:Dynamic, handler:A->B->Void)		return Wire.make( this, owner, handler, Wire.ENABLED )
-	public #if !noinline inline #end function bindOnce 		(owner:Dynamic, handler:A->B->Void)		return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE)
-	public #if !noinline inline #end function bindDisabled 	(owner:Dynamic, handler:A->B->Void)		return Wire.make( this, owner, handler, 0)
-	public #if !noinline inline #end function observe 			(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER)
-	public #if !noinline inline #end function observeOnce		(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER | Wire.SEND_ONCE)
-	public #if !noinline inline #end function observeDisabled 	(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, cast handler, Wire.VOID_HANDLER)
+	public #if !noinline inline #end function bind 				(owner:Dynamic, handler:A->B->Void)		return Wire.make( this, owner, handler, Wire.ENABLED );
+	public #if !noinline inline #end function bindOnce 			(owner:Dynamic, handler:A->B->Void)		return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE);
+	public #if !noinline inline #end function bindDisabled 		(owner:Dynamic, handler:A->B->Void)		return Wire.make( this, owner, handler, 0);
+	public #if !noinline inline #end function observe 			(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER);
+	public #if !noinline inline #end function observeOnce		(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER | Wire.SEND_ONCE);
+	public #if !noinline inline #end function observeDisabled 	(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, cast handler, Wire.VOID_HANDLER);
 }

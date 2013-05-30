@@ -29,7 +29,7 @@
 package prime.core.traits;
 
 #if macro
-@:autoBuild(primevc.utils.MacroUtils.autoDispose())
+@:autoBuild(prime.utils.MacroUtils.autoDispose())
 #end
 interface IDisposable
 {

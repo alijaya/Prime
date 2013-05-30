@@ -40,7 +40,7 @@ package prime.signals;
  */
 class Signal0 extends Signal<Void->Void> implements ISender0 implements INotifier<Void->Void>
 {
-	public function new() enabled = true
+	public function new() enabled = true;
 	
 	public #if !debug inline #end function send() if (enabled)
 	{
@@ -71,10 +71,10 @@ class Signal0 extends Signal<Void->Void> implements ISender0 implements INotifie
 		nextSendable = null;
 	}
 	
-	public #if !noinline inline #end function bind				(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, Wire.ENABLED)
-	public #if !noinline inline #end function bindOnce			(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE)
-	public #if !noinline inline #end function bindDisabled		(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, 0)
-	public #if !noinline inline #end function observe			(owner:Dynamic, handler:Void->Void)		return bind(owner, handler)
-	public #if !noinline inline #end function observeOnce		(owner:Dynamic, handler:Void->Void)		return bindOnce(owner, handler)
-	public #if !noinline inline #end function observeDisabled	(owner:Dynamic, handler:Void->Void)		return bindDisabled(owner, handler)
+	public #if !noinline inline #end function bind				(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, Wire.ENABLED);
+	public #if !noinline inline #end function bindOnce			(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE);
+	public #if !noinline inline #end function bindDisabled		(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, 0);
+	public #if !noinline inline #end function observe			(owner:Dynamic, handler:Void->Void)		return bind(owner, handler);
+	public #if !noinline inline #end function observeOnce		(owner:Dynamic, handler:Void->Void)		return bindOnce(owner, handler);
+	public #if !noinline inline #end function observeDisabled	(owner:Dynamic, handler:Void->Void)		return bindDisabled(owner, handler);
 }

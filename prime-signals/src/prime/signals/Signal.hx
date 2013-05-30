@@ -76,9 +76,9 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature> implements 
 	public var nextSendable : Wire<FunctionSignature>;
 	
 	
-	public #if !noinline inline #end function  enable()   enabled = true
-	public #if !noinline inline #end function disable()   enabled = false
-	public #if !noinline inline #end function isEnabled() return enabled
+	public #if !noinline inline #end function  enable()   enabled = true;
+	public #if !noinline inline #end function disable()   enabled = false;
+	public #if !noinline inline #end function isEnabled() return enabled;
 	
 	
 	/**

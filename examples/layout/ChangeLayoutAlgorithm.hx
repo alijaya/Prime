@@ -27,10 +27,10 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package examples.layout;
- import primevc.gui.core.UIComponent;
- import primevc.gui.core.UIContainer;
-// import primevc.gui.core.UIGraphic;
-  using primevc.utils.Bind;
+ import prime.gui.core.UIComponent;
+ import prime.gui.core.UIContainer;
+// import prime.gui.core.UIGraphic;
+  using prime.utils.Bind;
 
 
 /**
@@ -39,10 +39,10 @@ package examples.layout;
  * @author			Ruben Weijers
  * @creation-date	Mar 26, 2013
  */
-class ChangeLayoutAlgorithm extends primevc.gui.core.UIWindow
+class ChangeLayoutAlgorithm extends prime.gui.core.UIWindow
 {
 	public static function main ()
-		primevc.gui.display.Window.startup(function (stage) { return new ChangeLayoutAlgorithm(stage); })
+		prime.gui.display.Window.startup(function (stage) { return new ChangeLayoutAlgorithm(stage); })
 
 
 	private var holder 	: UIContainer;

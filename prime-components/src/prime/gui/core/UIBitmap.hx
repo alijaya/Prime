@@ -68,7 +68,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     public var state            (default, null)                 : UIElementStates;
     public var effects          (default, default)              : prime.gui.effects.UIElementEffects;
     
-    public var layout           (default, null)                 : prime.gui.layout.LayoutClient;
+    public var layout           (default, null)                 : prime.layout.LayoutClient;
     public var system           (get_system, never)             : ISystem;
     
 #if flash9

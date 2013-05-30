@@ -42,7 +42,7 @@ class KeyboardEvents extends KeyboardSignals
 	public function new (eventDispatcher)
 	{
 		super();
-		down = new primevc.avm2.events.KeyboardSignal(eventDispatcher, KeyboardEvent.KEY_DOWN);
-		up   = new primevc.avm2.events.KeyboardSignal(eventDispatcher, KeyboardEvent.KEY_UP  );
+		down = new prime.avm2.events.KeyboardSignal(eventDispatcher, KeyboardEvent.KEY_DOWN);
+		up   = new prime.avm2.events.KeyboardSignal(eventDispatcher, KeyboardEvent.KEY_UP  );
 	}
 }

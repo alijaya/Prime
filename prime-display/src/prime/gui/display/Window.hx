@@ -65,7 +65,7 @@ class Window implements IDisplayContainer implements IDisablable
 		stage.scaleMode	= flash.display.StageScaleMode.NO_SCALE;
 	
 	#if (debug && FlashTrace)
-		haxe.Log.trace	= primevc.utils.DebugTrace.trace;
+		haxe.Log.trace	= prime.utils.DebugTrace.trace;
 	
 	#elseif (debug && Monster2Trace)
 		var monster		= new nl.demonsters.debugger.MonsterDebugger(flash.Lib.current);

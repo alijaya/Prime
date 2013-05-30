@@ -60,14 +60,14 @@ class MouseEvents extends MouseSignals
 	}
 	
 	
-	override private function createDown ()			{ down			= new primevc.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_DOWN	, 1); }
-	override private function createUp ()			{ up			= new primevc.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_UP		, 1); }
-	override private function createMove ()			{ move			= new primevc.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_MOVE	, 0); }
-	override private function createClick () 		{ click			= new primevc.avm2.events.MouseSignal( eventDispatcher, MouseEvent.CLICK		, 1); }
-	override private function createDoubleClick ()	{ doubleClick	= new primevc.avm2.events.MouseSignal( eventDispatcher, MouseEvent.DOUBLE_CLICK	, 2); }
-	override private function createOverChild ()	{ overChild		= new primevc.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_OVER	, 0); }
-	override private function createOutOfChild ()	{ outOfChild	= new primevc.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_OUT	, 0); }
-	override private function createRollOver ()		{ rollOver		= new primevc.avm2.events.MouseSignal( eventDispatcher, MouseEvent.ROLL_OVER	, 0); }
-	override private function createRollOut ()		{ rollOut		= new primevc.avm2.events.MouseSignal( eventDispatcher, MouseEvent.ROLL_OUT		, 0); }
-	override private function createScroll ()		{ scroll		= new primevc.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_WHEEL	, 0); }
+	override private function createDown ()			down		= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_DOWN	, 1);
+	override private function createUp ()			up			= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_UP		, 1);
+	override private function createMove ()			move		= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_MOVE	, 0);
+	override private function createClick () 		click		= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.CLICK		, 1);
+	override private function createDoubleClick ()	doubleClick	= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.DOUBLE_CLICK	, 2);
+	override private function createOverChild ()	overChild	= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_OVER	, 0);
+	override private function createOutOfChild ()	outOfChild	= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_OUT	, 0);
+	override private function createRollOver ()		rollOver	= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.ROLL_OVER	, 0);
+	override private function createRollOut ()		rollOut		= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.ROLL_OUT		, 0);
+	override private function createScroll ()		scroll		= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_WHEEL	, 0);
 }

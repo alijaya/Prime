@@ -36,9 +36,9 @@ package prime.net;
   using prime.utils.NumberUtil;
 
 //LoaderGroupEvents imports
- import prime.core.dispatcher.Signal0;
- import prime.core.dispatcher.Signal1;
- import prime.core.dispatcher.Signal2;
+ import prime.signals.Signal0;
+ import prime.signals.Signal1;
+ import prime.signals.Signal2;
  import prime.core.events.CommunicationEvents;
 
 

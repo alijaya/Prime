@@ -84,10 +84,10 @@ package prime.bindable.collections;
 	}
 	
 	
-	@:keep private inline function get_length ()						return list.length
-	@:keep public  inline function iterator () : Iterator<T>			return forwardIterator()
-	@:keep public  inline function forwardIterator () : IIterator<T>	return new primevc.core.collections.iterators.FastArrayForwardIterator<T>(list)
-	@:keep public  inline function reversedIterator () : IIterator<T>	return new primevc.core.collections.iterators.FastArrayReversedIterator<T>(list)
+	@:keep private inline function get_length ()						return list.length;
+	@:keep public  inline function iterator () : Iterator<T>			return forwardIterator();
+	@:keep public  inline function forwardIterator () : IIterator<T>	return new prime.bindables.collections.iterators.FastArrayForwardIterator<T>(list);
+	@:keep public  inline function reversedIterator () : IIterator<T>	return new prime.bindables.collections.iterators.FastArrayReversedIterator<T>(list);
 
 
 	public #if !noinline inline #end function disableEvents ()					{ beforeChange.disable(); change.disable(); }

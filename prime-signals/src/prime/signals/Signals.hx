@@ -27,8 +27,6 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.signals;
- import prime.core.traits.IDisablable;
- import prime.core.traits.IDisposable;
 
 
 /**
@@ -47,7 +45,6 @@ package prime.signals;
  * </code>
  * 
  * @author Danny Wilson
- * @author Ruben Weijers
  * @creation-date jun 10, 2010
  */
 #if !macro
@@ -57,13 +54,13 @@ package prime.signals;
 @:autoBuild(prime.utils.MacroUtils.autoUnbindAll())
 @:autoBuild(prime.utils.MacroUtils.autoDispose())
 #end
-class Signals implements IUnbindable<Dynamic> implements IDisposable implements IDisablable implements haxe.Public
+class Signals implements IUnbindable<Dynamic> implements prime.core.traits.IDisposable implements prime.core.traits.IDisablable implements haxe.Public
 {
     private var _enabled : Bool;
 
-    public function new     () { _enabled = true; }
-    public function disable () { _enabled = false; }
-    public function enable  () { _enabled = true; }
+    public function new     () _enabled = true;
+    public function disable () _enabled = false;
+    public function enable  () _enabled = true;
     public function dispose () {}
 
     /**
