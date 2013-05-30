@@ -58,13 +58,27 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements ID
 	static function __init__()
 	{
 		var W = Wire;
-		var b = new Wire();
-			b.n	= W.free;
-		var W = Wire;
-		// Pre-allocate Wires
+	  #if js
+		var dummyOwner   = new Signal0();
+		var dummyHandler = dummyOwner.unbindAll;
+	  #end
+
+		// Pre-allocate roughly 36 * MAX_WIRES bytes of Wires
+		// to potentionally have them placed closely togheter in memory.
 		for (i in 0 ... MAX_WIRES) {
-			W.free = b;
-			++W.freeCount;
+			var w     = new Wire<Dynamic>();
+		  #if js // Set all fields to increase the odds V8 will initialize the correct hidden class type
+			w.owner   = dummyOwner;
+			w.signal  = dummyOwner;
+			w.handler = dummyHandler;
+			w.flags   = 0;
+			w.owner   = null;
+			w.signal  = null;
+			w.handler = null;
+		  #end
+			w.n       = W.free;
+			W.free    = w;
+			W.freeCount++;
 		}
 	}
 

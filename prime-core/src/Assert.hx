@@ -125,7 +125,8 @@ import haxe.macro.Context;
 						params : []
 					},
 					[
-						message != null? message : { expr : EConst(CString("Assertion failed. Expected "+ #if thx thx.macro.Macros.stringOfExpr(expr) #else "" #end +" but was false")), pos : pos }
+						message != null? message : { expr : EConst(CString("Assertion failed. Expected ... but was false")), pos : pos }
+                        //FIXME: new haxe.macro.Printer().printExpr(expr) will be available once we get pattern matching working for prime.
 					]),
 				pos : pos }),
 			pos : pos },
