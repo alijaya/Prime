@@ -99,7 +99,7 @@ class UIDataContainer <DataType> extends UIDataComponent <DataType> implements I
 
     public function disableClipping ()
     {
-        Assert.notNull(scrollRect, id.value);
+        Assert.isNotNull(scrollRect, id.value);
         var l = layoutContainer;
         l.changed.unbind(this);
         l.scrollPos.xProp.change.unbind( this );
