@@ -38,4 +38,4 @@ typedef FileReference =
 	#elseif	flash 	prime.avm1.net.FileReference;
 	#elseif	nodejs 	#error
 	#elseif	js		prime.js  .net.FileReference;
-	#else			error; #end
+	#else		#error; #end

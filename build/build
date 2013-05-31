@@ -132,8 +132,7 @@ else
 	echo -e "\n=== COMPILING SWF === ($(date))"
 	time echo build/build.hxml \
 		-swf "'$OUTPUT'" \
-		--dce full \
-		-D no-pattern-matching \
+		-dce full \
 		${Debug:---no-traces} \
 		--cwd "'$PRJROOT'" \
 		$EXTRA \
