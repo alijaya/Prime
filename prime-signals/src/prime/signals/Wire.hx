@@ -101,12 +101,13 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 		w.signal  = dispatcher;
 		w.handler = handlerFn;
 		w.flags   = flags;
-		if (flags.has(ENABLED))
+		if (flags.has(ENABLED)) {
 			w.doEnable();
+			Assert.isNotNull(untyped w.signal.n);
+		}
 		
 		#if debug w.bindPos = pos; #end
 		Assert.isNotNull(w.signal);
-		Assert.isNotNull(untyped w.signal.n);
 		return cast w;
 	}
 	
