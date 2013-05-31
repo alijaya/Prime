@@ -29,7 +29,7 @@
 package prime.signals;
  import prime.core.ListNode;
   using prime.utils.BitUtil;
- // using prime.signals.Signal;
+  using prime.signals.Signal;
 
 /**
  * A Wire is the connection between a Signal0-4 dispatcher, and a handler object+function.
@@ -243,7 +243,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 			if (signal.nextSendable == this)
 				signal.nextSendable = x.n;
 			
-			Signal.notifyDisabled(signal, this);
+			signal.notifyDisabled(this);
 		}
 	}
 	

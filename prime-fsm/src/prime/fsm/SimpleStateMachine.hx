@@ -133,7 +133,7 @@ class StateMachineUtil
 				fn();
 			}
 		}
-		w.setArgsHandler(f);
+		w.handler = f;
 		return w;
 	}
 	
@@ -147,7 +147,7 @@ class StateMachineUtil
 				fn();
 			}
 		}
-		w.setArgsHandler(f);
+		w.handler = f;
 		return w;
 	}
 

@@ -289,7 +289,7 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener implements
 		if (removedBinding != null)		removedBinding.enable();
 		if (addedBinding != null)		addedBinding.disable();
 		
-		styleNamesBinding.setArgsHandler(updateStyleNameStyles);
+		styleNamesBinding.handler = updateStyleNameStyles;
 		idChangeBinding.setVoidHandler(cast updateIdStyle);
 
 		removedBinding   .enable();
