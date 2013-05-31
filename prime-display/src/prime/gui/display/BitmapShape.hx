@@ -34,7 +34,7 @@ package prime.gui.display;
  * @creation-date Jan 04, 2011
  */
 typedef BitmapShape = 
-	#if		flash9	prime.avm2.display.BitmapShape;
+	#if (flash9 || nme) prime.avm2.display.BitmapShape;
 	#elseif	flash 	prime.avm1.display.BitmapShape;
 	#elseif nodejs 	#error;
 	#elseif	js		prime.js  .display.BitmapShape;

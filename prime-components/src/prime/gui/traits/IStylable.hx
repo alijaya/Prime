@@ -37,7 +37,7 @@ package prime.gui.traits;
  */
 interface IStylable extends prime.core.traits.IIdentifiable
 {
-#if flash9
+#if (flash9 || nme)
 	public var style			(default, null)					: prime.gui.styling.UIElementStyle;
 	
 	/**

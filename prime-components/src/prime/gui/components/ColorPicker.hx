@@ -125,7 +125,7 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	
 	private inline function getColorAt( x:Float, y:Float ) : RGBA 
 	{
-#if flash9
+#if (flash9||nme)
 	//	var l = layout.innerBounds;
 	//	var b = new BitmapDataType( l.width, l.height, false );
 	//	b.draw(this);

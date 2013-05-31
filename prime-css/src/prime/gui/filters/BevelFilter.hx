@@ -29,7 +29,7 @@
 package prime.gui.filters;
 
 
-#if (flash9 || flash8)
+#if (flash9 || nme || flash8)
 typedef BevelFilter = flash.filters.BevelFilter;
 
 //#elseif	js

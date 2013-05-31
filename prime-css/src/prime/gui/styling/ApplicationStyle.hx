@@ -38,7 +38,7 @@ package prime.gui.styling;
  */
 class ApplicationStyle extends UIElementStyle
 {
-#if flash9
+#if (flash9 || nme)
 	override private function init ()
 	{
 		var sheet			= new StyleSheet();

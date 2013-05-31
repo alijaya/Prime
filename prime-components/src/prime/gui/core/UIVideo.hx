@@ -29,7 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.core;
-#if flash9
+#if (flash9 || nme)
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
 #end
@@ -84,7 +84,7 @@ class UIVideo extends Video implements IUIElement
 	public var system			(get_system, never)				: ISystem;
 	public var state			(default, null)					: UIElementStates;
 	
-#if flash9
+#if (flash9 || nme)
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
 	public var stylingEnabled	(default, set_stylingEnabled)	: Bool;
@@ -102,7 +102,7 @@ class UIVideo extends Video implements IUIElement
 #end
 		this.id				= new Bindable<String>(id);
 		super();
-#if flash9
+#if (flash9 || nme)
 		styleClasses		= new SimpleList<String>();
 		this.stylingEnabled	= stylingEnabled;
 #end
@@ -144,7 +144,7 @@ class UIVideo extends Video implements IUIElement
 		if (stream != null)		stream.dispose();
 		if (layout != null)		layout.dispose();
 		
-#if flash9
+#if (flash9 || nme)
 		if (style != null && style.target == this)
 			style.dispose();
 		
@@ -176,7 +176,7 @@ class UIVideo extends Video implements IUIElement
 		behaviours.init();
 		
 		stream = new VideoStream();
-#if flash9
+#if (flash9 || nme)
 		attachNetStream( stream.source );
 		clear.onEntering( stream.state, MediaStates.stopped, this );
 #end
@@ -190,7 +190,7 @@ class UIVideo extends Video implements IUIElement
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private function set_stylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)
@@ -286,7 +286,7 @@ class UIVideo extends Video implements IUIElement
 	
 	
 	private inline function get_system () : ISystem					return window.as(ISystem);
-#if flash9
+#if (flash9 || nme)
 	public #if !noinline inline #end function isOnStage () : Bool	return stage != null;			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component get's disposed on removedFromStage, we won't know that it isn't on it.
 #else
 	public #if !noinline inline #end function isOnStage () : Bool	return window != null;

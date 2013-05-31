@@ -77,7 +77,7 @@ class BitmapFill extends prime.gui.graphics.GraphicElement implements prime.gui.
 		if (matrix != null)
 			untyped matrix = null;
 		
-#if flash9
+#if (flash9 || nme)
 		data = null;
 #end
 		super.dispose();
@@ -93,7 +93,7 @@ class BitmapFill extends prime.gui.graphics.GraphicElement implements prime.gui.
 	{
 		if (v != asset)
 		{
-#if flash9
+#if (flash9 || nme)
 			if (asset != null)
 				asset.state.change.unbind(this);
 			
@@ -160,7 +160,7 @@ class BitmapFill extends prime.gui.graphics.GraphicElement implements prime.gui.
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private inline function setData (v:BitmapData)
 	{
 		if (v != data)
@@ -183,13 +183,10 @@ class BitmapFill extends prime.gui.graphics.GraphicElement implements prime.gui.
 	{
 		switch (newState) {
 			case AssetStates.ready:
-#if flash9		data = asset.toBitmapData(); #end
+#if (flash9 || nme)		data = asset.toBitmapData(); #end
 			
 			case AssetStates.empty:
-#if flash9		data = null; #end
-			
-			case AssetStates.loading:
-			case AssetStates.loadable:
+#if (flash9 || nme)		data = null; #end
 			default:
 		}
 	}
@@ -202,7 +199,7 @@ class BitmapFill extends prime.gui.graphics.GraphicElement implements prime.gui.
 	
 	public /*inline*/ function begin (target:IGraphicsOwner, bounds:IRectangle)
 	{	
-#if flash9
+#if (flash9 || nme)
 		isFinished = true;
 		if (assetFactory == null && asset == null)
 			return;
@@ -233,7 +230,7 @@ class BitmapFill extends prime.gui.graphics.GraphicElement implements prime.gui.
 	public #if !noinline inline #end function end (target:IGraphicsOwner, bounds:IRectangle)
 	{	
 		isFinished = false;
-#if flash9
+#if (flash9 || nme)
 		if (asset != null && asset.isReady())
 			target.graphics.endFill();
 #end

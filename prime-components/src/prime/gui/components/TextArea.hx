@@ -60,7 +60,7 @@ class TextArea<VOType> extends InputField<VOType>
 	override private function createChildren ()
 	{
 		field = UITextField.createLabelField(id.value + "TextField", data, this, layoutContainer);
-#if flash9
+#if (flash9 || nme)
 		handleKeyDown.on( field.userEvents.key.down, this );
         updateScroll .on( layout.changed, true );
         field.makeEditable();
@@ -94,7 +94,7 @@ class TextArea<VOType> extends InputField<VOType>
 	}
 	
 
-#if flash9
+#if (flash9 || nme)
 	override public function isFocusOwner (target:UserEventTarget)
 	{
 		return target == this || field.isFocusOwner(target);

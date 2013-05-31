@@ -74,7 +74,7 @@ class Box
 	private inline function set_bottom (v)	{ return this.bottom = v; }
 	
 	
-#if (debug && flash9)
+#if (debug && (flash9 || nme))
 	public function toString () { return "Box ( "+top+"px "+right+"px "+bottom+"px "+left+"px )"; }
 #elseif CSSParser
 	public function toString () { return toCSS(); }

@@ -30,7 +30,7 @@ package prime.gui.display;
  import prime.signals.Signal0;
  import prime.core.geom.IntRectangle;
  import prime.core.traits.IDisablable;
-#if flash9
+#if (flash9 || nme)
  import flash.display.InteractiveObject;
  import flash.events.Event;
  import prime.avm2.events.FlashSignal0;
@@ -60,7 +60,7 @@ class Window implements IDisplayContainer implements IDisablable
 	public static #if !noinline inline #end function startup<WindowInstance>(windowClassFactory : Stage -> WindowInstance) : WindowInstance
 	{
 		var stage:Stage = null;
-#if flash9
+#if (flash9 || nme)
 		stage = flash.Lib.current.stage;
 		stage.scaleMode	= flash.display.StageScaleMode.NO_SCALE;
 	
@@ -90,7 +90,7 @@ class Window implements IDisplayContainer implements IDisablable
 #end
 #if debug
 		haxe.Log.clear();
-		haxe.Log.setColor(0xc00000);
+		#if flash9 haxe.Log.setColor(0xc00000); #end
 		trace("started");
 #end
 		var inst = windowClassFactory(stage);
@@ -136,7 +136,7 @@ class Window implements IDisplayContainer implements IDisablable
 	 */
 	public var activated		(default, null)			: Signal0;
 	
-#if flash9
+#if (flash9 || nme)
 	public var focus			(get_focus, set_focus)	: IInteractiveObject;
 #end
 	
@@ -154,7 +154,7 @@ class Window implements IDisplayContainer implements IDisablable
 		mouse			= new Mouse( this );
 		
 		target.doubleClickEnabled = true;
-#if flash9 /*&& debug)*/
+#if (flash9 || nme) /*&& debug)*/
 		deactivated	= new FlashSignal0( target, Event.DEACTIVATE );
 		activated	= new FlashSignal0( target, Event.ACTIVATE );
 		disable	.on( deactivated, this );
@@ -191,11 +191,17 @@ class Window implements IDisplayContainer implements IDisablable
 	//
 	
 	public var mouseEnabled			: Bool;
-#if flash9	
+#if (flash9 || nme)
 	public var doubleClickEnabled	: Bool;
 	public var tabEnabled			: Bool;
+
+  #if html5
+	public var tabIndex(get_tabIndex, set_tabIndex):Int;
+	function get_tabIndex()  return target.tabIndex
+	function set_tabIndex(v) return target.tabIndex = v
+  #else
 	public var tabIndex				: Int;
-	
+  #end
 	
 	public #if !noinline inline #end function globalToLocal (point:Point) : Point		{ return target.globalToLocal(point); }
 	public #if !noinline inline #end function localToGlobal (point:Point) : Point		{ return target.localToGlobal(point); }

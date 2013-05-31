@@ -59,7 +59,7 @@ class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect>
 	private var delayTimer		: Timer;
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private var cachedFilters	: Array<flash.filters.BitmapFilter>;
 #end
 	
@@ -223,12 +223,12 @@ class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect>
 	
 	private inline function hideFilters ()
 	{
-#if flash9
+#if (flash9 || nme)
 		if (effect.autoHideFilters && target != null && target.is(IDisplayObject))
 		{
 			var d = target.as(IDisplayObject);
 			if (d.filters != null) {
-				cachedFilters	= d.filters;
+				cachedFilters	= cast d.filters;
 				d.filters		= null;
 			}
 		}
@@ -238,11 +238,11 @@ class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect>
 	
 	private inline function applyFilters ()
 	{
-#if flash9
+#if (flash9 || nme)
 		if (effect.autoHideFilters && target != null && target.is(IDisplayObject) && cachedFilters != null)
 		{
 			var d = target.as(IDisplayObject);
-			d.filters		= cachedFilters;
+			d.filters		= cast cachedFilters;
 			cachedFilters	= null;
 		}
 #end

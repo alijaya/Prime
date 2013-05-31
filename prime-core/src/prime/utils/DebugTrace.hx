@@ -45,7 +45,7 @@ package prime.utils;
  */
 class DebugTrace
 {
-#if (flash9 && debug)
+#if ((flash9 || nme) && debug)
 	public static inline var tracesEnabled : Bool = true;
 
 	public static inline function getClassName (infos : haxe.PosInfos) : String

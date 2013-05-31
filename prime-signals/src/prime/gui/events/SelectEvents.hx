@@ -32,7 +32,7 @@ package prime.gui.events;
 
 
 typedef SelectEvents =
-	#if     flash9   prime.avm2.events.SelectEvents;
+	#if (flash9 || nme) prime.avm2.events.SelectEvents;
 	#elseif flash    prime.avm1.events.SelectEvents;
 	#elseif nodejs   #error;
 	#elseif js       prime.js  .events.SelectEvents;

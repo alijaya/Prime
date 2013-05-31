@@ -27,7 +27,7 @@
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
 package prime.media;
-#if flash9
+#if (flash9 || nme)
  import flash.events.Event;
  import flash.media.SoundTransform;
 #end
@@ -233,7 +233,7 @@ private class SoundMixerInstance
 
     private function applyVolume ()
     {
-#if flash9
+#if (flash9 || nme)
         var s    = Sound.soundTransform;
         s.volume = (!isMuted.value).boolCalc() * volume.value;
         Sound.soundTransform = s;

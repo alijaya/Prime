@@ -28,7 +28,7 @@
  */
 package prime.avm2.events;
  import flash.events.IEventDispatcher;
- import flash.events.DataEvent;
+ import #if html5 browser #else flash #end.events.DataEvent;
  import prime.signals.IWireWatcher;
  import prime.signals.Signal1;
  import prime.signals.Wire;

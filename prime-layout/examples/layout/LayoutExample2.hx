@@ -63,7 +63,7 @@ class LayoutExample2 extends Window
 		super(stage);
 		
 		// StageLayout automatically adjusts its size to the flash-stage-size
-		layout	 = #if flash9 new prime.avm2.layout.StageLayout( flash.Lib.current.stage ) #else new LayoutContainer() #end;
+		layout	 = #if (flash9 || nme) new prime.avm2.layout.StageLayout( flash.Lib.current.stage ) #else new LayoutContainer() #end;
 		
 		// ----
 		// Some example layout-algorithms - uncomment to try em out.
@@ -71,7 +71,7 @@ class LayoutExample2 extends Window
 	//	layout.algorithm = new prime.layout.algorithms.tile.SimpleTileAlgorithm(vertical);
 		layout.algorithm = new prime.layout.algorithms.tile.SimpleTileAlgorithm();
 	//	layout.algorithm = new prime.layout.algorithms.DynamicLayoutAlgorithm( function () { return new prime.layout.algorithms.circle.HorizontalCircleAlgorithm(); }, function () { return new prime.layout.algorithms.circle.VerticalCircleAlgorithm(); } );
-	//	layout.algorithm = new prime.layout.algorithms.DynamicLayoutAlgorithm( function () { return new prime.layout.algorithms.float.HorizontalFloatAlgorithm(); }, function () { return new prime.layout.algorithms.circle.VerticalCircleAlgorithm(); } );
+	//	layout.algorithm = new prime.layout.algorithms.DynamicLayoutAlgorithm( function () { return new prime.layout.algorithms.floating.HorizontalFloatAlgorithm(); }, function () { return new prime.layout.algorithms.circle.VerticalCircleAlgorithm(); } );
 		
 		// create children
 		for (i in 0...20)	new Box().attachTo(this);

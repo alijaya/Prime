@@ -32,7 +32,7 @@ package prime.core.geom;
  * @creation-date	Jun 11, 2010
  * @author			Ruben Weijers
  */
-#if flash9
+#if (flash9 || nme)
 typedef Point = flash.geom.Point;
 #else
 

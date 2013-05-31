@@ -46,10 +46,8 @@ package prime.gui.core;
   using prime.utils.BitUtil;
   using prime.utils.TypeUtil;
 
-#if flash9
  import prime.bindable.collections.SimpleList;
  import prime.gui.display.VectorShape;
-#end
 #if debug
  import prime.gui.events.KeyboardEvents;
 #end
@@ -99,11 +97,7 @@ class UIWindow extends prime.gui.display.Window
 	public var id					(default, null)					: Bindable<String>;
 	public var graphicData			(default, null)					: GraphicProperties;
 	
-#if flash9
-	public var scaleX				: Float;
-	public var scaleY				: Float;
-	
-	
+#if (flash9 || nme)
 	/**
 	 * Shape to draw the background graphics in. Stage doesn't have a Graphics
 	 * property.
@@ -112,7 +106,17 @@ class UIWindow extends prime.gui.display.Window
 	/**
 	 * Reference to bgShape.graphics.. Needed for compatibility with IDrawable
 	 */
-	public var graphics				(default, null)					: flash.display.Graphics;
+  #if html5
+  	public var graphics(get_graphics, never):flash.display.Graphics;
+  #elseif cpp
+	public var graphics(get_graphics, null):flash.display.Graphics;
+  #else
+  	public var graphics				(default, null)					: flash.display.Graphics;
+  #end
+  #if nme
+	inline function get_graphics() { return bgShape.graphics; }
+  #end
+
 	
 	public var style				(default, null)					: prime.gui.styling.UIElementStyle;
 	public var styleClasses			(default, null)					: SimpleList<String>;
@@ -127,7 +131,6 @@ class UIWindow extends prime.gui.display.Window
 	
 	public function new (target:prime.gui.display.Stage, id:String = null)
 	{
-		scaleX = scaleY = 1;
 		super(target);
 		
 #if debug if (id == null) id = this.getReadableId(); #end
@@ -136,7 +139,7 @@ class UIWindow extends prime.gui.display.Window
 		invalidation	= new InvalidationManager(this);
 		toolTip			= new ToolTipManager(this);
 		behaviours		= new BehaviourList();
-#if flash9		
+#if (flash9 || nme)
 		graphicData		= new GraphicProperties(rect);
 		styleClasses	= new SimpleList<String>();
 #end
@@ -145,9 +148,11 @@ class UIWindow extends prime.gui.display.Window
 		
 		createBehaviours();
 		createLayout();
-#if flash9
+#if (flash9 || nme)
 		bgShape			= new VectorShape();
+		#if flash9
 		graphics		= bgShape.graphics;
+		#end
 		children.add(bgShape);
 		stylingEnabled	= true;
 #end
@@ -186,7 +191,7 @@ class UIWindow extends prime.gui.display.Window
 		toolTip			.dispose();
 		rect			.dispose();
 		
-#if flash9
+#if (flash9 || nme)
 		bgShape			.dispose();
 		style			.dispose();
 		styleClasses	.dispose();
@@ -210,35 +215,39 @@ class UIWindow extends prime.gui.display.Window
 	}
 	
 	
-	private inline function createLayout ()
+	private function createLayout ()
 	{
-		topLayout	=	#if flash9	new prime.avm2.layout.StageLayout( target );
+		var topLayout = #if (flash9 || nme)	new prime.avm2.layout.StageLayout( target );
 						#else		new LayoutContainer();	#end
+		this.topLayout = topLayout;
 		
-		layout		= new VirtualLayoutContainer( #if debug "stagecontentLayout" #end );
-		popupLayout	= new VirtualLayoutContainer( #if debug "popupLayout" #end );
+		var layout		= this.layout      = new VirtualLayoutContainer( #if debug "stagecontentLayout" #end );
+		var popupLayout	= this.popupLayout = new VirtualLayoutContainer( #if debug "popupLayout" #end );
 		layout.invalidatable 	= popupLayout.invalidatable = false;
 		
 #if embed_perceptor
 		// use a seperate top level layout instead of adding to contentLayout
 		// as no assumptions can be made about what layout algorithm contentLayout
 		// will get and how it will behave
-		perceptorLayout = new VirtualLayoutContainer("SplitAppPerceptorLayout");
-		perceptorLayout.algorithm = new prime.layout.algorithms.float.HorizontalFloatAlgorithm( prime.core.geom.space.Horizontal.center, prime.core.geom.space.Vertical.center );
+		var perceptorLayout = new VirtualLayoutContainer("SplitAppPerceptorLayout"); this.perceptorLayout = perceptorLayout;
+		perceptorLayout.algorithm = new prime.layout.algorithms.floating.HorizontalFloatAlgorithm( prime.core.geom.space.Horizontal.center, prime.core.geom.space.Vertical.center );
 
-		appLayout = new VirtualLayoutContainer("SplitAppContentLayout");
+		var appLayout = new VirtualLayoutContainer("SplitAppContentLayout"); this.appLayout = appLayout;
 		appLayout.algorithm	= new prime.layout.algorithms.RelativeAlgorithm();
 		appLayout.percentWidth	= 0.7;
 		appLayout.percentHeight = 1.0;
 		perceptorLayout.percentWidth = 0.3;
 		perceptorLayout.percentHeight = 1.0;
-		topLayout.algorithm = new prime.layout.algorithms.float.HorizontalFloatAlgorithm( prime.core.geom.space.Horizontal.center, prime.core.geom.space.Vertical.center );
-		//layout.as(LayoutContainer).algorithm = new prime.layout.algorithms.float.HorizontalFloatAlgorithm( prime.core.geom.space.Horizontal.center, prime.core.geom.space.Vertical.center );
+		topLayout.algorithm = new prime.layout.algorithms.floating.HorizontalFloatAlgorithm( prime.core.geom.space.Horizontal.center, prime.core.geom.space.Vertical.center );
+		//layout.as(LayoutContainer).algorithm = new prime.layout.algorithms.floating.HorizontalFloatAlgorithm( prime.core.geom.space.Horizontal.center, prime.core.geom.space.Vertical.center );
 #end
 		
-		popupLayout.algorithm	= new prime.layout.algorithms.RelativeAlgorithm();
-		layout.percentWidth		= layout.percentHeight = popupLayout.percentWidth = popupLayout.percentHeight = 1.0;
-		layout.invalidatable 	= popupLayout.invalidatable = true;
+		popupLayout.algorithm     = new prime.layout.algorithms.RelativeAlgorithm();
+		layout.percentWidth	      = 1.0;
+		layout.percentHeight      = 1.0;
+		popupLayout.percentWidth  = 1.0;
+		popupLayout.percentHeight = 1.0;
+		layout.invalidatable      = popupLayout.invalidatable = true;
 
 #if embed_perceptor
 		appLayout.children.add( layout );
@@ -262,7 +271,9 @@ class UIWindow extends prime.gui.display.Window
 	private function createBehaviours ()	: Void
 	{
 	//	behaviours.add( new AutoChangeLayoutChildlistBehaviour(this) );
-#if flash9 target.stageFocusRect = false; #end
+#if (flash9 || nme)
+		target.stageFocusRect = false;
+#end
 	}
 	
 	
@@ -348,13 +359,13 @@ class UIWindow extends prime.gui.display.Window
 	// GETTERS / SETTERS
 	//
 	
-	public #if !noinline inline #end function isDisposed ()	{ return displayEvents == null; }
-	private inline function getLayoutContainer ()			{ return layout.as(LayoutContainer); }
-	private inline function getScrollableLayout () 			{ return layout.as(IScrollableLayout); }
-	private inline function getPopupManager ()				{ if (popups == null) { popups = new prime.gui.managers.PopupManager(this); } return popups; }
+	public  #if !noinline inline #end function isDisposed           ()  return displayEvents == null;
+	private #if !noinline inline #end function get_layoutContainer  ()  return layout.as(LayoutContainer);
+	private #if !noinline inline #end function get_scrollableLayout ()  return layout.as(IScrollableLayout);
+	private #if !noinline inline #end function get_popups           () { if (popups == null) { popups = new prime.gui.managers.PopupManager(this); } return popups; }
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private function set_stylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)

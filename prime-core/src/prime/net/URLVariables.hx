@@ -34,7 +34,7 @@ package prime.net;
  * @creation-date Mar 31, 2011
  */
 typedef URLVariables = 
-	#if		flash9	flash.net.URLVariables;
+	#if		(flash9 || nme)	flash.net.URLVariables;
 	#elseif	flash	prime.avm1.net.URLVariables;
 	#elseif nodejs 	#error;
 	#elseif	js		prime.js  .net.URLVariables;

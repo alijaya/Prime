@@ -38,7 +38,7 @@ package prime.gui.traits;
 interface IDrawable
 	#if !CSSParser extends ILayoutable extends IGraphicsOwner #end
 {
-#if flash9
+#if (flash9 || nme)
 	/**
 	 * Object containing graphical data. One object will be enough in general
 	 * since it can be a ComposedShape that contains multiple shapes.

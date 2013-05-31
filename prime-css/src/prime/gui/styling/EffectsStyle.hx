@@ -93,12 +93,12 @@ class EffectsStyle extends StyleSubBlock
 	public function new (filledProps:Int = 0, move:EffectType = null, resize:EffectType = null, rotate:EffectType = null, scale:EffectType = null, show:EffectType = null, hide:EffectType = null)
 	{
 		super(filledProps);
-		#if flash9 this._move		#else this.move		#end = move;
-		#if flash9 this._resize		#else this.resize	#end = resize;
-		#if flash9 this._rotate		#else this.rotate	#end = rotate;
-		#if flash9 this._scale		#else this.scale	#end = scale;
-		#if flash9 this._show		#else this.show		#end = show;
-		#if flash9 this._hide		#else this.hide		#end = hide;
+		#if (flash9 || nme) this._move    #else this.move    #end = move;
+		#if (flash9 || nme) this._resize  #else this.resize  #end = resize;
+		#if (flash9 || nme) this._rotate  #else this.rotate  #end = rotate;
+		#if (flash9 || nme) this._scale   #else this.scale   #end = scale;
+		#if (flash9 || nme) this._show    #else this.show    #end = show;
+		#if (flash9 || nme) this._hide    #else this.hide    #end = hide;
 	}
 	
 	

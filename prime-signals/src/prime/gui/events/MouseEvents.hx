@@ -34,7 +34,7 @@ package prime.gui.events;
 
 
 typedef MouseEvents =
-	#if     flash9  prime.avm2.events.MouseEvents;
+	#if (flash9 || nme) prime.avm2.events.MouseEvents;
 	#elseif flash   prime.avm1.events.MouseEvents;
 	#elseif nodejs  #error;
 	#elseif js      prime.js  .events.MouseEvents;
@@ -183,7 +183,7 @@ class MouseState extends KeyModState implements IClonable<MouseState>
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	public #if !noinline inline #end function isDispatchedBy (obj:UserEventTarget) : Bool
 	{
 		return obj != null && obj == related;

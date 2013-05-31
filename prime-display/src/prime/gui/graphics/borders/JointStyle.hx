@@ -29,7 +29,7 @@
 package prime.gui.graphics.borders;
 
 
-#if flash9
+#if (flash9 || nme)
 typedef JointStyle = flash.display.JointStyle;
 #else
 enum JointStyle {

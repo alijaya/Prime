@@ -118,7 +118,7 @@ class DragBehaviourBase extends BehaviourBase <ISprite>
 			
 		var dragTarget = dragInfo.dragRenderer;
 		
-#if flash9
+#if (flash9 || nme)
 		mouseEnabledValue		= dragTarget.mouseEnabled;
 		dragTarget.mouseEnabled	= false;
 #end

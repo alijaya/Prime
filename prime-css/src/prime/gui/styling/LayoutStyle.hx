@@ -134,33 +134,27 @@ class LayoutStyle extends StyleSubBlock
 	)
 	{
 		super(filledProps);
-		#if flash9 this._relative				#else this.relative				#end = rel;
-		#if flash9 this._algorithm				#else this.algorithm			#end = alg;
-		#if flash9 this._padding				#else this.padding				#end = padding;
-		#if flash9 this._margin					#else this.margin				#end = margin;
-
-		#if flash9 this._percentWidth			#else this.percentWidth			#end = percentW == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentW;
-		#if flash9 this._percentHeight			#else this.percentHeight		#end = percentH == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentH;
-
-		#if flash9 this._width					#else this.width				#end = width;
-		#if flash9 this._height					#else this.height				#end = height;
-
-		#if flash9 this._childWidth				#else this.childWidth			#end = childWidth;
-		#if flash9 this._childHeight			#else this.childHeight			#end = childHeight;
-		#if flash9 this._rotation				#else this.rotation				#end = rotation == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : rotation;
-
-		#if flash9 this._maintainAspectRatio	#else this.maintainAspectRatio	#end = maintainAspect;
-		#if flash9 this._includeInLayout		#else this.includeInLayout		#end = include;
-
-		#if flash9 this._minWidth				#else this.minWidth				#end = minWidth;
-		#if flash9 this._minHeight				#else this.minHeight			#end = minHeight;
-		#if flash9 this._maxWidth				#else this.maxWidth				#end = maxWidth;
-		#if flash9 this._maxHeight				#else this.maxHeight			#end = maxHeight;
-
-		#if flash9 this._percentMinWidth		#else this.percentMinWidth		#end = percentMinWidth  == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMinWidth;
-		#if flash9 this._percentMaxWidth		#else this.percentMaxWidth		#end = percentMaxWidth  == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMaxWidth;
-		#if flash9 this._percentMinHeight		#else this.percentMinHeight		#end = percentMinHeight == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMinHeight;
-		#if flash9 this._percentMaxHeight		#else this.percentMaxHeight		#end = percentMaxHeight == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMaxHeight;
+		#if (flash9 || nme) this._relative              #else this.relative             #end = rel;
+		#if (flash9 || nme) this._algorithm             #else this.algorithm            #end = alg;
+		#if (flash9 || nme) this._padding               #else this.padding              #end = padding;
+		#if (flash9 || nme) this._margin                #else this.margin               #end = margin;
+		#if (flash9 || nme) this._percentWidth          #else this.percentWidth         #end = percentW == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentW;
+		#if (flash9 || nme) this._percentHeight         #else this.percentHeight        #end = percentH == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentH;
+		#if (flash9 || nme) this._width                 #else this.width                #end = width;
+		#if (flash9 || nme) this._height                #else this.height               #end = height;
+		#if (flash9 || nme) this._childWidth            #else this.childWidth           #end = childWidth;
+		#if (flash9 || nme) this._childHeight           #else this.childHeight          #end = childHeight;
+		#if (flash9 || nme) this._rotation              #else this.rotation             #end = rotation == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : rotation;
+		#if (flash9 || nme) this._maintainAspectRatio   #else this.maintainAspectRatio  #end = maintainAspect;
+		#if (flash9 || nme) this._includeInLayout       #else this.includeInLayout      #end = include;
+		#if (flash9 || nme) this._minWidth              #else this.minWidth             #end = minWidth;
+		#if (flash9 || nme) this._minHeight             #else this.minHeight            #end = minHeight;
+		#if (flash9 || nme) this._maxWidth              #else this.maxWidth             #end = maxWidth;
+		#if (flash9 || nme) this._maxHeight             #else this.maxHeight            #end = maxHeight;
+		#if (flash9 || nme) this._percentMinWidth       #else this.percentMinWidth      #end = percentMinWidth  == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMinWidth;
+		#if (flash9 || nme) this._percentMaxWidth       #else this.percentMaxWidth      #end = percentMaxWidth  == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMaxWidth;
+		#if (flash9 || nme) this._percentMinHeight      #else this.percentMinHeight     #end = percentMinHeight == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMinHeight;
+		#if (flash9 || nme) this._percentMaxHeight      #else this.percentMaxHeight     #end = percentMaxHeight == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMaxHeight;
 	}
 	
 	

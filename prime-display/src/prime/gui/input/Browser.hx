@@ -37,5 +37,5 @@ package prime.gui.input;
  * @creation-date Jan 24, 2011
  */
 typedef Browser = 
-	#if flash9	prime.avm2.input.Browser;
+	#if (flash9 || nme) prime.avm2.input.Browser;
 	#else		error; #end

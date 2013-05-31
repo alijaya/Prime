@@ -30,7 +30,7 @@ package prime.avm2.net;
  import flash.net.URLLoaderDataFormat;
  import flash.net.URLRequest;
 
- import haxe.io.BytesData;
+ private typedef BytesData = #if (flash9 || nme) flash.utils.ByteArray  #else haxe.io.BytesData #end;
 
  import prime.bindable.Bindable;
  import prime.core.events.LoaderEvents;

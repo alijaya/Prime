@@ -28,7 +28,7 @@
  */
 package prime.gui.styling;
 
-#if flash9
+#if (flash9 || nme)
  import prime.bindable.collections.FastDoubleCell;
  import prime.bindable.collections.ListChange;
  import prime.bindable.collections.PriorityList;

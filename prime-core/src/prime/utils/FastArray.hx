@@ -48,7 +48,8 @@ typedef FastArray<T> =
  */
 #if flash10 extern #end class FastArrayUtil
 {
-	static public inline function create<T>(?size:Int = 0, ?fixed:Bool = false) : FastArray<T>
+	#if (flash10 && no_inline) "[!] ERROR Flash 10 Vectors require inlining!" #end
+	static public inline function create<T>(?size:UInt = 0, ?fixed:Bool = false) : FastArray<T>
 	{
 #if flash10
 		return new flash.Vector<T>(size, fixed);
@@ -247,10 +248,10 @@ typedef FastArray<T> =
 	 */
 	static public inline function duplicate<T> ( arr:FastArray<T> ) : FastArray<T>
 	{
-		var n:FastArray<T> = FastArrayUtil.create();
 		var l = arr.length;
+		var n:FastArray<T> = FastArrayUtil.create(l);
 		for (i in 0...l)
-			n.push( DuplicateUtil.duplicateItem( arr[i] ) );
+			n[i] = DuplicateUtil.duplicateItem( arr[i] );
 		
 		return n;
 	}

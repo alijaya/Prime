@@ -54,7 +54,7 @@ package prime.types;
 class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 {
 #if debug
-	static function __init__()
+	static var unittest = (function()
 	{
 		var u = new URI();
 		var mailURI = "mailto:mediahuis@tntpost.nl?subject=Een onvergetelijke kerst";
@@ -94,7 +94,8 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 		Assert.that(u.hasScheme( URIScheme.Scheme('asset') ));
 	//	Assert.that(u.scheme == URIScheme.Scheme('asset'), Std.string(u.scheme));
 		Assert.isEqual(u.host, "aap");
-	}
+		return 1;
+	})();
 #end
 	
 	
@@ -173,8 +174,8 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 
 	private inline function reset ()
 	{
-		(untyped this).port = -1;
-		(untyped this).scheme = null; (untyped this).userinfo = (untyped this).host = (untyped this).path = (untyped this).query = (untyped this).fragment = this.string = null;
+		this.port = -1;
+		this.scheme = null; this.userinfo = this.host = this.path = this.query = this.fragment = this.string = null;
 	}
 
 	
@@ -235,7 +236,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 		return string = s.toString();
 	}
 	
-#if flash9
+#if (flash9 || nme)
 	public function toRequest(method : prime.net.RequestMethod = null)
 	{
 		var r = new flash.net.URLRequest(this.toString());
@@ -258,15 +259,15 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 		
 		var scheme_pos = str.indexOf(':');
 		if (scheme_pos != -1)
-		{	
+		{
 			var has2slashes = str.charCodeAt(scheme_pos + 1) + str.charCodeAt(scheme_pos + 2) == '/'.code << 1;
 			var scheme_str = str.substr(0, scheme_pos);
 			
-			var us = (untyped this).scheme = Reflect.field(URIScheme, scheme_str);
+			var us = this.scheme = Reflect.field(URIScheme, scheme_str);
 			if (us == null)
 			{
 				if (has2slashes) {
-					(untyped this).scheme = URIScheme.Scheme(scheme_str);
+					this.scheme = URIScheme.Scheme(scheme_str);
 					pos = scheme_pos + 3;
 				}
 				else {
@@ -289,7 +290,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 		
 		var user_pos:Int  = str.indexOf('@', pos);
 		if (user_pos != -1) {
-			(untyped this).userinfo = str.substr(pos, user_pos - pos);
+			this.userinfo = str.substr(pos, user_pos - pos);
 			pos = user_pos + 1;
 		}
 		
@@ -313,8 +314,8 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 				}
 			}
 			
-			(untyped this).host = str.substr(pos, port_pos - pos);
-			(untyped this).port = Std.parseInt(str.substr(port_pos+1, port_end - port_pos));
+			this.host = str.substr(pos, port_pos - pos);
+			this.port = Std.parseInt(str.substr(port_pos+1, port_end - port_pos));
 			pos = port_end;
 		}
 		else if (scheme.notNull())
@@ -329,7 +330,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 				}
 			}
 			
-			(untyped this).host = str.substr(pos, host_end - pos);
+			this.host = str.substr(pos, host_end - pos);
 			pos = host_end;
 		}
 		
@@ -339,21 +340,21 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 			if (query_end == -1)
 				query_end = str.length;
 			
-			(untyped this).path		= str.substr(pos, query_pos - pos);
-			(untyped this).query	= str.substr(query_pos + 1, query_end - pos);
+			this.path		= str.substr(pos, query_pos - pos);
+			this.query	= str.substr(query_pos + 1, query_end - pos);
 		}
 		else if (frag_pos != -1)
 		{
-			(untyped this).path		= str.substr(pos, frag_pos - pos);
-			(untyped this).fragment	= str.substr(frag_pos + 1);
+			this.path		= str.substr(pos, frag_pos - pos);
+			this.fragment	= str.substr(frag_pos + 1);
 		}
 		else
-			(untyped this).path		= str.substr(pos);
+			this.path		= str.substr(pos);
 		
 		if (path == "")
-			(untyped this).path		= null;
+			this.path		= null;
 		
-		(untyped this).string		= str;
+		this.string		= str;
 
 		return this;
 	}

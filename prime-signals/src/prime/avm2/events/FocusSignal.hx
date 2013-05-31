@@ -86,7 +86,7 @@ class FocusSignal extends Signal1<FocusState> implements IWireWatcher<FocusHandl
 		/** scrollDelta				Button				clickCount			KeyModState
 			FF (8-bit) -127-127		FF (8-bit) 0-255	F (4-bit) 0-15		F (4-bit)
 		*/
-#if flash9
+#if (flash9 || nme)
 		flags  = (e.shiftKey ? KeyModState.SHIFT : 0);
 		flags |= (e.keyCode << 8);
 		

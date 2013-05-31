@@ -30,7 +30,7 @@ package prime.gui.events;
  import prime.signals.Signals;
 
 typedef KeyboardEvents =
-	#if     flash9     prime.avm2.events.KeyboardEvents;
+	#if (flash9 || nme) prime.avm2.events.KeyboardEvents;
 	#elseif flash      prime.avm1.events.KeyboardEvents;
 	#elseif nodejs     #error;
 	#elseif js         prime.js  .events.KeyboardEvents;

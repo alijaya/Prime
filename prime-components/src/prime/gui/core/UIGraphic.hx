@@ -40,7 +40,7 @@ package prime.gui.core;
  import prime.layout.LayoutClient;
  import prime.gui.managers.ISystem;
  import prime.gui.states.UIElementStates;
-#if flash9
+#if (flash9 || nme)
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
 #end
@@ -57,7 +57,8 @@ package prime.gui.core;
  */
 class UIGraphic extends prime.gui.display.VectorShape
 				implements IUIElement
-#if flash9		implements prime.gui.traits.IDrawable	#end
+#if (flash9 || nme)
+				implements prime.gui.traits.IDrawable	#end
 {
 	public var prevValidatable	: IValidatable;
 	public var nextValidatable	: IValidatable;
@@ -72,7 +73,7 @@ class UIGraphic extends prime.gui.display.VectorShape
 	public var layout			(default, null)					: LayoutClient;
 	public var system			(get_system, never)				: ISystem;
 	
-#if flash9	
+#if (flash9 || nme)
 	public var graphicData		(default, null)					: GraphicProperties;
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
@@ -94,7 +95,7 @@ class UIGraphic extends prime.gui.display.VectorShape
 		
 		state			= new UIElementStates();
 		behaviours		= new BehaviourList();
-#if flash9		
+#if (flash9 || nme)
 		graphicData		= new GraphicProperties( rect );
 		styleClasses	= new SimpleList<String>();
 		stylingEnabled	= true;
@@ -129,7 +130,7 @@ class UIGraphic extends prime.gui.display.VectorShape
 		behaviours	.dispose();
 		state		.dispose();
 		id			.dispose();
-#if flash9
+#if (flash9 || nme)
 		if (style.target == this)
 			style.dispose();
 		
@@ -140,7 +141,7 @@ class UIGraphic extends prime.gui.display.VectorShape
 		if (graphicData != null)	graphicData.dispose();
 		
 		id				= null;
-#if flash9
+#if (flash9 || nme)
 		style			= null;
 		styleClasses	= null;
 #end
@@ -293,7 +294,7 @@ class UIGraphic extends prime.gui.display.VectorShape
 	//
 	
 	private inline function get_system () : ISystem							return window.as(ISystem);
-#if flash9
+#if (flash9 || nme)
 	public #if !noinline inline #end function isOnStage () : Bool			return stage != null;			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
 #else
 	public #if !noinline inline #end function isOnStage () : Bool			return window != null;
@@ -301,7 +302,7 @@ class UIGraphic extends prime.gui.display.VectorShape
 	public #if !noinline inline #end function isQueued () : Bool			return nextValidatable != null || prevValidatable != null;
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private function set_stylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)

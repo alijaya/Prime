@@ -118,7 +118,7 @@ class DragDropBehaviour extends DragBehaviourBase
 		}
 
 		var pos 		= dragInfo.displayCursor.position;
-#if flash9
+#if (flash9 || nme)
 		pos				= target.container.as(IDisplayObject).localToGlobal( pos );
 #end
 		var item		= dragInfo.dragRenderer;
@@ -152,7 +152,7 @@ class DragDropBehaviour extends DragBehaviourBase
 		
 		if (dragInfo.dropTarget.notNull())
 		{
-#if flash9
+#if (flash9 || nme)
 			var b = dragInfo.dropBounds = dragInfo.dragRectangle;		//dragInfo.layout.outerBounds;
 			
 			//adjust dropped x&y to the droptarget

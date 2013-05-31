@@ -97,7 +97,7 @@ class MouseSignal extends Signal1<MouseState> implements IWireWatcher<MouseHandl
 			FF (8-bit) -127-127		FF (8-bit) 0-255	F (4-bit) 0-15		F (4-bit)
 		*/
 		
-#if flash9
+#if (flash9 || nme)
 		Assert.that(clickCount >=  0);
 		Assert.that(clickCount <= 15);
 		
@@ -141,7 +141,7 @@ class FlashMouseState extends MouseState
 		/** scrollDelta				Button				clickCount			KeyModState
 			FF (8-bit) -127-127		FF (8-bit) 0-255	F (4-bit) 0-15		F (4-bit)
 		*//*
-#if flash9
+#if (flash9 || nme)
 		Assert.that(clickCount >=  0);
 		Assert.that(clickCount <= 15);
 		

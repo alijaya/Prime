@@ -27,14 +27,14 @@
  *  Ruben Weijers   <ruben @ prime.vc>
  */
 package prime.media;
-#if flash9
+ import haxe.Timer;
+#if (flash9 || nme)
  import prime.avm2.net.stream.NetStreamInfoCode;
  import prime.avm2.net.NetConnection;
  import prime.avm2.net.NetStream;
 #end
  import prime.fsm.states.MediaStates;
  import prime.bindable.Bindable;
- import prime.core.Error;
  import prime.types.URI;
   using prime.utils.Bind;
   using prime.utils.NumberUtil;
@@ -47,7 +47,7 @@ package prime.media;
  */
 class VideoStream extends BaseMediaStream
 {
-#if flash9	
+#if (flash9 || nme)
 	private var connection	: NetConnection;
 	public var source		(default, null)			: NetStream;
 	
@@ -82,7 +82,7 @@ class VideoStream extends BaseMediaStream
 		width	  = new Bindable<Int>(0);
 		height	  = new Bindable<Int>(0);
 		super(streamUrl);
-#if flash9
+#if (flash9 || nme)
 		connection	= new NetConnection();
 		source		= new NetStream(connection);
 		//dirty client to catch flash player exeptions..
@@ -116,7 +116,7 @@ class VideoStream extends BaseMediaStream
 		stop();
         SoundMixer.remove(this);
 		
-#if flash9
+#if (flash9 || nme)
 	//	source.client = null;		//gives error "Invalid parameter flash.net::NetStream/set client()"
 		(untyped state).current = MediaStates.empty;
 		source.dispose2();
@@ -265,7 +265,7 @@ class VideoStream extends BaseMediaStream
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private function handleNetStatus (event:prime.avm2.net.stream.NetStreamInfo)
 	{
 		switch (event.code)
@@ -314,12 +314,12 @@ class VideoStream extends BaseMediaStream
 	}
 	
 	
-	private function handleSecurityError (error:String)		trace(error);
-	private function handleASyncError (error:Error)			trace(error);
-	public  function handleCuePoint (metaData:Dynamic)		trace("cuePoint: " + metaData);
-	public  function handlePlayStatus (metaData:Dynamic)	trace("onPlayStatus: " + metaData);
-	public  function handleXMPData (metaData:Dynamic)		trace("onXMPData: " + metaData);
-	public  function handleImageData (metaData:Dynamic)		trace("onImageData: " + metaData);
-	public  function handleTextData  (metaData:Dynamic)		trace("onTextData: " + metaData);
+	private function handleSecurityError (error:String)      trace(error);
+	private function handleASyncError    (error:String)      trace(error);
+	public  function handleCuePoint      (metaData:Dynamic)  trace("cuePoint: " + metaData);
+	public  function handlePlayStatus    (metaData:Dynamic)  trace("onPlayStatus: " + metaData);
+	public  function handleXMPData       (metaData:Dynamic)  trace("onXMPData: " + metaData);
+	public  function handleImageData     (metaData:Dynamic)  trace("onImageData: " + metaData);
+	public  function handleTextData      (metaData:Dynamic)  trace("onTextData: " + metaData);
 #end
 }

@@ -377,7 +377,7 @@ class TextField extends flash.text.TextField implements ITextField
 	
 	public #if !noinline inline #end function focussed ()		{ return window.notNull() && window.focus == this; }
 	public #if !noinline inline #end function setFocus ()		{ if (window.notNull())		{ window.focus = this; } }
-	public #if !noinline inline #end function removeFocus ()	{ if (focussed())			{ window.focus = null; } }
+	public #if !noinline inline #end function removeFocus ()	{ window.focus = null; }
 	
 	
 	/**

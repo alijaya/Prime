@@ -31,7 +31,7 @@ package prime.gui.events;
  import prime.signals.Signal1;
 
 typedef UserEvents =
-	#if     flash9 prime.avm2.events.UserEvents;
+	#if (flash9 || nme) prime.avm2.events.UserEvents;
 	#elseif flash  prime.avm1.events.UserEvents;
 	#elseif nodejs #error;
 	#elseif js     prime.js  .events.UserEvents;

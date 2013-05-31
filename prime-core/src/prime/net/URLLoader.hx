@@ -29,7 +29,7 @@
 package prime.net;
 
 typedef URLLoader = 
-	#if		flash9	prime.avm2.net.URLLoader;
+	#if		(flash9 || nme)	prime.avm2.net.URLLoader;
 	#elseif	flash	prime.avm1.net.URLLoader;
 	#elseif nodejs 	#error;
 	#elseif	js		prime.js  .net.URLLoader;

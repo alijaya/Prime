@@ -79,7 +79,7 @@ class GraphicsCollection extends StyleCollectionBase < GraphicsStyle >
 		//
 		
 		var graphicProps:GraphicProperties = null;
-#if flash9		
+#if (flash9 || nme)
 		if (changes.has( Flags.DRAWING_PROPERTIES ))
 			graphicProps = elementStyle.target.as(IDrawable).graphicData;
 #end		
@@ -110,7 +110,7 @@ class GraphicsCollection extends StyleCollectionBase < GraphicsStyle >
 		
 		if ( propsToSet.has( Flags.SHAPE ))			graphicProps.shape					= empty ? null	: styleObj.shape;
 		if ( propsToSet.has( Flags.BORDER_RADIUS ))	graphicProps.borderRadius			= empty ? null	: styleObj.borderRadius;
-#if flash9
+#if (flash9 || nme)
 		if ( propsToSet.has( Flags.ICON ))			target.as(IIconOwner).icon			= empty ? null	: styleObj.getIconInstance(); 
 #end
 		if ( propsToSet.has( Flags.ICON_FILL ))		target.as(IIconOwner).iconFill		= empty ? null	: styleObj.iconFill;

@@ -30,7 +30,7 @@ package prime.net;
 
 
 
-typedef FileFilter = #if flash9 flash.net.FileFilter; #else FileFilterInst; #end
+typedef FileFilter = #if (flash9 || nme) flash.net.FileFilter; #else FileFilterInst; #end
 
 
 /**
@@ -53,7 +53,7 @@ class FileFilters
 }
 
 
-#if !flash9
+#if !(flash9 || nme)
 class FileFilterInst
 {
 	public var description	(default, null) : String;

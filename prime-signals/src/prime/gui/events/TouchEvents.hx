@@ -34,7 +34,7 @@ package prime.gui.events;
 
 
 typedef TouchEvents =
-    #if     flash9  prime.avm2.events.TouchEvents;
+    #if (flash9 || nme) prime.avm2.events.TouchEvents;
     #elseif flash   prime.avm1.events.TouchEvents;
     #elseif nodejs  #error;
     #elseif js      prime.js  .events.TouchEvents;
@@ -101,7 +101,7 @@ class TouchSignals extends Signals
         this.stage  = s;
     }
     
-#if flash9
+#if (flash9 || nme)
     public #if !noinline inline #end function isDispatchedBy (obj:UserEventTarget) : Bool
     {
         return obj != null && obj == related;

@@ -27,8 +27,15 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.gui.display;
-#if flash9
+#if (flash9||nme)
  import flash.text.TextFormat;
+ import flash.text.TextFieldType;
+ import flash.text.TextFieldAutoSize;
+ import flash.text.AntiAliasType;
+#end
+#if !cpp
+ import #if flash9 flash #else native #end .text.GridFitType;
+ import #if flash9 flash #else native #end .text.TextLineMetrics;
 #end
 
 
@@ -59,118 +66,117 @@ interface ITextField extends IInteractiveObject extends prime.gui.traits.ITextSt
 	public function isEditable ()	: Bool;
 	
 	
-#if flash9
-	//
-	// SIZE
-	//
-	
-	public var autoSize								: flash.text.TextFieldAutoSize;
+#if (flash9 || nme)
+
+  // Flash only:
+  #if flash9
+	public var alwaysShowSelection					: Bool;
+	public var text									: String;
+	public var textColor							: UInt;
+	public var htmlText								: String;
 	public var textHeight			(default, null)	: Float;
 	public var textWidth			(default, null)	: Float;
+	public var type									: TextFieldType;
+//	public var defaultTextFormat					: TextFormat;
+	public var styleSheet							: flash.text.StyleSheet;
+	public var selectedText			(default, null)	: String;
 	
-	
-	//
-	// TEXT PROPERTIES
-	//
-	
-	public var text									: String;
-	public var htmlText								: String;
-	public var length				(default, null)	: Int;
-	public var restrict								: String;
-	
-	
-	//
-	// FIELD SETTINGS
-	//
-	
+	public var autoSize								: TextFieldAutoSize;
+	public var background							: Bool;
+	public var backgroundColor						: UInt;
+	public var border								: Bool;
+	public var borderColor							: UInt;
+	public var bottomScrollV		(default, null)	: Int;   //FIXME: Add to: HTML5
+	public var condenseWhite						: Bool;  //FIXME: Add to: HTML5, CPP
+	public var thickness							: Float; //FIXME: Add to: HTML5, CPP
+	public var useRichTextClipboard					: Bool;  //FIXME: Add to: HTML5, CPP
+	public var maxScrollH			(default, null)	: Int;
+	public var maxScrollV			(default, null)	: Int;
+	public var mouseWheelEnabled					: Bool;
+	public var numLines				(default, null)	: Int;
+	public var scrollH								: Int;
+	public var scrollV								: Int;
+	public var selectable							: Bool;
+  #end
+
+  // Flash, or NME JS:
+  #if !cpp
+	// TODO: Implement selection and scrolling interface for NME's targets.
+	public var selectionBeginIndex	(default, null)	: Int;
+	public var selectionEndIndex	(default, null)	: Int;
+	public var caretIndex			(default, null)	: Int;
 	public var displayAsPassword					: Bool;
-	public var embedFonts							: Bool;
-	public var type									: flash.text.TextFieldType;
-	public var useRichTextClipboard					: Bool;
+	public var length				(default, null)	: Int;
+	public var maxChars								: Int;
+	public var multiline							: Bool;
+	public var restrict								: String;
+	public var sharpness							: Float;
+  #end
+
+  // NME, not Flash:
+  #if !flash9
+	public var text(get_text, set_text):String;
+	public var textColor(get_textColor, set_textColor):Int;
+	public var htmlText(get_htmlText, set_htmlText) : String;
+	public var textHeight(get_textHeight, null):Float;
+	public var textWidth(get_textWidth, null):Float;
+
+   #if html5
+	public var autoSize(default, set_autoSize):String;
+	public var background(default,set_background):Bool;
+	public var backgroundColor(default, set_backgroundColor):Int;
+	public var border(default, set_border):Bool;
+	public var borderColor(default, set_borderColor):Int;
+	public var type(get_type, set_type):String;
+
+   #elseif cpp
+	public var autoSize(get_autoSize, set_autoSize):TextFieldAutoSize;
+	public var background(get_background, set_background):Bool;
+	public var backgroundColor(get_backgroundColor, set_backgroundColor):Int;
+	public var border(get_border, set_border):Bool;
+	public var borderColor(get_borderColor, set_borderColor):Int;
+	public var bottomScrollV(get_bottomScrollV, null):Int;
+	public var displayAsPassword(get_displayAsPassword, set_displayAsPassword):Bool;
+	public var maxChars(get_maxChars, set_maxChars):Int;
+	public var maxScrollH(get_maxScrollH, null):Int;
+	public var maxScrollV(get_maxScrollV, null):Int;
+	public var multiline(get_multiline, set_multiline):Bool;
+	public var numLines(get_numLines, null):Int;
+	public var scrollH(get_scrollH, set_scrollH):Int;
+	public var scrollV(get_scrollV, set_scrollV):Int;
+	public var selectable(get_selectable, set_selectable):Bool;
+	public var type(get_type, set_type):TextFieldType;
+   #end
+  #end
 	
 	
 	//
 	// FONT SETTINGS
 	//
 	
-	public var antiAliasType						: flash.text.AntiAliasType;
-	public var condenseWhite						: Bool;
-	public var gridFitType							: flash.text.GridFitType;
-	public var sharpness							: Float;
+	public var antiAliasType						: #if html5 String #else AntiAliasType #end; //FIXME
+	#if !cpp public var gridFitType					: #if html5 String #else GridFitType   #end; #end //FIXME
 	
 	
-	//
-	// FONT FORMATTING
-	//
-	
-//	public var defaultTextFormat					: TextFormat;
-	public var styleSheet							: flash.text.StyleSheet;
-	public var textColor							: UInt;
-	public var thickness							: Float;
-	
-	
-	//
-	// OBJECT STYLING
-	//
-	
-	public var background							: Bool;
-	public var border								: Bool;
-	public var backgroundColor						: UInt;
-	public var borderColor							: UInt;
-	
-	
-	//
-	// SELECTION
-	//
-	
-	public var alwaysShowSelection					: Bool;
-	public var selectable							: Bool;
-	public var selectedText			(default, null)	: String;
-	public var selectionBeginIndex	(default, null)	: Int;
-	public var selectionEndIndex	(default, null)	: Int;
-	
-	
-	//
-	// SCROLLING
-	//
-	
-	public var bottomScrollV		(default, null)	: Int;
-	public var maxScrollH			(default, null)	: Int;
-	public var maxScrollV			(default, null)	: Int;
-	public var mouseWheelEnabled					: Bool;
-	public var scrollH								: Int;
-	public var scrollV								: Int;
-	
-	
-	//
-	// LINES / CARET
-	//
-	
-	public var caretIndex			(default, null)	: Int;
-	public var maxChars								: Int;
-	public var multiline							: Bool;
-	public var numLines				(default, null)	: Int;
-	public var wordWrap								: Bool;
-	
-	
-	
-	
-	
-	public function getCharBoundaries (charIndex : Int)					: flash.geom.Rectangle;
+  #if (flash9 || html5)
 	public function getCharIndexAtPoint (x : Float, y : Float)			: Int;
+	public function getLineIndexAtPoint (x : Float, y : Float)			: Int;
+
+  #elseif (flash9 || nme)
+	public function getLineOffset (lineIndex : Int)						: Int;
+	public function getLineText (lineIndex : Int)						: String;
+
+  #elseif flash9
+	public function getCharBoundaries (charIndex : Int)					: flash.geom.Rectangle;
 	public function getFirstCharInParagraph (charIndex : Int)			: Int;
 	public function getImageReference (id : String)						: flash.display.DisplayObject;
 	
-	public function getLineIndexAtPoint (x : Float, y : Float)			: Int;
 	public function getLineIndexOfChar (charIndex : Int)				: Int;
 	public function getLineLength (lineIndex : Int)						: Int;
-	public function getLineMetrics (lineIndex : Int)					: flash.text.TextLineMetrics;
-	public function getLineOffset (lineIndex : Int)						: Int;
-	public function getLineText (lineIndex : Int)						: String;
+	public function getLineMetrics (lineIndex : Int)					: TextLineMetrics;
 	
 	public function getParagraphLength (charIndex : Int)				: Int;
 	
-	public function appendText (newText:String)																: Void;
 	public function getRawText ()																			: String;
 	public function getXMLText    (beginIndex:Int = 0, endIndex:Int = 2147483647)							: String;
 	public function insertXMLText (beginIndex:Int, endIndex:Int, richText:String, pasting:Bool = false)		: Void;
@@ -179,7 +185,10 @@ interface ITextField extends IInteractiveObject extends prime.gui.traits.ITextSt
 	
 	public function getTextFormat (beginIndex : Int = -1, endIndex : Int = -1)								: TextFormat;
 	public function getTextRuns   (beginIndex : Int =  0, endIndex : Int = 2147483647)						: Array<Dynamic>;
+  #end
+
+	public function appendText (newText:String)																: Void;
 	public function setSelection  (beginIndex : Int, endIndex : Int)										: Void;
-	public function setTextFormat (format:TextFormat, beginIndex:Int = -1, endIndex:Int = -1)				: Void;
+	public function setTextFormat (format:TextFormat, beginIndex:Int = -1, endIndex:Int = -1)				: #if html5 flash.text.TextFormat #else Void #end; //FIXME
 #end
 }

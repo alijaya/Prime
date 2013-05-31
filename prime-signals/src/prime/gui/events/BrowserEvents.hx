@@ -36,7 +36,7 @@ package prime.gui.events;
  * @since	Jan 24, 2011
  */
 typedef BrowserEvents =
-	#if     flash9    prime.avm2.events.BrowserEvents;
+	#if (flash9 || nme) prime.avm2.events.BrowserEvents;
 	#elseif flash     prime.avm1.events.BrowserEvents;
 	#elseif nodejs    #error;
 	#elseif js        prime.js  .events.BrowserEvents;

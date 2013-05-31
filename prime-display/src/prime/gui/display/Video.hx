@@ -34,7 +34,7 @@ package prime.gui.display;
  * @creation-date Jan 07, 2011
  */
 typedef Video = 
-	#if		flash9	prime.avm2.display.Video;
+	#if		(flash9 || nme)	prime.avm2.display.Video;
 	#elseif	flash 	prime.avm1.display.Video;
 	#elseif nodejs 	#error;
 	#elseif	js		prime.js  .display.Video;

@@ -60,7 +60,12 @@ extern class TypeUtil
 	 */
 	static public inline function as<T>(o:Dynamic, t:Class<T>) : T
 	{
+	  #if cpp
+		var tmp:T = cast o;
+		return tmp;
+	  #else
 		return cast o;
+	  #end
 	}
 	
 	

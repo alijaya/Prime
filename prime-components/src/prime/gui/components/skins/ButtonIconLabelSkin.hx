@@ -81,9 +81,8 @@ class ButtonIconLabelSkin extends prime.gui.core.Skin<prime.gui.components.Butto
 	override public function validate (changes:Int)
 	{
 		Assert.isNotNull(iconGraphic, owner+"; "+iconGraphic+"; "+labelField+"; "+owner.isDisposed());
-
 		if (changes.has( Flags.ICON ))			iconGraphic.data = owner.icon;
-#if flash9
+#if (flash9 || nme)
 		if (changes.has( Flags.ICON_FILL ))		iconGraphic.colorize( owner.iconFill );
 
 		if (changes.has( Flags.TEXTSTYLE )) {
@@ -95,7 +94,7 @@ class ButtonIconLabelSkin extends prime.gui.core.Skin<prime.gui.components.Butto
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	override public function isFocusOwner (target:prime.gui.events.UserEventTarget)
 	{
 		return labelField.isFocusOwner(target);

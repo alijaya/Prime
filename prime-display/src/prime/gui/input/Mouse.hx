@@ -56,7 +56,7 @@ class Mouse //implements IInputDevice
 	
 	public #if !noinline inline #end function show ()
 	{
-#if (flash9 || air)
+#if (flash9 || nme || air)
 		flash.ui.Mouse.show();
 #end
 	}
@@ -64,7 +64,7 @@ class Mouse //implements IInputDevice
 	
 	public #if !noinline inline #end function hide ()
 	{
-#if (flash9 || air)
+#if (flash9 || nme || air)
 		flash.ui.Mouse.hide();
 #end
 	}
@@ -77,13 +77,13 @@ class Mouse //implements IInputDevice
 	
 	private inline function get_x ()
 	{
-#if flash9 return window.target.mouseX; #end
+#if (flash9 || nme) return window.target.mouseX; #end
 	}
 	
 	
 	private inline function get_y ()
 	{
-#if flash9 return window.target.mouseY; #end
+#if (flash9 || nme) return window.target.mouseY; #end
 	}
 
 
