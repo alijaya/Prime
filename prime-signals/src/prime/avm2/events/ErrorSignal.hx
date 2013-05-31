@@ -37,7 +37,7 @@ package prime.avm2.events;
 
 
 
-private typedef EventHandler	= Error -> Void;
+private typedef EventHandler	= String -> Void;
 //private typedef ErrorHolder		= { var error:Error; };
 
 
