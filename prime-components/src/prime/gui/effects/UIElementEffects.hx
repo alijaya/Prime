@@ -228,7 +228,7 @@ class UIElementEffects implements prime.core.traits.IDisposable
 			else							target.visible = false;
 			
 			if (target.layout.isInvalidated())
-				show.play.callback().onceOnEntering( target.layout.state, validated, this );
+				show.play.bind().onceOnEntering( target.layout.state, validated, this );
 			else
 				show.play();
 		} else {
