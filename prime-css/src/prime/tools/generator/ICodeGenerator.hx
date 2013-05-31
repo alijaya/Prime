@@ -37,6 +37,7 @@ interface ICodeGenerator
 {
 	public function createFactory (obj:ICodeFormattable, classRef:String, params:Array<Dynamic>, ?args:Array<String>)	: ValueType;
 	public function construct (obj:ICodeFormattable, ?args:Array<Dynamic>, ?alternativeType:Class<Dynamic>)				: ValueType;
+	public function constructMap (obj:ICodeFormattable, keys:Array<Dynamic>, values:Array<Dynamic>)						: ValueType;
 	public function constructFromFactory (obj:ICodeFormattable, factoryMethod:String, ?args:Array<Dynamic>)				: ValueType;
 	
 	public function setProp (obj:ICodeFormattable, name:String, value:Dynamic, ignoreIfEmpty:Bool = false)				: Void;

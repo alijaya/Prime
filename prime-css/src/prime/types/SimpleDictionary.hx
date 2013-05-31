@@ -31,6 +31,9 @@ package prime.types;
   using prime.utils.FastArray;
   using Std;
 
+#if CSSParser
+import prime.tools.generator.ICodeFormattable;
+#end
 
 /**
  * Simple Dictionary implementation
@@ -42,7 +45,7 @@ package prime.types;
 class SimpleDictionary <KType, VType>
 				implements prime.core.traits.IDisposable
 				implements prime.core.traits.IClonable<SimpleDictionary<KType, VType>>
-#if CSSParser	implements prime.tools.generator.ICodeFormattable	#end
+#if CSSParser	implements ICodeFormattable	#end
 {
 	private var _keys	: FastArray < KType >;
 	private var _values	: FastArray < VType >;
@@ -193,19 +196,7 @@ class SimpleDictionary <KType, VType>
 	{
 		if (!isEmpty())
 		{
-			var type:Class<Dynamic> = null;
-			if (length > 0)
-			{
-				var key0 = _keys[0];
-				if		(key0.is(Int))		type = Map; //IntHash;
-				else if (key0.is(String))	type = Map; //Hash;
-			}
-			
-			if (type == null)	code.construct( this, [ _values.length ] );
-			else				code.construct( this, null, type );
-			
-			for (i in 0...length)
-				code.setAction( this, "set", [ _keys[i], _values[i] ] );
+			code.constructMap(this, _keys, _values);
 		}
 	}
 #end

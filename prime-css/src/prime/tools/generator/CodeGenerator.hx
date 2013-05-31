@@ -86,7 +86,7 @@ class CodeGenerator implements ICodeGenerator
 	
 	public function new ()
 	{
-		instanceIgnoreList	= new Map();
+		instanceIgnoreList	= new Map<Int,Dynamic>();
 	}
 	
 	
@@ -144,6 +144,21 @@ class CodeGenerator implements ICodeGenerator
 		
 		objInstances.set( obj._oid, type );
 		return type;
+	}
+
+
+	public function constructMap(obj:ICodeFormattable, ks:Array<Dynamic>, vs:Array<Dynamic>) : ValueType
+	{
+		Assert.that( !hasObject(obj) );
+		obj.cleanUp();
+
+		for (v in vs) if (Std.is(v, ICodeFormattable)) {
+			var v : ICodeFormattable = v;
+			if (!hasObject(v)) values.push(getObject(v));
+		}
+		var mapv = tMapLiteral(ks.map(formatValue), vs.map(formatValue));
+		objInstances.set( obj._oid, mapv );
+		return mapv;
 	}
 	
 	
@@ -203,6 +218,7 @@ class CodeGenerator implements ICodeGenerator
 	
 	private function addImportFor (fullName:String) : String
 	{
+		Assert.that(fullName.indexOf("_Map") == -1, haxe.CallStack.toString(haxe.CallStack.callStack()));
 		var i = fullName.lastIndexOf(".");
 		if (i == -1)
 			return fullName;
@@ -256,7 +272,6 @@ class CodeGenerator implements ICodeGenerator
 			else if (v.is( Int ))					v > 255 ? tUInt(v) : tInt(v);
 			else if (v.is( Float ))					tFloat(v);
 			else if (v.is( Bool ))					tBool(v);
-	//		else if (Std.is( v, Map ))				formatHash(v);
 			else if (null != Type.getEnum(v))		convertEnum(v);
 #if js		else if (v.__name__ != null)			tClass( addImportFor( Type.getClassName(v) ) );
 #else		else if (null != Type.getClassName(v))	tClass( addImportFor( Type.getClassName(v) ) ); #end
