@@ -116,6 +116,7 @@ class BevelFilter extends BitmapFilter
 			case 1:		"low";
 			case 2:		"medium";
 			case 3:		"high";
+			default:	throw "unknown quality level";
 		} );
 
 		return css.join(" ");

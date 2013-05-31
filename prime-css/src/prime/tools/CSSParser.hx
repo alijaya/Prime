@@ -2225,6 +2225,7 @@ class CSSParser
 			case "pad":		SpreadMethod.normal;
 			case "reflect":	SpreadMethod.reflect;
 			case "repeat":	SpreadMethod.repeat;
+			default:		null;
 		};
 	}
 	
