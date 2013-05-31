@@ -50,11 +50,11 @@ class FastArrayForwardIterator <T> implements IIterator <T>
 		rewind();
 	}
 	
-	@:keep public #if !noinline inline #end function setCurrent (val:Dynamic) current = val;
-	@:keep public #if !noinline inline #end function rewind     ()            current = 0;
-	@:keep public #if !noinline inline #end function hasNext    ()            return current < target.length.int();
-	@:keep public #if !noinline inline #end function next       ()            return target[current++];
-	@:keep public #if !noinline inline #end function value      ()            return target[current];
+	public #if !noinline inline #end function setCurrent (val:Dynamic) current = val;
+	public #if !noinline inline #end function rewind     ()            current = 0;
+	public #if !noinline inline #end function hasNext    ()            return current < target.length.int();
+	public #if !noinline inline #end function next       ()            return target[current++];
+	public #if !noinline inline #end function value      ()            return target[current];
 	
 //	public #if !noinline inline #end function hasPrev ()				{ return (current - 1) >= 0 ; }
 //	public #if !noinline inline #end function prev ()					{ current -= 2; return value(); }

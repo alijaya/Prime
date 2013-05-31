@@ -34,7 +34,7 @@ package prime.bindable.collections;
  * @author Ruben Weijers
  * @creation-date Nov 16, 2010
  */
-@:generic interface IReadOnlyList<T>
+interface IReadOnlyList<T>
 	  extends prime.core.traits.IClonable<IReadOnlyList<T> >
 	  extends prime.core.traits.IDuplicatable<IReadOnlyList<T> >
 	  extends prime.core.traits.IDisposable
