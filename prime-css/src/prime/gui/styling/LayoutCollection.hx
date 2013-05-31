@@ -199,8 +199,8 @@ class LayoutCollection extends StyleCollectionBase < LayoutStyle >
 		var pHeightRange	= propsToSet.has( Flags.PERCENT_HEIGHT_CONSTRAINTS ) ? heightRange.as(PValidator) : null;
 		
 		if (propsToSet.has( Flags.RELATIVE ))			layout.relative				= notEmpty ? styleObj.relative						: null;
-		if (propsToSet.has( Flags.INCLUDE ))			layout.includeInLayout		= notEmpty ? styleObj.includeInLayout				: null;
-		if (propsToSet.has( Flags.MAINTAIN_ASPECT ))	layout.maintainAspectRatio	= notEmpty ? styleObj.maintainAspectRatio			: null;
+		if (propsToSet.has( Flags.INCLUDE ))			layout.includeInLayout		= notEmpty ? styleObj.includeInLayout				: false;
+		if (propsToSet.has( Flags.MAINTAIN_ASPECT ))	layout.maintainAspectRatio	= notEmpty ? styleObj.maintainAspectRatio			: false;
 		if (propsToSet.has( Flags.PADDING ))			layout.padding				= notEmpty ? styleObj.padding						: null;
 		if (propsToSet.has( Flags.MARGIN ))				layout.margin				= notEmpty ? styleObj.margin						: null;
 		

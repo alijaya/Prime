@@ -199,7 +199,7 @@ class ProgressBar extends UIDataContainer<PercentageHelper>
 		{
 			Assert.that(!isDisposed());
 			progressState = state;
-			progressStyle.current = state == null ? null : switch (state) {
+			progressStyle.current = switch (state) {
 				case ProgressState.progress:	StyleStateFlags.PROGRESS;
 				case ProgressState.completed:	StyleStateFlags.COMPLETED;
 				case ProgressState.error:		StyleStateFlags.ERROR;
