@@ -203,9 +203,10 @@ class ProgressBar extends UIDataContainer<PercentageHelper>
 				case ProgressState.progress:	StyleStateFlags.PROGRESS;
 				case ProgressState.completed:	StyleStateFlags.COMPLETED;
 				case ProgressState.error:		StyleStateFlags.ERROR;
-				default:						StyleStateFlags.NONE;
+                case ProgressState.empty,
+                case ProgressState.started:     StyleStateFlags.NONE;
 			}
-			
+            
 			invalidate( UIElementFlags.STATE );
 		}
 		return state;

@@ -89,8 +89,8 @@ class ScaleEffect extends Effect<prime.gui.display.IDisplayObject, ScaleEffect>
 				startY	= fromSy;
 				endX	= toSx;
 				endY	= toSy;
-			default:
-				return;
+			//case _:
+				//return;
 		}
 	}
 	

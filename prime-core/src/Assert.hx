@@ -74,7 +74,7 @@ import haxe.macro.Context;
 								case OpGte:	"<= ";
 								case OpLt:	"> ";
 								case OpLte:	">= ";
-								default: ""; }))), pos : pos },
+								case _: ""; }))), pos : pos },
 							{ expr : (macro Std.string($expected) + ". Got " + Std.string($actual)).expr,
 							   pos : pos
 							}),

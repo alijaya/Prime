@@ -1152,7 +1152,7 @@ class CSSParser
 			case StyleBlockType.element:	StyleBlockType.elementState;
 			case StyleBlockType.styleName:	StyleBlockType.styleNameState;
 			case StyleBlockType.id:			StyleBlockType.idState;
-			default:						currentBlock.type;
+			case _: 						currentBlock.type;
 		}
 		
 		var stateBlock:StyleBlock = stateList.get( stateName );
@@ -1650,8 +1650,8 @@ class CSSParser
 	private inline function parseDirection (v:String) : Direction
 	{
 		return v == null ? null : switch (v.trim().toLowerCase()) {
-			default:			Direction.horizontal;
 			case "vertical":	Direction.vertical;
+			case _:			Direction.horizontal;
 		}
 	}
 	
@@ -1659,9 +1659,9 @@ class CSSParser
 	private inline function parseHorDirection (v:String) : Horizontal
 	{
 		return v == null ? null : switch (v.trim().toLowerCase()) {
-			default:		Horizontal.left;
 			case "center":	Horizontal.center;
 			case "right":	Horizontal.right;
+			case _:		    Horizontal.left;
 		}
 	}
 
@@ -1669,9 +1669,9 @@ class CSSParser
 	private inline function parseVerDirection (v:String) : Vertical
 	{
 		return v == null ? null : switch (v.trim().toLowerCase()) {
-			default:		Vertical.top;
 			case "center":	Vertical.center;
 			case "bottom":	Vertical.bottom;
+			case _: 		Vertical.top;
 		}
 	}
 	
@@ -1688,7 +1688,7 @@ class CSSParser
 			case "bottom-left":		Position.BottomLeft;
 			case "bottom-center":	Position.BottomCenter;
 			case "bottom-right":	Position.BottomRight;
-			default:				Position.Custom( parseIntPoint(v) );
+			case _: 				Position.Custom( parseIntPoint(v) );
 		}
 	}
 	
@@ -1696,12 +1696,12 @@ class CSSParser
 	private inline function parseMoveDirection (v:String) : MoveDirection
 	{
 		return v == null ? null : switch (v.trim().toLowerCase()) {
-			default:				MoveDirection.TopToBottom;
 			case "top-to-bottom":	MoveDirection.TopToBottom;
 			case "bottom-to-top":	MoveDirection.BottomToTop;
 			case "left-to-right":	MoveDirection.LeftToRight;
 			case "right-to-left":	MoveDirection.RightToLeft;
-		}
+			case _: 				MoveDirection.TopToBottom;
+        }
 	}
 	
 	
@@ -1741,11 +1741,12 @@ class CSSParser
 	private inline function parseTextAlign (v:String) : TextAlign
 	{
 		return switch (v.trim().toLowerCase()) {
-			default:		TextAlign.LEFT;
 			case "center":	TextAlign.CENTER;
 			case "right":	TextAlign.RIGHT;
 			case "jusitfy":	TextAlign.JUSTIFY;
 			case "inherit":	null;
+			case _:	    	TextAlign.LEFT;
+            
 		}
 	}
 	
@@ -1789,11 +1790,11 @@ class CSSParser
 			createFontBlock();
 			currentBlock.font.weight = 
 				switch (fontWeightExpr.matched(1).toLowerCase()) {
-					default:		FontWeight.normal;
 					case "bold":	FontWeight.bold;
 					case "bolder":	FontWeight.bolder;
 					case "lighter":	FontWeight.lighter;
 					case "inherit":	null;
+					case _: 		FontWeight.normal;
 				}
 			
 			v = fontWeightExpr.removeMatch(v);
@@ -1826,10 +1827,10 @@ class CSSParser
 			createFontBlock();
 			currentBlock.font.style =
 			 	switch (fontStyleExpr.matched(1).toLowerCase()) {
-					default:		FontStyle.normal;
+					case "inherit":	null;
 					case "italic":	FontStyle.italic;
 					case "oblique":	FontStyle.oblique;
-					case "inherit":	null;
+					case _:	    	FontStyle.normal;
 				}
 			
 			v = fontStyleExpr.removeMatch(v);
@@ -1850,9 +1851,9 @@ class CSSParser
 	private inline function parseTextDecoration (v:String) : TextDecoration
 	{
 		return switch (v.trim().toLowerCase()) {
-			default:			TextDecoration.none;
 			case "underline":	TextDecoration.underline;
 			case "inherit":		null;
+            case _:			    TextDecoration.none;
 		}
 	}
 	
@@ -1863,11 +1864,11 @@ class CSSParser
 	private inline function parseTextTransform (v:String) : TextTransform
 	{
 		return switch (v.trim().toLowerCase()) {
-			default:			TextTransform.none;
 			case "capitalize":	TextTransform.capitalize;
 			case "uppercase":	TextTransform.uppercase;
 			case "lowercase":	TextTransform.lowercase;
 			case "inherit":		null;
+			case _:			TextTransform.none;
 		}
 	}
 	
@@ -1879,7 +1880,7 @@ class CSSParser
 	{
 		createFontBlock();
 		currentBlock.font.textWrap = switch (v.trim().toLowerCase()) {
-			default:			null;
+			case _:			null;
 			case "normal":		false;
 			case "avoid":		true;
 			case "none":		null;
@@ -1895,10 +1896,10 @@ class CSSParser
 	{
 		createFontBlock();
 		currentBlock.font.textWrap = switch (v.trim().toLowerCase()) {
-			default:			null;
 			case "normal":		false;
 			case "break-word":	true;
 			case "hyphenate":	true;
+   			case _:		    	null;
 		}
 	}
 	
@@ -2213,8 +2214,8 @@ class CSSParser
 		
 		lastParsedString = imageRepeatExpr.removeMatch(v);
 		return switch (repeatStr.trim().toLowerCase()) {
-			default:			true;
 			case "no-repeat":	false;
+			case _:			    true;
 		}
 	}
 	
@@ -2258,7 +2259,7 @@ class CSSParser
 			case "circle":		Type.getClassName(Circle);
 			case "ellipse":		Type.getClassName(Ellipse);
 			case "rectangle":	Type.getClassName(RegularRectangle);
-			default:			null;
+			case _:		    	null;
 		};
 		
 		//try matching triangle shape..
@@ -2879,10 +2880,10 @@ class CSSParser
 	private function parseFilterType (v:String) : BitmapFilterType
 	{
 		return switch (v.toLowerCase()) {
-			default:		BitmapFilterType.INNER;
 			case "inner":	BitmapFilterType.INNER;
 			case "outer":	BitmapFilterType.OUTER;
 			case "full":	BitmapFilterType.FULL;
+			case _:	    	BitmapFilterType.INNER;
 		};
 	}
 	
@@ -2977,11 +2978,11 @@ class CSSParser
 			var qStr	= filterQualityExpr.matched(1);
 			isValid		= true;
 			f.quality	= switch (qStr.toLowerCase()) {
-				default:		1;
 				case "low":		1;
 				case "medium":	2;
 				case "high":	3;
-			}
+				case _:	    	1;
+            }
 			v = filterQualityExpr.removeMatch(v);
 		}
 		
@@ -3013,10 +3014,10 @@ class CSSParser
 			var qStr	= filterQualityExpr.matched(1);
 			isValid		= true;
 			f.quality	= switch (qStr.toLowerCase()) {
-				default:		1;
 				case "low":		1;
 				case "medium":	2;
 				case "high":	3;
+				case _:	    	1;
 			}
 			v = filterQualityExpr.removeMatch(v);
 		}
@@ -3111,11 +3112,11 @@ class CSSParser
 			var qStr	= filterQualityExpr.matched(1);
 			isValid		= true;
 			f.quality	= switch (qStr.toLowerCase()) {
-				default:		1;
 				case "low":		1;
 				case "medium":	2;
 				case "high":	3;
-			}
+				case _:		    1;
+            }
 			v = filterQualityExpr.removeMatch(v);
 		}
 		
@@ -3181,11 +3182,11 @@ class CSSParser
 			var qStr	= filterQualityExpr.matched(1);
 			isValid		= true;
 			f.quality	= switch (qStr.toLowerCase()) {
-				default:		1;
 				case "low":		1;
 				case "medium":	2;
 				case "high":	3;
-			}
+				case _:		    1;
+                }
 			v = filterQualityExpr.removeMatch(v);
 		}
 		
@@ -3295,10 +3296,10 @@ class CSSParser
 		{
 			var qStr	= filterQualityExpr.matched(1);
 			f.quality	= switch (qStr.toLowerCase()) {
-				default:		1;
 				case "low":		1;
 				case "medium":	2;
 				case "high":	3;
+				case _:	    	1;
 			}
 			v = filterQualityExpr.removeMatch(v);
 		}
@@ -3465,9 +3466,9 @@ class CSSParser
 	private function parseAndSetVisibility (v:String) : Void
 	{
 		createGraphicsBlock().visible = switch (v.trim().toLowerCase()) {
-			default:		null;
 			case "visible":	true;
 			case "hidden":	false;
+			case _:	    	null;
 		}
 	}
 	
@@ -3518,7 +3519,7 @@ class CSSParser
 			case "corner-scroll":		className = "prime.gui.behaviours.scroll.CornerScrollBehaviour";
 			case "scrollbars":			className = "prime.gui.behaviours.scroll.ShowScrollbarsBehaviour";
 			case "visible":				setFlag   = true;
-			default:					throw "unkown overflow"; //className = UnclippedLayoutBehaviour.getClassName();
+			case _:				    	throw "unkown overflow"; //className = UnclippedLayoutBehaviour.getClassName();
 		};
 		
 		if (className != null)
@@ -3570,14 +3571,14 @@ class CSSParser
 				case "quart":	"feffects.easing.Quart";
 				case "quint":	"feffects.easing.Quint";
 				case "sine":	"feffects.easing.Sine";
-				default:		null;
+				case _:		    null;
 			}
 			
 			if (method != null)
 				method += switch (easingExpr.matched(2).toLowerCase()) {
 					case "in":	".easeIn";
 					case "out":	".easeOut";
-					default:	".easeInOut";
+					case _:	".easeInOut";
 				}
 			
 			if (method != null)

@@ -52,7 +52,7 @@ extern class ListChangeUtil
 			case added(item, newPos):			list.remove(item);
 			case removed(item, oldPos):			list.add( item, oldPos );
 			case moved(item, newPos, oldPos):	list.move( item, oldPos, newPos );
-			default:							//what to do with a reset :-S
+			case reset:							//what to do with a reset :-S
 		}
 
 	static public inline function redoListChange<T>(list:IEditableList<T>, change:ListChange<T>) : Void
@@ -60,6 +60,6 @@ extern class ListChangeUtil
 			case added(item, newPos):			list.add(item, newPos);
 			case removed(item, oldPos):			list.remove( item, oldPos );
 			case moved(item, newPos, oldPos):	list.move( item, newPos, oldPos );
-			default:							//what to do with a reset :-S
+			case reset:							//what to do with a reset :-S
 		}
 }

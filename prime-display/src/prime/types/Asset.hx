@@ -629,7 +629,7 @@ class ExternalAsset extends BytesAssetBase
 				data = v;
 				type = switch (v.fileExt) {
 					case "png", "jpg", "gif":	AssetType.bitmapData;
-					default: 					AssetType.displayObject;
+					case _: 					AssetType.displayObject;
 				}
 				setLoadable();
 			} else

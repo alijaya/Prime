@@ -204,7 +204,7 @@ class DynamicTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 				
 				tileCollection.move(client, newPos, oldPos);
 			
-			default:
+			case reset:
 		}
 	}
 	

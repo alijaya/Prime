@@ -67,8 +67,8 @@ class FadeEffectInstance extends EffectInstance < IDisplayObject, FadeEffect >
 			case alpha(from, to):
 				startValue	= from;
 				endValue	= to;
-			default:
-				return;
+			//case _:
+				//return;
 		}
 	}
 	

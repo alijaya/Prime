@@ -232,8 +232,8 @@ class CodeGenerator implements ICodeGenerator
 		var i = newArgs.length;
 		while (i-->0)
 			switch (newArgs[i]) {
-				default:		break;			// first non-empty argument.. stop searching
 				case tEmpty(v):	newArgs.pop();	// remove last argument from list
+				case _:	    	break;			// first non-empty argument.. stop searching
 			}
 		
 		return newArgs;
@@ -271,7 +271,7 @@ class CodeGenerator implements ICodeGenerator
 	
 	
 	private inline function isColor				(v:Dynamic)				: Bool		{ return Reflect.hasField(v, "color") && Reflect.hasField(v, "a"); }
-	private inline function isEmpty				(v:ValueType)			: Bool 		{ return switch (v) { case tEmpty(v): true; default: false; } }
+	private inline function isEmpty				(v:ValueType)			: Bool 		{ return switch (v) { case tEmpty(v): true; case _: false; } }
 	private inline function getClassName		(obj:ICodeFormattable)	: String	{ return obj.getClass().getClassName(); }
 	
 	private inline function isUndefinedFloat	(v:Dynamic)				: Bool		{ return Std.is(v, Float) && FloatUtil.notSet( v ); }
@@ -309,13 +309,14 @@ class CodeGenerator implements ICodeGenerator
 	private function useObject (v:ValueType) : ValueType
 	{
 		switch (v) {
-			default:
-	//			throw "wrong valuetype "+v;
-				return v;
-			
 			case tObject(i):
 				i.count++;
 				return v;
+
+            case _:
+	//			throw "wrong valuetype "+v;
+				return v;
+                
 		}
 	}
 	
@@ -341,7 +342,7 @@ class CodeGenerator implements ICodeGenerator
 						tParam		= createClassNameConstructor( pack + "." + eParam, null );
 					//	strParam	= "new " + pack + "." + param;
 					
-					default:
+					case _:
 						tParam		= formatValue( eParam );
 				}*/
 				
@@ -372,7 +373,7 @@ class CodeGenerator implements ICodeGenerator
 			case TObject:		type = createClassNameConstructor( Type.getClass(value).getClassName(), null );
 			case TEnum(e):		type = convertEnum(e);
 			case TUnknown:		type = tEmpty(eNull);
-	//		default:			type = tEmpty(eNull);
+	//		case _:			type = tEmpty(eNull);
 		}
 		return type;
 	}

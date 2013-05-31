@@ -292,7 +292,7 @@ class VideoStream extends BaseMediaStream
 					updateTimer.run = updateTime;
 			
 			
-			default:
+			case _:
 				trace("no-handler for net-code: "+event);
 		}
 	}

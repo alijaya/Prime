@@ -286,7 +286,7 @@ class VideoControlBar extends UIContainer
 		
 		case loading( origState ):
         case frozen( prevState ):
-		default:
+		case _:
 	//	case MediaStates.frozen(realState):
 		//	enabled.value = false;
 			

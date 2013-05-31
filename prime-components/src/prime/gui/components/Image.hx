@@ -248,7 +248,6 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 			
 			case AssetStates.loading:
 			case AssetStates.loadable:
-			default:
 		}
 	}
 	

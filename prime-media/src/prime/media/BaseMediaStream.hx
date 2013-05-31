@@ -208,7 +208,6 @@ class BaseMediaStream implements IMediaStream
 			case empty:
 			case error( str ):
 			case loading( origState ):
-			default:
         }
 
 
@@ -227,13 +226,13 @@ class BaseMediaStream implements IMediaStream
     public #if !noinline inline #end function isPlaying () : Bool  { return state.current == MediaStates.playing; }
     public #if !noinline inline #end function isEmpty ()   : Bool  { return state.current == MediaStates.empty; }
     public #if !noinline inline #end function isDisposed (): Bool  { return state == null; }
-    public #if !noinline inline #end function hasError ()  : Bool    return switch(state.current) { case MediaStates.error(s): true; default: false; }
+    public #if !noinline inline #end function hasError ()  : Bool    return switch(state.current) { case MediaStates.error(s): true; case _: false; }
     public #if !noinline inline #end function isMuted ()   : Bool  { return volume.value == 0; }
     public #if !noinline inline #end function isFrozen ()  : Bool
     {
         return switch (state.current) {
             case frozen( prevState ):   true;
-            default:                    false;
+            case _:                    false;
         }
     }
 

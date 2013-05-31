@@ -101,7 +101,7 @@ class WipeEffect extends #if !CSSParser Effect<prime.gui.display.IDisplayObject,
 			case MoveDirection.RightToLeft:		"right-to-left";
 			case MoveDirection.TopToBottom:		"top-to-bottom";
 			case MoveDirection.BottomToTop:		"bottom-to-top";
-			default:							null;
+			case _:			    				null;
 		}
 	}
 	

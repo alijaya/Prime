@@ -91,8 +91,8 @@ class ResizeEffect extends Effect<prime.gui.traits.ISizeable,ResizeEffect>
 				startH	= fromH;
 				endW	= toW;
 				endH	= toH;
-			default:
-				return;
+			//case _:
+				//return;
 		}
 	}
 	

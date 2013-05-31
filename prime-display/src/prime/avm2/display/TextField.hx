@@ -267,7 +267,7 @@ class TextField extends flash.text.TextField implements ITextField
 				case capitalize:	newText.capitalize();
 				case uppercase:		newText.toUpperCase();
 				case lowercase:		newText.toLowerCase();
-				default:			newText;
+				case _:		    	newText;
 			}
 		
 		if (newText != content)

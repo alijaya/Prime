@@ -126,10 +126,10 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 			case URIScheme.Scheme(schStr1):
 				switch (scheme) {
 					case URIScheme.Scheme(schStr2): schStr1 == schStr2;
-					default:						false;
+					case _:		    				false;
 				}
 			
-			default:
+			case _:
 				searchedScheme == scheme;
 		}
 	}
@@ -203,7 +203,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 			case Scheme(x):
 				s.add(x);
 				s.add("://");
-			default:
+			case _:
 				s.add(Std.string(scheme));
 				s.add("://");
 		}
@@ -281,7 +281,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 					this.string = str;
 					return this;
 				
-				default:
+				case _:
 					pos = scheme_pos + 1;
 					if (has2slashes) pos += 2;
 			}

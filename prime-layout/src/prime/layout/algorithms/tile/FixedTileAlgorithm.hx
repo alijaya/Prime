@@ -318,7 +318,7 @@ class FixedTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 				horizontalMap.move(client, newPos, oldPos);
 				verticalMap.move(client, newPos, oldPos);
 			
-			default:
+			case reset:
 		}
 		
 #if unitTesting

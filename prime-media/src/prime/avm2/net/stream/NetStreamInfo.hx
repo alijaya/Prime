@@ -56,7 +56,7 @@ class NetStreamInfo
 			case "error":	Level.error;
 			case "warning":	Level.warning;
 #if debug
-			default: throw "unkown level '"+flashObj.level+"'";
+			case _: throw "unkown level '"+flashObj.level+"'";
 #end
 		}
 		
@@ -125,7 +125,7 @@ class NetStreamInfo
 				case "NetStream.Connect.Success":				Code.streamConnectionSuccess;
 				case "SharedObject.Flush.Success":				Code.sharedObjectFlushed;
 #if debug				
-				default: throw "Unkown code '"+flashObj.code+"'";
+				case _: throw "Unkown code '"+flashObj.code+"'";
 #end
 			}
 		}

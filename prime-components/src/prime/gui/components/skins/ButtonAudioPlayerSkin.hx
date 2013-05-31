@@ -113,7 +113,7 @@ class ButtonAudioPlayerSkin extends Skin<AudioPlayer>
                 playStopBtn.id.value = "playBtn";
                 playStopBtn.disable();
             
-            default:
+            case _:
         }
     }
 

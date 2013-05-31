@@ -98,8 +98,8 @@ class MoveEffect extends Effect<prime.gui.traits.IPositionable, MoveEffect>
 				startY	= fromY;
 				endX	= toX;
 				endY	= toY;
-			default:
-				return;
+			//case _:
+				//return;
 		}
 	}
 	

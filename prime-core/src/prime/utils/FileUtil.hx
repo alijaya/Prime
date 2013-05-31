@@ -45,7 +45,7 @@ class FileUtil
 			case MimeType.jpeg:		FileType.JPEG;
 			case MimeType.gif:		FileType.GIF;
 			case MimeType.png:		FileType.PNG;
-			default:
+			case _:
 				throw "Unkown mimetype: "+mimetype;
 		}
 	}

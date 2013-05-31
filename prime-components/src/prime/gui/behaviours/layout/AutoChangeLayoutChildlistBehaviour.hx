@@ -118,7 +118,7 @@ class AutoChangeLayoutChildlistBehaviour extends BehaviourBase < IDisplayContain
 					moveChildInLayout( child.as(ILayoutable), newPos, oldPos );
 			
 			
-			default:
+			case reset:
 		}
 	//	trace("\t children: "+layoutGroup.children);
 	}

@@ -113,7 +113,6 @@ class TextArea<VOType> extends InputField<VOType>
 		switch (k.keyCode()) {
 			case KeyCodes.LEFT, KeyCodes.RIGHT:		updateLayoutScrollX();
 			case KeyCodes.UP, 	KeyCodes.DOWN:		updateLayoutScrollY();
-			default:
 		}
 	}
 

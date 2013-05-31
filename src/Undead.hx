@@ -22,7 +22,7 @@ class Undead
 	static function keep (name:String, pos) switch (Context.getType(name)) {
 		case haxe.macro.Type.TInst(cl, _):
 			cl.get().meta.add(":keep", [], pos);
-		default:
+		case _:
 	}
 #end
 }
