@@ -41,7 +41,7 @@ package prime.bindable.collections;
  * @author Ruben Weijers
  * @creation-date Nov 19, 2010
  */
-@:generic class ReadOnlyArrayList<T> implements IReadOnlyList<T>
+class ReadOnlyArrayList<T> implements IReadOnlyList<T>
 {
 	public var beforeChange	(default, null)		: ListChangeSignal<T>;
 	public var change		(default, null)		: ListChangeSignal<T>;
