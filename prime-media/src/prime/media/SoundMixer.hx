@@ -216,8 +216,8 @@ private class SoundMixerInstance
     }
 
 
-    public #if !noinline inline #end function mute ()     isMuted.value = true
-    public #if !noinline inline #end function unmute ()   isMuted.value = false
+    public #if !noinline inline #end function mute ()     isMuted.value = true;
+    public #if !noinline inline #end function unmute ()   isMuted.value = false;
 
     
     /**

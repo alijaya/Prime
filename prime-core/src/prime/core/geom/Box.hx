@@ -37,8 +37,8 @@ package prime.core.geom;
  */
 class Box
 				implements IBox
-#if CSSParser,	implements prime.tools.generator.ICSSFormattable
-			,	implements prime.tools.generator.ICodeFormattable		#end
+#if CSSParser	implements prime.tools.generator.ICSSFormattable
+				implements prime.tools.generator.ICodeFormattable		#end
 {
 	@:isVar public var left		(get_left, set_left)	: Int;
 	@:isVar public var right	(get_right, set_right)	: Int;

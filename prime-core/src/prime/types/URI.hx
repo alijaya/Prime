@@ -362,7 +362,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 
 #if CSSParser
 	public function cleanUp () : Void {}
-	public function toCode (code:prime.tools.generator.ICodeGenerator)	code.construct( this, [ get_string() ] )
+	public function toCode (code:prime.tools.generator.ICodeGenerator)	code.construct( this, [ get_string() ] );
 #end
 }
 

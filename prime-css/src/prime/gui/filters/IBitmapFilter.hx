@@ -36,6 +36,6 @@ package prime.gui.filters;
  * @creation-date Sep 29, 2010
  */
 interface IBitmapFilter		
-#if CSSParser	implements prime.tools.generator.ICSSFormattable
-			,	implements prime.tools.generator.ICodeFormattable #end
+#if CSSParser	extends prime.tools.generator.ICSSFormattable
+				extends prime.tools.generator.ICodeFormattable #end
 {}

@@ -38,7 +38,7 @@ package prime.core.geom;
  * @creation-date Aug 01, 2010
  */
 class Corners	implements prime.core.traits.IClonable < Corners >
-#if CSSParser	implements prime.tools.generator.ICodeGeneratorICodeFormattable		#end
+#if CSSParser	implements prime.tools.generator.ICodeFormattable	#end
 {
 	public var topLeft		: Float;
 	public var topRight		: Float;

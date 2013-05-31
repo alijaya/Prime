@@ -45,8 +45,8 @@ package prime.tools;
 class CSSParserMain
 {
 	public static #if !noinline inline #end function print(v:String)
-		#if js 	untyped console.log(v)
-		#else	neko.Lib.print(v+"\n") #end
+		#if js 	untyped console.log(v);
+		#else	neko.Lib.print(v+"\n"); #end
 
 	/**
 	 * This script needs one parameter to run: the location of the skin folder
@@ -173,7 +173,7 @@ class CSSParserMain
 	}
 	
 	
-	private inline function beginTimer ()	timer.start()
+	private inline function beginTimer()	timer.start();
 	private inline function stopTimer (name:String)
 	{
 		timer.stop();

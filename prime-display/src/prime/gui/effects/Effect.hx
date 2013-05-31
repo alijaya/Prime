@@ -177,6 +177,6 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 	public function isEmpty () : Bool				{ return duration <= 0; }
 	public function cleanUp ()						{}
 	public function toCode (code:prime.tools.generator.ICodeGenerator)
-		Assert.abstractMethod()
+		Assert.abstractMethod();
 #end
 }
