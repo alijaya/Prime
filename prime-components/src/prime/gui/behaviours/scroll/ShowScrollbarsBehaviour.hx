@@ -66,7 +66,6 @@ class ShowScrollbarsBehaviour extends BehaviourBase<IScrollable> implements IScr
 	override private function init ()
 	{
 		layout = target.scrollableLayout;
-		target.enableClipping();
 		checkIfScrollbarsNeeded.on( layout.changed, this );
 	}
 	
@@ -157,6 +156,7 @@ class ShowScrollbarsBehaviour extends BehaviourBase<IScrollable> implements IScr
 		
 		if (needHorScrollbar || needVerScrollbar)
 		{
+			target.enableClipping();
 			Assert.that(!layout.hasEmptyPadding());
 			var l = layout;
 			var bounds		= l.innerBounds;
