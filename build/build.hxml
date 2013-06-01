@@ -26,7 +26,3 @@
 #-cp libs/swfaddress
 -cp generated-src
 -cp src
-
-#--dead-code-elimination
-#this one should be removed after moving to haxe3
--D no-pattern-matching

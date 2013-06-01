@@ -121,17 +121,18 @@ class GraphicProperties implements IGraphicElement
 	public function invalidateCall (changeFromOther:Int, sender:IInvalidatable) : Void
 	{
 		Assert.notEqual( sender, this );	// <-- prevent infinite loops
-		invalidate(switch (sender) {
-			case cast border:	GraphicFlags.BORDER;
-			case cast shape:	GraphicFlags.SHAPE;
-			case cast fill:		GraphicFlags.FILL;
-			case cast layout:
+		invalidate(
+			if      (sender == border) GraphicFlags.BORDER
+			else if (sender == shape)  GraphicFlags.SHAPE
+			else if (sender == fill)   GraphicFlags.FILL
+			else if (sender == layout) {
 				if (changeFromOther.has( RectangleFlags.WIDTH | RectangleFlags.HEIGHT ))
 					GraphicFlags.LAYOUT;
 				else
 					0;
-			default: 0;
-		});
+			}
+			else 0
+		);
 	}
 	
 	
