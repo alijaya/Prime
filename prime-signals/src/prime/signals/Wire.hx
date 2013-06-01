@@ -50,7 +50,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 	/** Wire.flags bit which tells if the Wire should be disposed() right after Signal.send(...) */
 	static public inline var SEND_ONCE		= 4;
 	
-	static private var free : Wire<Dynamic>;
+	static private var free : Wire<Dynamic> = null;
 	static public  var freeCount : Int = 0;
 	
 	static function __init__()
@@ -75,7 +75,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 		  #end
 			w.n       = W.free;
 			W.free    = w;
-			W.freeCount++;
+			++W.freeCount;
 		}
 	}
 
@@ -86,9 +86,12 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 		var w:Wire<Dynamic>,
 			W = Wire;
 		
-		if (W.free == null)
+		if (W.free == null) {
+			Assert.that(freeCount == 0, "Expected 0 free, but is: " + freeCount);
 			w = new Wire<T>();
+		}
 		else {
+			Assert.that(freeCount >= 1, "Expected >1 free, but is: " + freeCount);
 			W.free = (w = W.free).n; // I know it's unreadable.. but it's faster.
 			--W.freeCount;
 			w.n = null;
@@ -262,7 +265,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 		disposeCount++;
 #end
 		var W = Wire;
-		if (W.freeCount != MAX_WIRES) {
+		if (W.freeCount < MAX_WIRES) {
 			++W.freeCount;
 			this.n = cast W.free;
 			W.free = this;
