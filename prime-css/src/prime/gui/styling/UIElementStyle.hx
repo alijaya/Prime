@@ -159,13 +159,10 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener implements
 		stylesAreSearched	= false;
 		filledProperties	= 0;
 		
-		styleNamesBinding 	= updateStyleNameStyles	.on( target.styleClasses.change, this );
-		idChangeBinding		= updateIdStyle			.on( target.id.change, this );
-		addedBinding		= enableStyleListeners	.on( owner.displayEvents.addedToStage, this );
-		removedBinding		= disableStyleListeners	.on( owner.displayEvents.removedFromStage, this );
-		
-		styleNamesBinding.disable();
-		idChangeBinding.disable();
+		styleNamesBinding = target.styleClasses .change    .bindDisabled( this, updateStyleNameStyles );
+		idChangeBinding   = target.id           .change .observeDisabled( this, updateIdStyle         );
+		addedBinding      = enableStyleListeners	.on( owner.displayEvents.addedToStage,     this );
+		removedBinding    = disableStyleListeners	.on( owner.displayEvents.removedFromStage, this );
 		
 		init();
 	}
@@ -290,7 +287,7 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener implements
 		if (addedBinding != null)		addedBinding.disable();
 		
 		styleNamesBinding.handler = updateStyleNameStyles;
-		idChangeBinding.setVoidHandler(cast updateIdStyle);
+		idChangeBinding.setVoidHandler(updateIdStyle);
 
 		removedBinding   .enable();
 		addedBinding     .disable();

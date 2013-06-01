@@ -66,13 +66,12 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 		for (i in 0 ... MAX_WIRES) {
 			var w     = new Wire<Dynamic>();
 		  #if js // Set all fields to increase the odds V8 will initialize the correct hidden class type
-			w.owner   = dummyOwner;
-			w.signal  = dummyOwner;
-			w.handler = dummyHandler;
-			w.flags   = 0;
-			w.owner   = null;
-			w.signal  = null;
-			w.handler = null;
+			w.owner    = dummyOwner;
+			w.signal   = dummyOwner;
+			w._handler = dummyHandler;
+			w.owner    = null;
+			w.signal   = null;
+			w._handler = null;
 		  #end
 			w.n       = W.free;
 			W.free    = w;
@@ -94,17 +93,17 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 			--W.freeCount;
 			w.n = null;
 			Assert.that(w.owner == null && w.handler == null && w.signal == null && w.n == null, w.owner + ", " + w.handler + ", " + w.signal + ", " + w.n);
-			w.flags	  = flags;
 		}
 		
-		w.owner   = owner;
-		w.signal  = dispatcher;
-		w.handler = handlerFn;
-		w.flags   = flags;
+		w.owner    = owner;
+		w.signal   = dispatcher;
+		w._handler = handlerFn;
+		w.flags    = flags;
 		if (flags.has(ENABLED)) {
 			w.doEnable();
 			Assert.isNotNull(untyped w.signal.n);
 		}
+		Assert.that(flags == w.flags);
 		
 		#if debug w.bindPos = pos; #end
 		Assert.isNotNull(w.signal);
@@ -112,7 +111,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 	}
 	
 	static public #if !noinline inline #end function sendVoid<T>( wire:Wire<Dynamic> ) {
-		wire.handler();
+		wire._handler();
 	}
 	
 	
@@ -124,7 +123,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 	/** Is this Wire connected? Should it be called with 0 args? Should it be unbound after calling? **/
 	public var flags	(default, null) : Int;
 	/** Handler function **/
-	public var handler	(default,set_handler) : FunctionSignature;
+	public var handler  (get_handler, set_handler) : FunctionSignature;
 	/** Wire owner object **/
 	public var owner	(default, null) : Dynamic;
 	/** Object referencing the parent Link in the Chain **/
@@ -185,19 +184,20 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 	}
 	
 
+	private var _handler : Dynamic;
+	private #if !noinline inline #end function get_handler() : FunctionSignature  return _handler;
 	private #if !noinline inline #end function set_handler( h:FunctionSignature )
 	{
 		// set_handler only accepts functions with FunctionSignature
 		// and this is not a VOID_HANDLER for Signal1..4
 		flags.unset( VOID_HANDLER );
-		
-		return handler = h;
+		return _handler = h;
 	}
 	
 	public #if !noinline inline #end function setVoidHandler( h:Void->Void )
 	{
-		flags.set(VOID_HANDLER);
-		return handler = cast h;
+		flags.set( VOID_HANDLER );
+		_handler = h;
 	}
 	
 	/** Enable propagation for the handler this link belongs too. **/
@@ -255,7 +255,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 		disable();
 		
 		// Cleanup all connections
-		handler = owner = signal = null;
+		_handler = owner = signal = null;
 		flags	= 0;
 		
 #if debug
