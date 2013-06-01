@@ -63,7 +63,7 @@ class FileReference extends SelectEvents implements ICommunicator implements IFi
 	
 	public var bytesProgress	(get_bytesProgress,		null)		: Int;
 	public var bytesTotal		(get_bytesTotal,		null)		: Int;
-	public var bytes			(get_bytes,				set_bytes)	: BytesData;
+	@:isVar public var bytes	(get_bytes,				set_bytes)	: BytesData;
 	public var type				(default,				null)		: CommunicationType;
 	public var length			(default,				null)		: Bindable<Int>;
 	public var isStarted		(default,				null)		: Bool;
@@ -201,7 +201,7 @@ class FileReference extends SelectEvents implements ICommunicator implements IFi
 	// EVENTHANDLERS
 	//
 	
-	private function updateProgress (loaded:Int, total:Int)
+	private function updateProgress (loaded:UInt, total:UInt)
 	{
 	//	trace(loaded+"/"+total);
 		this.bytesProgress = loaded;

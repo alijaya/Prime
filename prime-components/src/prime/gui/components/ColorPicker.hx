@@ -231,5 +231,5 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 
 
 	public #if !noinline inline #end function isPicking ()
-		return updateBinding != null && updateBinding.isEnabled()
+		return updateBinding != null && updateBinding.isEnabled();
 }

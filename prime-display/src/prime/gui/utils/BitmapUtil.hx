@@ -43,6 +43,6 @@ class BitmapUtil
 {
 #if (flash9 || nme)
 	public static #if !noinline inline #end function toBytes (bmp:BitmapData)
-		return bmp.getPixels(bmp.rect)
+		return bmp.getPixels(bmp.rect);
 #end
 }

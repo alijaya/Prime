@@ -28,14 +28,14 @@
  *  Ruben Weijers	<primevc @ rubenw.nl>
  */
 package prime.mvc;
+  using prime.utils.BitUtil;
+
 #if prime_data
  import prime.core.traits.IValueObject;
 #else
-/** Anything that holds data. Use prime-data for a more detailed Data abstraction. */
-typedef IValueObject = Dynamic;
+ /** Anything that holds data. Use prime-data for a more detailed Data abstraction. */
+ typedef IValueObject = Dynamic;
 #end
-  using prime.utils.BitUtil;
-
 
 /**
  * A Proxy manages value-objects (usually one). It exposes methods and properties to allow other MVC-actors to manipulate the VO.

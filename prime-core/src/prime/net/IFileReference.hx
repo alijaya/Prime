@@ -35,8 +35,8 @@ package prime.net;
  * @creation-date 	Dec 12, 2011
  */
 interface IFileReference 
-		implements prime.core.traits.IDisposable
-		implements prime.signals.IUnbindable<Dynamic>
+  extends prime.core.traits.IDisposable
+  extends prime.signals.IUnbindable<Dynamic>
 {
 	public var select		(default,null) : Signal0;
 	public var cancel		(default,null) : Signal0;

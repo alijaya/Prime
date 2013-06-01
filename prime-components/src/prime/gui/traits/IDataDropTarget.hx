@@ -37,7 +37,7 @@ package prime.gui.traits;
  * @author Ruben Weijers
  * @creation-date Oct 27, 2010
  */
-interface IDataDropTarget < DataType > implements IDropTarget 
+interface IDataDropTarget < DataType > extends IDropTarget
 {
 	
 	/**
