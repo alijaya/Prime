@@ -257,15 +257,14 @@ class MacroUtils
 			{
 				// @manual is blanket skip of build/autoBuild macros, @borrowed skips only dispose() calls
 				if ( !field.meta.has("manual") && !field.meta.has("borrowed") )
-				{				
+				{
 					var expr = "if ((untyped this)." + field.name + " != null) { (untyped this)."+field.name+".dispose(); }";
 					blocks.push( Context.parse(expr, pos) );
 				}
 			}
 			
-			if ( !field.meta.has("manual") )
-			blocks.push( Context.parse("this." + field.name + " = null", pos) );
-			//blocks.push( Context.parse("trace(\"YES!\")", pos) );
+			if ( !field.meta.has("manual") && switch(field.kind) { case FVar(_, VarAccess.AccNormal): true; default: false; } )
+				blocks.push( Context.parse("this." + field.name + " = null", pos) );
 		}
 			
 		return blocks.toExpr();
