@@ -107,7 +107,7 @@ class AnchorScaleEffect extends #if !CSSParser Effect<prime.gui.display.IDisplay
 			case Position.TopLeft:			"top-left";
 			case Position.TopCenter:		"top-center";
 			case Position.TopRight:			"top-right";
-			case _:				    		null;
+			default:						null;
 		}
 	}
 	

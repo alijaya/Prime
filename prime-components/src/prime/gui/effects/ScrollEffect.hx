@@ -93,8 +93,8 @@ class ScrollEffect extends Effect<prime.gui.traits.IScrollable, ScrollEffect>
                 startY  = fromY;
                 endX    = toX;
                 endY    = toY;
-            //case _:
-                //return;
+            default:
+                return;
         }
     }
     

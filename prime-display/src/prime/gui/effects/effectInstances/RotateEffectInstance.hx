@@ -62,8 +62,8 @@ class RotateEffectInstance extends EffectInstance < prime.gui.display.IDisplayOb
 			case rotation(from, to):
 				startValue	= from;
 				endValue	= to;
-			//case _:
-				//return;
+			default:
+				return;
 		}
 	}
 	

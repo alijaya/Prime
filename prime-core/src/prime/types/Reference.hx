@@ -56,7 +56,7 @@ class ReferenceUtil
 			case objInstance ( factory ):			code.getObject(factory); //code.construct( factory ); return code.varName(factory); //code.createClassConstructor( factory.classRef, factory.params );
 			case classInstance ( name, p, css ):	code.createClassNameConstructor( name, p );
 			case func ( name, css ):				tFunction(name);
-			case _:			    					null;
+			default:								null;
 		}
 	}
 }

@@ -1152,7 +1152,7 @@ class CSSParser
 			case StyleBlockType.element:	StyleBlockType.elementState;
 			case StyleBlockType.styleName:	StyleBlockType.styleNameState;
 			case StyleBlockType.id:			StyleBlockType.idState;
-			case _: 						currentBlock.type;
+			default:						currentBlock.type;
 		}
 		
 		var stateBlock:StyleBlock = stateList.get( stateName );

@@ -190,7 +190,7 @@ class BitmapFill extends prime.gui.graphics.GraphicElement implements prime.gui.
 			
 			case AssetStates.loading:
 			case AssetStates.loadable:
-			case _:
+			default:
 		}
 	}
 	

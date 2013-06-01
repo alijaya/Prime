@@ -83,8 +83,8 @@ class ResizeEffectInstance extends EffectInstance < ISizeable, ResizeEffect >
 				startH	= fromH;
 				endW	= toW;
 				endH	= toH;
-			//case _:
-				//return;
+			default:
+				return;
 		}
 	}
 	

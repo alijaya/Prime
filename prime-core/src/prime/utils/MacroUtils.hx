@@ -475,8 +475,8 @@ class BlocksUtil
 	public static inline function toBlocks (expr:Expr) : Array<Expr>
 	{
 		return switch (expr.expr) {
+			default:		null;
 			case EBlock(b):	b;
-			case _:		null;
 		}
 	}
 	
@@ -487,9 +487,9 @@ class BlocksUtil
 			case EVars(vars):
 				switch (vars[0].type) {
 					case TAnonymous(fl):	fl;
-					case _:				throw "wrong argument for userFields.def.vars[0].type. Should be ComplexType.TAnonymous but it is "+vars[0].type;
+					default:				throw "wrong argument for userFields.def.vars[0].type. Should be ComplexType.TAnonymous but it is "+vars[0].type;
 			}
-			case _:						throw "wrong argument for userFields.def! Should be ExprDef.EVar but it is "+userFields.expr;
+			default:						throw "wrong argument for userFields.def! Should be ExprDef.EVar but it is "+userFields.expr;
 		}
 	}
 	
@@ -649,6 +649,8 @@ class MacroTypeUtil
 		
 	//	trace(fieldType);
 		switch (fieldType) {
+			default:
+				trace("=== unkown "+fieldType);
 			case Type.TDynamic(t):
 				type = "Dynamic";
 			
@@ -666,9 +668,6 @@ class MacroTypeUtil
 						p.push(param.string(counter));
 					type += "<"+p.join(", ") + ">";
 				}
-   			case _:
-				trace("=== unkown "+fieldType);
-
 		}
 		return type;
 	}
@@ -716,7 +715,7 @@ class MacroTypeUtil
 	{
 		return switch (field.kind) {
 			case FVar(read, write): true;
-			case _: false;
+			default: false;
 		}
 	}
 	
@@ -749,7 +748,7 @@ class MacroTypeUtil
 		return type == null ? null : switch (type) {
 			case TInst(t, params): t != null ? t.get() : null;
 			case TType(t, params): t != null ? typeToClassType(t.get().type) : null;
-			case _: null; //throw "unkown type for "+field.name+" => "+field.type;
+			default: null; //throw "unkown type for "+field.name+" => "+field.type;
 		}
 	}
 	
@@ -820,7 +819,7 @@ class MacroExprUtil
 		Assert.isNotNull(field);
 		return switch (field.kind) {
 			case FFun(f):	return f.expr;
-			case _:		throw "wrong field.kind.. Should be FieldType.FFun instead of "+field.kind;
+			default:		throw "wrong field.kind.. Should be FieldType.FFun instead of "+field.kind;
 		}
 	}
 	
@@ -830,7 +829,7 @@ class MacroExprUtil
 		Assert.isNotNull(field);
 		return switch (field.kind) {
 			case FFun(f):	return f.expr = content;
-			case _:		throw "wrong field.kind.. Should be FieldType.FFun instead of "+field.kind;
+			default:		throw "wrong field.kind.. Should be FieldType.FFun instead of "+field.kind;
 		}
 	}
 	
@@ -839,7 +838,7 @@ class MacroExprUtil
 	{
 		return switch (expr.expr) {
 			case EBlock(exprs):	exprs;
-			case _:			null;
+			default:			null;
 		}
 	}
 	
@@ -868,9 +867,9 @@ class MacroExprUtil
 					case CFloat(s):		s;
 					case CString(s):	s;
 					case CIdent(s):		s;
-					case _:			null;
+					default:			null;
 				}
-			case _:					null;
+			default:					null;
 		}
 	}
 	
@@ -950,7 +949,7 @@ class MacroExprUtil
 		};
 		
 		switch (field.kind) {
-	//		case _:			throw "unkown field "+field.name+" => "+field.kind;
+	//		default:			throw "unkown field "+field.name+" => "+field.kind;
 			case FProp(get, set, t):
 				cField.kind		= FieldKind.FVar( get.toAccess(), set.toAccess() );
 				
@@ -972,7 +971,7 @@ class MacroExprUtil
 					var type = Context.getType( path.name );
 					trace(field.name+", "+path.name);
 					switch (type) {
-						case _:
+						default:
 					//		throw "unkown type "+field.name+" => "+type;
 					//	case TFun(args, ret):
 						//	cField.params = args;
@@ -1015,7 +1014,7 @@ class MacroExprUtil
 			case "default":		AccNormal;
 			case "null":		AccNo;
 			case "never":		AccNever;
-			case _:			AccCall(getter);
+			default:			AccCall(getter);
 		}
 	}
 	
@@ -1023,7 +1022,7 @@ class MacroExprUtil
 	public static inline function complexTypeToTypePath (t:Null<ComplexType>) : TypePath
 	{
 		return (t == null) ? null : switch (t) {
-				case _:			null;
+				default:			null;
 				case TPath(path):	path;
 			}
 	}
@@ -1037,13 +1036,13 @@ class MacroExprUtil
 		for (field in fields)
 		{
 			switch (field.kind) {
-				case _:
+				default:
 				case FVar(t, e):
 					switch (t) {
-						case _:
+						default:
 						case TPath(p):
 							switch (Context.getType( p.name )) {
-								case _:
+								default:
 								case TInst(type, params):
 									trace(field.name+" => "+type.get().interfaces);
 							}
@@ -1057,7 +1056,7 @@ class MacroExprUtil
 		for (cField in cFields)
 		{
 			switch (cField.type) {
-				case _:
+				default:
 				case TInst(type, params):
 					trace(cField.name+" => "+type.get().interfaces);
 			}

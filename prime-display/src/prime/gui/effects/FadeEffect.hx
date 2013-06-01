@@ -85,8 +85,8 @@ class FadeEffect extends #if !CSSParser Effect<prime.gui.display.IDisplayObject,
 			case alpha(from, to):
 				startValue	= from;
 				endValue	= to;
-			//case _:
-				//return;
+			default:
+				return;
 		}
 	}
 	

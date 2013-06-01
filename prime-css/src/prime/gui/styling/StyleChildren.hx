@@ -92,7 +92,7 @@ class StyleChildren
 				case element:	elementSelectors;
 				case styleName:	styleNameSelectors;
 				case id:		idSelectors;
-				case _  :		null;
+				default:		null;
 			}
 	}
 	
@@ -130,7 +130,7 @@ class StyleChildren
 				case element:	elementSelectors	= new SelectorMapType();
 				case styleName:	styleNameSelectors	= new SelectorMapType();
 				case id:		idSelectors			= new SelectorMapType();
-				case _: 		null;
+				default:		null;
 			}
 		}
 		

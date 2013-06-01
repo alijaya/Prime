@@ -70,7 +70,7 @@ class KeyboardState extends KeyModState
 			case 1:		KeyLocation.Left;
 			case 2:		KeyLocation.Right;
 			case 3:		KeyLocation.NumPad;
-			case _:	    null;
+			default:	null;
 		}
 	}
 }

@@ -223,7 +223,7 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener implements
 			case id:		Flags.ID_CHILDREN;
 			case styleName:	Flags.STYLE_NAME_CHILDREN;
 			case element:	Flags.ELEMENT_CHILDREN;
-			case _: 		0;
+			default:		0;
 		}
 	}
 	

@@ -76,8 +76,8 @@ class RotateEffect extends #if !CSSParser Effect<prime.gui.display.IDisplayObjec
 			case rotation(from, to):
 				startValue	= from;
 				endValue	= to;
-			//case _:
-				//return;
+			default:
+				return;
 		}
 	}
 	

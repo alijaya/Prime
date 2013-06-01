@@ -98,8 +98,8 @@ class ScrollEffectInstance extends EffectInstance < IScrollable, ScrollEffect >
                 startY  = fromY;
                 endX    = toX;
                 endY    = toY;
-            //case _:
-                //return;
+            default:
+                return;
         }
     }
     

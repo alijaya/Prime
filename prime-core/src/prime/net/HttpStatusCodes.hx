@@ -86,7 +86,7 @@ class HttpStatusCodes
 			case 504: "Gateway Time-Out";
 			case 505: "HTTP Version not supported";
 			
-			case _:  "unkown code ";
+			default:  "unkown code ";
 		}
 	}
 }

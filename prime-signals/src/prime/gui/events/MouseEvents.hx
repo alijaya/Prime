@@ -178,7 +178,7 @@ class MouseState extends KeyModState implements IClonable<MouseState>
 			case 1:		MouseButton.Left;
 			case 2:		MouseButton.Right;
 			case 3:		MouseButton.Middle;
-			case _:	    MouseButton.Other((flags & 0xFF00) >> 8);
+			default:	MouseButton.Other((flags & 0xFF00) >> 8);
 		}
 	}
 	

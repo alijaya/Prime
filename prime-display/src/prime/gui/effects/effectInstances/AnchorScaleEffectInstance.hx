@@ -107,7 +107,7 @@ class AnchorScaleEffectInstance extends EffectInstance < IDisplayObject, AnchorS
 			case BottomCenter:	p.x = t.width *.5;		p.y = t.height;
 			
 			case Custom( cp ):	p.x = cp.x;				p.y = cp.y;
-			case _:			    p.x = 0;				p.y = 0;
+			default:			p.x = 0;				p.y = 0;
 		}
 		target.scaleX = target.scaleY = curScale;
 		super.play( withEffect, directly );

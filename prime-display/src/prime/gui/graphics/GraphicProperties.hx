@@ -130,7 +130,7 @@ class GraphicProperties implements IGraphicElement
 					GraphicFlags.LAYOUT;
 				else
 					0;
-			case _: 0;
+			default: 0;
 		});
 	}
 	

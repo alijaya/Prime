@@ -97,7 +97,7 @@ class SetAction extends #if CSSParser Effect<Dynamic, Dynamic> #else Effect<prim
 			case size(fromW, fromH, toW, toH):
 				"size(" + fromW + ", " + fromH + ")";
 			
-			case _: "";
+			default: "";
 		}
 		
 		return propStr;

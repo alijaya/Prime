@@ -111,7 +111,7 @@ package prime.gui.styling;
 			case "drag-over":		DRAG_OVER;
 		//	case "drag-out":		DRAG_OUT;
 			case "drag-drop":		DRAG_DROP;
-			case _: 				Assert.that(false, "unkown state: "+v); 0;
+			default:				Assert.that(false, "unknown state: "+v); 0;
 		}
 	}
 	
@@ -148,7 +148,7 @@ package prime.gui.styling;
 		//	case DRAG_OUT:		"drag-out";
 			case DRAG_DROP:		"drag-drop";
 			
-			case _: 			"unkown ( "+v+" )";
+			default:			"unknown ( "+v+" )";
 		}
 	}
 	

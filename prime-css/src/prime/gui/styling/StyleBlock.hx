@@ -371,7 +371,7 @@ class StyleBlock extends StyleBlockBase implements IStyleBlock implements prime.
 			case id:		findIdStyle(name, exclude);
 			case styleName:	findStyleNameStyle(name, exclude);
 			case element:	findElementStyle(name, exclude);
-			case _:         throw "not implemented";
+			default: throw "not implemented";
 		}
 	}
 	
@@ -1056,7 +1056,7 @@ class StyleBlock extends StyleBlockBase implements IStyleBlock implements prime.
 				case id:		_idChildren			== null ? idChildren		= new ChildrenList() : _idChildren;
 				case styleName:	_styleNameChildren	== null ? styleNameChildren	= new ChildrenList() : _styleNameChildren;
 				case element:	_elementChildren	== null ? elementChildren	= new ChildrenList() : _elementChildren;
-				case _:	    	null;
+				default:		null;
 			}
 	}
 	

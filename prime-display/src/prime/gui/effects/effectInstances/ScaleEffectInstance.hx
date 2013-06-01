@@ -76,8 +76,8 @@ class ScaleEffectInstance extends EffectInstance < prime.gui.display.IDisplayObj
 				startY	= fromSy;
 				endX	= toSx;
 				endY	= toSy;
-			//case _:
-				//return;
+			default:
+				return;
 		}
 	}
 	
