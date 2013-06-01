@@ -186,7 +186,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 
 	private var _handler : Dynamic;
 	private #if !noinline inline #end function get_handler() : FunctionSignature  return _handler;
-	private #if !noinline inline #end function set_handler( h:FunctionSignature )
+	private #if !noinline inline #end function set_handler( h:FunctionSignature ) : FunctionSignature
 	{
 		// set_handler only accepts functions with FunctionSignature
 		// and this is not a VOID_HANDLER for Signal1..4
