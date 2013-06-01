@@ -99,7 +99,7 @@ class ResizeEffect extends Effect<prime.gui.traits.ISizeable,ResizeEffect>
 	
 #if !CSSParser
 	override public function createEffectInstance (target)
-		return new prime.gui.effects.effectInstances.ResizeEffectInstance(target, this)
+		return new prime.gui.effects.effectInstances.ResizeEffectInstance(target, this);
 #else
 
 	override public function toCSS (prefix:String = "") : String
