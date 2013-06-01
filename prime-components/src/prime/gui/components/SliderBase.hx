@@ -79,7 +79,7 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 	public function new (id:String = null, value:Float = 0.0, minValue:Float = 0.0, maxValue:Float = 1.0, direction:Direction = null)
 	{
 		super(id, new PercentageHelper(value, minValue, maxValue));
-		(untyped this).inverted		= false;
+	//	(untyped this).inverted		= false;
 	//	(untyped this).showButtons	= false;
 		this.direction				= direction == null ? horizontal : direction;
 		sliding						= new ActionEvent();

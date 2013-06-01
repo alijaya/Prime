@@ -53,7 +53,7 @@ class ButtonIconSkin extends prime.gui.core.Skin<prime.gui.components.Button>
 	override public function createChildren ()
 	{
 		if (owner.layoutContainer.algorithm == null)
-			owner.layoutContainer.algorithm = new prime.layout.algorithms.float.HorizontalFloatAlgorithm(prime.core.geom.space.Horizontal.center, prime.core.geom.space.Vertical.center);
+			owner.layoutContainer.algorithm = new prime.layout.algorithms.floating.HorizontalFloatAlgorithm(prime.core.geom.space.Horizontal.center, prime.core.geom.space.Vertical.center);
 		owner.attach( iconGraphic = new Image(#if debug owner.id.value + "Icon" #else null #end, owner.icon) );
 		iconGraphic.maintainAspectRatio = true;
 	}

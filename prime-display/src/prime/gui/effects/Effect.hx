@@ -62,7 +62,7 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 		duration		= newDuration.notSet()	? 350 : newDuration;
 		delay			= newDelay <= 0			? prime.types.Number.INT_NOT_SET : newDelay;
 		this.isReverted = isReverted;
-#if flash9
+#if (flash9 || nme)
 		easing			= newEasing == null 	? feffects.easing.Linear.easeNone : newEasing;
 #elseif CSSParser
 		easing 			= newEasing;
@@ -177,6 +177,6 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 	public function isEmpty () : Bool				{ return duration <= 0; }
 	public function cleanUp ()						{}
 	public function toCode (code:prime.tools.generator.ICodeGenerator)
-		Assert.abstractMethod()
+		Assert.abstractMethod();
 #end
 }

@@ -30,8 +30,8 @@ package prime.layout.algorithms.tile;
  import prime.core.geom.space.Direction;
  import prime.core.geom.space.Horizontal;
  import prime.core.geom.space.Vertical;
- import prime.layout.algorithms.float.HorizontalFloatAlgorithm;
- import prime.layout.algorithms.float.VerticalFloatAlgorithm;
+ import prime.layout.algorithms.floating.HorizontalFloatAlgorithm;
+ import prime.layout.algorithms.floating.VerticalFloatAlgorithm;
  import prime.layout.algorithms.DynamicLayoutAlgorithm;
  import prime.layout.LayoutFlags;
  

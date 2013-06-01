@@ -156,7 +156,9 @@ class LayoutClient extends prime.core.traits.Invalidatable
 #end
 		maintainAspectRatio = false;
 		invalidatable		= true;
-		
+#if !flash
+		(untyped this).x = (untyped this).y = 0;
+#end
 		changed		= new Signal1<Int>();
 		innerBounds	= new IntRectangle( x.roundFloat() , y.roundFloat(), newWidth.getBiggest(0).roundFloat(), newHeight.getBiggest(0).roundFloat() );
 		outerBounds	= innerBounds.clone().as(IntRectangle);

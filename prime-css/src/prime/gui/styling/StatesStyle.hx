@@ -270,7 +270,7 @@ class StatesStyle extends StyleSubBlock
 #end
 
 
-#if (debug && flash9)
+#if (debug && (flash9 || nme))
 	override public function toString () 
 	{
 		var statesToFind	= allFilledProperties;

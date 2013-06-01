@@ -33,7 +33,7 @@ package prime.gui.events;
  * @creation-date jun 14, 2010
  */
 typedef UserEventTarget = 
-	#if		flash9	flash.display.InteractiveObject;
+	#if (flash9 || nme) flash.display.InteractiveObject;
 	#elseif	flash8	MovieClip;
 	#elseif nodejs 	#error;
 	#elseif	js		js.Dom.HtmlDom;

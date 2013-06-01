@@ -35,7 +35,7 @@ package prime.gui.components;
  import prime.gui.core.UIGraphic;
  import prime.gui.display.VectorShape;
   using prime.utils.NumberUtil;
-
+  using Std;
 
 /**
  * Slider component with a filling background to indicate which part of the

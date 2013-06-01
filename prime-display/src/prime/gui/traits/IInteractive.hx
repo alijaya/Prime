@@ -46,7 +46,7 @@ interface IInteractive
 	public function removeFocus ()	: Void;
 	
 	
-#if flash9
+#if (flash9 || nme)
 	/**
 	 * Method returns true if the given target (which has focus) makes the 
 	 * IInteractive object the focus owner.
@@ -54,12 +54,19 @@ interface IInteractive
 	 * textfield, but is still the focus-owner.
 	 */
 	public function isFocusOwner (target:prime.gui.events.UserEventTarget) : Bool;
-	
-	
+
+  #if !cpp
+	var tabEnabled									: Bool;
+  #end
+
+  #if flash9
 	var doubleClickEnabled							: Bool;
 	var mouseEnabled								: Bool;
-	var tabEnabled									: Bool;
 	var tabIndex									: Int;
+
+  #elseif (nme && html5)
+	public var tabIndex(get_tabIndex, set_tabIndex):Int;
+  #end
 	
 #elseif !neko
 	var mouseEnabled								: Bool;

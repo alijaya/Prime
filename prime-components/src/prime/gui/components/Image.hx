@@ -29,7 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.components;
-#if flash9
+#if (flash9 || nme)
  import flash.geom.ColorTransform;
 #end
  import prime.gui.core.UIDataComponent;
@@ -59,7 +59,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	 */
 	public var maintainAspectRatio	(default, set_maintainAspectRatio)	: Bool;
 	
-#if flash9
+#if (flash9 || nme)
 	public var assetChild			(default, null) 					: flash.display.DisplayObject;
 	public var assetFill			(default, null) 					: BitmapFill;
 #end
@@ -99,7 +99,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	
 	private function applyAsset ()
 	{
-#if flash9
+#if (flash9 || nme)
 		Assert.isNotNull(data.type);
 		
 		switch (data.type)
@@ -137,7 +137,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	
 	private function unsetAsset ()
 	{
-#if flash9
+#if (flash9 || nme)
 		if (data.type == null)
 			return;
 		
@@ -165,7 +165,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	
 	public function colorize (fill:IGraphicElement)
 	{
-#if flash9
+#if (flash9 || nme)
 		if (fill == null || !fill.is(SolidFill))
 			return;
 		
@@ -180,7 +180,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	
 	private function updateChildSize (changes:Int)
 	{
-#if flash9
+#if (flash9 || nme)
 		if (changes.hasNone( LayoutFlags.SIZE ))
 			return;
 		

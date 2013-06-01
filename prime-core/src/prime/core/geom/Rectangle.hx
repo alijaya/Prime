@@ -33,7 +33,7 @@ package prime.core.geom;
  * @creation-date	Jun 14, 2010
  * @author			Ruben Weijers
  */
-#if flash9
+#if (flash9 || nme)
  typedef Rectangle = flash.geom.Rectangle;
 #else
 class Rectangle {}

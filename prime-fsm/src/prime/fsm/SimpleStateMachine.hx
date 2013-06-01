@@ -108,7 +108,7 @@ class SimpleStateMachine<StateType> implements prime.core.traits.IDisposable
 	
 	
 #if debug
-	public inline function toString () return current;
+	public inline function toString () return Std.string(current);
 #end
 }
 

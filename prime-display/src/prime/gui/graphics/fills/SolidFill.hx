@@ -56,7 +56,7 @@ class SolidFill extends prime.gui.graphics.GraphicElement implements prime.gui.g
 	
 	public #if !noinline inline #end function begin (target:IGraphicsOwner, bounds:IRectangle)
 	{
-#if flash9
+#if (flash9 || nme)
 		target.graphics.beginFill( color.rgb(), color.alpha().float() );
 #end
 		isFinished = true;
@@ -65,7 +65,7 @@ class SolidFill extends prime.gui.graphics.GraphicElement implements prime.gui.g
 	
 	public #if !noinline inline #end function end (target:IGraphicsOwner, bounds:IRectangle)
 	{
-#if flash9
+#if (flash9 || nme)
 		target.graphics.endFill();
 #end
 		isFinished = false;

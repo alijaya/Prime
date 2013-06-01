@@ -32,7 +32,7 @@ package prime.gui.events;
 
 
 typedef EditEvents =
-	#if     flash9 prime.avm2.events.EditEvents;
+	#if (flash9 || nme) prime.avm2.events.EditEvents;
 	#elseif flash  prime.avm1.events.EditEvents;
 	#elseif nodejs #error;
 	#elseif js     prime.js  .events.EditEvents;

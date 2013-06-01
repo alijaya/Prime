@@ -62,7 +62,7 @@ class ButtonLabelSkin extends prime.gui.core.Skin<prime.gui.components.Button>
 	}
 
 	
-#if flash9
+#if (flash9 || nme)
 	override public function validate (changes:Int)
 	{
 		if (changes.has( prime.gui.core.UIElementFlags.TEXTSTYLE )) {

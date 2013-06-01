@@ -74,7 +74,7 @@ package prime.bindable;
  */
 class Bindable<T> implements IBindable<T> implements IClonable<Bindable<T>>
 {
-	public var value	(default, setValue)	: T;
+	public var value	(default, set_value) : T;
 	
 	/** 
 	 * Dispatched just before "value" is set to a new value.
@@ -306,7 +306,7 @@ class BindableTools
 	/**
 	 * Propagate a value to Bindables in the given GenericStack.
 	 */
-	public static #if !noinline inline #end function dispatchValueToBound<T> (list:GenericStack<IBindable<T>>, newValue:T)
+	public static inline function dispatchValueToBound<T> (list:GenericStack<IBindable<T>>, newValue:T)
 	{
 		if (list != null)
 		{

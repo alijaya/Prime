@@ -30,8 +30,6 @@ package prime.avm2.net;
  import flash.net.URLLoaderDataFormat;
  import flash.net.URLRequest;
 
- import haxe.io.BytesData;
-
  import prime.bindable.Bindable;
  import prime.core.events.LoaderEvents;
 
@@ -52,6 +50,7 @@ package prime.avm2.net;
   using Std;
 
 
+private typedef BytesData = #if (flash9 || nme) flash.utils.ByteArray  #else haxe.io.BytesData #end;
 private typedef FlashLoader = flash.net.URLLoader;
 
 
@@ -272,7 +271,7 @@ class URLLoader implements ICommunicator
 	private inline function get_bytesProgress ()	{ return bytesProgress.isSet()	? bytesProgress	: loader.bytesLoaded; }
 	private inline function get_bytesTotal ()		{ return bytesTotal.isSet()  	? bytesTotal	: loader.bytesTotal; }
 	private inline function get_data ()				{ return data != null			? data			: loader.data; }
-	public  inline function get_rawData ()			{ return loader.data; }
+	public  inline function getRawData ()			{ return loader.data; }
 //	private inline function get_length ()			{ return 1; }
 	
 	private inline function get_dataFormat ()		{ return loader.dataFormat; }

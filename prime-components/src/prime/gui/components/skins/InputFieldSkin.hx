@@ -52,12 +52,14 @@ class InputFieldSkin extends ButtonIconLabelSkin
 	{
 		super.createChildren();
 		var owner = getInputField();
+	  #if !(nme&&cpp)
 		labelField.restrict				= owner.restrict;
+	  #end
 		labelField.maxChars				= owner.maxChars;
 		
-#if flash9
+#if (flash9 || nme)
 		labelField.makeEditable();
-		labelField.mouseEnabled = labelField.tabEnabled = true;
+		labelField.mouseEnabled #if !(nme&&cpp) = labelField.tabEnabled #end = true;
 #end
 		(untyped owner).field	= labelField;
 		checkToUpdateVO.on( labelField.userEvents.key.down, this );
@@ -87,7 +89,9 @@ class InputFieldSkin extends ButtonIconLabelSkin
 		if (changes.has( Flags.RESTRICT | Flags.MAX_CHARS ))
 		{
 			var owner = getInputField();
+		  #if !(nme&&cpp)
 			if (changes.has( Flags.RESTRICT ))		labelField.restrict	= owner.restrict;
+		  #end
 			if (changes.has( Flags.MAX_CHARS ))		labelField.maxChars	= owner.maxChars;
 		}
 	}
@@ -102,6 +106,8 @@ class InputFieldSkin extends ButtonIconLabelSkin
 
 	private function resetHorScroll ()
 	{
+		#if !html5
 		labelField.scrollH = 0;
+		#end
 	}
 }

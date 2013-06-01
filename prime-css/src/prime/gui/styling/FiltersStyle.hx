@@ -76,12 +76,12 @@ class FiltersStyle extends StyleSubBlock
 	{
 		super(filledProps);
 		type = newType;
-		#if flash9 this._shadow		    #else this.shadow 		    #end = shadow;
-		#if flash9 this._bevel			#else this.bevel			#end = bevel;
-		#if flash9 this._blur			#else this.blur			    #end = blur;
-		#if flash9 this._glow			#else this.glow			    #end = glow;
-		#if flash9 this._gradientBevel	#else this.gradientBevel	#end = gradientBevel;
-		#if flash9 this._gradientGlow	#else this.gradientGlow	    #end = gradientGlow;
+		#if (flash9 || nme) this._shadow         #else this.shadow         #end = shadow;
+		#if (flash9 || nme) this._bevel          #else this.bevel          #end = bevel;
+		#if (flash9 || nme) this._blur           #else this.blur           #end = blur;
+		#if (flash9 || nme) this._glow           #else this.glow           #end = glow;
+		#if (flash9 || nme) this._gradientBevel  #else this.gradientBevel  #end = gradientBevel;
+		#if (flash9 || nme) this._gradientGlow   #else this.gradientGlow   #end = gradientGlow;
 	}
 	
 	

@@ -83,7 +83,7 @@ class AnchorScaleEffectInstance extends EffectInstance < IDisplayObject, AnchorS
 	override public function setValues (v:EffectProperties) {}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	override public function play ( withEffect:Bool = true, directly:Bool = false ) : Void
 	{
 		var p = anchorPoint;
@@ -129,7 +129,7 @@ class AnchorScaleEffectInstance extends EffectInstance < IDisplayObject, AnchorS
 	
 	override private function tweenUpdater ( tweenPos:Float )
 	{
-#if flash9
+#if (flash9 || nme)
 		//change scale percentage
 		var curScale	= (endValue * tweenPos ) + ( startValue * (1 - tweenPos));
 		target.scaleX	= target.scaleY = curScale;
@@ -143,7 +143,7 @@ class AnchorScaleEffectInstance extends EffectInstance < IDisplayObject, AnchorS
 	
 	override private function calculateTweenStartPos () : Float
 	{
-#if flash9
+#if (flash9 || nme)
 		return (target.scaleX - startValue) / (endValue - startValue);
 #else
 		return 1;

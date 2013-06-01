@@ -2226,6 +2226,7 @@ class CSSParser
 			case "pad":		SpreadMethod.normal;
 			case "reflect":	SpreadMethod.reflect;
 			case "repeat":	SpreadMethod.repeat;
+			default:		null;
 		};
 	}
 	
@@ -2710,8 +2711,8 @@ class CSSParser
 		return switch (alg) {
 			case circleHor:     "prime.layout.algorithms.circle.HorizontalCircleAlgorithm";
 			case circleVer:     "prime.layout.algorithms.circle.VerticalCircleAlgorithm";
-			case floatHor:      "prime.layout.algorithms.float.HorizontalFloatAlgorithm";
-			case floatVer:      "prime.layout.algorithms.float.VerticalFloatAlgorithm";
+			case floatHor:      "prime.layout.algorithms.floating.HorizontalFloatAlgorithm";
+			case floatVer:      "prime.layout.algorithms.floating.VerticalFloatAlgorithm";
 			case dynamicTile:   "prime.layout.algorithms.tile.DynamicTileAlgorithm";
 			case fixedTile:     "prime.layout.algorithms.tile.FixedTileAlgorithm";
 			case simpleTile:    "prime.layout.algorithms.tile.SimpleTileAlgorithm";

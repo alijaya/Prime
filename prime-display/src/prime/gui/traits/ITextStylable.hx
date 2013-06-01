@@ -36,9 +36,20 @@ package prime.gui.traits;
  */
 interface ITextStylable //implements IStylable
 {
-#if flash9
+#if (flash9 || nme)
 	public var textStyle	(default, set_textStyle)	: TextFormat;
+
+  #if flash9
 	public var wordWrap		: Bool;
-    public var embedFonts   : Bool;
+  #elseif nme
+   #if html5
+	public var wordWrap(default, set_wordWrap):Bool;
+   #elseif cpp
+	public var wordWrap(get_wordWrap, set_wordWrap):Bool;
+   #end
+  #end
+
+	public var embedFonts #if cpp (get_embedFonts, set_embedFonts) #end : Bool;
+
 #end
 }

@@ -62,8 +62,8 @@ package cases;
  import prime.gui.graphics.GraphicProperties;
  import prime.layout.algorithms.circle.HorizontalCircleAlgorithm;
  import prime.layout.algorithms.circle.VerticalCircleAlgorithm;
- import prime.layout.algorithms.float.HorizontalFloatAlgorithm;
- import prime.layout.algorithms.float.VerticalFloatAlgorithm;
+ import prime.layout.algorithms.floating.HorizontalFloatAlgorithm;
+ import prime.layout.algorithms.floating.VerticalFloatAlgorithm;
  import prime.layout.algorithms.tile.DynamicTileAlgorithm;
  import prime.layout.algorithms.tile.FixedTileAlgorithm;
  import prime.layout.algorithms.DynamicLayoutAlgorithm;
@@ -249,7 +249,7 @@ class LayoutApp extends UIDataContainer <Dynamic>
 
 class Button extends UIDataComponent < String >
 {
-#if (debug && flash9)
+#if (debug && (flash9 || nme))
 	public static var counter	: Int = 0;
 	private var num				: Int;
 	private var textField		: TextField;
@@ -293,7 +293,7 @@ class Button extends UIDataComponent < String >
 		graphicData.value = new GraphicProperties( new RegularRectangle(), layout.bounds, fill );
 	}
 	
-#if (debug && flash9)
+#if (debug && (flash9 || nme))
 	override private function createChildren ()
 	{
 		textField = new TextField();
@@ -560,7 +560,7 @@ class Frame extends UIDataContainer < String >
 	}
 
 
-#if (debug && flash9)
+#if (debug && (flash9 || nme))
 	override private function createChildren () {
 		textField = new TextField();
 		textField.text = id.value;

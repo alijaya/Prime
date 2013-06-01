@@ -28,7 +28,7 @@
  */
 package prime.gui.utils;
  import apparat.math.FastMath;
-#if flash9
+#if (flash9 || nme)
  import prime.gui.display.BitmapData;
  import prime.types.RGBA;
 #end
@@ -41,7 +41,7 @@ package prime.gui.utils;
  */
 class BitmapUtil
 {
-#if flash9
+#if (flash9 || nme)
 	public static #if !noinline inline #end function toBytes (bmp:BitmapData)
 		return bmp.getPixels(bmp.rect)
 #end

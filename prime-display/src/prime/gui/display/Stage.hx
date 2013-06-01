@@ -30,7 +30,7 @@ package prime.gui.display;
 
 
 typedef Stage = 
-	#if		flash9		flash.display.Stage;
+	#if		(flash9 || nme)		flash.display.Stage;
 	#elseif nodejs 		IDisplayContainer;
 	#elseif	js			Window;
 	#else				IDisplayContainer; #end

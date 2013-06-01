@@ -65,7 +65,7 @@ class TextStyle extends StyleSubBlock
 	private var _weight			: FontWeight;
 	private var _style			: FontStyle;
 	private var _letterSpacing	: Float;
-	private var _align			: TextAlign;
+	private var _align			: #if (nme && cpp) String #else TextAlign #end;
 	private var _decoration		: TextDecoration;
 	private var _indent			: Float;
 	private var _transform		: TextTransform;
@@ -85,7 +85,7 @@ class TextStyle extends StyleSubBlock
 	 * @default	0
 	 */
 	public var letterSpacing	(get_letterSpacing,	set_letterSpacing)	: Float;
-	public var align			(get_align,			set_align)			: TextAlign;
+	public var align			(get_align,			set_align)			: #if (nme && cpp) String #else TextAlign #end;
 	public var decoration		(get_decoration,	set_decoration)		: TextDecoration;
 	public var indent			(get_indent,		set_indent)			: Float;
 	public var transform		(get_transform,		set_transform)		: TextTransform;
@@ -105,7 +105,7 @@ class TextStyle extends StyleSubBlock
 		weight:FontWeight			= null,
 		style:FontStyle				= null,
 		letterSpacing:Float			= Number.INT_NOT_SET,
-		align:TextAlign				= null,
+		align:#if (nme && cpp) String #else TextAlign #end = null,
 		decoration:TextDecoration	= null,
 		indent:Float				= Number.INT_NOT_SET,
 		transform:TextTransform		= null,
@@ -116,21 +116,21 @@ class TextStyle extends StyleSubBlock
 	)
 	{
 		super(filledProps);
-		#if flash9 this._size			#else this.size			    #end = size;
-		#if flash9 this._family		    #else this.family		    #end = family;
-		#if flash9 this._embeddedFont	#else this.embeddedFont	    #end = embeddedFont;
-		#if flash9 this._color			#else this.color			#end = color;
-		#if flash9 this._weight		    #else this.weight		    #end = weight;
-		#if flash9 this._style			#else this.style			#end = style;
-		#if flash9 this._letterSpacing	#else this.letterSpacing	#end = letterSpacing == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : letterSpacing;
-		#if flash9 this._align			#else this.align			#end = align;
-		#if flash9 this._decoration	    #else this.decoration	    #end = decoration;
-		#if flash9 this._indent		    #else this.indent		    #end = indent == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : indent;
-		#if flash9 this._transform		#else this.transform		#end = transform;
-		#if flash9 this._textWrap		#else this.textWrap		    #end = textWrap;
-		#if flash9 this._columnCount	#else this.columnCount	    #end = columnCount;
-		#if flash9 this._columnGap		#else this.columnGap		#end = columnGap;
-		#if flash9 this._columnWidth	#else this.columnWidth	    #end = columnWidth;
+		#if (flash9 || nme) this._size          #else this.size          #end = size;
+		#if (flash9 || nme) this._family        #else this.family        #end = family;
+		#if (flash9 || nme) this._embeddedFont  #else this.embeddedFont  #end = embeddedFont;
+		#if (flash9 || nme) this._color         #else this.color         #end = color;
+		#if (flash9 || nme) this._weight        #else this.weight        #end = weight;
+		#if (flash9 || nme) this._style         #else this.style         #end = style;
+		#if (flash9 || nme) this._letterSpacing #else this.letterSpacing #end = letterSpacing == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : letterSpacing;
+		#if (flash9 || nme) this._align         #else this.align         #end = align;
+		#if (flash9 || nme) this._decoration    #else this.decoration    #end = decoration;
+		#if (flash9 || nme) this._indent        #else this.indent        #end = indent == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : indent;
+		#if (flash9 || nme) this._transform     #else this.transform     #end = transform;
+		#if (flash9 || nme) this._textWrap      #else this.textWrap      #end = textWrap;
+		#if (flash9 || nme) this._columnCount   #else this.columnCount   #end = columnCount;
+		#if (flash9 || nme) this._columnGap     #else this.columnGap     #end = columnGap;
+		#if (flash9 || nme) this._columnWidth   #else this.columnWidth   #end = columnWidth;
 	}
 	
 	

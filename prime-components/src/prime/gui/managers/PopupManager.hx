@@ -118,7 +118,7 @@ class PopupManager implements IPopupManager
 	{
 		if (modal == null) {
 			modal = new UIComponent("modal");
-			modal.tabEnabled = false;
+			#if (!cpp || !nme) modal.tabEnabled = false; #end
 		}
 		
 		if (modal.window == null)

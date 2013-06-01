@@ -38,7 +38,7 @@ package prime.gui.core;
  import prime.layout.AdvancedLayoutClient;
  import prime.gui.managers.ISystem;
  import prime.gui.states.UIElementStates;
-#if flash9
+#if (flash9 || nme)
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
 #end
@@ -71,7 +71,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     public var layout           (default, null)                 : prime.layout.LayoutClient;
     public var system           (get_system, never)             : ISystem;
     
-#if flash9
+#if (flash9 || nme)
     public var style            (default, null)                 : UIElementStyle;
     public var styleClasses     (default, null)                 : SimpleList<String>;
     public var stylingEnabled   (default, set_stylingEnabled)    : Bool;
@@ -92,7 +92,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
         
         state           = new UIElementStates();
         behaviours      = new BehaviourList();
-#if flash9
+#if (flash9 || nme)
         styleClasses    = new SimpleList<String>();
         stylingEnabled  = true;
 #end
@@ -137,7 +137,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
             layout = null;
         }
         
-#if flash9
+#if (flash9 || nme)
         style.dispose();
         styleClasses.dispose();
         style           = null;
@@ -181,7 +181,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
                 l.maintainAspectRatio = false;
                 l.measuredWidth = l.measuredHeight = Number.INT_NOT_SET;
             } else {
-#if flash9      if (l.explicitWidth.isSet() || l.explicitHeight.isSet())
+#if (flash9||nme) if (l.explicitWidth.isSet() || l.explicitHeight.isSet())
                     scaleX = scaleY = Formulas.scale(data.width, data.height, l.explicitWidth, l.explicitHeight);
 #end            l.maintainAspectRatio = true;
                 l.measuredResize((data.width * scaleX).roundFloat(), (data.height * scaleY).roundFloat());
@@ -317,7 +317,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     //
     
     private inline function get_system () : ISystem                 return window.as(ISystem);
-#if flash9
+#if (flash9 || nme)
     public #if !noinline inline #end function isOnStage () : Bool   return stage != null;           // <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
 #else
     public #if !noinline inline #end function isOnStage () : Bool   return window != null;
@@ -330,7 +330,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
         var cur = get_data();
         if (cur != v)
         {
-#if flash9  bitmapData  = v;
+#if (flash9 || nme)  bitmapData  = v;
 #else       data        = v; #end
             updateScale(prime.layout.LayoutFlags.SIZE);
         }
@@ -338,7 +338,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     }
 
     
-#if flash9
+#if (flash9 || nme)
     private function set_stylingEnabled (v:Bool)
     {
         if (v != stylingEnabled)

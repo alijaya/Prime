@@ -29,7 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.core;
-#if flash9
+#if (flash9 || nme)
  import flash.text.TextFieldAutoSize;
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
@@ -71,10 +71,10 @@ class UITextField extends TextField implements IUIElement
 	public static #if !noinline inline #end function createLabelField (id:String = null, data:Bindable<String> = null, owner:ITextStylable = null, injectedLayout:AdvancedLayoutClient = null) : UITextField
 	{
 		var f = new UITextField( #if debug id #else null #end, injectedLayout == null, data, injectedLayout );	//FIXME: stylingEnabled doesn't always have to be true..
-#if flash9
+#if (flash9 || nme)
 		f.selectable	 = false;
 		f.mouseEnabled	 = false;
-		f.tabEnabled	 = false;
+		#if !cpp f.tabEnabled = false; #end
 
 		if (owner != null)
 		{
@@ -106,7 +106,7 @@ class UITextField extends TextField implements IUIElement
 //	private var updateSizeWire		: Wire<Dynamic>;
 	private var hasInjectedLayout	: Bool;
 
-#if flash9
+#if (flash9 || nme)
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
 	public var stylingEnabled	(default, set_stylingEnabled)	: Bool;
@@ -124,7 +124,7 @@ class UITextField extends TextField implements IUIElement
 #end
 		this.id				= new Bindable<String>(id);
 		super(data);
-#if flash9
+#if (flash9 || nme)
 		styleClasses		= new SimpleList<String>();
 		this.stylingEnabled	= stylingEnabled;
 #end
@@ -178,7 +178,7 @@ class UITextField extends TextField implements IUIElement
 			layout = null;
 		}
 
-#if flash9
+#if (flash9 || nme)
 		if (style != null && style.target == this)
 			style.dispose();
 		
@@ -303,7 +303,7 @@ class UITextField extends TextField implements IUIElement
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	override private function set_textStyle (v)
 	{
 	//	Assert.isNotNull(v);
@@ -353,7 +353,7 @@ class UITextField extends TextField implements IUIElement
 	
 	
 	private inline function get_system () : ISystem		{ return window.as(ISystem); }
-#if flash9
+#if (flash9 || nme)
 	public #if !noinline inline #end function isOnStage () : Bool			{ return stage != null; }			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
 #else
 	public #if !noinline inline #end function isOnStage () : Bool			{ return window != null; }
@@ -435,16 +435,17 @@ class UITextField extends TextField implements IUIElement
 			return;
 		}
 		var l = layout.as(AdvancedLayoutClient);
-
+	#if !html5 //FIXME
 		if (l.measuredWidth  == l.width) 	scrollH = 0;
 		if (l.measuredHeight == l.height) 	scrollV = 1;
+	#end
 	//	updateSizeWire.disable();
 		l.invalidatable  = false;
 		l.measuredWidth	 = realTextWidth .roundFloat();
 		l.measuredHeight = realTextHeight.roundFloat();
 		l.invalidatable  = true;
 
-#if flash9
+#if (flash9 || nme)
 		if (multiline && l.isChanged())
 			updateWordWrap.onceOn( l.changed, this );
 #end
@@ -474,7 +475,7 @@ class UITextField extends TextField implements IUIElement
 	}
 
 
-#if flash9
+#if (flash9 || nme)
 	private function updateWordWrap ()
 	{
 		Assert.that(multiline);

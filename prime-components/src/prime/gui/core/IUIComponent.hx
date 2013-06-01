@@ -42,7 +42,8 @@ interface IUIComponent
 				extends IUIElement
 				extends prime.core.traits.IDisablable
 				extends prime.gui.traits.ISkinnable
-#if flash9		extends prime.gui.traits.IDrawable	#end
+#if (flash9 || nme)
+				extends prime.gui.traits.IDrawable	#end
 {
 	public var enabled	(default, null)				: prime.bindable.Bindable<Bool>;
 	

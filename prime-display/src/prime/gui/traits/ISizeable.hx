@@ -36,10 +36,10 @@ package prime.gui.traits;
 interface ISizeable #if !CSSParser extends IDisplayable #end
 {
 #if flash9
-	var height		: Float;
-	var width		: Float;
+	var width  : Float;
+	var height : Float;
 #else
-	var width		(get_width,		set_width)			: Float;
-	var height		(get_height,	set_height)			: Float;
+	var width  (get_width,  set_width ) : Float;
+	var height (get_height, set_height) : Float;
 #end
 }

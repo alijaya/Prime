@@ -30,8 +30,10 @@ package prime.gui.graphics.borders;
  import prime.core.geom.IRectangle;
  import prime.gui.graphics.GraphicFlags;
  import prime.gui.traits.IGraphicsOwner;
+ import prime.gui.traits.IScaleable;
   using prime.utils.IfUtil;
   using prime.utils.NumberUtil;
+  using prime.utils.TypeUtil;
 
 
 /**
@@ -64,7 +66,7 @@ class BorderBase <FillType:prime.gui.graphics.IGraphicProperty> extends prime.gu
 	public function new ( fill:FillType, weight:Float = 1.0, innerBorder:Bool = false, caps:CapsStyle = null, joint:JointStyle = null, pixelHinting:Bool = false )
 	{
 		super();
-#if flash9
+#if (flash9 || nme)
 		Assert.isNotNull(fill);
 #end
 		this.fill			= fill;
@@ -85,11 +87,11 @@ class BorderBase <FillType:prime.gui.graphics.IGraphicProperty> extends prime.gu
 	
 	public function begin (target:IGraphicsOwner, bounds:IRectangle)
 	{
-#if flash9
+#if (flash9 || nme)
 		if (!innerBorder && bounds.notNull())
 		{
-			var borderW		= (weight * target.scaleX).roundFloat();
-			var borderH		= (weight * target.scaleY).roundFloat();
+			var borderW		= (weight * target.as(IScaleable).scaleX).roundFloat();
+			var borderH		= (weight * target.as(IScaleable).scaleY).roundFloat();
 			
 			bounds.move(	bounds.left - borderW,			bounds.top - borderH );
 			bounds.resize(	bounds.width + (borderW * 2),	bounds.height + (borderH * 2) );
@@ -100,12 +102,12 @@ class BorderBase <FillType:prime.gui.graphics.IGraphicProperty> extends prime.gu
 	
 	public function end (target:IGraphicsOwner, bounds:IRectangle)
 	{
-#if flash9
+#if (flash9 || nme)
 		target.graphics.lineStyle( 0, 0 , 0 );
 		if (!innerBorder && bounds.notNull())
 		{
-			var borderW		= (weight * target.scaleX).roundFloat();
-			var borderH		= (weight * target.scaleY).roundFloat();
+			var borderW		= (weight * target.as(IScaleable).scaleX).roundFloat();
+			var borderH		= (weight * target.as(IScaleable).scaleY).roundFloat();
 			
 			bounds.move(	bounds.left + borderW,			bounds.top + borderH );
 			bounds.resize(	bounds.width - (borderW * 2),	bounds.height - (borderH * 2) );

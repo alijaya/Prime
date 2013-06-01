@@ -32,7 +32,7 @@ package prime.gui.events;
 
 
 typedef TextEvents =
-	#if     flash9 prime.avm2.events.TextEvents;
+	#if (flash9 || nme) prime.avm2.events.TextEvents;
 	#elseif flash8 prime.avm1.events.TextEvents;
 	#elseif nodejs 	#error;
 	#elseif js     prime.js  .events.TextEvents;

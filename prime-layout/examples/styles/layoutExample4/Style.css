@@ -1,4 +1,6 @@
 @manifest url('Style.xml');
+@import url('../../../../styles/empty/BasicStyle.css');
+
 
 IDisplayObject {
 	shape: rectangle;
@@ -7,7 +9,6 @@ IDisplayObject {
 }
 LayoutExample4 {
 	algorithm: tile;
-/*	algorithm: circle;*/
 }
 LayoutExample4 IDisplayObject {
 	width: 30px;
@@ -15,8 +16,27 @@ LayoutExample4 IDisplayObject {
 	margin: 20px 5px;
 	background: #ffaaaa;
 }
-LayoutExample4 UIComponent:hover {
+LayoutExample4 UIComponent {
 	background: #eeaadd;
-	width: 80px;
+}
+LayoutExample4 UIComponent:hover {
+	background: #ff0000aa;
+	width:  80px;
 	height: 80px;
+}
+LayoutExample4 UIGraphic {
+	background: #ddeeaa;
+}
+#search {
+	visibility: visible;
+	background: #ccc;
+	border-radius: 10px;
+	border: 1px solid #4D4D4D;
+	width: 100px;
+	height: 25px;
+}
+#search:hover {
+	background: #ddd;
+	width: 100px;
+	height: 25px;
 }

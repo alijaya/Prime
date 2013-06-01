@@ -36,9 +36,15 @@ package prime.gui.traits;
 interface IGraphicsOwner #if !CSSParser extends IDisplayable #end
 {
 #if flash9
-	public var graphics	(default, null)		: flash.display.Graphics;
-	
-	public var scaleX	: Float;
-	public var scaleY	: Float;
+	public var graphics			(default, null)		: flash.display.Graphics;
+
+#elseif nme
+  #if html5
+  	public var graphics(get_graphics, never):flash.display.Graphics;
+
+  #elseif cpp
+	public var graphics(get_graphics, null):flash.display.Graphics;
+
+  #end
 #end
 }

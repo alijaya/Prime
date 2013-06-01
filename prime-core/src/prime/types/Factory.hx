@@ -27,14 +27,13 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.types;
-#if CSSParser
-using prime.utils.TypeUtil;
-using Std;
-using Type;
-#else
+#if !CSSParser
 typedef Factory<C> = Void -> C;
 typedef Factory1<A, C> = A -> C;
 #else
+using prime.utils.TypeUtil;
+using Std;
+using Type;
 
 typedef Factory1<A,C> = Factory<C>;
 

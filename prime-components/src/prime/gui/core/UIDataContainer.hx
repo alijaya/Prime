@@ -87,8 +87,10 @@ class UIDataContainer <DataType> extends UIDataComponent <DataType> implements I
 
     public function enableClipping ()
     {
-        Assert.isNull(scrollRect, id.value);
-        createScrollRect( layout.outerBounds.width, layout.outerBounds.height);
+        if (scrollRect != null)
+            updateScrollRect( prime.layout.LayoutFlags.SIZE );
+        else
+            createScrollRect( layout.outerBounds.width, layout.outerBounds.height);
         
         var s = layoutContainer.scrollPos;
         updateScrollRect.on( layoutContainer.changed, this );
@@ -99,7 +101,7 @@ class UIDataContainer <DataType> extends UIDataComponent <DataType> implements I
 
     public function disableClipping ()
     {
-        Assert.notNull(scrollRect, id.value);
+        Assert.isNotNull(scrollRect, id.value);
         var l = layoutContainer;
         l.changed.unbind(this);
         l.scrollPos.xProp.change.unbind( this );

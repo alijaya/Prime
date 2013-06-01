@@ -31,6 +31,7 @@ package prime.gui.styling;
  import prime.gui.filters.BitmapFilter;
  import prime.gui.styling.StyleCollectionBase;
  import prime.utils.FastArray;
+  using prime.utils.FastArray;
   using prime.utils.BitUtil;
   using prime.utils.TypeUtil;
 

@@ -59,7 +59,7 @@ class WindowLayoutBehaviour extends ValidatingBehaviour < UIWindow > implements 
 		//trigger the event handler for the current state as well
 		layoutStateChangeHandler( target.topLayout.state.current, null );
 		
-#if flash9
+#if (flash9 || nme)
 		updateBgSize.on( target.topLayout.changed, this );
 	//	updateBgSize();
 #end
@@ -88,7 +88,7 @@ class WindowLayoutBehaviour extends ValidatingBehaviour < UIWindow > implements 
 	override private function getValidationManager ()		{ return target.invalidation; }
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private function updateBgSize (changes:Int)
 	{
 		if (changes.hasNone( LayoutFlags.WIDTH | LayoutFlags.HEIGHT ))

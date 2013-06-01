@@ -29,7 +29,7 @@
 package prime.avm2.events;
 #if flash10
  import flash.events.Event;
-#elseif flash9
+#elseif (flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.KeyboardEvent;
  import prime.signals.Signal0;
@@ -56,7 +56,7 @@ class EditEvents extends EditSignals
 		paste		= new FlashSignal0 (eventDispatcher, Event.PASTE );
 		remove		= new FlashSignal0 (eventDispatcher, Event.CLEAR );
 		selectAll	= new FlashSignal0 (eventDispatcher, Event.SELECT_ALL );
-#elseif flash9
+#elseif (flash9 || nme)
 		cut			= new Signal0();
 		copy		= new Signal0();
 		paste		= new Signal0();
@@ -69,7 +69,7 @@ class EditEvents extends EditSignals
 	}
 	
 	
-#if (flash9 && !flash10)
+#if ((flash9 || nme) && !flash10)
 	private var dispatcher : IEventDispatcher;
 	
 	

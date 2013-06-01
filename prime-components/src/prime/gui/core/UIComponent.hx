@@ -48,7 +48,7 @@ package prime.gui.core;
  
  import prime.gui.managers.ISystem;
  import prime.gui.states.UIElementStates;
-#if flash9
+#if (flash9 || nme)
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
 #end
@@ -93,12 +93,15 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 	public var state			(default, null)					: UIElementStates;
 	public var effects			(default, default)				: UIElementEffects;
 	
+#if (nme || !js)
+	public var id				(default, null)					: Bindable<String>;
+#end
+
 	public var skin				(default, set_skin)				: ISkin;
 	public var layout			(default, null)					: LayoutClient;
 	public var system			(get_system, never)				: ISystem;
-#if !js
-	public var id				(default, null)					: Bindable<String>;
-#elseif flash9
+	
+#if (flash9 || nme)
 	public var graphicData		(default, null)					: GraphicProperties;
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
@@ -124,7 +127,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 		state			= new UIElementStates();
 		handleEnableChange.on( enabled.change, this );
 		init.onceOn( displayEvents.addedToStage, this );
-#if flash9
+#if (flash9 || nme)
 		graphicData		= new GraphicProperties( rect );
 		styleClasses	= new SimpleList<String>();
 		stylingEnabled	= true;		// <- will create UIElementStyle instance
@@ -153,7 +156,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 		if (isInitialized())
 			return;
 
-#if flash9
+#if (flash9 || nme)
 		if (stylingEnabled)
 			behaviours.add( new InteractiveStyleChangeBehaviour(this) );
 		Assert.isNotNull(parent);
@@ -244,7 +247,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 		id.dispose();
 		enabled.dispose();
 		
-#if flash9
+#if (flash9 || nme)
 		// will be null if styling is disabled
 		if( style != null )
 			style.dispose();
@@ -371,7 +374,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 	}*/
 	
 	private inline function get_system () : ISystem					return window.as(ISystem);
-#if flash9
+#if (flash9 || nme)
 	public #if !noinline inline #end function isOnStage () : Bool	return stage != null;			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
 #else
 	public #if !noinline inline #end function isOnStage () : Bool	return window != null;
@@ -393,7 +396,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private inline function setStyle (v)
 	{
 		return style = v;
@@ -498,7 +501,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 	
 	private function handleEnableChange (newVal:Bool, oldVal:Bool)
 	{
-		mouseEnabled = tabEnabled = children.mouseEnabled = children.tabEnabled = newVal;
+		mouseEnabled = #if (nme && !cpp) tabEnabled = #end children.mouseEnabled = children.tabEnabled = newVal;
 	}
 	
 	

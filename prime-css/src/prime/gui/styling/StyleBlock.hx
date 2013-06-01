@@ -540,9 +540,9 @@ class StyleBlock extends StyleBlockBase implements IStyleBlock implements prime.
 	{
 		var v = _font;
 			if (v == null && extendedStyle != null)		v = extendedStyle.font;
-#if flash9	if (v == null && nestingInherited != null)	v = nestingInherited.font; #end
+#if (flash9 || nme)	if (v == null && nestingInherited != null)	v = nestingInherited.font; #end
 			if (v == null && superStyle != null)		v = superStyle.font;
-#if flash9	if (v == null && parentStyle != null)		v = parentStyle.font; #end
+#if (flash9 || nme)	if (v == null && parentStyle != null)		v = parentStyle.font; #end
 		
 		return v;
 	}
