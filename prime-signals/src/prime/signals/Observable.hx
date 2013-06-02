@@ -35,6 +35,6 @@ package prime.signals;
  * @creation-date Jun 09, 2010
  */
 typedef Observable = {
-	public function observe		(owner:Dynamic, handler:Void->Void) : Wire<Dynamic>;
-	public function observeOnce	(owner:Dynamic, handler:Void->Void) : Wire<Dynamic>;
+	public function observe		(owner:Dynamic, handler:Void->Void #if debug, ?pos : haxe.PosInfos #end) : Wire<Dynamic>;
+	public function observeOnce	(owner:Dynamic, handler:Void->Void #if debug, ?pos : haxe.PosInfos #end) : Wire<Dynamic>;
 }

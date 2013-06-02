@@ -63,7 +63,7 @@ class Signal3 <A,B,C> extends Signal<A->B->C->Void> implements ISender3<A,B,C> i
 			 	w.sendVoid();
 			else
 			 	w.handler(_1,_2,_3);
-#if (flash9 && debug) } catch (e : flash.errors.TypeError) { throw "Wrong argument type ("+ e +") for " + w+";\n\tstacktrace: "+e.getStackTrace()+"\n"; } #end
+#if (flash9 && debug) } catch (e : flash.errors.Error) { throw "Handler error ("+ e +") for " + w+";\n\tstacktrace: "+e.getStackTrace()+"\n"; } #end
 				
 			if (w.flags.has(Wire.SEND_ONCE))
 			 	w.dispose();
@@ -72,10 +72,10 @@ class Signal3 <A,B,C> extends Signal<A->B->C->Void> implements ISender3<A,B,C> i
 		nextSendable = null;
 	}
 	
-	public #if !noinline inline #end function bind 				(owner:Dynamic, handler:A->B->C->Void)  return Wire.make( this, owner, handler, Wire.ENABLED );
-	public #if !noinline inline #end function bindOnce 			(owner:Dynamic, handler:A->B->C->Void)  return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE);
-	public #if !noinline inline #end function bindDisabled 		(owner:Dynamic, handler:A->B->C->Void)  return Wire.make( this, owner, handler, 0);
-	public #if !noinline inline #end function observe 			(owner:Dynamic, handler:Void->Void) 	return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER);
-	public #if !noinline inline #end function observeOnce		(owner:Dynamic, handler:Void->Void) 	return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER | Wire.SEND_ONCE);
-	public #if !noinline inline #end function observeDisabled 	(owner:Dynamic, handler:Void->Void) 	return Wire.make( this, owner, cast handler, Wire.VOID_HANDLER);
+	public #if !noinline inline #end function bind            (owner:Dynamic, handler:A->B->C->Void #if debug, ?pos : haxe.PosInfos #end)  return Wire.make( this, owner, handler, Wire.ENABLED                                           #if debug, pos #end);
+	public #if !noinline inline #end function bindOnce        (owner:Dynamic, handler:A->B->C->Void #if debug, ?pos : haxe.PosInfos #end)  return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE                          #if debug, pos #end);
+	public #if !noinline inline #end function bindDisabled    (owner:Dynamic, handler:A->B->C->Void #if debug, ?pos : haxe.PosInfos #end)  return Wire.make( this, owner, handler, 0                                                      #if debug, pos #end);
+	public #if !noinline inline #end function observe         (owner:Dynamic, handler:Void->Void    #if debug, ?pos : haxe.PosInfos #end)  return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER                  #if debug, pos #end);
+	public #if !noinline inline #end function observeOnce     (owner:Dynamic, handler:Void->Void    #if debug, ?pos : haxe.PosInfos #end)  return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER | Wire.SEND_ONCE #if debug, pos #end);
+	public #if !noinline inline #end function observeDisabled (owner:Dynamic, handler:Void->Void    #if debug, ?pos : haxe.PosInfos #end)  return Wire.make( this, owner, cast handler, Wire.VOID_HANDLER                                 #if debug, pos #end);
 }

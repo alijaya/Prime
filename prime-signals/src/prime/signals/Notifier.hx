@@ -34,6 +34,6 @@ package prime.signals;
  * @creation-date Jun 09, 2010
  */
 typedef Notifier <FunctionSignature> = {
-	public function bind		(owner:Dynamic, handler:FunctionSignature) : Wire<FunctionSignature>;
-	public function bindOnce	(owner:Dynamic, handler:FunctionSignature) : Wire<FunctionSignature>;
+	public function bind		(owner:Dynamic, handler:FunctionSignature #if debug, ?pos : haxe.PosInfos #end) : Wire<FunctionSignature>;
+	public function bindOnce	(owner:Dynamic, handler:FunctionSignature #if debug, ?pos : haxe.PosInfos #end) : Wire<FunctionSignature>;
 }
