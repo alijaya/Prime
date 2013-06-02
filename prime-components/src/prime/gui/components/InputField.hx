@@ -115,7 +115,7 @@ class InputField <VOType> extends DataButton <VOType>
 	}
 	
 	
-	private inline function getRevertableData ()	return cast( data, RevertableBindable<String>);
+	private inline function getRevertableData () : RevertableBindable<String>  return cast data;
 
 	
 	//
