@@ -1,11 +1,11 @@
 import massive.munit.TestSuite;
 
-import prime.signals.Signal0Test;
-import prime.signals.Signal1Test;
-import prime.signals.Signal2Test;
-import prime.signals.Signal3Test;
-import prime.signals.Signal4Test;
-import prime.signals.SignalTest;
+import prime.signal.Signal0Test;
+import prime.signal.Signal1Test;
+import prime.signal.Signal2Test;
+import prime.signal.Signal3Test;
+import prime.signal.Signal4Test;
+import prime.signal.SignalTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -19,11 +19,11 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
-		add(prime.signals.Signal0Test);
-		add(prime.signals.Signal1Test);
-		add(prime.signals.Signal2Test);
-		add(prime.signals.Signal3Test);
-		add(prime.signals.Signal4Test);
-		add(prime.signals.SignalTest);
+		add(prime.signal.Signal0Test);
+		add(prime.signal.Signal1Test);
+		add(prime.signal.Signal2Test);
+		add(prime.signal.Signal3Test);
+		add(prime.signal.Signal4Test);
+		add(prime.signal.SignalTest);
 	}
 }

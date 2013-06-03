@@ -2,6 +2,4 @@
 	<user name=""/>
 	<description>Prime core types, utilities and classes. Used in every subpackage.</description>
 	<version name="0.0.0.0"></version>
-
-	<depends name="tink_macros"/>
 </project>

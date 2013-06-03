@@ -1,6 +1,6 @@
 -lib munit
--lib hamcrest
--lib tink_macros
+# -lib hamcrest
+# -lib tink_macros
 
 -cp ../prime-signals/src
 -cp ../prime-core/src

@@ -1,8 +1,10 @@
-<project name="prime-mvc" url="http://prime.vc" license="BSD">
+<project name="prime-mvc" url="http://wwx-2013.prime.vc/" license="BSD">
 	<user name=""/>
-	<description>Prime MVC.</description>
-	<version name="0.0.0.0"></version>
-
+	<description>Prime MVC (Model Viewer Controller) library for Haxe.</description>
+	<tags>Model, Viewer, Controller, MVC, Prime</tags>
+	<contributors></contributors>
+	<version name="0.9.0.0"></version>
+	<releasenote>Initial release.</releasenote>
 	<depends name="prime-signals"/>
 	<depends name="prime-core"/>
 </project>

@@ -1,0 +1,14 @@
+{
+  "name": "prime-perceptor",
+  "license": "BSD",
+  "tags": ["prime"],
+  "description": "Prime Perceptor: client library",
+  "contributors": ["Danny Wilson", "Ruben Weijers", "Ezequiel Moreno", "Andrew Pahuru"],
+  "releasenote": "Initial release.",
+  "version": "0.9.0.0",
+  "url": "http://wwx-2013.prime.vc/",
+  "dependencies": {
+    "prime-core": "",
+    "prime-signals": ""
+  }
+}
