@@ -24,8 +24,8 @@ libs.hxml
 --next
 
 # Neko
--main TestMain
-libs.hxml
+# -main TestMain
+# libs.hxml
 
--cp test
--neko tmp/neko_test.n
+# -cp test
+# -neko tmp/neko_test.n

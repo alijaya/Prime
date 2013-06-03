@@ -73,7 +73,7 @@ class TileContainer extends LayoutClient implements ILayoutContainer
 			for (i in 0...children.length) {
 				var child = children.getItemAt(i);
 				if (child.includeInLayout)
-					child.listeners.add(this);
+					child.invalidated.bind( this, invalidateCall );
 			}
 		
 		changes = 0;
@@ -86,7 +86,7 @@ class TileContainer extends LayoutClient implements ILayoutContainer
 		{
 			while (children.length > 0) {
 				var child = children.getItemAt(0);
-				child.listeners.remove(this);
+				child.invalidated.unbind( this );
 				children.remove(child);
 			}
 			
@@ -314,13 +314,13 @@ class TileContainer extends LayoutClient implements ILayoutContainer
 			case added( child, newPos ):
 				child.outerBounds.left	= innerBounds.left;
 				child.outerBounds.top	= innerBounds.top;
-				child.listeners.add(this);
+				child.invalidated.bind( this, invalidateCall );
 				
 				if (!fixedLength)			childrenLength++;
 				if (child.includeInLayout)	invalidate( Flags.LIST );
 			
 			case removed( child, oldPos ):
-				child.listeners.remove(this);
+				child.invalidated.unbind( this );
 				
 				if (!fixedLength)			childrenLength--;
 				if (child.includeInLayout)	invalidate( Flags.LIST );

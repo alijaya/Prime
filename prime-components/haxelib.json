@@ -1,0 +1,22 @@
+{
+  "name": "prime-components",
+  "license": "BSD",
+  "tags": ["prime", "button", "label", "container"],
+  "description": "GUI components.",
+ "contributors": ["Danny Wilson", "Ruben Weijers", "Ezequiel Moreno", "Andrew Pahuru"],
+  "releasenote": "Initial release.",
+  "version": "0.9.0.0",
+  "url": "http://wwx-2013.prime.vc/",
+  "dependencies": {
+    "prime-bindable": "",
+    "prime-core": "",
+    "prime-data": "",
+    "prime-media": "",
+    "feffects": "",
+    "prime-display": "",
+    "prime-signals": "",
+    "prime-layout": "",
+    "prime-css": "",
+    "prime-fsm": ""
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "prime-fsm",
+  "license": "BSD",
+  "tags": ["prime", "state"],
+  "description": "State machines.",
+ "contributors": ["Danny Wilson", "Ruben Weijers", "Ezequiel Moreno", "Andrew Pahuru"],
+  "releasenote": "Initial release.",
+  "version": "0.9.0.0",
+  "url": "http://wwx-2013.prime.vc/",
+  "dependencies": {
+    "prime-core": "",
+    "prime-signals": ""
+  }
+}

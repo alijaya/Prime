@@ -1,6 +1,4 @@
 -lib munit
--lib hamcrest
--lib tink_macros
 -cp src
 -cp ../libs/apparat
 -D prime_net

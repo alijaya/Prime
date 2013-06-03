@@ -4,4 +4,5 @@
     <version name="0.0.0.0"></version>
     <depends name="prime-signals"/>
     <depends name="prime-core"/>
+    <depends name="prime-data"/>
 </project>
