@@ -38,7 +38,7 @@ import haxe.macro.Context;
  * flag is used on the haxe compiler command line.
  **/
 #if !macro extern #end class Assert {
-	#if macro static private var emptyExpr = Context.makeExpr(null, Context.currentPos()); #end
+	#if macro static private var emptyExpr = macro null; #end
 	/**
 	* Asserts that expected is equal to actual
 	* @param expected Any expression that can test against actual
