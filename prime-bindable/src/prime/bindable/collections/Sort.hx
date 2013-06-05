@@ -37,7 +37,8 @@ package prime.bindable.collections;
  * @author Ruben Weijers
  * @creation-date Jan 5, 2012
  */
-@:generic class Sort<DataType> extends ReadOnlyArrayList<DataType>
+//@:generic
+class Sort<DataType> extends ReadOnlyArrayList<DataType>
 {
 	public  var source 	(default, set_source) 	: IReadOnlyList<DataType>;
 	public  var sort 	(default, set_sort) 	: DataType -> DataType -> Int;

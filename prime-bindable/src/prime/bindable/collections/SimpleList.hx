@@ -40,7 +40,7 @@ package prime.bindable.collections;
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-#if flash9 @:generic #end
+//#if flash9 @:generic #end
 class SimpleList<T> implements IEditableList<T> 
 {
 	public var change		(default, null)		: ListChangeSignal<T>;

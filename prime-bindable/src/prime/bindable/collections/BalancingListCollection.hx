@@ -72,7 +72,7 @@ package prime.bindable.collections;
  * @creation-date	Jul 1, 2010
  * @author			Ruben Weijers
  */
-#if flash9 @:generic #end
+//#if flash9 @:generic #end
 class BalancingListCollection<T> implements IEditableList<T> implements IListCollection<T, BalancingList<T>>
 {
 	private var _length		: Int;
