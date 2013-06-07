@@ -36,7 +36,6 @@ package prime.avm2.events;
  import prime.core.geom.Point;
  import prime.gui.events.KeyModState;
  import prime.gui.events.MouseEvents;
-  using prime.core.ListNode;
 
 /**
  * Signal<-->flash.MouseEvent Proxy implementation

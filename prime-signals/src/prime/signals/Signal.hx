@@ -27,7 +27,6 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.signals;
-  using prime.core.ListNode;
   using prime.utils.IfUtil;
   using prime.utils.TypeUtil;
   using prime.signals.Wire;

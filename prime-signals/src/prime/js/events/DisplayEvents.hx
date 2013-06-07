@@ -37,7 +37,7 @@ private class EnterFrameSignal extends prime.signals.Signal0
 
 	public function wireEnabled (wire:Wire<Void->Void>):Void
 	{
-		if (ListUtil.next(n) == null) { // First wire connected
+		if (n.next() == null) { // First wire connected
 #if debug	Assert.isNull(timer); #end
 			timer = new Timer(INTERVAL);
 			timer.run = send;

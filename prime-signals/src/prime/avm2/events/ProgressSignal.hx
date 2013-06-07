@@ -32,7 +32,6 @@ package prime.avm2.events;
  import prime.signals.IWireWatcher;
  import prime.signals.Signal2;
  import prime.signals.Wire;
- import prime.core.ListNode;
  import prime.core.events.CommunicationEvents;		// needed for ProgressHandler typedef
   using Std;
 
@@ -62,7 +61,7 @@ class ProgressSignal extends Signal2<UInt, UInt> implements IWireWatcher < Progr
 
 	public function wireEnabled (wire:Wire<ProgressHandler>) : Void {
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 

@@ -26,7 +26,7 @@ class DOMSignal0 extends Signal0 implements IWireWatcher<Void->Void>
 	{	
 		Assert.isNotNull(n);
 		
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 		{
 			untyped eventDispatcher.addEventListener(event, dispatch, false);
 		}

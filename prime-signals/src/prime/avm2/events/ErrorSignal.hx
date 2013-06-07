@@ -33,7 +33,6 @@ package prime.avm2.events;
  import prime.signals.Signal1;
  import prime.signals.Wire;
  import prime.core.Error;
- import prime.core.ListNode;
 
 
 
@@ -62,7 +61,7 @@ class ErrorSignal extends Signal1 <String> implements IWireWatcher < EventHandle
 
 	public function wireEnabled (wire:Wire<EventHandler>) : Void {
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 

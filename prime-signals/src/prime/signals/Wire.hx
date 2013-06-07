@@ -27,7 +27,6 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.signals;
- import prime.core.ListNode;
   using prime.utils.BitUtil;
   using prime.signals.Signal;
 
@@ -56,6 +55,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 	static function __init__()
 	{
 		var W = Wire;
+		freeCount = 0;
 	  #if js
 		var dummyOwner   = new Signal0();
 		var dummyHandler = dummyOwner.unbindAll;
@@ -215,7 +215,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 	
 	private inline function doEnable()
 	{
-		var s:ListNode<Wire<FunctionSignature>> = this.signal;
+		var s = this.signal;
 		this.n = s.n;
 		s.n = this;
 		signal.notifyEnabled(this);
@@ -235,7 +235,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 			flags.unset( ENABLED );
 			
 			// Find LinkNode before this one
-			var x:ListNode<Wire<FunctionSignature>> = signal;
+			var x:WireList<FunctionSignature> = signal;
 			while (x.n != null && x.n != this) x = x.n;
 			
 			x.n = this.n;
@@ -280,8 +280,8 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 		return this.owner == target 
 			&& (handlerFn == null ||
 		(
-		  #if flash9
-			this.handler == handlerFn
+		  #if (cpp||flash9)
+			this._handler == handlerFn
 		  #else
 			Reflect.compareMethods(handlerFn, this.handler)
 		  #end

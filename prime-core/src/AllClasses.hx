@@ -15,7 +15,6 @@ import prime.core.geom.space.Horizontal;
 import prime.core.geom.space.MoveDirection;
 import prime.core.geom.space.Position;
 import prime.core.geom.space.Vertical;
-import prime.core.ListNode;
 import prime.core.traits.IClonable;
 import prime.core.traits.IDisablable;
 import prime.core.traits.IDisposable;

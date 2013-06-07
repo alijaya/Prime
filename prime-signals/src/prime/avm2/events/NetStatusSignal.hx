@@ -33,7 +33,6 @@ package prime.avm2.events;
  import prime.signals.IWireWatcher;
  import prime.signals.Signal1;
  import prime.signals.Wire;
- import prime.core.ListNode;
 
 
 private typedef Handler = NetStreamInfo -> Void;
@@ -60,7 +59,7 @@ class NetStatusSignal extends Signal1<NetStreamInfo> implements IWireWatcher <Ha
 	public function wireEnabled (wire:Wire<Handler>) : Void
 	{
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 	

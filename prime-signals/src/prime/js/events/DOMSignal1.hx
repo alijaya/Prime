@@ -2,7 +2,6 @@ package prime.js.events;
  import prime.signals.Wire;
  import prime.signals.Signal1;
  import prime.signals.IWireWatcher;
- import prime.core.ListNode;
  import prime.gui.events.UserEventTarget;
  import js.Dom;
 
@@ -55,7 +54,7 @@ class DOMSignal1<Type> extends Signal1<Type> implements IWireWatcher<Type->Void>
 	{
 		Assert.isNotNull(n);
 		
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 		{
 		//	trace(eventDispatcher.id+" - "+js.Lib.isIE+" - "+event);
 		/*	if (js.Lib.isIE) 	(untyped eventDispatcher).attachEvent(event, dispatch, false);

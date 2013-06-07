@@ -33,7 +33,6 @@ package prime.avm2.events;
  import prime.signals.Wire;
  import prime.signals.Signal0;
  import prime.signals.IWireWatcher;
- import prime.core.ListNode;
 
 
 /**
@@ -56,7 +55,7 @@ class FlashSignal0 extends Signal0 implements IWireWatcher<Void->Void>
 	
 	public function wireEnabled (wire:Wire<Void -> Void>) : Void {
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 	

@@ -3,7 +3,6 @@ package prime.js.events;
 import prime.signals.IWireWatcher;
 import prime.signals.Signal2;
 import prime.signals.Wire;
-import prime.core.ListNode;
 import prime.core.events.CommunicationEvents;		// needed for ProgressHandler typedef
 
 import prime.js.net.XMLHttpRequest;
@@ -32,7 +31,7 @@ class ProgressSignal extends Signal2<Int, Int> implements IWireWatcher <Progress
 	{
 		Assert.isNotNull(n);
 		
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 		{
 			request.addEventListener(event, dispatch, false);
 		}
