@@ -41,7 +41,7 @@ package prime.bindable.collections;
  * @creation-date	Jun 30, 2010
  * @author			Ruben Weijers
  */
-#if flash9 @:generic #end
+//#if flash9 @:generic #end
 class ChainedList <T> extends SimpleList <T>
 {
 	/**

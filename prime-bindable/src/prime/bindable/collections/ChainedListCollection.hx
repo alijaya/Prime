@@ -39,7 +39,7 @@ package prime.bindable.collections;
  * list.
  * 
  */
-#if flash9 @:generic #end
+//#if flash9 @:generic #end
 class ChainedListCollection<T>
 				implements IEditableList<T>
 				implements IListCollection<T, ChainedList<T>>
