@@ -73,7 +73,6 @@ import prime.avm2.net.URLLoader;
 
 #if js
 import prime.js.net.URLLoader;
-import prime.js.net.XMLHttpRequest;
 #end
 
 @IgnoreCover
