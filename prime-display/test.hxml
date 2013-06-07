@@ -3,7 +3,7 @@
 libs.hxml
 -debug
 -D prime_net
--swf-lib debug-assets.swf
+-swf-lib ../assets/debug-assets.swf
 -swf-version 11
 -swf build/as3_test.swf
 
@@ -12,7 +12,7 @@ libs.hxml
 -main TestMain
 libs.hxml
 -D prime_net
--swf-lib assets.swf
+-swf-lib ../assets/debug-assets.swf
 -swf-version 11
 -swf build/as3_test.swf
 
@@ -23,7 +23,7 @@ libs.hxml
 libs.hxml
 -D prime_net
 -debug
--swf-lib debug-assets.swf
+-swf-lib ../assets/debug-assets.swf
 -swf-version 10
 -swf build/as3_test.swf
 
@@ -32,7 +32,7 @@ libs.hxml
 -main TestMain
 libs.hxml
 -D prime_net
--swf-lib assets.swf
+-swf-lib ../assets/debug-assets.swf
 -swf-version 10
 -swf build/as3_test.swf
 
