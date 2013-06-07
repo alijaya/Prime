@@ -97,7 +97,7 @@ class ScaleEffect extends Effect<prime.gui.display.IDisplayObject, ScaleEffect>
 	
 #if !CSSParser
 	override public function createEffectInstance (target)
-		return new prime.gui.effects.effectInstances.ScaleEffectInstance(target, this)
+		return new prime.gui.effects.effectInstances.ScaleEffectInstance(target, this);
 #else
 
 	override public function toCSS (prefix:String = "") : String

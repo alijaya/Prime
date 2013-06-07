@@ -166,7 +166,7 @@ class DynamicLayoutAlgorithm extends LayoutAlgorithmBase implements ILayoutAlgor
 				verAlgorithm.group = null;
 			}
 			
-			v = super.setGroup(v);
+			v = super.set_group(v);
 		//	invalidate(true);
 			
 			if (v != null) {

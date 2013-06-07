@@ -46,7 +46,7 @@ package examples.layout;
 class LayoutExample3 extends UIWindow
 {
 	public static function main ()
-		Window.startup(function (stage) { return new LayoutExample3(stage); })
+		Window.startup(function (stage) { return new LayoutExample3(stage); });
 
 
 	override private function createChildren ()

@@ -374,7 +374,7 @@ class DynamicTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 	//
 	
 	
-	override private function setStartDirection (v)
+	override private function set_startDirection (v)
 	{
 		if (v != startDirection)
 		{
@@ -389,7 +389,7 @@ class DynamicTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 	}
 	
 	
-	override private function setGroup (v)
+	override private function set_group (v)
 	{
 		if (group != v)
 		{
@@ -401,7 +401,7 @@ class DynamicTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 				group.children.change.unbind(this);
 			}
 			
-			v = super.setGroup(v);
+			v = super.set_group(v);
 			
 			if (v != null)
 				updateMapsAfterChange.on( group.children.change, this );
@@ -410,10 +410,10 @@ class DynamicTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 	}
 	
 	
-	override private function setHorizontalDirection (v:Horizontal)
+	override private function set_horizontalDirection (v:Horizontal)
 	{
 		if (v != horizontalDirection) {
-			super.setHorizontalDirection(v);
+			super.set_horizontalDirection(v);
 			if (childAlgorithm != null && childAlgorithm.is(DynamicRowAlgorithm))
 				childAlgorithm.as(DynamicRowAlgorithm).direction = v;
 		}
@@ -421,10 +421,10 @@ class DynamicTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 	}
 	
 	
-	override private function setVerticalDirection (v:Vertical)
+	override private function set_verticalDirection (v:Vertical)
 	{
 		if (v != verticalDirection) {
-			super.setVerticalDirection(v);
+			super.set_verticalDirection(v);
 			if (childAlgorithm != null && childAlgorithm.is(DynamicColumnAlgorithm))
 				childAlgorithm.as(DynamicColumnAlgorithm).direction = v;
 		}

@@ -485,7 +485,7 @@ class FixedTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 	{
 		if (v != startDirection) {
 			swapHorizontalAndVertical();
-			super.setStartDirection(v);
+			super.set_startDirection(v);
 		}
 		return v;
 	}
@@ -504,7 +504,7 @@ class FixedTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 				group.children.change.unbind(this);
 			}
 			
-			v = super.setGroup(v);
+			v = super.set_group(v);
 			
 			if (v != null)
 				updateMapsAfterChange.on( group.children.change, this );
