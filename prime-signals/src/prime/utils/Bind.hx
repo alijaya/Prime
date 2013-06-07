@@ -33,16 +33,16 @@ package prime.utils;
  import prime.signals.Wire;
 
 
-extern class RedispatchObserveAny {
-	// TODO: Check if we should optimize this case by changing handler.send to null, and adding another flag (SEND_VOID_SIGNAL) to Wire.
-	static inline public function on(handler:Sender<Void->Void>, dispatcher:Observable, ?owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<Dynamic>
-		return dispatcher.observe(owner == null? handler : owner, handler.send #if debug, pos #end);
-}
-
 extern class RedispatchAny {
 	// TODO: Check if we should optimize this case by changing handler.send to null, and adding another flag (SEND_TO_SIGNAL) to Wire.
 	static inline public function on<Sig>(handler:Sender<Sig>, dispatcher:Notifier<Sig>, ?owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<Sig>
 		return dispatcher.bind(owner == null? handler : owner, handler.send #if debug, pos #end);
+}
+
+extern class RedispatchObserveAny {
+	// TODO: Check if we should optimize this case by changing handler.send to null, and adding another flag (SEND_VOID_SIGNAL) to Wire.
+	static inline public function on(handler:Sender<Void->Void>, dispatcher:Observable, ?owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<Dynamic>
+		return dispatcher.observe(owner == null? handler : owner, handler.send #if debug, pos #end);
 }
 
 extern class ObserveAny {
