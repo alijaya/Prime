@@ -1,4 +1,4 @@
-package prime.signal;
+package prime.signals;
 
 import massive.munit.util.Timer;
 import massive.munit.Assert;
@@ -12,9 +12,9 @@ import prime.signals.SignalTestBase;
 */
 class Signal3Test extends SignalTestBase<Signal3<String,Int,Float>>
 {
-	function handlerInt     (s:String, Int, Float) : Int  return called++
-	function handler        (s:String, Int, Float) : Void called++
-	function voidHandler    ()                     : Void voidCalled++
+	function handlerInt     (s:String, Int, Float) : Int  return called++;
+	function handler        (s:String, Int, Float) : Void called++;
+	function voidHandler    ()                     : Void voidCalled++;
 
 //	public function new() {}
 	
@@ -29,5 +29,5 @@ class Signal3Test extends SignalTestBase<Signal3<String,Int,Float>>
 	override function bindOn     () { handlerInt.on(instance, this); voidHandler.on(instance, this);   }
 	override function bindOnce   () { instance.bindOnce(this, handler);  instance.observeOnce(this, voidHandler); }
 	override function bindOnOnce () { handlerInt.onceOn(instance, this); voidHandler.onceOn(instance, this);   }
-	override function send       () instance.send("message", 1, 2.0)
+	override function send       () instance.send("message", 1, 2.0);
 }

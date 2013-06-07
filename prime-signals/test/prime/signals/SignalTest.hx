@@ -1,4 +1,4 @@
-package prime.signal;
+package prime.signals;
 
 import massive.munit.util.Timer;
 import massive.munit.Assert;

@@ -1,20 +1,20 @@
-package prime.signal;
+package prime.signals;
 
 import massive.munit.util.Timer;
 import massive.munit.Assert;
 import massive.munit.async.AsyncFactory;
-import prime.signals.Signal2;
+import prime.signals.Signal4;
 import prime.signals.SignalTestBase;
  using prime.utils.Bind;
 
 /**
 * Auto generated MassiveUnit Test Class  for prime.signals.Signal0 
 */
-class Signal2Test extends SignalTestBase<Signal2<String,Int>>
+class Signal4Test extends SignalTestBase<Signal4<String,Int,Float,Bool>>
 {
-	function handlerInt     (s:String, Int) : Int  return called++
-	function handler        (s:String, Int) : Void called++
-	function voidHandler    ()              : Void voidCalled++
+	function handlerInt     (s:String, Int, Float, Bool) : Int  return called++;
+	function handler        (s:String, Int, Float, Bool) : Void called++;
+	function voidHandler    ()                           : Void voidCalled++;
 
 //	public function new() {}
 	
@@ -22,12 +22,12 @@ class Signal2Test extends SignalTestBase<Signal2<String,Int>>
 	public function setup():Void
 	{
 		voidCalled = called = 0;
-		instance = new Signal2();
+		instance = new Signal4();
 	}
 	
 	override function bind       () { instance.bind(this, handler);  instance.observe(this, voidHandler); }
 	override function bindOn     () { handlerInt.on(instance, this); voidHandler.on(instance, this);   }
 	override function bindOnce   () { instance.bindOnce(this, handler);  instance.observeOnce(this, voidHandler); }
 	override function bindOnOnce () { handlerInt.onceOn(instance, this); voidHandler.onceOn(instance, this);   }
-	override function send       () instance.send("message", 1)
+	override function send       () instance.send("message", 1, 2.0, true);
 }
