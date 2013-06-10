@@ -1,0 +1,13 @@
+{
+  "name": "prime",
+  "license": "BSD",
+  "tags": ["prime", "framework","primevc","mvc"],
+  "description": "prime framework",
+ "contributors": ["Danny Wilson", "Ruben Weijers", "Ezequiel Moreno", "Andrew Pahuru"],
+  "releasenote": "Initial release.",
+"version": "0.0.0",
+  "url": "http://wwx-2013.prime.vc/",
+  "dependencies": {
+
+  }
+}
