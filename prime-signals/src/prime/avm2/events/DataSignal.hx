@@ -32,7 +32,6 @@ package prime.avm2.events;
  import prime.signals.IWireWatcher;
  import prime.signals.Signal1;
  import prime.signals.Wire;
- import prime.core.ListNode;
  import prime.gui.events.TextEvents;
 
 
@@ -58,7 +57,7 @@ class DataSignal extends Signal1 <String> implements IWireWatcher < TextHandler 
 
 	public function wireEnabled (wire:Wire<TextHandler>) : Void {
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 

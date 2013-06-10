@@ -34,7 +34,6 @@ package prime.avm2.events;
  import prime.signals.Wire;
  import prime.gui.events.FocusState;
  import prime.gui.events.KeyModState;
-  using prime.core.ListNode;
 
 
 private typedef FocusHandler = FocusState -> Void;

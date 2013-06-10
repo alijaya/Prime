@@ -1,0 +1,3 @@
+-cp ../prime-core/src
+-cp src
+-cp test

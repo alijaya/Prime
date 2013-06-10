@@ -105,7 +105,7 @@ class LayoutExample1 extends Sprite
 
 
 	private function invalidate ()
-		layout.validate.onceOn( displayEvents.enterFrame, this )
+		layout.validate.onceOn( displayEvents.enterFrame, this );
 }
 
 

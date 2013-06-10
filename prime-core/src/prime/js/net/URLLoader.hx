@@ -3,10 +3,10 @@ package prime.js.net;
  import prime.net.ICommunicator;
  import prime.net.CommunicationType;
  import prime.bindable.Bindable;
- import prime.js.net.XMLHttpRequest;
  import prime.types.URI;
  import haxe.io.BytesData;
- import js.Dom;
+ import js.html.XMLHttpRequest;
+ import js.html.Event;
  import js.Lib;
 
 
@@ -172,8 +172,8 @@ class URLLoader implements ICommunicator
 	public #if !noinline inline #end function isCompleted()	: Bool	{ return request.readyState == 4; }
 	public #if !noinline inline #end function isInProgress()	: Bool	{ return isStarted && request.readyState != 4; }
 	
-	private inline function getBytes () : BytesData	{ return data; }
-	public  inline function getRawData ()			{ return data; }
+	private inline function get_bytes ()	{ return data; }
+	public  inline function getRawData ()	{ return data; }
 
 	private inline function set_bytes (v:BytesData)
 	{

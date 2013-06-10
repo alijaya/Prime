@@ -190,10 +190,10 @@ class TileContainer extends LayoutClient implements ILayoutContainer
 	}
 	
 	
-	override private function setX (v)
+	override private function set_x (v)
 	{
 		if (v != x) {
-			v = super.setX(v);
+			v = super.set_x(v);
 			for (i in 0...children.length)
 			{
 				var child = children.getItemAt(i);
@@ -205,10 +205,10 @@ class TileContainer extends LayoutClient implements ILayoutContainer
 	}
 	
 	
-	override private function setY (v)
+	override private function set_y (v)
 	{
 		if (v != y) {
-			v = super.setY(v);
+			v = super.set_y(v);
 			for (i in 0...children.length)
 			{
 				var child = children.getItemAt(i);
@@ -356,12 +356,12 @@ class TileContainer extends LayoutClient implements ILayoutContainer
 	}
 
 
-	public var invisibleBefore		(default, setInvisibleBefore)	: Int;
-	public var invisibleAfter		(default, setInvisibleAfter)	: Int;
+	public var invisibleBefore		(default, set_invisibleBefore)	: Int;
+	public var invisibleAfter		(default, set_invisibleAfter)	: Int;
 	
 
 
-	private inline function setInvisibleBefore (v:Int)
+	private inline function set_invisibleBefore (v:Int)
 	{
 		if (v != invisibleBefore)
 		{
@@ -372,7 +372,7 @@ class TileContainer extends LayoutClient implements ILayoutContainer
 	}
 
 
-	private inline function setInvisibleAfter (v:Int)
+	private inline function set_invisibleAfter (v:Int)
 	{
 		if (v != invisibleAfter)
 		{

@@ -82,14 +82,14 @@ class ComposedGraphicProperties extends GraphicProperties
 	public #if !noinline inline #end function add ( child:GraphicProperties, depth:Int = -1 )
 	{
 		children.insertAt( child, depth );
-		child.listeners.add(this);
+		child.invalidated.bind(this, invalidateCall);
 		invalidate( GraphicFlags.PROPERTIES );
 	}
 
 
 	public #if !noinline inline #end function remove ( child:GraphicProperties )
 	{
-		child.listeners.add(this);
+		child.invalidated.unbind(this);
 		children.removeItem(child);
 		invalidate( GraphicFlags.PROPERTIES );
 	}

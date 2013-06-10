@@ -52,10 +52,10 @@ class DisplayContainer extends DisplayObjectContainer implements IDisplayContain
 	public var children			(default, null)				: DisplayList;
 	public var displayEvents	(default, null)				: DisplayEvents;
 	public var container		(default, default)			: IDisplayContainer;
-	public var window			(default, setWindow)		: Window;
+	public var window			(default, set_window)		: Window;
 	public var rect				(default, null)				: IntRectangle;
 	
-	private function setWindow(w:Window):Window { window = w; return window; }
+	private function set_window(w:Window):Window { window = w; return window; }
 
 	public function new ()
 	{

@@ -36,7 +36,7 @@ package prime.bindable.collections;
  * @author			Ruben Weijers
  */
 //#if (flash9 || cpp) @:generic #end
-interface IListCollection <T, ListType:IEditableList<T>> implements IEditableList <T>
+interface IListCollection <T, ListType:IEditableList<T>> extends IEditableList <T>
 {
 	public var lists		(default, null)		: ArrayList<ListType>;
 	public function addList (list:ListType)		: ListType;

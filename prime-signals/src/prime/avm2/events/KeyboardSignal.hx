@@ -35,7 +35,6 @@ package prime.avm2.events;
 // import flash.display.InteractiveObject;
  import flash.events.IEventDispatcher;
  import flash.events.KeyboardEvent;
-  using prime.core.ListNode;
 
 /**
  * Signal<-->flash.KeyboardEvent Proxy implementation

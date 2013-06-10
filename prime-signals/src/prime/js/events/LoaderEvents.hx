@@ -5,8 +5,7 @@ import prime.js.net.URLLoader;
 import prime.core.events.LoaderEvents;
 import prime.signals.Signal0;
 import prime.signals.Signal1;
-import prime.js.net.XMLHttpRequest;
-import js.Dom;
+import js.html.XMLHttpRequest;
 import js.Lib;
 
 /**

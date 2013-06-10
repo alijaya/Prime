@@ -52,7 +52,7 @@ package examples.layout;
 class LayoutExample2 extends Window
 {
 	public static function main ()
-		Window.startup(function (stage) { return new LayoutExample2(stage); })
+		Window.startup(function (stage) { return new LayoutExample2(stage); });
 
 
 	public var layout (default, null) : LayoutContainer;
@@ -87,7 +87,7 @@ class LayoutExample2 extends Window
 
 
 	private function invalidateLayout ()
-		layout.validate.onceOn( displayEvents.enterFrame, this )
+		layout.validate.onceOn( displayEvents.enterFrame, this );
 }
 
 

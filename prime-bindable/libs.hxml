@@ -1,6 +1,2 @@
 -lib munit
--cp ../prime-core/src
--cp ../prime-signals/src
--cp ../prime-data/src
--cp src
--cp test
+prime.hxml
