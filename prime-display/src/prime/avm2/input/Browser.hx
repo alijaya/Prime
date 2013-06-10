@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.input;
+#if (flash9 || nme)
  import com.asual.swfaddress.SWFAddress;
  import com.asual.swfaddress.SWFAddressEvent;
  import flash.external.ExternalInterface;
@@ -214,3 +215,4 @@ class Browser
 			variables = flash.Lib.current.loaderInfo.parameters;
 	}
 }
+#end

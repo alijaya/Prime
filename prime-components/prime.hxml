@@ -1,5 +1,9 @@
+-cp ./src
+-cp ./test
+
 -lib feffects
 -D prime_net
+-D prime_display
 
 -cp ../libs/apparat
 
@@ -13,5 +17,3 @@
 -cp ../prime-css/src
 -cp ../prime-media/src
 -cp ../src
--cp ./src
--cp ./test

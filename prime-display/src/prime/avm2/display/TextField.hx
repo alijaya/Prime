@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObject;
  import prime.bindable.Bindable;
  import prime.core.geom.IntRectangle;
@@ -458,3 +459,4 @@ class TextField extends flash.text.TextField implements ITextField
 			focusTarget.userEvents.blur.send( event );
 	}
 }
+#end

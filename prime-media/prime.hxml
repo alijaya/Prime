@@ -1,3 +1,6 @@
+-cp ./src
+-cp ./test
+
 -D prime_net
 
 -cp ../prime-core/src
@@ -7,5 +10,3 @@
 -cp ../prime-fsm/src
 
 -cp ../src
--cp ./src
--cp ./test

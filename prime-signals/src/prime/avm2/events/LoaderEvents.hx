@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
 #if !cpp
  import #if flash9 flash #else native #end .events.DataEvent;
 #end
@@ -60,3 +61,4 @@ class LoaderEvents extends LoaderSignals
 #end
 	}
 }
+#end

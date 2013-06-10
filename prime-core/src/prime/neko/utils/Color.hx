@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.neko.utils;
+#if neko
  import prime.types.RGBA;
   using prime.neko.utils.Color;
   using prime.utils.NumberUtil;
@@ -193,3 +194,4 @@ class Color
 		return {color: ("0x" + v).parseInt(), a: a }.validate();
 	}
 }
+#end

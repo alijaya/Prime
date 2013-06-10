@@ -30,6 +30,7 @@ package prime.gui.events;
  import prime.signals.Signal0;
  import prime.signals.Signals;
 
+#if (flash9 || nme)
 
 typedef TextEvents =
 	#if (flash9 || nme) prime.avm2.events.TextEvents;
@@ -38,6 +39,7 @@ typedef TextEvents =
 	#elseif js     prime.js  .events.TextEvents;
 	#else   #error #end
 
+#end
 
 typedef TextHandler	= String -> Void;
 typedef TextSignal  = prime.signals.INotifier<TextHandler>;

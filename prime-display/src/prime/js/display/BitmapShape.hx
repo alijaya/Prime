@@ -1,5 +1,5 @@
-
 package prime.js.display;
+#if js
 
 class BitmapShape
 {
@@ -8,3 +8,4 @@ class BitmapShape
 		Assert.abstractMethod();
 	}
 }
+#end

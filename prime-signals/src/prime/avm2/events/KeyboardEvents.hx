@@ -27,9 +27,11 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.avm2.events;
- import prime.gui.events.KeyboardEvents;
+#if	(flash9 || nme)
+ import prime.gui.events.KeyboardEvents.KeyboardSignals;
  import flash.events.KeyboardEvent;
- import prime.avm2.events.KeyboardSignal; // override import from KeyboardEvents
+ import flash.events.IEventDispatcher;
+ 
 
 /**
  * AVM2 keyboard events to signal proxy implementation.
@@ -39,10 +41,15 @@ package prime.avm2.events;
  */
 class KeyboardEvents extends KeyboardSignals
 {
+	private var eventDispatcher : IEventDispatcher;
+
 	public function new (eventDispatcher)
 	{
 		super();
-		down = new prime.avm2.events.KeyboardSignal(eventDispatcher, KeyboardEvent.KEY_DOWN);
-		up   = new prime.avm2.events.KeyboardSignal(eventDispatcher, KeyboardEvent.KEY_UP  );
+		this.eventDispatcher = eventDispatcher;
 	}
+
+	override private function createDown() down = new prime.avm2.events.KeyboardSignal(eventDispatcher, KeyboardEvent.KEY_DOWN);
+	override private function createUp()   up   = new prime.avm2.events.KeyboardSignal(eventDispatcher, KeyboardEvent.KEY_UP  );
 }
+#end

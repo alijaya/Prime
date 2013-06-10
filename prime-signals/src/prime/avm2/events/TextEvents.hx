@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import prime.gui.events.TextEvents;
 
 
@@ -48,3 +49,4 @@ class TextEvents extends TextSignals
 		textInput	= new prime.avm2.events.TextSignal (eventDispatcher, flash.events.TextEvent.TEXT_INPUT );
 	}
 }
+#end

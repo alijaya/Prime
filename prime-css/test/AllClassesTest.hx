@@ -4,9 +4,6 @@ import massive.munit.util.Timer;
 import massive.munit.Assert;
 import massive.munit.async.AsyncFactory;
 
-//import prime.tools.CSSParserMain;
-//import prime.tools.StyleSheet.tpl;
-//import prime.tools.CSSParser;
 import prime.bindable.collections.PriorityList;
 import prime.core.traits.IPrioritizable;
 import prime.gui.filters.BevelFilter;

@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObjectContainer;
  import prime.gui.display.IDisplayContainer;
  import prime.gui.display.IDisplayObject;
@@ -79,3 +80,4 @@ class DisplayContainer extends DisplayObjectContainer implements IDisplayContain
 	public function removeFocus ()	: Void { Assert.abstractMethod(); }
 	public function isFocusOwner ( target: UserEventTarget ) : Bool { Assert.abstractMethod(); return false; }
 }
+#end

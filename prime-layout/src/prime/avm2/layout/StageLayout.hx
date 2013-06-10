@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.layout;
+#if (flash || nme)
  import flash.display.Stage;
  import prime.layout.LayoutContainer;
 
@@ -69,3 +70,4 @@ class StageLayout extends LayoutContainer
 	//	events.sizeChanged.send();
 	}
 }
+#end

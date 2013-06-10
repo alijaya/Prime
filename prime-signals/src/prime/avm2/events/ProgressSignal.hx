@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.ProgressEvent;
  import prime.signals.IWireWatcher;
@@ -74,3 +75,4 @@ class ProgressSignal extends Signal2<UInt, UInt> implements IWireWatcher < Progr
 		send(e.bytesLoaded.int(), e.bytesTotal.int());
 	}
 }
+#end

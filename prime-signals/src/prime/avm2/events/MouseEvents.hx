@@ -28,6 +28,7 @@
  */
 
 package prime.avm2.events;
+#if	(flash9 || nme)
  import prime.gui.events.MouseEvents;
  import flash.events.MouseEvent;
  import prime.avm2.events.MouseSignal; // override import from MouseEvents
@@ -68,3 +69,4 @@ class MouseEvents extends MouseSignals
 	override private function createRollOut ()		rollOut		= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.ROLL_OUT		, 0);
 	override private function createScroll ()		scroll		= new prime.avm2.events.MouseSignal( eventDispatcher, MouseEvent.MOUSE_WHEEL	, 0);
 }
+#end

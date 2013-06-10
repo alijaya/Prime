@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.FocusEvent;
  import prime.signals.IWireWatcher;
@@ -105,4 +106,4 @@ class FocusSignal extends Signal1<FocusState> implements IWireWatcher<FocusHandl
 	}
 #end
 }
-
+#end

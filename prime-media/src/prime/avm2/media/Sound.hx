@@ -27,6 +27,7 @@
  *  Ruben Weijers   <ruben @ prime.vc>
  */
 package prime.avm2.media;
+#if (flash9 || nme)
  import flash.media.SoundLoaderContext;
  import prime.avm2.events.SoundEvents;
  import prime.types.URI;
@@ -58,3 +59,4 @@ class Sound extends flash.media.Sound implements prime.core.traits.IDisposable
         events = null;
     }
 }
+#end

@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.net;
-
+#if flash9
 
 /**
  * @author	Ruben Weijers
@@ -39,3 +39,5 @@ typedef FileReferenceList =
 	#elseif	nodejs	#error;
 	#elseif	js		prime.js  .net.FileReferenceList;
 	#else			error; #end
+
+#end

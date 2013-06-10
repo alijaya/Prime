@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObject;
  import prime.core.geom.IntRectangle;
  import prime.gui.display.BitmapData;
@@ -117,3 +118,4 @@ class BitmapShape extends flash.display.Bitmap implements IDisplayObject
 		return bitmapData = v;
 	}
 }
+#end

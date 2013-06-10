@@ -1,5 +1,5 @@
 package prime.js.display;
-
+#if js
 import js.Dom;
 import js.Lib;
 
@@ -78,3 +78,4 @@ class Video extends DOMElem
         //elem.play();
     }
 }
+#end

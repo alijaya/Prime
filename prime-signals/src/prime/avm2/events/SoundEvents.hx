@@ -27,6 +27,7 @@
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.Event;
  import flash.events.IEventDispatcher;
  import prime.core.events.CommunicationEvents;
@@ -49,3 +50,4 @@ class SoundEvents extends CommunicationEvents
         id3 = new FlashSignal0(dispatcher, Event.ID3);
     }
 }
+#end

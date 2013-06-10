@@ -89,7 +89,7 @@ extern class FloatUtil
 
 
 	public static inline function notSet   (value:Float) : Bool  { return !isSet(value); }
-	public static inline function isSet    (value:Float) : Bool  { return #if !flash9 value != null && #end /*!Math.isNaN(value)*/ (value == value) /* false if NaN )*/; }
+	public static inline function isSet    (value:Float) : Bool  { return #if (js || php || neko) value != null && #end /*!Math.isNaN(value)*/ (value == value) /* false if NaN )*/; }
 	public static inline function notEmpty (value:Float) : Bool  { return value != Number.EMPTY; }
 	public static inline function isEmpty  (value:Float) : Bool  { return value == Number.EMPTY; }
 	public static inline function unset    ()            : Float { return Number.FLOAT_NOT_SET; }
@@ -171,7 +171,7 @@ extern class IntUtil
 	}
 	
 	
-#if (flash9 || cpp)
+#if (flash9 || cpp || java || cs)
 	public static inline function notSet (value:Int) : Bool		{ return value == Number.INT_NOT_SET; }
 	public static inline function isSet (value:Int) : Bool		{ return value != Number.INT_NOT_SET; }
 	public static inline function notEmpty (value:Int) : Bool	{ return value != Number.EMPTY; }

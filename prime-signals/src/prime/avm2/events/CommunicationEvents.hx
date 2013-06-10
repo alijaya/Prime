@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.IOErrorEvent;
  import flash.events.Event;
@@ -50,3 +51,4 @@ class CommunicationEvents extends CommunicationSignals
 		error		= new prime.avm2.events.ErrorSignal(    target, IOErrorEvent.IO_ERROR );
 	}
 }
+#end

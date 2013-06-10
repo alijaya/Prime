@@ -29,7 +29,6 @@
 package ;
 
 
-//#if (neko || js || cpp || php)
-#if !flash9
+#if (neko || js || flash8 || cpp || php || java)
 typedef UInt = Int;
 #end

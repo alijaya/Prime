@@ -1,9 +1,9 @@
+-cp ./src
+-cp ./test
+
 -cp ../libs/thx/src
 -cp ../prime-signals/src
 -cp ../prime-core/src
 -cp ../prime-bindable/src
 #-cp ../prime-data/src
 #-cp ../prime-fsm/src
-
--cp ./src
--cp ./test

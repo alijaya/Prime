@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.net;
-
+#if (flash9 || nme)
 
 /**
  * @author Ruben Weijers
@@ -40,3 +40,5 @@ typedef URLVariables =
 	#elseif	js		prime.js  .net.URLVariables;
 	#elseif	neko	prime.neko.net.URLVariables;
 	#else			#error; #end
+
+#end

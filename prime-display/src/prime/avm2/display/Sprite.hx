@@ -28,6 +28,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObject;
  import prime.core.geom.IntRectangle;
 #if dragEnabled
@@ -188,3 +189,4 @@ class Sprite extends flash.display.Sprite implements ISprite
 		return v;
 	}
 }
+#end

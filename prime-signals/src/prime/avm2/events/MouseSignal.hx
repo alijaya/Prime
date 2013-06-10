@@ -27,6 +27,7 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
 // import flash.display.InteractiveObject;
  import flash.events.IEventDispatcher;
  import flash.events.MouseEvent;
@@ -124,7 +125,7 @@ class MouseSignal extends Signal1<MouseState> implements IWireWatcher<MouseHandl
 	}
 #end
 }
-
+#end
 /*
 
 

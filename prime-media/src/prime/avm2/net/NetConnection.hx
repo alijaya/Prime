@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.net;
+#if (flash9 || nme)
  import prime.avm2.events.NetConnectionEvents;
 
 
@@ -55,3 +56,4 @@ class NetConnection extends flash.net.NetConnection implements prime.core.traits
 		events = null;
 	}
 }
+#end

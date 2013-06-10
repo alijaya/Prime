@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.net;
+#if	(flash9 || nme)
 
 typedef URLLoader = 
 	#if	(flash9 || nme)	prime.avm2.net.URLLoader;
@@ -35,3 +36,5 @@ typedef URLLoader =
 	#elseif	js		prime.js  .net.URLLoader;
 	#elseif	neko	prime.neko.net.URLLoader;
 	#else			#error; #end
+
+#end

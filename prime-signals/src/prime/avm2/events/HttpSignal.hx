@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.HTTPStatusEvent;
  import prime.signals.IWireWatcher;
@@ -72,3 +73,4 @@ class HttpSignal extends Signal1<Int> implements IWireWatcher <Handler>
 		send(e.status);
 	}
 }
+#end

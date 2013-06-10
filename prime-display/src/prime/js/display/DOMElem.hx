@@ -1,8 +1,6 @@
 package prime.js.display;
-import prime.js.display.DisplayList;
-
-import js.Dom;
-import js.Lib;
+#if js
+ import prime.js.display.DisplayList;
 
 /**
  * @since	April 22, 2011
@@ -137,3 +135,4 @@ class DOMElem
 	*/
 	}
 }
+#end

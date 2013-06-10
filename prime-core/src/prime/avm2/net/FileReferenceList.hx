@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.net;
+#if flash9
  import prime.gui.events.SelectEvents;
  import prime.net.FileFilter;
  import prime.net.FileReference;
@@ -84,3 +85,4 @@ class FileReferenceList extends SelectEvents implements IFileReference
 		return list;
 	}
 }
+#end

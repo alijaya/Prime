@@ -1,4 +1,5 @@
 package prime.js.net;
+#if js
  import prime.core.events.LoaderEvents;
  import prime.net.ICommunicator;
  import prime.net.CommunicationType;
@@ -185,3 +186,4 @@ class URLLoader implements ICommunicator
 		return v;
 	}
 }
+#end

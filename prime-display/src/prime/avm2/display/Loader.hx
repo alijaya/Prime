@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObject;
  import flash.display.LoaderInfo;
  import flash.net.URLRequest;
@@ -503,3 +504,4 @@ class Loader implements ICommunicator
 	}
 #end
 }
+#end

@@ -29,12 +29,16 @@
 package prime.gui.events;
  import prime.signals.Signals;
 
+#if (flash9 || js || nme)
+
 typedef KeyboardEvents =
 	#if (flash9 || nme) prime.avm2.events.KeyboardEvents;
 	#elseif flash      prime.avm1.events.KeyboardEvents;
 	#elseif nodejs     #error;
 	#elseif js         prime.js  .events.KeyboardEvents;
 	#else   #error;    #end
+
+#end
 
 typedef KeyboardHandler = KeyboardState -> Void;
 typedef KeyboardSignal  = prime.signals.INotifier<KeyboardHandler>;
@@ -47,8 +51,14 @@ typedef KeyboardSignal  = prime.signals.INotifier<KeyboardHandler>;
  */
 class KeyboardSignals extends Signals
 {
-	var down	(default,null) : KeyboardSignal;
-	var up		(default,null) : KeyboardSignal;
+	var down	(get_down,null) : KeyboardSignal;
+	var up		(get_up  ,null) : KeyboardSignal;
+
+	private inline function get_down () { if (down == null) createDown(); return down; }
+	private inline function get_up   () { if (up   == null) createUp();   return up;   }
+	
+	private function createDown ()			{ Assert.abstractMethod(); }
+	private function createUp ()			{ Assert.abstractMethod(); }
 }
 
 class KeyboardState extends KeyModState

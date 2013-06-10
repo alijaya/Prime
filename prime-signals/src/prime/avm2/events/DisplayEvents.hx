@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.Event;
  import prime.gui.display.DisplayObject;
  import prime.gui.events.DisplayEvents;
@@ -50,3 +51,4 @@ class DisplayEvents extends DisplaySignals
 		//resize		    = new FlashSignal0( target, Event.RESIZE ); Use layout.changed signal!!
 	}
 }
+#end

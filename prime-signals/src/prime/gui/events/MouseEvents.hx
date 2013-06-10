@@ -27,6 +27,7 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.gui.events;
+#if (flash9 || js)
  import prime.signals.Signals;
  import prime.core.geom.Point;
  import prime.core.traits.IClonable;
@@ -205,3 +206,5 @@ class MouseState extends KeyModState implements IClonable<MouseState>
 	}
 #end
 }
+
+#end

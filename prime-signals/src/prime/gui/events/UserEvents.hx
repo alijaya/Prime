@@ -30,6 +30,8 @@ package prime.gui.events;
  import prime.signals.Signals;
  import prime.signals.Signal1;
 
+#if (flash9 || js || nme)
+
 typedef UserEvents =
 	#if (flash9 || nme) prime.avm2.events.UserEvents;
 	#elseif flash  prime.avm1.events.UserEvents;
@@ -96,3 +98,5 @@ class UserSignals extends Signals
 		blur	= focus = null;
 	}*/
 }
+
+#end

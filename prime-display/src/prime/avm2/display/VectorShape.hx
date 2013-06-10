@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObject;
  import prime.core.geom.IntRectangle;
  import prime.gui.display.DisplayDataCursor;
@@ -111,3 +112,4 @@ class VectorShape extends flash.display.Shape implements IDisplayObject implemen
 		return window = v;
 	}
 }
+#end

@@ -27,6 +27,7 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import prime.gui.events.KeyboardEvents;
  import prime.gui.events.KeyModState;
  import prime.signals.Wire;
@@ -106,3 +107,4 @@ class KeyboardSignal extends Signal1<KeyboardState> implements IWireWatcher<Keyb
 		return new KeyboardState(flags, e.target);
 	}
 }
+#end

@@ -57,7 +57,7 @@ typedef FastArray<T> =
 		return untyped __new__(Array, size);
 #elseif neko
 		return untyped Array.new1(neko.NativeArray.alloc(size), size);
-#elseif cpp
+#elseif (cpp || php || java || cs)
 		return new Array<T>();
 #elseif js
 		// if size is the constant value 0, only [] will be inlined at the call site.

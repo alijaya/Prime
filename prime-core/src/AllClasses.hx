@@ -1,6 +1,5 @@
 package ;
 
-import apparat.math.FastMath;
 import Assert;
 import chx.lang.FatalException;
 import prime.core.Error;
@@ -51,7 +50,7 @@ import prime.net.CommunicationType;
 import prime.net.CommunicatorsGroup;
 import prime.net.Cookie;
 import prime.net.FileFilter;
-#if ( !js && !neko )
+#if flash
 import prime.net.FileReference;
 import prime.net.FileReferenceList;
 import prime.net.IFileReference;
@@ -61,7 +60,7 @@ import prime.net.URLVariables;
 import prime.net.HttpStatusCodes;
 import prime.net.ICommunicator;
 import prime.net.RequestMethod;
-#if !neko
+#if (flash || js)
 import prime.net.URLLoader;
 #end
 #if flash

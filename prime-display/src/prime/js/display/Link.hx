@@ -1,5 +1,5 @@
 package prime.js.display;
-
+#if js
 import js.Dom;
 import js.Lib;
 import prime.js.events.TouchEvents;
@@ -42,3 +42,4 @@ class Link extends DOMElem
 		action();
 	}
 }
+#end

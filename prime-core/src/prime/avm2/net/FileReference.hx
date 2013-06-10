@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.net;
+#if flash9
  import flash.net.URLLoaderDataFormat;
  import flash.net.URLRequest;
 
@@ -220,3 +221,4 @@ class FileReference extends SelectEvents implements ICommunicator implements IFi
 	}
 #end
 }
+#end

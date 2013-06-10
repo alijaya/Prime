@@ -1,4 +1,5 @@
 package prime.layout.utils;
+#if (flash9 || nme)
  import prime.bindable.collections.IEditableList;
  import prime.bindable.collections.iterators.IIterator;
  import prime.gui.core.IUIElement;
@@ -61,3 +62,4 @@ class LayoutDisplayListUtil
 	}
 	
 }
+#end

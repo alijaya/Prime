@@ -1,3 +1,6 @@
+-cp ./src
+-cp ./test
+
 -lib feffects
 
 -cp ../libs/apparat
@@ -12,5 +15,3 @@
 -cp ../prime-css/src
 
 -cp ../src
--cp ./src
--cp ./test

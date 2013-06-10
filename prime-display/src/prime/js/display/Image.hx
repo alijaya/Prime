@@ -1,5 +1,5 @@
 package prime.js.display;
-
+#if js
  import js.Dom;
  import prime.signals.Signal1;
  import prime.js.events.DisplayEvents;
@@ -81,3 +81,4 @@ class Image extends DOMElem {
         }
 	}
 }
+#end

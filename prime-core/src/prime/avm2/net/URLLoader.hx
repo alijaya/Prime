@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.net;
+#if (flash9 || nme)
  import flash.net.URLLoaderDataFormat;
  import flash.net.URLRequest;
 
@@ -334,3 +335,4 @@ class URLLoader implements ICommunicator
 //	private function trackCompleted ()					{ trace(uri+"[ "+bytesProgress+" / "+ bytesTotal+" ]; type: "+type+"; format: "+dataFormat+"; "+loader.data); }
 #end
 }
+#end

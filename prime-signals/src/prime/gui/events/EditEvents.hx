@@ -30,6 +30,7 @@ package prime.gui.events;
  import prime.signals.Signals;
  import prime.signals.Signal0;
 
+#if (flash9 || js || nme)
 
 typedef EditEvents =
 	#if (flash9 || nme) prime.avm2.events.EditEvents;
@@ -38,6 +39,7 @@ typedef EditEvents =
 	#elseif js     prime.js  .events.EditEvents;
 	#else   #error #end
 
+#end
 
 /**
  * Signals that are fired when the hot-keys for copy, cut and paste on the

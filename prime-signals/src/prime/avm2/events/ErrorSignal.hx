@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.ErrorEvent;
  import flash.events.IEventDispatcher;
  import prime.signals.IWireWatcher;
@@ -76,3 +77,4 @@ class ErrorSignal extends Signal1 <String> implements IWireWatcher < EventHandle
 		else								send( e.text );
 	}
 }
+#end

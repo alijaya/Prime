@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.TextEvent;
  import prime.signals.IWireWatcher;
@@ -70,3 +71,4 @@ class TextSignal extends Signal1 <String> implements IWireWatcher < TextHandler 
 		send(e.text);
 	}
 }
+#end

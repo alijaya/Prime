@@ -32,14 +32,17 @@ package prime.gui.events;
  import prime.core.traits.IClonable;
  import prime.gui.events.KeyModState;
 
+#if (flash9 || nme)
 
 typedef TouchEvents =
-    #if (flash9 || nme) prime.avm2.events.TouchEvents;
+    #if (flash9 || nme) Dynamic; //TODO
     #elseif flash   prime.avm1.events.TouchEvents;
     #elseif nodejs  #error;
     #elseif js      prime.js  .events.TouchEvents;
 //  #elseif neko    prime.neko.events.TouchEvents;
     #else           #error; #end
+
+#end
 
 typedef TouchHandler    = TouchState -> Void;
 typedef TouchSignal     = prime.signals.Signal1<TouchState>;
@@ -84,7 +87,7 @@ class TouchSignals extends Signals
  */
 @:publicFields class TouchState implements IClonable<TouchState>
 {
-    public static inline var fake = new TouchState( null, null, null );
+    public static var fake = new TouchState( null, null, null );
     
     /**
      * Target of the event
@@ -104,7 +107,7 @@ class TouchSignals extends Signals
 #if (flash9 || nme)
     public #if !noinline inline #end function isDispatchedBy (obj:UserEventTarget) : Bool
     {
-        return obj != null && obj == related;
+        return obj != null;
     }
 #end
     

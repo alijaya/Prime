@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if flash9
  import com.asual.swfaddress.SWFAddressEvent;
  import flash.events.IEventDispatcher;
  import prime.gui.events.BrowserEvents;
@@ -49,3 +50,4 @@ class BrowserEvents extends BrowserSignals
 		urlChange			= new FlashSignal0( target, SWFAddressEvent.CHANGE );
 	}
 }
+#end

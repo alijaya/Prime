@@ -30,6 +30,7 @@ package prime.gui.events;
  import prime.signals.Signal0;
  import prime.signals.Signals;
 
+#if (flash9 || nme)
 
 typedef SelectEvents =
 	#if (flash9 || nme) prime.avm2.events.SelectEvents;
@@ -38,6 +39,7 @@ typedef SelectEvents =
 	#elseif js       prime.js  .events.SelectEvents;
 	#else            SelectSignals;	#end
 
+#end
 
 /**
  * Events for selecting and canceling a selection

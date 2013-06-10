@@ -1,5 +1,5 @@
 package prime.js.display;
-
+#if js
 import js.Dom;
 import js.Lib;
 
@@ -15,3 +15,4 @@ class Sprite extends DOMElem
 		super("div");
 	}
 }
+#end

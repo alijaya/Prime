@@ -30,6 +30,7 @@ package prime.gui.events;
  import prime.signals.Signal0;
  import prime.signals.Signals;
 
+#if (flash9 || nme)
 
 /**
  * @author	Ruben Weijers
@@ -42,6 +43,7 @@ typedef BrowserEvents =
 	#elseif js        prime.js  .events.BrowserEvents;
 	#else             #error	#end
 
+#end
 
 /**
  * Cross-platform browser events.

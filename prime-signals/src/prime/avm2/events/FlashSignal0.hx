@@ -27,6 +27,7 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.Event;
  
@@ -68,3 +69,4 @@ class FlashSignal0 extends Signal0 implements IWireWatcher<Void->Void>
 		send();
 	}
 }
+#end

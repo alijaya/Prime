@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.NetStatusEvent;
  import prime.avm2.net.stream.NetStreamInfo;
@@ -76,3 +77,4 @@ class NetStatusSignal extends Signal1<NetStreamInfo> implements IWireWatcher <Ha
 		send(new NetStreamInfo( e.info ));
 	}
 }
+#end

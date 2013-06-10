@@ -28,13 +28,11 @@
  */
 package prime.gui.display;
 
-typedef DisplayList = 
-	#if (flash9 || nme) prime.avm2.display.DisplayList;
-	#elseif	flash8	prime.avm1.display.DisplayList;
-	#elseif nodejs 	DisplayListImpl;
-	#elseif	js		prime.js.display.DisplayList;
-	#else			DisplayListImpl;
+#if (flash9 || nme)
 
+typedef DisplayList = prime.avm2.display.DisplayList;
+
+#else
 
  import prime.bindable.collections.ArrayList;
  import prime.gui.traits.IDisplayable;

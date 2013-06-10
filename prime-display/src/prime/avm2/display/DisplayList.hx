@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObjectContainer;
  import flash.display.DisplayObject;
  import prime.bindable.collections.iterators.IIterator;
@@ -299,3 +300,4 @@ class DisplayListReversedIterator implements IIterator <ChildType>
 	public #if !noinline inline #end function next ()					{ return list.getItemAt( current-- ); }
 	public #if !noinline inline #end function value ()					{ return list.getItemAt( current ); }
 }
+#end
