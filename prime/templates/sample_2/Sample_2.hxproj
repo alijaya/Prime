@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
+  <!-- Output SWF options -->
+  <output>
+    <movie outputType="Application" />
+    <movie input="" />
+    <movie path="bin\Main.swf" />
+    <movie fps="30" />
+    <movie width="800" />
+    <movie height="600" />
+    <movie version="10" />
+    <movie minorVersion="0" />
+    <movie platform="Flash Player" />
+    <movie background="#FFFFFF" />
+    <movie preferredSDK="Haxe 3.0.0;3.0.0;" />
+  </output>
+  <!-- Other classes to be compiled into your SWF -->
+  <classpaths>
+    <class path="src" />
+    <class path="styles\sample" />
+    <class path="styles" />
+  </classpaths>
+  <!-- Build options -->
+  <build>
+    <option directives="macro_times" />
+    <option flashStrict="False" />
+    <option mainClass="sample.MainFacade" />
+    <option enabledebug="False" />
+    <option additional="--macro CSSMacros.rebuild()&#xA;--times" />
+  </build>
+  <!-- haxelib libraries -->
+  <haxelib>
+    <library name="prime-bindable" />
+    <library name="prime-components" />
+    <library name="prime-core" />
+    <library name="prime-css" />
+    <library name="prime-data" />
+    <library name="prime-display" />
+    <library name="prime-fsm" />
+    <library name="prime-layout" />
+    <library name="prime-media" />
+    <library name="prime-mvc" />
+    <library name="feffects" />
+    <library name="prime-signals" />
+  </haxelib>
+  <!-- Class files to compile (other referenced classes will automatically be included) -->
+  <compileTargets>
+    <compile path="src\sample\MainFacade.hx" />
+  </compileTargets>
+  <!-- Assets to embed into the output SWF -->
+  <library>
+    <!-- example: <asset path="..." id="..." update="..." glyphs="..." mode="..." place="..." sharepoint="..." /> -->
+  </library>
+  <!-- Paths to exclude from the Project Explorer tree -->
+  <hiddenPaths>
+    <!-- example: <hidden path="..." /> -->
+  </hiddenPaths>
+  <!-- Executed before build -->
+  <preBuildCommand>--macro CSSMacros.rebuild()
+--times</preBuildCommand>
+  <!-- Executed after build -->
+  <postBuildCommand alwaysRun="True" />
+  <!-- Other project options -->
+  <options>
+    <option showHiddenPaths="False" />
+    <option testMovie="ExternalPlayer" />
+  </options>
+  <!-- Plugin storage -->
+  <storage />
+</project>

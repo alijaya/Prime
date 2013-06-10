@@ -1,0 +1,22 @@
+-cp src
+-cp styles/sample
+-cp styles
+-lib prime-bindable
+-lib prime-components
+-lib prime-core
+-lib prime-css
+-lib prime-data
+-lib prime-display
+-lib prime-fsm
+-lib prime-layout
+-lib prime-media
+-lib prime-mvc
+-lib feffects
+-lib prime-signals
+-swf bin/Main.swf
+-swf-header 800:600:30:FFFFFF
+-swf-version 10
+-D macro_times
+-main sample.MainFacade
+--macro CSSMacros.rebuild()
+--times
