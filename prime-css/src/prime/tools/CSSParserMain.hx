@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.tools;
+#if !flash9
  import prime.gui.styling.StyleBlock;
  import prime.gui.styling.StyleFlags;
  import prime.tools.generator.ICodeFormattable;
@@ -92,7 +93,7 @@ class CSSParserMain
 		generator	= new CodeGenerator();
 		generator.instanceIgnoreList.set( styles._oid, styles );
 		
-		var tplName = primevcDir + "prime/tools/StyleSheet.tpl.hx";
+		var tplName = primevcDir + "prime/tools/StyleSheet.hx.tpl";
 		if (#if nodejs !js.Node.fs.existsSync(tplName) #else !sys.FileSystem.exists( tplName ) #end)
 			throw "Template does not exist! "+tplName;
 		
@@ -182,3 +183,4 @@ class CSSParserMain
 	//	print(Date.now() +" - "+name);
 	}
 }
+#end

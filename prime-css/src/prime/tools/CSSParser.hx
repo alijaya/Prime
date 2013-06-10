@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.tools;
+#if !flash9
 // import haxe.ds.GenericStack;
  import prime.bindable.collections.SimpleList;
  import prime.core.geom.space.Direction;
@@ -4059,3 +4060,4 @@ private enum Algorithms {
 	dynamicLayout;
 	relative;
 }
+#end
