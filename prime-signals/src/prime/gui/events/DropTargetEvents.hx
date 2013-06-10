@@ -29,7 +29,7 @@
 package prime.gui.events;
  import prime.signals.Signals;
  import prime.signals.Signal1;
-#if prime_display
+#if prime_components
  import prime.gui.behaviours.drag.DragInfo;
 #else
 private typedef DragInfo = Dynamic; //TODO
