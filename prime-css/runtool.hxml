@@ -1,0 +1,4 @@
+-cp src
+-lib mcli
+-neko src/run.n
+-main Main
