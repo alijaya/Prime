@@ -1,6 +1,6 @@
 package prime.js.events;
- private typedef TouchSignal = prime.js.events.TouchSignal; // override import
- import prime.gui.events.TouchEvents;
+#if js
+ import prime.gui.events.TouchEvents.TouchSignals;
  import prime.gui.events.UserEventTarget;
 
 /**	
@@ -81,3 +81,4 @@ class TouchEvents extends TouchSignals
 		null;
 	}*/
 }
+#end

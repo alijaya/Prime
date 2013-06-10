@@ -1,4 +1,5 @@
 package prime.js.events;
+#if js
  import prime.gui.events.KeyboardEvents;
  import prime.gui.events.UserEventTarget;
 
@@ -20,9 +21,9 @@ class KeyboardEvents extends KeyboardSignals
 	}
 	
 
-	override private function createKeyDown() 	{ keyDown	= new KeyboardSignal(eventDispatcher, "keydown"); }
-	override private function createKeyUp()		{ keyUp		= new KeyboardSignal(eventDispatcher, "keyup"); }
-	override private function createKeyPress()	{ keyPress	= new KeyboardSignal(eventDispatcher, "keypress"); }
+	//override private function createDown() down = new KeyboardSignal(eventDispatcher, "keydown");
+	//override private function createUp()   up   = new KeyboardSignal(eventDispatcher, "keyup");
+	//override private function createKeyPress()	{ keyPress	= new KeyboardSignal(eventDispatcher, "keypress"); }
 	
 	
 	override public function dispose ()
@@ -31,4 +32,4 @@ class KeyboardEvents extends KeyboardSignals
 		eventDispatcher = null;
 	}
 }
-
+#end

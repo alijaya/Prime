@@ -36,6 +36,6 @@ typedef UserEventTarget =
 	#if (flash9 || nme) flash.display.InteractiveObject;
 	#elseif	flash8	MovieClip;
 	#elseif nodejs 	#error;
-	#elseif	js		js.Dom.HtmlDom;
+	#elseif	js		js.html.Element;
 	#else			Dynamic; #end
 

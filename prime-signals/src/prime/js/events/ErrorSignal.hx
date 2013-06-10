@@ -1,6 +1,7 @@
 package prime.js.events;
+#if js
 
-import js.Dom;
+import js.html.Event;
 
 /**
  * @author	Stanislav Sopov
@@ -13,3 +14,4 @@ class ErrorSignal extends DOMSignal1<String>
 		send("error");
 	}
 }
+#end

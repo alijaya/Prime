@@ -1,5 +1,5 @@
 package prime.js.events;
-
+#if js
 import prime.core.events.CommunicationEvents;
 import js.html.XMLHttpRequest;
 import prime.signals.Signal0;
@@ -21,3 +21,4 @@ class CommunicationEvents extends CommunicationSignals
 		error		= new ErrorSignal();
 	}
 }
+#end

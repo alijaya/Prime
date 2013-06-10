@@ -36,5 +36,5 @@ package prime.gui.display;
 typedef DisplayObject =
 	#if (flash9 || nme) flash.display.DisplayObject;
 	#elseif nodejs 	Dynamic;
-	#elseif js		js.Dom.HtmlDom;
+	#elseif js		js.html.Element;
 	#else			Dynamic; #end

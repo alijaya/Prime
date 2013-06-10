@@ -1,4 +1,5 @@
 package prime.js.events;
+#if js
  import prime.signals.Signals;
 
 
@@ -29,3 +30,4 @@ class TransitionEvents extends Signals
 	private inline function get_end() { if (end == null) { createEnd(); } return end; }
 	private inline function createEnd() { end = new TransitionSignal(eventDispatcher, "webkitTransitionEnd"); }
 }
+#end

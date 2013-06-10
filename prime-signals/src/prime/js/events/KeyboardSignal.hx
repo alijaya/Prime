@@ -1,30 +1,10 @@
 package prime.js.events;
+#if js
  import prime.gui.events.KeyboardEvents;
  import prime.gui.events.KeyModState;
+ import js.html.KeyboardEvent;
+ import js.html.Event;
 
-
-typedef KeyboardEvent = 
-{
-	>js.Dom.DOMEvent,
-	/*
-	keyLocation constants
-	KEY_LOCATION_LEFT 		= 0x01; 
-	KEY_LOCATION_NUMPAD 	= 0x03; 
-	KEY_LOCATION_RIGHT 		= 0x02; 
-	KEY_LOCATION_STANDARD 	= 0x00; 
-	*/
-	public var altGraphKey	(default, null):Bool;
-	public var altKey 		(default, null):Bool; // Indicates whether or not the ALT key was pressed when the event was triggered. 
-	public var charCode		(default, null):Int; // Works for keypress event. Sometimes browser-specific. 
-	public var ctrlKey 		(default, null):Bool; // Indicates whether or not the CTRL key was pressed when the event was triggered. 
-	public var keyCode		(default, null):Int; // Works for keydown/keyup events. Sometimes browser-specific. 
-	public var keyIdentifier(default, null):String; // String identifier for the key.
-	public var keyLocation	(default, null):Int; // The location of the key on the keyboard.
-	public var metaKey		(default, null):Bool; // Indicates whether the META key was pressed when the event was triggered.
-	public var shiftKey 	(default, null):Bool; // Indicates whether or not the SHIFT key was pressed when the event was triggered.
-}
-
-	
 /**
  * @author	Stanislav Sopov
  * @since	March 2, 2011
@@ -39,7 +19,7 @@ class KeyboardSignal extends DOMSignal1<KeyboardState>
 
 	static inline public function stateFromEvent( e:KeyboardEvent ) : KeyboardState
 	{
-		
+		var e : KeyboardEvent = cast e;
 		/*
 			charCode				keyCode					keyLocation		KeyMod
 			FFF (12-bit) 0-4095		3FF (10-bit) 0-1023		F (4-bit)		F (4-bit)
@@ -59,6 +39,7 @@ class KeyboardSignal extends DOMSignal1<KeyboardState>
 		flags |= (e.charCode << 18);
 		flags |= (e.keyCode << 8);
 
-		return new KeyboardState(flags, e.target);
+		return new KeyboardState(flags, cast e.target);
 	}
 }
+#end

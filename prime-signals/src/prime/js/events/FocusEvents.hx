@@ -1,4 +1,5 @@
 package prime.js.events;
+#if js
  import prime.signals.Signals;
  import prime.gui.events.UserEventTarget;
 
@@ -46,12 +47,4 @@ class FocusEvents extends Signals
 	private inline function createFocusOut		() { focusOut		= new FocusSignal(eventDispatcher, "focusout"); }
 	private inline function createDOMFocusOut	() { DOMFocusOut	= new FocusSignal(eventDispatcher, "DOMFocusOut"); }
 }
-
-
-
-	
-
-
-
-
-
+#end

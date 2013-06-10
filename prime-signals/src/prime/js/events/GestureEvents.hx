@@ -1,4 +1,5 @@
 package prime.js.events;
+#if js
  import prime.signals.Signals;
  import prime.gui.events.UserEventTarget;
 
@@ -39,3 +40,4 @@ class GestureEvents extends Signals
 	private inline function createChange() { change = new GestureSignal(eventDispatcher, "gesturechange"); }
 	private inline function createEnd	() { end	= new GestureSignal(eventDispatcher, "gestureend"); }
 }
+#end

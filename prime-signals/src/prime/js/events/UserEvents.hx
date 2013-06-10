@@ -1,6 +1,7 @@
 package prime.js.events;
- import prime.gui.events.UserEvents;
+#if js
  import prime.gui.events.UserEventTarget;
+ import prime.gui.events.UserEvents.UserSignals;
 
 
 /**	
@@ -17,15 +18,18 @@ class UserEvents extends UserSignals
 	
 	public function new(eventDispatcher)
 	{
+		super();
 		this.eventDispatcher = eventDispatcher;
 	}
 	
-	private function createMouse 	() { mouse		= new MouseEvents(eventDispatcher); }
-	private function createTouch 	() { touch		= new TouchEvents(eventDispatcher); }
-	private function createGesture 	() { gesture	= new GestureEvents(eventDispatcher); }
-	private function createFocus 	() { focus		= new FocusEvents(eventDispatcher); }
-	private function createKeyboard	() { keyboard	= new KeyboardEvents(eventDispatcher); }
+	override private function createMouse   ()  mouse   = new MouseEvents(eventDispatcher);
+	private function createTouch   ()  touch   = new TouchEvents(eventDispatcher);
+	private function createGesture ()  gesture = new GestureEvents(eventDispatcher);
+	//private function createFocus   ()  focus   = new FocusEvents(eventDispatcher);
+	//private function createFocus   ()  blur    = new BlurEvents(eventDispatcher);
+	override private function createKey     ()  key     = new KeyboardEvents(eventDispatcher);
 	
 	private inline function get_touch 	() { if (touch == null)		{ createTouch();	} return touch; }
 	private inline function get_gesture () { if (gesture == null)	{ createGesture();	} return gesture; }
 }
+#end

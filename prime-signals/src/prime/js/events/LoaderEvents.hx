@@ -1,5 +1,5 @@
 package prime.js.events;
-
+#if js
 import prime.core.events.CommunicationEvents;
 import prime.js.net.URLLoader;
 import prime.core.events.LoaderEvents;
@@ -27,3 +27,4 @@ class LoaderEvents extends LoaderSignals
 		httpStatus	= new Signal1<Int>();
 	}
 }
+#end

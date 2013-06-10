@@ -1,10 +1,9 @@
 package prime.js.events;
-
+#if js
 import prime.signals.Wire;
 import prime.signals.Signal0;
 import prime.signals.IWireWatcher;
-import prime.core.ListNode;
-import js.Dom;
+import js.html.Event;
 
 /**
  * @author	Stanislav Sopov
@@ -45,3 +44,4 @@ class DOMSignal0 extends Signal0 implements IWireWatcher<Void->Void>
 		Assert.abstractMethod();
 	}
 }
+#end

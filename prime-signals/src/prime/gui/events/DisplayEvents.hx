@@ -30,14 +30,10 @@ package prime.gui.events;
  import prime.signals.Signal0;
  import prime.signals.Signals;
 
-
 typedef DisplayEvents =
 	#if (flash9 || nme) prime.avm2.events.DisplayEvents;
-	#elseif flash     prime.avm1.events.DisplayEvents;
-	#elseif nodejs    #error;
-	#elseif js        prime.js  .events.DisplayEvents;
-	#else   #error;   #end
-
+	#else               Dynamic; //TODO
+	#end
 
 /**
  * Cross-platform displayobject events

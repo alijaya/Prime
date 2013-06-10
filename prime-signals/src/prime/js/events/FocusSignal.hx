@@ -1,22 +1,18 @@
 package prime.js.events;
-
-import prime.js.events.DOMSignal1;
-import js.Dom;
-
-typedef FocusEvent = 
-{
-	>DOMEvent,
-	public var relatedTarget	(default, null):Dynamic; // A secondary event target related to the event.
-}
+#if js
+ import prime.gui.events.FocusState;
+ import prime.js.events.DOMSignal1;
+ import js.html.Event;
 
 /**
  * @author	Stanislav Sopov
  * @since	March 2, 2011
  */
-class FocusSignal extends DOMSignal1<FocusEvent>
+class FocusSignal extends DOMSignal1<FocusState>
 {
 	override private function dispatch(e:Event) 
 	{
-		send(cast e);
+		send(cast e); //TODO: FIXME
 	}
 }
+#end

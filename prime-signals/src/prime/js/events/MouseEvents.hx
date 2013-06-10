@@ -1,6 +1,6 @@
 package prime.js.events;
-private typedef MouseSignal = prime.js.events.MouseSignal; // override import
- import prime.gui.events.MouseEvents;
+#if js
+ import prime.gui.events.MouseEvents.MouseSignals;
  import prime.gui.events.UserEventTarget;
 
 
@@ -39,3 +39,4 @@ class MouseEvents extends MouseSignals
 	override private function createRollOut ()		{ rollOut		= new MouseSignal(eventDispatcher, "mouseout",	0); }
 	override private function createScroll ()		{ scroll		= new MouseSignal(eventDispatcher, "wheel",		0); }
 }
+#end

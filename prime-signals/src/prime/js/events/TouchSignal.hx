@@ -1,7 +1,10 @@
 package prime.js.events;
+#if js
  import prime.core.geom.Point;
  import prime.gui.events.TouchEvents;
- import js.Dom;
+ import js.html.TouchEvent;
+ import js.html.Touch;
+ import js.html.Event;
 
 /**
  * @author Ruben Weijers
@@ -9,15 +12,16 @@ package prime.js.events;
  */
 class TouchSignal extends DOMSignal1<TouchState>
 {
-	override private function dispatch(e:Event) 
+	override private function dispatch(e:Event)
 	{
-		var t:Array<Touch> 	= (untyped e).touches;
+		var e:TouchEvent	= cast e;
+		var t				= e.touches;
 		var local:Point		= t.length > 0 ? new Point(t[0].clientX, t[0].clientY) : null;
 		var stage:Point		= t.length > 0 ? new Point(t[0].screenX, t[0].screenY) : null;
-		send(new TouchState(e.target, local, stage));
+		send(new TouchState(cast e.target, local, stage));
 	}
 }
-
+#end
 
 
 

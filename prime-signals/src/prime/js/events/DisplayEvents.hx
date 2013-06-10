@@ -1,7 +1,9 @@
 package prime.js.events;
+#if js
  import prime.gui.events.DisplayEvents;
  import prime.gui.events.UserEventTarget;
  import prime.signals.Wire;
+ import haxe.Timer;
 
 
 /**
@@ -14,16 +16,13 @@ class DisplayEvents extends DisplaySignals
 	public function new (target:UserEventTarget)
 	{
 		super();
-		addedToStage		= new DomSignal0( target, "DOMNodeInsertedIntoDocument" );
-		removedFromStage	= new DomSignal0( target, "DOMNodeRemovedFromDocument" );
+		addedToStage		= new DOMSignal0( target, "DOMNodeInsertedIntoDocument" );
+		removedFromStage	= new DOMSignal0( target, "DOMNodeRemovedFromDocument" );
 		enterFrame			= new EnterFrameSignal();
 		render				= enterFrame;	//<== FIXME?
 	}
 }
 
-
-
- import haxe.Timer;
 
 /**
  * @author Ruben Weijers
@@ -56,7 +55,7 @@ private class EnterFrameSignal extends prime.signals.Signal0
 		}
 	}
 }
-
+#end
 
 /*	var eventDispatcher:Dynamic;
 	
