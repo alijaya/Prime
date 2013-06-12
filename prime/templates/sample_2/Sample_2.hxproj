@@ -22,11 +22,11 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="macro_times" />
+    <option directives="" />
     <option flashStrict="False" />
     <option mainClass="sample.MainFacade" />
     <option enabledebug="False" />
-    <option additional="--macro CSSMacros.rebuild()&#xA;--times" />
+    <option additional="--macro PrimeCSS.buildstyles()" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
@@ -56,8 +56,7 @@
     <!-- example: <hidden path="..." /> -->
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>--macro CSSMacros.rebuild()
---times</preBuildCommand>
+  <preBuildCommand />
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="True" />
   <!-- Other project options -->

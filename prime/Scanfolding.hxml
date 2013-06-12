@@ -1,4 +1,0 @@
--cp src
--lib mcli
--neko bin/run.n
--main Main

@@ -16,7 +16,5 @@
 -swf bin/Main.swf
 -swf-header 800:600:30:FFFFFF
 -swf-version 10
--D macro_times
 -main sample.MainFacade
---macro CSSMacros.rebuild()
---times
+--macro PrimeCSS.buildstyles()
