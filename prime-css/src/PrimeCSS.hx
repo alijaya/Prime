@@ -15,8 +15,7 @@ package ;
  */
 
  
-class PrimeCSS
-#if !macro extends CommandLine #end
+class PrimeCSS #if !macro extends CommandLine #end
 {
     public var compileParser:Bool;
     
@@ -116,13 +115,17 @@ class PrimeCSS
         {
             Sys.println("Building Styles...");
             p = new Process('node', [parserBin, '$projectDir//styles', '$primeCSSPath']);
-            var err = p.stderr.readAll();
-            Sys.println(p.stdout.readAll());
+            
+            var line = "";
+            try while ( ( line = p.stdout.readLine() ).length > 0 ) 
+            {
+                Sys.println(line);
+            } catch (e : haxe.io.Eof) { }
+            
             if (p.exitCode() != 0)
             {
                 p.close();
                 Sys.println("Error: building Styles.");
-                Sys.println(err);
                 Sys.exit(ERR_GENERATING_STYLES);
             }
             p.close();
@@ -132,7 +135,7 @@ class PrimeCSS
             Sys.println("Styles are up to date.");
         }
         
-        return macro OK;
+        return  OK;
     }
     
     static private function genedFileNewerThan(generatedFile:String, sourceFiles:Array<String>)
