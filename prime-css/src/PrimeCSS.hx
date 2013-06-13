@@ -27,6 +27,8 @@ class PrimeCSS #if !macro extends CommandLine #end
     private static inline var ERR_READING_INPUT_DIR         = 3;
     private static inline var ERR_BUILDING_STYLES_PARSER    = 4;
     private static inline var ERR_GENERATING_STYLES         = 5;
+    private static inline var ERR_MISSING_STYLES_DIR        = 6;
+    private static inline var ERR_MISSING_STYLE_CSS_FILE    = 7;
 
 #if !macro 
 	static function main() 
@@ -84,7 +86,6 @@ class PrimeCSS #if !macro extends CommandLine #end
         var parserBin = Path.directory(Path.directory(primeCSSPath)) + '//bin//'+ 'parser.js';
         var buildArgs = 'haxe $buildParser -main prime.tools.CSSParserMain -js $parserBin';
         
-        //trace(parserSources);
         if ( compileParser || !FileSystem.exists(parserBin) || !genedFileNewerThan(parserBin, parserSources))
         {
             Sys.println("Building Prime Style Parser...");
@@ -110,17 +111,35 @@ class PrimeCSS #if !macro extends CommandLine #end
             Sys.exit(ERR_READING_INPUT_DIR);
         }
         
-
+        if ( !FileSystem.exists('$projectDir/styles') )
+        {
+            Sys.println("ERROR: Missing Styles dir");
+            Sys.exit(ERR_MISSING_STYLES_DIR);
+        }
+        
+        if ( !FileSystem.exists('$projectDir/styles/style.css') )
+        {
+            Sys.println("ERROR: Missing style.css file");
+            Sys.exit(ERR_MISSING_STYLE_CSS_FILE);
+        }
+        
         if (compileStyles || !FileSystem.exists('$projectDir//styles//StyleSheet.hx') || !genedFileNewerThan('$projectDir//styles//StyleSheet.hx', stylesSources))
         {
             Sys.println("Building Styles...");
-            p = new Process('node', [parserBin, '$projectDir//styles', '$primeCSSPath']);
             
-            var line = "";
-            try while ( ( line = p.stdout.readLine() ).length > 0 ) 
+            //leave PrimeCSSPATH + "//"
+            p = new Process('node', [parserBin, '$projectDir/styles', primeCSSPath + "//" ] );
+            
+            try while ( true ) 
             {
-                Sys.println(line);
+                Sys.println(p.stdout.readLine());
             } catch (e : haxe.io.Eof) { }
+            
+            try while ( true ) 
+            {
+                Sys.println(p.stderr.readLine());
+            } catch (e : haxe.io.Eof) { }
+
             
             if (p.exitCode() != 0)
             {
