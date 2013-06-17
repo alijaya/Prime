@@ -16,6 +16,7 @@ cd "`dirname $0`/..";
 
 haxelib install hxjava
 haxelib install hxcpp
+haxelib install munit
 
 for lib in prime-*; do
   cd $lib;
