@@ -263,7 +263,7 @@ class MacroUtils
 				}
 			}
 			
-			if ( !field.meta.has("manual") && switch(field.kind) { case FVar(_, VarAccess.AccNormal): true; default: false; } )
+			if ( !field.meta.has("manual") && switch(field.kind) { case FVar( VarAccess.AccNormal, VarAccess.AccNormal): true; default: false; } )
 				blocks.push( Context.parse("this." + field.name + " = null", pos) );
 		}
 			
