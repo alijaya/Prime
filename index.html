@@ -29,10 +29,11 @@
     }
 		h1 { font-size: 3.8em; color: #3a251a; margin-bottom: 3px; }
 		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
+		h1 a { text-decoration: none; }
 		h2 { font-size: 1.5em; color: #fff; }
     h3 { text-align: center; color: #71E9F4; }
     a { color: #71E9F4; text-decoration: none; }
+    a:hover { border-bottom: 1px dotted #51c9d4; }
     .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
     .download { float: right; }
 		pre { background: #000; color: #fff; padding: 15px;}
@@ -60,6 +61,9 @@
     <div class="description">
       Data driven GUI application libraries, for human beings and Haxe.
     </div>
+  <div>
+    Take a look at the <strong><a href="https://github.com/touch/Prime-todo">sample project</a></strong> with introduction to the framework concepts.
+  </div>
 	<h2>Documentation</h2>
 	<ul>
 		<li><a href="documentation/Signals.html">Signals (event system) documentation</a></li>
@@ -67,7 +71,6 @@
     <li><a href="documentation/layout.html">Layout system documentation</a></li>
     <li><a href="documentation/layout_algorithms.html">Layout-algorithms documentation</a></li>
     <li><a href="documentation/css.html">CSS system documentation</a></li>
-		<li><a href="https://github.com/touch/Prime-todo">Sample project</a> with introduction to the framework concepts</li>
 
     <li>API Documentation per library, is available here:
       <ul>
@@ -82,7 +85,7 @@
         <li><a href="api/prime-media/index.html"     >prime-media</a></li>
         <li><a href="api/prime-mvc/index.html"       >prime-mvc</a></li>
         <li><a href="api/prime-signals/index.html"   >prime-signals</a></li>
-        <li><a href="api/prime-components/index.html">prime-components</a> - depends on all above.</li>
+        <li><a href="api/prime-components/index.html">prime-components</a></li>
       </ul>
     </li>
 	</ul>
@@ -97,6 +100,10 @@
       by running:
       <pre>$ git clone git://github.com/touch/PrimeVC</pre>
     </p>
+
+    <h2>Contributing</h2>
+    Helping out with documentation (even spelling/grammar) would be greatly appreciated.
+    We've set up automated documentation generation and publishing to make sure (after we accept your pull request) your changes are quickly visible online.
 
     <h2>Authors</h2>
     <p>Danny Wilson
