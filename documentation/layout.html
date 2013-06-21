@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 8.6.6">
+<meta name="generator" content="AsciiDoc 8.6.8">
 <title>Layout</title>
 <link rel="stylesheet" href="../theme/prime.css" type="text/css">
+
+
 <script type="text/javascript" src="../theme/asciidoc.js"></script>
 <script type="text/javascript" src="../theme/prime.js"></script>
 <script type="text/javascript">
@@ -26,8 +28,8 @@ asciidoc.install(2);
 <div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>The primary goal of Prime&#8217;s layoutsystem is to minimize the time and effort you spend on positioning, measuring and updating user-interface-elements.</p></div>
-<div class="paragraph"><p>Secondary it tries to minimize the amount of calculations and screen-updates by carefully tracking it&#8217;s own state and dirty properties.</p></div>
+<div class="paragraph"><p>The primary goal of Primes layoutsystem is to minimize the time and effort you spend on positioning, measuring and updating user-interface-elements.</p></div>
+<div class="paragraph"><p>Secondary it tries to minimize the amount of calculations and screen-updates by carefully tracking its own state and dirty properties.</p></div>
 <div class="paragraph"><p>Finally, it allows you to use your own implementation, without using the GUI of Prime. For example, you could create an html-canvas with weird-shapes that are positioned in a specific order.</p></div>
 </div>
 </div>
@@ -55,9 +57,9 @@ asciidoc.install(2);
 <div class="paragraph"><p>Elements that are represented by LayoutClients. They listen to state-changes, revalidate the clients and update their own size and position when the LayoutClient changes.</p></div>
 </li>
 </ol></div>
-<div class="imageblock graphviz">
+<div class="imageblock">
 <div class="content">
-<img src="LayoutActors.svg" alt="LayoutActors.svg">
+<img src="LayoutActors.svg" />
 </div>
 </div>
 <div class="paragraph"><div class="title">Result</div><p><span class="image">
@@ -108,12 +110,12 @@ parent_invalidated
 </p>
 </li>
 </ol></div>
-<div class="imageblock graphviz">
+<div class="imageblock">
 <div class="content">
-<img src="LayoutValidation.svg" alt="LayoutValidation.svg">
+<img src="LayoutValidation.svg" />
 </div>
 </div>
-<div class="paragraph"><p><span class="monospaced">LayoutContainer</span> tries to find the most efficient way in validating the parent and it&#8217;s children but the validation-process still is delicate and expensive:</p></div>
+<div class="paragraph"><p><span class="monospaced">LayoutContainer</span> tries to find the most efficient way in validating the parent and its children but the validation-process still is delicate and expensive:</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
@@ -134,9 +136,9 @@ of the dependencies between the parent and children.
 <h2 id="_layoutclients">LayoutClients</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Prime-layout implements the following layoutclients:</p></div>
-<div class="imageblock graphviz">
+<div class="imageblock">
 <div class="content">
-<img src="LayoutClient_UML.svg" alt="LayoutClient_UML.svg">
+<img src="LayoutClient_UML.svg" />
 </div>
 <div class="title">Figure 1. UML</div>
 </div>
@@ -197,7 +199,7 @@ http://www.gnu.org/software/src-highlite -->
 <p>
 <strong>measured-size</strong>
 </p>
-<div class="paragraph"><p>Size values are updated by the owner based on it&#8217;s content (e.g. width/height of a text) or by a <span class="monospaced">layout-algorithm</span>.</p></div>
+<div class="paragraph"><p>Size values are updated by the owner based on its content (e.g. width/height of a text) or by a <span class="monospaced">layout-algorithm</span>.</p></div>
 </li>
 <li>
 <p>
@@ -306,8 +308,8 @@ support for layout-children
 <div class="sect3">
 <h4 id="_layout_algorithms_support">Layout algorithms support</h4>
 <div class="paragraph"><p>A <span class="monospaced">LayoutContainer</span> can have <strong>one</strong> layout-algorithm. The algorithm is responsible for telling the container which changes should invalidate the container and will measure and positionate the children of the container.</p></div>
-<div class="paragraph"><p>Having only one algorithm per container is a big difference with how CSS deals with positioning UI-elements. CSS&#8217;s implementation allows you for example to have a container where a first child floats right and a second floats left. In prime you can only tell all children to float left, or all children to float right.</p></div>
-<div class="olist arabic"><div class="title">Advantages of prime&#8217;s implementation:</div><ol class="arabic">
+<div class="paragraph"><p>Having only one algorithm per container is a big difference with how CSS deals with positioning UI-elements. CSSs implementation allows you for example to have a container where a first child floats right and a second floats left. In prime you can only tell all children to float left, or all children to float right.</p></div>
+<div class="olist arabic"><div class="title">Advantages of primes implementation:</div><ol class="arabic">
 <li>
 <p>
 <strong>Predictability</strong>
@@ -327,7 +329,7 @@ support for layout-children
 <div class="paragraph"><p>Using only one algorithm allows you to positionate children in the strangest way. E.g. it&#8217;s easy to create an algorithm that will positionate the children in a sinus-wave.</p></div>
 </li>
 </ol></div>
-<div class="olist arabic"><div class="title">Disadvantages of prime&#8217;s implementation:</div><ol class="arabic">
+<div class="olist arabic"><div class="title">Disadvantages of primes implementation:</div><ol class="arabic">
 <li>
 <p>
 <strong>Less flexible</strong>
@@ -339,7 +341,7 @@ support for layout-children
 </div>
 <div class="sect3">
 <h4 id="_support_for_children">Support for children</h4>
-<div class="paragraph"><p>A <span class="monospaced">LayoutContainer</span> can have an infinite amount of children, a <strong>child</strong> can only have one parent. By adding a child to a container, it gives the parent some of it&#8217;s responsibilities:</p></div>
+<div class="paragraph"><p>A <span class="monospaced">LayoutContainer</span> can have an infinite amount of children, a <strong>child</strong> can only have one parent. By adding a child to a container, it gives the parent some of its responsibilities:</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
@@ -453,13 +455,13 @@ layoutContainer.children
 <div class="sect2">
 <h3 id="_virtuallayoutcontainer">VirtualLayoutContainer</h3>
 <div class="paragraph"><p>The previous chapter discussed why a <span class="monospaced">LayoutContainer</span> can only have one algorithm. Prime introduces a <span class="monospaced">VirtualLayoutContainer</span> to overcome the disadvantage of that.</p></div>
-<div class="paragraph"><p>Until now, all the <span class="monospaced">LayoutClients</span> represent some kind of UI-element. A <span class="monospaced">VirtualLayoutContainer</span> doesn&#8217;t represent a UI-element, but has the same properties as a <span class="monospaced">LayoutContainer</span>. That means it can define a different algorithm than it&#8217;s parent-layoutcontainer, and therefor allows you to step out of the restriction of one algorithm without having the overhead of an extra (unneeded) UI-element!</p></div>
-<div class="paragraph"><p>The virtual-container will add it&#8217;s own coordinates to that of each child. This will only happen when you use the methods <span class="monospaced">getHorPosition()</span> and getVerPosition()` to get the x&amp;y-coordinates of <span class="monospaced">LayoutClient</span>.</p></div>
+<div class="paragraph"><p>Until now, all the <span class="monospaced">LayoutClients</span> represent some kind of UI-element. A <span class="monospaced">VirtualLayoutContainer</span> doesn&#8217;t represent a UI-element, but has the same properties as a <span class="monospaced">LayoutContainer</span>. That means it can define a different algorithm than its parent-layoutcontainer, and therefor allows you to step out of the restriction of one algorithm without having the overhead of an extra (unneeded) UI-element!</p></div>
+<div class="paragraph"><p>The virtual-container will add its own coordinates to that of each child. This will only happen when you use the methods <span class="monospaced">getHorPosition()</span> and getVerPosition()` to get the x&amp;y-coordinates of <span class="monospaced">LayoutClient</span>.</p></div>
 <div class="sect3">
 <h4 id="_example">Example</h4>
-<div class="imageblock graphviz">
+<div class="imageblock">
 <div class="content">
-<img src="VirtualLayoutActors.svg" alt="VirtualLayoutActors.svg">
+<img src="VirtualLayoutActors.svg" />
 </div>
 </div>
 <div class="paragraph"><p>In this example there are 4 UIElements and 5 layout-elements, which would result in the following layout:</p></div>
@@ -510,7 +512,7 @@ http://www.gnu.org/software/src-highlite -->
         --no-traces <span style="color: #990000">\</span>
 <span style="color: #990000">&amp;&amp;</span> open bin-debug/LayoutExample<span style="color: #993399">3</span><span style="color: #990000">.</span>swf</tt></pre></div></div>
 <div class="paragraph"><p><a href="https://github.com/touch/PrimeVC/blob/master/examples/layout/LayoutExample4.hx">Example 4</a> What you want in practice, using CSS to layout UIComponents:</p></div>
-<div class="paragraph"><p>The <span class="monospaced">build/build</span> script handles building and running of the Prime CSS parser and requires <a href="http://www.gnu.org/software/bash/">Bash</a> to run. Windows users: bash is included with <a href="http://code.google.com/p/msysgit/">Git for Windows</a> - make sure it&#8217;s added to the PATH.</p></div>
+<div class="paragraph"><p>The <span class="monospaced">build/build</span> script handles building and running of the Prime CSS parser and requires <a href="http://www.gnu.org/software/bash/">Bash</a> to run. Windows users: bash is included with <a href="http://code.google.com/p/msysgit/">Git for Windows</a> - make sure its added to the PATH.</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.5
 by Lorenzo Bettini
@@ -526,7 +528,7 @@ http://www.gnu.org/software/src-highlite -->
 <div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-01-30 16:03:01 CET
+Last updated 2013-05-29 14:48:56 UTC
 </div>
 </div>
 </body>

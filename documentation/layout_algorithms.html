@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 8.6.6">
+<meta name="generator" content="AsciiDoc 8.6.8">
 <title>Layout Algorithms</title>
 <link rel="stylesheet" href="../theme/prime.css" type="text/css">
+
+
 <script type="text/javascript" src="../theme/asciidoc.js"></script>
 <script type="text/javascript" src="../theme/prime.js"></script>
 <script type="text/javascript">
@@ -26,7 +28,7 @@ asciidoc.install(2);
 <div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>The main goal of <span class="monospaced">Layoutalgorithms</span> is to tell a <span class="monospaced">LayoutContainer</span> where to position it&#8217;s children. It does this by implementing a set of methods with the following functionality:</p></div>
+<div class="paragraph"><p>The main goal of <span class="monospaced">Layoutalgorithms</span> is to tell a <span class="monospaced">LayoutContainer</span> where to position its children. It does this by implementing a set of methods with the following functionality:</p></div>
 <div class="olist arabic"><ol class="arabic">
 <li>
 <p>
@@ -58,7 +60,7 @@ mapping positions to depths
 </div>
 </div>
 <div class="sect1">
-<h2 id="_float_8217_s">Float&#8217;s</h2>
+<h2 id="_floats">Floats</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_horizontal_float">Horizontal float</h3>
@@ -73,7 +75,7 @@ mapping positions to depths
 </td>
 <td class="hdlist2">
 <p style="margin-top: 0;">
-LayoutClient&#8217;s
+LayoutClients
 </p>
 </td>
 </tr>
@@ -100,7 +102,7 @@ LayoutContainer - HorizontalFloat(left-to-right)
 </td>
 <td class="hdlist2">
 <p style="margin-top: 0;">
-LayoutClient&#8217;s
+LayoutClients
 </p>
 </td>
 </tr>
@@ -349,7 +351,7 @@ iterates all children when re-validating the layout
 </div>
 <div class="sect2">
 <h3 id="_fixed_tile">Fixed-Tile</h3>
-<div class="paragraph"><p>Fixed-tile-algorithm uses a fixed number of columns (or rows if the start direction is vertical) to position it&#8217;s children instead of trying to put as many children as possible in a row/column. The algorithm will position the children like a table, it uses the heighest cell in a row to define the row-height and widest cell in a column to define to column-width.</p></div>
+<div class="paragraph"><p>Fixed-tile-algorithm uses a fixed number of columns (or rows if the start direction is vertical) to position its children instead of trying to put as many children as possible in a row/column. The algorithm will position the children like a table, it uses the heighest cell in a row to define the row-height and widest cell in a column to define to column-width.</p></div>
 <div class="olist arabic"><div class="title">Properties</div><ol class="arabic">
 <li>
 <p>
@@ -421,7 +423,7 @@ smart but not light-weight
 <div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-01-30 16:03:01 CET
+Last updated 2013-05-29 14:48:56 UTC
 </div>
 </div>
 </body>
