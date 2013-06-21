@@ -4,6 +4,7 @@
 -lib feffects
 -D prime_net
 -D prime_display
+-D prime_components
 
 -cp ../libs/apparat
 

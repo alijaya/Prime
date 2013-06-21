@@ -13,7 +13,7 @@ for lib in prime*; do
   fi; done;
 
   if [ -n "$ARGS" ]; then
-    chxdoc -v -o docs/output/api/$lib --generateTodo=true --templatesDir=$TPLDIR/templates/ --deny cpp.* --deny mcover.* $ARGS
+    chxdoc -o docs/output/api/$lib --generateTodo=true --templatesDir=$TPLDIR/templates/ --deny flash.* --deny js.* --deny cpp.* --deny cs.* --deny java.* --deny php.* --deny mcover.* $ARGS
   fi;
 done;
 
