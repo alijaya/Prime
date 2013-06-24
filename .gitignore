@@ -12,6 +12,7 @@ Thumb.db
 Autocomplete_.hx
 *.hx.tmp
 
+/prime*/prime-*.zip
 /prime*/test/
 .temp
 
