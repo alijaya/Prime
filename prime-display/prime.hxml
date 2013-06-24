@@ -7,11 +7,9 @@
 
 
 -cp ../prime-core/src
+-cp ../prime-fsm/src
 -cp ../prime-signals/src
 -cp ../prime-bindable/src
 -cp ../prime-data/src
--cp ../prime-layout/src
--cp ../prime-fsm/src
--cp ../prime-css/src
 
 -cp ../src

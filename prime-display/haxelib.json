@@ -14,9 +14,6 @@
     "prime-signals"    :"",
     "prime-bindable"   :"",
     "prime-data"       :"",
-    "prime-components" :"",
-    "prime-layout"     :"",
-    "prime-css"        :"",
     "feffects"         :""
   }
 }
