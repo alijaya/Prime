@@ -11,8 +11,6 @@
   "dependencies": {
     "prime-core"     :"",
     "prime-fsm"      :"",
-    "prime-signals"  :"",
-    "prime-bindable" :"",
-    "prime-display"  :""
+    "prime-bindable" :""
   }
 }
