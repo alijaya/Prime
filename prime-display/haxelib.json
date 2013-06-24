@@ -3,18 +3,20 @@
   "license": "BSD",
   "tags": ["prime"],
   "description": "",
- "contributors": ["optimus"],
+  "contributors": ["optimus"],
+
   "releasenote": "Initial release. Developed since Jul 08, 2010",
-  "version": "0.9.0.0",
+  "version": "1.0.0",
   "url": "http://prime.vc/",
   "dependencies": {
-    "prime-bindable": "",
-    "prime-core": "",
-    "prime-data": "",
-    "feffects": "",
-    "prime-signals": "",
-    "prime-layout": "",
-    "prime-css": "",
-    "prime-fsm": ""
+    "prime-core"       :"",
+    "prime-fsm"        :"",
+    "prime-signals"    :"",
+    "prime-bindable"   :"",
+    "prime-data"       :"",
+    "prime-components" :"",
+    "prime-layout"     :"",
+    "prime-css"        :"",
+    "feffects"         :""
   }
 }

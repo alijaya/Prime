@@ -1,13 +1,24 @@
 {
   "name": "prime",
   "license": "BSD",
-  "tags": ["prime", "framework","primevc","mvc"],
-  "description": "prime framework",
- "contributors": ["Danny Wilson", "Ruben Weijers", "Ezequiel Moreno", "Andrew Pahuru"],
-  "releasenote": "Initial release.",
-"version": "0.0.0",
-  "url": "http://wwx-2013.prime.vc/",
-  "dependencies": {
+  "tags": ["prime", "framework", "primevc", "mvc", "gui"],
+  "description": "Prime.vc libraries.",
+  "contributors": ["optimus"],
 
+  "releasenote": "Initial release. Under development since Jul 08, 2010",
+  "version": "1.0.0",
+  "url": "http://prime.vc/",
+  "dependencies": {
+  	"prime-core"       :"",
+	"prime-signals"    :"",
+	"prime-bindable"   :"",
+	"prime-mvc"        :"",
+	"prime-data"       :"",
+	"prime-fsm"        :"",
+	"prime-css"        :"",
+	"prime-media"      :"",
+	"prime-display"    :"",
+	"prime-layout"     :"",
+	"prime-components" :"",
   }
 }

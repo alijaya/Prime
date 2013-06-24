@@ -3,10 +3,11 @@
   "license": "BSD",
   "tags": ["prime", "cascading", "style", "css"],
   "description": "CSS file parsing and style building.",
-  "contributors": ["Danny Wilson", "Ruben Weijers", "Ezequiel Moreno", "Andrew Pahuru"],
-  "releasenote": "Initial release.",
-  "version": "0.9.0.0",
-  "url": "http://wwx-2013.prime.vc/",
+  "contributors": ["optimus"],
+
+  "releasenote": "Initial release. Developed since Jul 08, 2010",
+  "version": "1.0.0",
+  "url": "http://prime.vc/",
   "dependencies": {
     "prime-bindable": "",
     "prime-core": "",
