@@ -66,7 +66,7 @@ class UIWindow extends prime.gui.display.Window
 		implements prime.gui.traits.IBehaving
 		implements prime.gui.traits.IDrawable
 		implements prime.gui.traits.ILayoutable
-		implements prime.gui.traits.IStylable
+		#if prime_css implements prime.gui.traits.IStylable #end
 	 	implements prime.gui.traits.IScrollable
 {
 	public var layout				(default, null)					: LayoutClient;
@@ -117,10 +117,11 @@ class UIWindow extends prime.gui.display.Window
 	inline function get_graphics() { return bgShape.graphics; }
   #end
 
-	
+  #if prime_css
 	public var style				(default, null)					: prime.gui.styling.UIElementStyle;
 	public var styleClasses			(default, null)					: SimpleList<String>;
 	public var stylingEnabled		(default, set_stylingEnabled)	: Bool;
+  #end
 #end
 	
 	public var invalidation			(default, null)					: InvalidationManager;
@@ -141,7 +142,9 @@ class UIWindow extends prime.gui.display.Window
 		behaviours		= new BehaviourList();
 #if (flash9 || nme)
 		graphicData		= new GraphicProperties(rect);
+	#if prime_css
 		styleClasses	= new SimpleList<String>();
+	#end
 #end
 		behaviours.add( new prime.gui.behaviours.layout.WindowLayoutBehaviour(this) );
 		behaviours.add( new prime.gui.behaviours.RenderGraphicsBehaviour(this) );
@@ -150,11 +153,13 @@ class UIWindow extends prime.gui.display.Window
 		createLayout();
 #if (flash9 || nme)
 		bgShape			= new VectorShape();
-		#if flash9
+	#if flash9
 		graphics		= bgShape.graphics;
-		#end
+	#end
 		children.add(bgShape);
+	#if prime_css
 		stylingEnabled	= true;
+	#end
 #end
 		init();
 	}
@@ -181,36 +186,7 @@ class UIWindow extends prime.gui.display.Window
 
 	override public function dispose ()
 	{
-		if (isDisposed())
-			return;
-		
-		behaviours		.dispose();
-		layout			.dispose();
-		invalidation	.dispose();
-		rendering		.dispose();
-		toolTip			.dispose();
-		rect			.dispose();
-		
-#if (flash9 || nme)
-		bgShape			.dispose();
-		style			.dispose();
-		styleClasses	.dispose();
-		styleClasses	= null;
-		style			= null;
-		bgShape			= null;
-#end
-		
-		if (layout != null)					layout		.dispose();
-		if (graphicData != null)			graphicData	.dispose();
-		if ((untyped this).popups != null)	popups		.dispose();
-		
-		behaviours		= null;
-		graphicData		= null;
-		layout			= null;
-		invalidation	= null;
-		rendering		= null;
-		rect			= null;
-		
+		// Auto disposed.
 		super.dispose();
 	}
 	
@@ -365,7 +341,7 @@ class UIWindow extends prime.gui.display.Window
 	private #if !noinline inline #end function get_popups           () { if (popups == null) { popups = new prime.gui.managers.PopupManager(this); } return popups; }
 	
 	
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 	private function set_stylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)

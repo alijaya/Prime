@@ -42,7 +42,7 @@ interface IUIElement
 				extends prime.gui.traits.IBehaving
 				extends prime.core.traits.IIdentifiable
 				extends prime.core.traits.IDisposable
-				extends prime.gui.traits.IStylable
+				#if prime_css extends prime.gui.traits.IStylable #end
 				extends prime.gui.traits.IPropertyValidator
 {
 	public var state	(default, null)		: prime.gui.states.UIElementStates;

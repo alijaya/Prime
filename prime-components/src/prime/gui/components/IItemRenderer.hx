@@ -35,7 +35,8 @@ package prime.gui.components;
  * @author Ruben Weijers
  * @creation-date Feb 11, 2011
  */
-interface IItemRenderer <T> extends prime.gui.core.IUIElement extends prime.gui.styling.IIconOwner
+interface IItemRenderer <T> extends prime.gui.core.IUIElement
+	#if prime_css extends prime.gui.styling.IIconOwner #end
 {
 	public var data				(default, null)				: prime.bindable.Bindable<String>;
 	public var vo				(default, null)				: prime.bindable.Bindable<T>;

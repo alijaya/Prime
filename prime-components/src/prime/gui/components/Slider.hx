@@ -71,9 +71,11 @@ class Slider extends SliderBase
 		maskShape			= new VectorShape();
 		background			= new UIGraphic( #if debug id.value + "Background" #end );
 		maskedBackground	= new UIGraphic( #if debug id.value + "MaskedBackground" #end );
-		
+	
+	#if prime_css
 		background.styleClasses.add("background");
 		maskedBackground.styleClasses.add("maskedBackground");
+	#end
 		
 		attach( background ).attach( maskedBackground );
 		maskShape.attachDisplayTo( this );
@@ -95,7 +97,7 @@ class Slider extends SliderBase
 		return super.updateChildren();
 	}
 	
-	
+#if prime_css
 	override private function set_direction (v)
 	{
 		if (direction != v)
@@ -110,4 +112,5 @@ class Slider extends SliderBase
 		}
 		return v;
 	}
+#end
 }

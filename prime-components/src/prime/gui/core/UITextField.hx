@@ -29,7 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.core;
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
  import flash.text.TextFieldAutoSize;
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
@@ -106,7 +106,7 @@ class UITextField extends TextField implements IUIElement
 //	private var updateSizeWire		: Wire<Dynamic>;
 	private var hasInjectedLayout	: Bool;
 
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
 	public var stylingEnabled	(default, set_stylingEnabled)	: Bool;
@@ -124,7 +124,7 @@ class UITextField extends TextField implements IUIElement
 #end
 		this.id				= new Bindable<String>(id);
 		super(data);
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 		styleClasses		= new SimpleList<String>();
 		this.stylingEnabled	= stylingEnabled;
 #end
@@ -178,7 +178,7 @@ class UITextField extends TextField implements IUIElement
 			layout = null;
 		}
 
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 		if (style != null && style.target == this)
 			style.dispose();
 		
@@ -303,7 +303,7 @@ class UITextField extends TextField implements IUIElement
 	}
 	
 	
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 	override private function set_textStyle (v)
 	{
 	//	Assert.isNotNull(v);

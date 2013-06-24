@@ -121,7 +121,7 @@ class ConfirmPanel extends AlertPanel
     private inline function createCancelBtn (cancelLabel:String)
     {
         cancelBtn = new Button("cancelBtn", cancelLabel);
-        cancelBtn.styleClasses.add("linkBtn");
+        #if prime_css cancelBtn.styleClasses.add("linkBtn"); #end
         addToFooter( cancelBtn );
         cancel.on( cancelBtn.userEvents.mouse.click, this );
     }

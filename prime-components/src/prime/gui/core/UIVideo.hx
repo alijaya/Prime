@@ -29,7 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.core;
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
 #end
@@ -84,7 +84,7 @@ class UIVideo extends Video implements IUIElement
 	public var system			(get_system, never)				: ISystem;
 	public var state			(default, null)					: UIElementStates;
 	
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
 	public var stylingEnabled	(default, set_stylingEnabled)	: Bool;
@@ -102,7 +102,7 @@ class UIVideo extends Video implements IUIElement
 #end
 		this.id				= new Bindable<String>(id);
 		super();
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 		styleClasses		= new SimpleList<String>();
 		this.stylingEnabled	= stylingEnabled;
 #end
@@ -144,15 +144,6 @@ class UIVideo extends Video implements IUIElement
 		if (stream != null)		stream.dispose();
 		if (layout != null)		layout.dispose();
 		
-#if (flash9 || nme)
-		if (style != null && style.target == this)
-			style.dispose();
-		
-		styleClasses.dispose();
-		styleClasses	= null;
-		style			= null;
-#end
-		
 		id				= null;
 		state			= null;
 		behaviours		= null;
@@ -190,7 +181,7 @@ class UIVideo extends Video implements IUIElement
 	}
 	
 	
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 	private function set_stylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)

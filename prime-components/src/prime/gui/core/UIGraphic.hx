@@ -40,7 +40,7 @@ package prime.gui.core;
  import prime.layout.LayoutClient;
  import prime.gui.managers.ISystem;
  import prime.gui.states.UIElementStates;
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
 #end
@@ -72,12 +72,14 @@ class UIGraphic extends prime.gui.display.VectorShape
 	
 	public var layout			(default, null)					: LayoutClient;
 	public var system			(get_system, never)				: ISystem;
-	
+
 #if (flash9 || nme)
 	public var graphicData		(default, null)					: GraphicProperties;
+  #if prime_css
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
 	public var stylingEnabled	(default, set_stylingEnabled)	: Bool;
+  #end
 #end
 	
 	
@@ -97,8 +99,10 @@ class UIGraphic extends prime.gui.display.VectorShape
 		behaviours		= new BehaviourList();
 #if (flash9 || nme)
 		graphicData		= new GraphicProperties( rect );
+	#if prime_css
 		styleClasses	= new SimpleList<String>();
 		stylingEnabled	= true;
+	#end
 #end
 		
 		//add default behaviours
@@ -130,21 +134,19 @@ class UIGraphic extends prime.gui.display.VectorShape
 		behaviours	.dispose();
 		state		.dispose();
 		id			.dispose();
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 		if (style.target == this)
 			style.dispose();
 		
 		styleClasses.dispose();
+		style			= null;
+		styleClasses	= null;
 #end
 
 		if (layout != null)			layout.dispose();
 		if (graphicData != null)	graphicData.dispose();
 		
 		id				= null;
-#if (flash9 || nme)
-		style			= null;
-		styleClasses	= null;
-#end
 		state			= null;
 		behaviours		= null;
 		layout			= null;
@@ -302,7 +304,7 @@ class UIGraphic extends prime.gui.display.VectorShape
 	public #if !noinline inline #end function isQueued () : Bool			return nextValidatable != null || prevValidatable != null;
 	
 	
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 	private function set_stylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)

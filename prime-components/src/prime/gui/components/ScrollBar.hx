@@ -238,9 +238,9 @@ class ScrollBar extends SliderBase
 	{
 		if (v != direction)
 		{
-			styleClasses.remove( direction.string()+"ScrollBar" );
+			#if prime_css styleClasses.remove( direction.string()+"ScrollBar" ); #end
 			super.set_direction(v);
-			styleClasses.add( direction.string()+"ScrollBar" );
+			#if prime_css styleClasses.add( direction.string()+"ScrollBar" ); #end
 		}
 		return v;
 	}

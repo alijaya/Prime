@@ -29,6 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.components.skins;
+#if prime_css
  import prime.net.CommunicationType;
  import prime.bindable.Bindable;
 
@@ -121,3 +122,4 @@ class LinearProgressLabelSkin extends LinearProgressSkin
 		super.update(newVal, oldVal);
 	}
 }
+#end

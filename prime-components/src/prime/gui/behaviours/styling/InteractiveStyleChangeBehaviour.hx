@@ -29,6 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.behaviours.styling;
+#if prime_css
  import prime.signals.Wire;
  import prime.gui.behaviours.BehaviourBase;
  import prime.gui.core.IUIComponent;
@@ -507,3 +508,4 @@ class InteractiveStyleChangeBehaviour extends BehaviourBase < IUIComponent >
 		focusOutBinding.disable();
 	}
 }
+#end

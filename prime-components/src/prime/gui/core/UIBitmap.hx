@@ -1,5 +1,3 @@
-
-
 /*
  * Copyright (c) 2010, The PrimeVC Project Contributors
  * All rights reserved.
@@ -38,7 +36,7 @@ package prime.gui.core;
  import prime.layout.AdvancedLayoutClient;
  import prime.gui.managers.ISystem;
  import prime.gui.states.UIElementStates;
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
 #end
@@ -71,7 +69,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     public var layout           (default, null)                 : prime.layout.LayoutClient;
     public var system           (get_system, never)             : ISystem;
     
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
     public var style            (default, null)                 : UIElementStyle;
     public var styleClasses     (default, null)                 : SimpleList<String>;
     public var stylingEnabled   (default, set_stylingEnabled)    : Bool;
@@ -92,7 +90,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
         
         state           = new UIElementStates();
         behaviours      = new BehaviourList();
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
         styleClasses    = new SimpleList<String>();
         stylingEnabled  = true;
 #end
@@ -137,12 +135,6 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
             layout = null;
         }
         
-#if (flash9 || nme)
-        style.dispose();
-        styleClasses.dispose();
-        style           = null;
-        styleClasses    = null;
-#end
         id              = null;
         state           = null;
         behaviours      = null;
@@ -338,7 +330,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
     }
 
     
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
     private function set_stylingEnabled (v:Bool)
     {
         if (v != stylingEnabled)

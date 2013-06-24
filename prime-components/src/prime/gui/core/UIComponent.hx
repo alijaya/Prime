@@ -48,7 +48,7 @@ package prime.gui.core;
  
  import prime.gui.managers.ISystem;
  import prime.gui.states.UIElementStates;
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
 #end
@@ -103,9 +103,11 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 	
 #if (flash9 || nme)
 	public var graphicData		(default, null)					: GraphicProperties;
+  #if prime_css
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
 	public var stylingEnabled	(default, set_stylingEnabled)	: Bool;
+  #end
 #end
 	
 	public var enabled			(default, null)					: Bindable<Bool>;
@@ -129,9 +131,10 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 		init.onceOn( displayEvents.addedToStage, this );
 #if (flash9 || nme)
 		graphicData		= new GraphicProperties( rect );
+	#if prime_css
 		styleClasses	= new SimpleList<String>();
 		stylingEnabled	= true;		// <- will create UIElementStyle instance
-		
+	#end	
 		//add default behaviours
 		behaviours = new BehaviourList();
 		behaviours.add( new ValidateLayoutBehaviour(this) );
@@ -156,7 +159,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 		if (isInitialized())
 			return;
 
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 		if (stylingEnabled)
 			behaviours.add( new InteractiveStyleChangeBehaviour(this) );
 		Assert.isNotNull(parent);
@@ -247,7 +250,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 		id.dispose();
 		enabled.dispose();
 		
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 		// will be null if styling is disabled
 		if( style != null )
 			style.dispose();
@@ -396,7 +399,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 	}
 	
 	
-#if (flash9 || nme)
+#if (prime_css && (flash9 || nme))
 	private inline function setStyle (v)
 	{
 		return style = v;

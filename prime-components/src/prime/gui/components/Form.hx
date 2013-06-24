@@ -64,7 +64,7 @@ class Form
     private static function createLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, row:LayoutContainer, labelStyleClass:String = null)
     {
         var label = createLabel(input, labelStr);
-        label.styleClasses.add(labelStyleClass);
+        #if prime_css label.styleClasses.add(labelStyleClass); #end
         row.dispose.on( input.state.disposed.entering, row );
         
         var added   = input.displayEvents.addedToStage.observe( form, null );

@@ -29,6 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.components;
+#if prime_css
  import prime.core.math.PercentageHelper;
  import prime.net.ICommunicator;
  import prime.fsm.SimpleStateMachine;
@@ -257,3 +258,4 @@ class ProgressBar extends UIDataContainer<PercentageHelper>
 		}
 	}
 }
+#end

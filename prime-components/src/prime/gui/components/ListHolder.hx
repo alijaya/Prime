@@ -70,7 +70,7 @@ class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType> imp
 	public function new (id:String, data:DataType = null, listData:IReadOnlyList<ListDataType> = null, list:ListView<ListDataType> = null)
 	{
 		super(id, data);
-		styleClasses.add("listHolder");
+		#if prime_css styleClasses.add("listHolder"); #end
 		this.listData	= listData;
 		this.list		= list;
 	}
@@ -109,7 +109,7 @@ class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType> imp
 	//	mouseEnabled 	= false;
 	//	mouseChildren 	= true;
 		
-		list.styleClasses.add("listContent");
+		#if prime_css list.styleClasses.add("listContent"); #end
 		childClick.send.on( list.childClick, this );
 	}
 	

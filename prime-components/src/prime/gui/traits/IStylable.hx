@@ -29,7 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.traits;
-
+#if prime_css
 
 /**
  * @author Ruben Weijers
@@ -54,3 +54,4 @@ interface IStylable extends prime.core.traits.IIdentifiable
 	public function isDisposed ()								: Bool;
 #end
 }
+#end

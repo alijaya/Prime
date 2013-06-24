@@ -106,7 +106,7 @@ class ComboBox <DataType> extends DataButton <DataType>
 		list        = new SelectableListView( popup.id.value+"Content", listData );
 		popup.list  = list;
 		
-		popup.styleClasses.add( "comboList" );
+		#if prime_css popup.styleClasses.add( "comboList" ); #end
 		popup.behaviours.add( new FollowObjectBehaviour( popup, this ) );
 		list .behaviours.add( new KeyboardListNavigation( list ) );
 		

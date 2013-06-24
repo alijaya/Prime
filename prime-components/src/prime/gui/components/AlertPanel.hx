@@ -61,7 +61,7 @@ class AlertPanel extends Panel
         super.createChildren();
 
         acceptBtn = new Button("acceptBtn", acceptLabel);
-        acceptBtn.styleClasses.add("confirmBtn");
+        #if prime_css acceptBtn.styleClasses.add("confirmBtn"); #end
 
         addToFooter( acceptBtn );
         accept.on( acceptBtn.userEvents.mouse.click, this );

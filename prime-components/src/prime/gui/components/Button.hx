@@ -32,7 +32,9 @@ package prime.gui.components;
  import prime.bindable.Bindable;
  import prime.gui.core.UIDataContainer;
  import prime.gui.graphics.IGraphicProperty;
+#if prime_css
  import prime.gui.styling.IIconOwner;
+#end
  import prime.gui.text.TextFormat;
  import prime.gui.traits.ISelectable;
  import prime.gui.traits.ITextStylable;
@@ -48,7 +50,7 @@ private typedef Flags = prime.gui.core.UIElementFlags;
  * @author Ruben Weijers
  * @creation-date Oct 29, 2010
  */
-class Button extends UIDataContainer <Bindable<String>> implements IIconOwner implements ITextStylable implements ISelectable
+class Button extends UIDataContainer <Bindable<String>> #if prime_css implements IIconOwner #end implements ITextStylable implements ISelectable
 {
 	public var selected		(default, null)			: Bindable<Bool>;
 	public var icon			(default, set_icon)		: Asset;
@@ -84,7 +86,7 @@ class Button extends UIDataContainer <Bindable<String>> implements IIconOwner im
 		
 		this.icon	= icon;
 		selected	= new Bindable<Bool>(false);
-		styleClasses.add("formElement");
+		#if prime_css styleClasses.add("formElement"); #end
 	}
 	
 	

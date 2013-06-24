@@ -185,7 +185,7 @@ class InputField <VOType> extends DataButton <VOType>
 		if (data.value == defaultLabel) {
 			data.set("");
 			data.change.send("", null);
-			styleClasses.remove("empty");
+			#if prime_css styleClasses.remove("empty"); #end
 		}
 		
 		getRevertableData().beginEdit();

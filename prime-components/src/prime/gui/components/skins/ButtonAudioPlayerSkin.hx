@@ -57,10 +57,9 @@ class ButtonAudioPlayerSkin extends Skin<AudioPlayer>
 
     override public function childrenCreated ()
     {
-        owner.styleClasses.add("buttonAudioPlayer");
+        #if prime_css owner.styleClasses.add("buttonAudioPlayer"); #end
         progress    = new UIGraphic("progress");
         playStopBtn = new Button();
-    //  playStopBtn.styleClasses.add("normalBtn");
         
         handleStreamState.on( owner.stream.state.change, this );
         updateProgressBar.on( owner.stream.currentTime.change, this);
@@ -74,7 +73,7 @@ class ButtonAudioPlayerSkin extends Skin<AudioPlayer>
 
     override public  function disposeChildren ()
     {
-        owner.styleClasses.remove("buttonAudioPlayer");
+        #if prime_css owner.styleClasses.remove("buttonAudioPlayer"); #end
         owner.stream.state.change.unbind( this );
         owner.stream.currentTime.change.unbind( this );
 
