@@ -36,7 +36,7 @@ package prime.gui.traits;
  * @creation-date Jul 13, 2010
  */
 interface IDrawable
-	#if !CSSParser extends ILayoutable extends IGraphicsOwner #end
+	#if !CSSParser #if prime_layout extends ILayoutable #end extends IGraphicsOwner #end
 {
 #if (flash9 || nme)
 	/**
