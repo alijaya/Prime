@@ -16,5 +16,4 @@
 -cp ../prime-display/src
 -cp ../prime-layout/src
 -cp ../prime-fsm/src
--cp ../prime-media/src
 -cp ../src

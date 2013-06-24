@@ -29,6 +29,7 @@
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
 package prime.gui.components;
+#if prime_media
  import prime.media.AudioStream;
  import prime.bindable.Bindable;
  import prime.gui.core.UIDataContainer;
@@ -61,3 +62,4 @@ class AudioPlayer extends UIDataContainer <Bindable<URI>>
         stop.on( displayEvents.removedFromStage, this );
     }
 }
+#end
