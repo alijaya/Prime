@@ -1,5 +1,3 @@
-
-
 /*
  * Copyright (c) 2010, The PrimeVC Project Contributors
  * All rights reserved.
@@ -29,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.behaviours.drag;
+#if prime_components
  import prime.signals.Wire;
  import prime.core.geom.Point;
  import prime.gui.behaviours.BehaviourBase;
@@ -138,3 +137,5 @@ class ShowDragGapBehaviour extends BehaviourBase <IDropTarget>
 			layoutGroup.children.move( draggedItem.layout, newDepth, curDepth );
 	}
 }
+#else #error "ShowDragGapBehaviour is only implemented for use with prime-components"
+#end

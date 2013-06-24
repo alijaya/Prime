@@ -6,15 +6,17 @@
 -D prime_net
 -D prime_display
 -D prime_layout
+-D prime_components
 -D prime_css
 
--cp ../libs/apparat
--cp ../prime-components/src
 -cp ../prime-core/src
 -cp ../prime-signals/src
 -cp ../prime-bindable/src
+-cp ../prime-mvc/src
+-cp ../prime-fsm/src
 -cp ../prime-data/src
 -cp ../prime-display/src
 -cp ../prime-layout/src
--cp ../prime-fsm/src
--cp ../src
+-cp ../prime-media/src
+-cp ../prime-components/src
+-cp ../prime-css/src
