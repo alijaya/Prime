@@ -32,7 +32,9 @@ package prime.gui.effects;
 #end
  import prime.core.geom.space.Position;
  import prime.core.geom.IntPoint;
+#if prime_components
  import prime.gui.states.EffectStates;
+#end
  import prime.types.Number;
   using prime.utils.NumberUtil;
 

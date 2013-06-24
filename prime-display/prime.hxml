@@ -5,7 +5,7 @@
 
 -cp ../libs/apparat
 
--cp ../prime-components/src
+
 -cp ../prime-core/src
 -cp ../prime-signals/src
 -cp ../prime-bindable/src
