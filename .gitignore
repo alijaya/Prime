@@ -12,6 +12,9 @@ Thumb.db
 Autocomplete_.hx
 *.hx.tmp
 
+/prime*/test/
+.temp
+
 /docs/output/*
 /docs/diagrams/*
 
