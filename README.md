@@ -10,26 +10,26 @@ Watch our [Presentation] (http://www.youtube.com/watch?v=UAT9RBb7wcU) presentati
 
 #### Prime currently consists of these stable high-quality libraries:
 
-* core:      Core interfaces and generic utilities.
-* signals:   Strictly typed, lightweight, memory and cpu optimized signal (event) library.
-* bindable:  Data-binding built on signals.
-* i18n:      YAML based compile-time internalization library built on Franco's [thx](http://github.com/fponticelli/thx) localization helpers and Bindable.
-* mvc:       Strictly typed Model-View-Controller for stateful GUI applications.
-* fsm:       Finite State Machine, with state change events built on signals.
-* layout:    2D box-model layouting for anything.
+* **core**:      Core interfaces and generic utilities.
+* **signals**:   Strictly typed, lightweight, memory and cpu optimized signal (event) library.
+* **bindable**:  Data-binding built on signals.
+* **i18n**:      YAML based compile-time internalization library built on Franco's [thx](http://github.com/fponticelli/thx) localization helpers and Bindable.
+* **mvc**:       Strictly typed Model-View-Controller for stateful GUI applications.
+* **fsm**:       Finite State Machine, with state change events built on signals.
+* **layout**:    2D box-model layouting for anything.
 
 
 #### Stable libraries, optimized for Flash:
 
-* display:    Flash Display-list as a datastructure with signals and change events.
-* components: GUI components
-* media:      Video and Audio player stream state handling and components.
+* **display**:    Flash Display-list as a datastructure with signals and change events.
+* **components**: GUI components
+* **media**:      Video and Audio player stream state handling and components.
 
 
 #### Alpha quality libraries:
 
-* perceptor: See what's happening inside your Prime application. Firebug-like inspector.
-* data:      Generic data handling. ValueObjects, CSV parser and other utils.
+* **perceptor**: See what's happening inside your Prime application. Firebug-like inspector.
+* **data**:      Generic data handling. ValueObjects, CSV parser and other utils.
 
 
 # Getting started
