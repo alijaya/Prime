@@ -7,6 +7,7 @@ package ;
  import sys.io.FileInput;
  import sys.io.Process;
   using sys.FileSystem;
+  using haxe.io.Path;
   using Lambda;
 /**
  * ...
@@ -15,7 +16,7 @@ package ;
 
     
  
-class Scanfolding extends mcli.CommandLine
+class Scaffolding extends mcli.CommandLine
 {
     
     private static inline var OK                    :Int = 0;
@@ -41,7 +42,6 @@ class Scanfolding extends mcli.CommandLine
         //TODO: 
         //check if name has strange chars
         
-        
         map = new Map();
 		map.set("%AUTHOR%", "prime.vc scanfolding tool");
 		map.set("%APP_NAME%", name);
@@ -49,26 +49,38 @@ class Scanfolding extends mcli.CommandLine
 		map.set("%PROJECT_DIR%", FileSystem.fullPath(dest + DIR_SEP + name));
 		map.set("%DIR_SEP%", DIR_SEP);
         
-        trace(FileSystem.fullPath(dest));
         
         //get haxelib/prime-css path
         var p = new Process("haxelib", ["path", "prime-css"]);
-        
-        if (p.exitCode() == 0)
+        var primeCSSPath = "";
+        try while (true)
         {
-            map.set("%HAXELIB_PRIMECSS_PATH%", p.stdout.readLine());
+            primeCSSPath = p.stdout.readLine();
+            if (primeCSSPath.indexOf("prime-css") != -1)
+                break;
         }
-        else
+        catch (e:Dynamic)
+        {
+            Sys.println("ERROR: Unable to read prime-css path");
+            p.close();
+            Sys.exit(ERR_HAXELIB_QUERY);
+
+        }
+        
+        if (p.exitCode() != 0)
         {
             Sys.println("ERROR: running haxelib prime-css path query");
             p.close();
             Sys.exit(ERR_HAXELIB_QUERY);
         }
-        p.close();
+        
+        
+        map.set("%HAXELIB_PRIMECSS_PATH%",primeCSSPath);
         
 
         //check if project type is correct
-        var availableTemplates = FileSystem.readDirectory("templates").filter( function(file) return FileSystem.isDirectory("templates" + DIR_SEP + file) );
+        var availableTemplates = FileSystem.readDirectory("templates");
+        availableTemplates = availableTemplates.filter( function(file) return FileSystem.isDirectory("templates".addTrailingSlash() + file) );
         
         if (availableTemplates.indexOf(projectType) == -1)
         {
@@ -77,7 +89,6 @@ class Scanfolding extends mcli.CommandLine
             Sys.exit(ERR_PROJECT_TYPE);
         }
         
-            
         //attempt to create output dir
         try { mkDir(dest);}
         catch (e:Dynamic) 
@@ -110,6 +121,7 @@ class Scanfolding extends mcli.CommandLine
 	{
 		if (FileSystem.exists(dir))
 		{
+            return;
 			throw 'Output dir "$dir" already exists';
 		}
         else
@@ -123,14 +135,13 @@ class Scanfolding extends mcli.CommandLine
 		var currentdir = root + DIR_SEP + dir;
         var dirs = FileSystem.readDirectory(currentdir);
         
-        //dirs.sort( function(f1, f2) return FileSystem.stat(currentdir + DIR_SEP + f1).size 
-                                         //- FileSystem.stat(currentdir + DIR_SEP + f2).size );
+        dirs.sort( function(f1, f2) return FileSystem.stat(currentdir + DIR_SEP + f1).size 
+                                         - FileSystem.stat(currentdir + DIR_SEP + f2).size );
 		
         for ( d in dirs)
 		{
             
 			var nextFile = currentdir + DIR_SEP + d;
-			trace(nextFile);
 			if (FileSystem.isDirectory(nextFile))
 			{
 				mkDir(dest + DIR_SEP +  dir + DIR_SEP + d);
@@ -158,6 +169,6 @@ class Main
 {
 	static function main() 
 	{
-        new mcli.Dispatch(Sys.args() ).dispatch(new Scanfolding());
+        new mcli.Dispatch(Sys.args() ).dispatch(new Scaffolding());
 	}
 }
