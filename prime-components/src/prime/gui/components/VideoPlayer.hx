@@ -29,6 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.components;
+#if prime_media
  import prime.media.VideoStream;
  import prime.fsm.states.MediaStates;
  import prime.bindable.Bindable;
@@ -351,3 +352,4 @@ class VideoControlBar extends UIContainer
 	//	else			layoutContainer.children.add( child.layout, pos );
 	}
 }
+#end

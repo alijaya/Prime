@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "url": "http://prime.vc/",
   "dependencies": {
-  	"prime-core"       :"",
+	"prime-core"       :"",
 	"prime-signals"    :"",
 	"prime-bindable"   :"",
 	"prime-mvc"        :"",

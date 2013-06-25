@@ -2,7 +2,11 @@
 -cp ./test
 
 -lib feffects
+
 -D prime_net
+-D prime_display
+-D prime_layout
+-D prime_css
 
 -cp ../libs/apparat
 -cp ../prime-components/src

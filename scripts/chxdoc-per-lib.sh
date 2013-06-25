@@ -15,7 +15,8 @@ for lib in prime*; do
     	"--title=$lib API docs" "--subtitle=http://prime.vc"                                           \
     	-o docs/output/api/$lib                                                                        \
     	--templatesDir=./docs/theme/ --template prime-chxdoc                                           \
-    	--deny flash.* --deny js.* --deny cpp.* --deny cs.* --deny java.* --deny php.* --deny mcover.* \
+    	--deny flash.* --deny js.* --deny cpp.* --deny cs.* --deny java.* --deny php.*                 \
+    	--deny Main --deny mcli.* --deny mcover.* \
     	$ARGS;
   fi;
 done;

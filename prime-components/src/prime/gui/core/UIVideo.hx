@@ -29,6 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.core;
+#if prime_media
 #if (prime_css && (flash9 || nme))
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
@@ -351,3 +352,4 @@ class UIVideo extends Video implements IUIElement
 	private function createBehaviours ()	: Void		{}
 #if debug override public function toString () return id.value; #end
 }
+#end

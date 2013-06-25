@@ -1,4 +1,4 @@
 -cp src
 -lib mcli
--neko src/run.n
+-neko src/run.n # Easier for prime devevelopment and packaging
 -main PrimeCSS

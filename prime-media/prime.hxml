@@ -6,7 +6,6 @@
 -cp ../prime-core/src
 -cp ../prime-signals/src
 -cp ../prime-bindable/src
--cp ../prime-display/src
 -cp ../prime-fsm/src
 
 -cp ../src
