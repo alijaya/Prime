@@ -1,0 +1,7 @@
+-swf test.swf
+-cp src
+-lib prime-css
+-main Main
+-cp styles
+--macro PrimeCSS.buildstyles()
+
