@@ -95,7 +95,7 @@ class PrimeCSS #if !macro extends CommandLine #end
         parserSources.push(primeCSSPath + 'prime//tools//CSSParser.hx');
         
         var parserBin = primeCSSPath + 'parser.js';
-        var buildArgs = 'haxe $buildParser -main prime.tools.CSSParserMain -js $parserBin';
+        var buildArgs = 'haxe "$buildParser" -main prime.tools.CSSParserMain -js "$parserBin"';
         
         if ( compileParser || !FileSystem.exists(parserBin) || !genedFileNewerThan(parserBin, parserSources))
         {
