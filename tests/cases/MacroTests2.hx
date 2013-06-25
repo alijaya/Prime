@@ -33,7 +33,7 @@ class Test1 {}
 
 class MacroUtils
 {
-	@:macro public static function addConstructor () : Array<Field>
+	macro public static function addConstructor () : Array<Field>
 	{
 		var userFields		= Context.getBuildFields();
 		var local			= Context.getLocalClass().get();

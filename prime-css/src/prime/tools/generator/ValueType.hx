@@ -51,6 +51,7 @@ enum ValueType
 	tCallStatic	(className:String, method:String, params:Array<ValueType>);
 	tCallMethod	(on:ValueType, method:String, params:Array<ValueType>);
 	tSetProperty(on:ValueType, prop:String, value:ValueType);
+	tMapLiteral (keys:Array<ValueType>, values:Array<ValueType>);
 }
 
 

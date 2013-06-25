@@ -31,7 +31,7 @@ package prime.bindable.collections.iterators;
 
 
 /**
- * Iterate object for the DoubleFastList implementation
+ * Iterate object for the DoubleGenericStack implementation
  * 
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers

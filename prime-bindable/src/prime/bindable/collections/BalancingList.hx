@@ -33,7 +33,7 @@ package prime.bindable.collections;
  * @creation-date	Jul 1, 2010
  * @author			Ruben Weijers
  */
-#if flash9 @:generic #end
+//#if flash9 @:generic #end
 class BalancingList <T> extends SimpleList <T>
 {
 	public var nextList : BalancingList<T>;

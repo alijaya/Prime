@@ -83,7 +83,7 @@ class AnchorScaleEffectInstance extends EffectInstance < IDisplayObject, AnchorS
 	override public function setValues (v:EffectProperties) {}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	override public function play ( withEffect:Bool = true, directly:Bool = false ) : Void
 	{
 		var p = anchorPoint;
@@ -107,11 +107,10 @@ class AnchorScaleEffectInstance extends EffectInstance < IDisplayObject, AnchorS
 			case BottomCenter:	p.x = t.width *.5;		p.y = t.height;
 			
 			case Custom( cp ):	p.x = cp.x;				p.y = cp.y;
-			default:			p.x = 0;				p.y = 0;
 		}
-		trace("startValue: "+ startValue +", anchorPoint " + p.x + ", " + p.y+"; scale "+curScale);
 		target.scaleX = target.scaleY = curScale;
 		super.play( withEffect, directly );
+	//	trace("scale: "+ startValue + " -> " + endValue + ", anchorPoint " + p.x + ", " + p.y+"; scale "+curScale+"; pos: " + target.x+", "+target.y+"; size: "+t.width+", "+t.height+"; "+target);
 	}
 #end
 	
@@ -122,14 +121,14 @@ class AnchorScaleEffectInstance extends EffectInstance < IDisplayObject, AnchorS
 			posBeforeTween = new Point( target.x, target.y );
 		
 		startValue = effect.startValue.isSet() ? effect.startValue : target.scaleX;
-		endValue =   effect.endValue.isSet() ? effect.endValue : target.scaleX * 2;
+		endValue   = effect.endValue.isSet() ? effect.endValue : target.scaleX * 2;
 		target.visible = true;
 	}
 	
 	
 	override private function tweenUpdater ( tweenPos:Float )
 	{
-#if flash9
+#if (flash9 || nme)
 		//change scale percentage
 		var curScale	= (endValue * tweenPos ) + ( startValue * (1 - tweenPos));
 		target.scaleX	= target.scaleY = curScale;
@@ -143,7 +142,7 @@ class AnchorScaleEffectInstance extends EffectInstance < IDisplayObject, AnchorS
 	
 	override private function calculateTweenStartPos () : Float
 	{
-#if flash9
+#if (flash9 || nme)
 		return (target.scaleX - startValue) / (endValue - startValue);
 #else
 		return 1;

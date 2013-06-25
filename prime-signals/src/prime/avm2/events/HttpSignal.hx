@@ -27,12 +27,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.HTTPStatusEvent;
  import prime.signals.IWireWatcher;
  import prime.signals.Signal1;
  import prime.signals.Wire;
- import prime.core.ListNode;
 
 
 private typedef Handler = Int -> Void;
@@ -44,7 +44,7 @@ private typedef Handler = Int -> Void;
  * @author Ruben Weijers
  * @creation-date Mar 24, 2011
  */
-class HttpSignal extends Signal1<Int>, implements IWireWatcher <Handler> 
+class HttpSignal extends Signal1<Int> implements IWireWatcher <Handler> 
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;
@@ -59,7 +59,7 @@ class HttpSignal extends Signal1<Int>, implements IWireWatcher <Handler>
 
 	public function wireEnabled (wire:Wire<Handler>) : Void {
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 
@@ -73,3 +73,4 @@ class HttpSignal extends Signal1<Int>, implements IWireWatcher <Handler>
 		send(e.status);
 	}
 }
+#end

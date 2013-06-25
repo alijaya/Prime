@@ -44,23 +44,21 @@ package prime.gui.effects.effectInstances;
  * @creation-date Oct 01, 2010
  */
 class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect> 
-				extends prime.core.ListNode < EffectInstance < TargetType, PropertiesType > >
-			,	implements IEffectInstance < TargetType, PropertiesType > 
+				implements IEffectInstance<TargetType, PropertiesType> 
 {
 	public var started		(default, null)				: Signal0;
 	public var ended		(default, null)				: Signal0;
 	public var state		(default, null)				: EffectStates;
 	
-	public var isReverted	(default, setIsReverted)	: Bool;
+	public var isReverted	(default, set_isReverted)	: Bool;
 	public var effect		(default, null)				: PropertiesType;
 	
 	private var target			: TargetType;
 	private var prevTween		: feffects.Tween;
 	private var delayTimer		: Timer;
 	
-	
-#if flash9
-	private var cachedFilters	: Array < flash.filters.BitmapFilter >;
+#if (flash9 || nme)
+	private var cachedFilters	: Array<flash.filters.BitmapFilter>;
 #end
 	
 	
@@ -178,7 +176,9 @@ class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect>
 	//		tweenUpdater( startPos );	<-- done within the effect instance implementation 'initStartValues'
 		
 		state = EffectStates.playing;
-		
+#if (debug && flash9)
+		if (frozen)	return;
+#end
 		if (startPos == endPos || calcStartPos == -1)
 		{
 			onTweenReady();
@@ -189,7 +189,7 @@ class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect>
 			var valDiff:Float			= startPos > endPos ? startPos - endPos : endPos - startPos;
 			var calcDuration:Int		= ( effect.duration * valDiff ).roundFloat();
 #if (debug && flash9)
-			if (slowMotion)			calcDuration *= 10;
+			if (slowMotion)			calcDuration *= 20;
 #end
 			prevTween = new feffects.Tween( startPos, endPos, calcDuration, effect.easing );
 		//	prevTween.setTweenHandlers( tweenUpdater, onTweenReady );	<-- feffects 1.2.0
@@ -221,12 +221,12 @@ class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect>
 	
 	private inline function hideFilters ()
 	{
-#if flash9
+#if (flash9 || nme)
 		if (effect.autoHideFilters && target != null && target.is(IDisplayObject))
 		{
 			var d = target.as(IDisplayObject);
 			if (d.filters != null) {
-				cachedFilters	= d.filters;
+				cachedFilters	= cast d.filters;
 				d.filters		= null;
 			}
 		}
@@ -236,11 +236,11 @@ class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect>
 	
 	private inline function applyFilters ()
 	{
-#if flash9
+#if (flash9 || nme)
 		if (effect.autoHideFilters && target != null && target.is(IDisplayObject) && cachedFilters != null)
 		{
 			var d = target.as(IDisplayObject);
-			d.filters		= cachedFilters;
+			d.filters		= cast cachedFilters;
 			cachedFilters	= null;
 		}
 #end
@@ -279,7 +279,7 @@ class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect>
 	public #if !noinline inline #end function isWaiting () : Bool	{ return delayTimer != null; }
 
 	
-	private function setIsReverted (v:Bool)
+	private function set_isReverted (v:Bool)
 	{
 		return isReverted = v;
 	}
@@ -287,13 +287,18 @@ class EffectInstance<TargetType, PropertiesType:prime.gui.effects.IEffect>
 	
 #if (debug && flash9)
 	@:keep static public function __init__ () {
-		flash.Lib.current.addEventListener(flash.events.KeyboardEvent.KEY_DOWN, 
-			function(e) { if (e.keyCode == flash.ui.Keyboard.SHIFT) { slowMotion = true; trace("shiftDown"); } }
-		);
-		flash.Lib.current.addEventListener(flash.events.KeyboardEvent.KEY_UP, 
-			function(e) { if (e.keyCode == flash.ui.Keyboard.SHIFT) { slowMotion = false; trace("shiftUp"); } }
-		);
+		flash.Lib.current.stage.addEventListener(flash.events.KeyboardEvent.KEY_DOWN, 
+			function(e) { switch (e.keyCode) {
+				case flash.ui.Keyboard.SHIFT: 	slowMotion = true;
+				case flash.ui.Keyboard.TAB: 	frozen = true;
+			}});
+		flash.Lib.current.stage.addEventListener(flash.events.KeyboardEvent.KEY_UP, 
+			function(e) { switch (e.keyCode) {
+				case flash.ui.Keyboard.SHIFT: 	slowMotion = false;
+				case flash.ui.Keyboard.TAB: 	frozen = false;
+			}});
 	}
 	static public var slowMotion = false;
+	static public var frozen = false;
 #end
 }

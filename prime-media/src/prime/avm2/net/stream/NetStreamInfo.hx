@@ -42,7 +42,7 @@ private typedef Code	= NetStreamInfoCode;
 class NetStreamInfo
 {
 	public var level	(default, null) : NetStreamInfoLevel;
-	public var code		(getCode, null) : NetStreamInfoCode;
+	public var code		(get_code, null) : NetStreamInfoCode;
 	private var flashObj				: Dynamic;
 	
 	
@@ -55,16 +55,15 @@ class NetStreamInfo
 		 	case "status":	Level.status;
 			case "error":	Level.error;
 			case "warning":	Level.warning;
-#if debug
-			default: throw "unkown level '"+flashObj.level+"'";
-#end
+
+			default: throw "unknown level '"+flashObj.level+"'";
 		}
 		
 		this.flashObj = flashObj;
 	}
 	
 	
-	private function getCode ()
+	private function get_code ()
 	{
 		if (code == null)
 		{
@@ -124,9 +123,8 @@ class NetStreamInfo
 				case "NetStream.Connect.Closed":				Code.streamConnectionClosed;
 				case "NetStream.Connect.Success":				Code.streamConnectionSuccess;
 				case "SharedObject.Flush.Success":				Code.sharedObjectFlushed;
-#if debug				
-				default: throw "Unkown code '"+flashObj.code+"'";
-#end
+
+				default: throw "Unknown code '"+flashObj.code+"'";
 			}
 		}
 		return code;

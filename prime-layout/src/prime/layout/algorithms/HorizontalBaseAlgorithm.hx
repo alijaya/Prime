@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout.algorithms;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.space.Horizontal;
  import prime.core.geom.space.Vertical;
  import prime.layout.algorithms.LayoutAlgorithmBase;
@@ -50,7 +47,7 @@ package prime.layout.algorithms;
  */
 class HorizontalBaseAlgorithm extends LayoutAlgorithmBase
 {
-	public var direction			(default, setDirection)	: Horizontal;
+	public var direction			(default, set_direction): Horizontal;
 	
 	/**
 	 * Property indicating if and how the children of the group should be 
@@ -60,7 +57,7 @@ class HorizontalBaseAlgorithm extends LayoutAlgorithmBase
 	 * 
 	 * @default null
 	 */
-	public var vertical				(default, setVertical)	: Vertical;
+	public var vertical				(default, set_vertical)	: Vertical;
 	
 	
 	public function new ( ?direction:Horizontal, ?vertical:Vertical = null )
@@ -81,7 +78,7 @@ class HorizontalBaseAlgorithm extends LayoutAlgorithmBase
 	 * on the given direction. After that it will dispatch a 'directionChanged'
 	 * signal.
 	 */
-	private inline function setDirection (v:Horizontal) : Horizontal
+	private inline function set_direction (v:Horizontal) : Horizontal
 	{
 		if (v != direction) {
 			direction = v;
@@ -91,7 +88,7 @@ class HorizontalBaseAlgorithm extends LayoutAlgorithmBase
 	}
 
 
-	private inline function setVertical (v:Vertical) : Vertical
+	private inline function set_vertical (v:Vertical) : Vertical
 	{
 		if (v != vertical) {
 			vertical = v;
@@ -234,7 +231,7 @@ class HorizontalBaseAlgorithm extends LayoutAlgorithmBase
 #end
 
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ direction, vertical ] );
 	}

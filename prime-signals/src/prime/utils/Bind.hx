@@ -33,48 +33,41 @@ package prime.utils;
  import prime.signals.Wire;
 
 
-extern class RedispatchObserveAny {
-	// TODO: Check if we should optimize this case by changing handler.send to null, and adding another flag (SEND_VOID_SIGNAL) to Wire.
-	static inline public function on(handler:Sender<Void->Void>, dispatcher:Observable, ?owner:Dynamic) : Wire<Dynamic> {
-		return dispatcher.observe(owner == null? handler : owner, handler.send);
-	}
-}
-
 extern class RedispatchAny {
 	// TODO: Check if we should optimize this case by changing handler.send to null, and adding another flag (SEND_TO_SIGNAL) to Wire.
-	static inline public function on<Sig>(handler:Sender<Sig>, dispatcher:Notifier<Sig>, ?owner:Dynamic) : Wire<Sig> {
-		return dispatcher.bind(owner == null? handler : owner, handler.send);
-	}
+	static inline public function on<Sig>(handler:Sender<Sig>, dispatcher:Notifier<Sig>, ?owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<Sig>
+		return dispatcher.bind(owner == null? handler : owner, handler.send #if debug, pos #end);
+}
+
+extern class RedispatchObserveAny {
+	// TODO: Check if we should optimize this case by changing handler.send to null, and adding another flag (SEND_VOID_SIGNAL) to Wire.
+	static inline public function on(handler:Sender<Void->Void>, dispatcher:Observable, ?owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<Dynamic>
+		return dispatcher.observe(owner == null? handler : owner, handler.send #if debug, pos #end);
 }
 
 extern class ObserveAny {
-	static inline public function on<R>(handler:Void->R, dispatcher:Observable, owner:Dynamic) : Wire<Dynamic> {
-		return dispatcher.observe(owner, untyped handler);
-	}
+	static inline public function on<R>(handler:Void->R, dispatcher:Observable, owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<Dynamic>
+		return dispatcher.observe(owner, untyped handler #if debug, pos #end);
 }
 
 extern class Bind1 {
-	static inline public function on<A,R>(handler:A->R, dispatcher:Notifier<A->Void>, owner:Dynamic) : Wire<A->Void> {
-		return dispatcher.bind(owner, untyped handler);
-	}
+	static inline public function on<A,R>(handler:A->R, dispatcher:Notifier<A->Void>, owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<A->Void>
+		return dispatcher.bind(owner, untyped handler #if debug, pos #end);
 }
 
 extern class Bind2 {
-	static inline public function on<A,B,R>(handler:A->B->R, dispatcher:Notifier<A->B->Void>, owner:Dynamic) : Wire<A->B->Void> {
-		return dispatcher.bind(owner, untyped handler);
-	}
+	static inline public function on<A,B,R>(handler:A->B->R, dispatcher:Notifier<A->B->Void>, owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<A->B->Void>
+		return dispatcher.bind(owner, untyped handler #if debug, pos #end);
 }
 
 extern class Bind3 {
-	static inline public function on<A,B,C,R>(handler:A->B->C->R, dispatcher:Notifier<A->B->C->Void>, owner:Dynamic) : Wire<A->B->C->Void> {
-		return dispatcher.bind(owner, untyped handler);
-	}
+	static inline public function on<A,B,C,R>(handler:A->B->C->R, dispatcher:Notifier<A->B->C->Void>, owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<A->B->C->Void>
+		return dispatcher.bind(owner, untyped handler #if debug, pos #end);
 }
 
 extern class Bind4 {
-	static inline public function on<A,B,C,D,R>(handler:A->B->C->D->R, dispatcher:Notifier<A->B->C->D->Void>, owner:Dynamic) : Wire<A->B->C->D->Void> {
-		return dispatcher.bind(owner, untyped handler);
-	}
+	static inline public function on<A,B,C,D,R>(handler:A->B->C->D->R, dispatcher:Notifier<A->B->C->D->Void>, owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<A->B->C->D->Void>
+		return dispatcher.bind(owner, untyped handler #if debug, pos #end);
 }
 
 
@@ -85,43 +78,36 @@ extern class Bind4 {
 
 
 extern class RedispatchObserveAnyOnce {
-	static inline public function onceOn<Sig>(handler:Sender<Void->Void>, dispatcher:Observable, ?owner:Dynamic) : Wire<Dynamic> {
-		return dispatcher.observeOnce(owner == null? handler : owner, handler.send);
-	}
+	static inline public function onceOn<Sig>(handler:Sender<Void->Void>, dispatcher:Observable, ?owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<Dynamic>
+		return dispatcher.observeOnce(owner == null? handler : owner, handler.send #if debug, pos #end);
 }
 
 extern class RedispatchAnyOnce {
-	static inline public function onceOn<Sig>(handler:Sender<Sig>, dispatcher:Notifier<Sig>, ?owner:Dynamic) : Wire<Sig> {
-		return dispatcher.bindOnce(owner == null? handler : owner, handler.send);
-	}
+	static inline public function onceOn<Sig>(handler:Sender<Sig>, dispatcher:Notifier<Sig>, ?owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<Sig>
+		return dispatcher.bindOnce(owner == null? handler : owner, handler.send #if debug, pos #end);
 }
 
 extern class ObserveAnyOnce {
-	static inline public function onceOn<R>(handler:Void->R, dispatcher:Observable, owner:Dynamic) : Wire<Dynamic> {
-		return dispatcher.observeOnce(owner, untyped handler);
-	}
+	static inline public function onceOn<R>(handler:Void->R, dispatcher:Observable, owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<Dynamic>
+		return dispatcher.observeOnce(owner, untyped handler #if debug, pos #end);
 }
 
 extern class Bind1Once {
-	static inline public function onceOn<A,R>(handler:A->R, dispatcher:Notifier<A->Void>, owner:Dynamic) : Wire<A->Void> {
-		return dispatcher.bindOnce(owner, untyped handler);
-	}
+	static inline public function onceOn<A,R>(handler:A->R, dispatcher:Notifier<A->Void>, owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<A->Void>
+		return dispatcher.bindOnce(owner, untyped handler #if debug, pos #end);
 }
 
 extern class Bind2Once {
-	static inline public function onceOn<A,B,R>(handler:A->B->R, dispatcher:Notifier<A->B->Void>, owner:Dynamic) : Wire<A->B->Void> {
-		return dispatcher.bindOnce(owner, untyped handler);
-	}
+	static inline public function onceOn<A,B,R>(handler:A->B->R, dispatcher:Notifier<A->B->Void>, owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<A->B->Void>
+		return dispatcher.bindOnce(owner, untyped handler #if debug, pos #end);
 }
 
 extern class Bind3Once {
-	static inline public function onceOn<A,B,C,R>(handler:A->B->C->R, dispatcher:Notifier<A->B->C->Void>, owner:Dynamic) : Wire<A->B->C->Void> {
-		return dispatcher.bindOnce(owner, untyped handler);
-	}
+	static inline public function onceOn<A,B,C,R>(handler:A->B->C->R, dispatcher:Notifier<A->B->C->Void>, owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<A->B->C->Void>
+		return dispatcher.bindOnce(owner, untyped handler #if debug, pos #end);
 }
 
 extern class Bind4Once {
-	static inline public function onceOn<A,B,C,D,R>(handler:A->B->C->D->R, dispatcher:Notifier<A->B->C->D->Void>, owner:Dynamic) : Wire<A->B->C->D->Void> {
-		return dispatcher.bindOnce(owner, untyped handler);
-	}
+	static inline public function onceOn<A,B,C,D,R>(handler:A->B->C->D->R, dispatcher:Notifier<A->B->C->D->Void>, owner:Dynamic #if debug, ?pos : haxe.PosInfos #end) : Wire<A->B->C->D->Void>
+		return dispatcher.bindOnce(owner, untyped handler #if debug, pos #end);
 }

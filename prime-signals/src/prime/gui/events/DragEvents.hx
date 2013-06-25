@@ -29,8 +29,11 @@
 package prime.gui.events;
  import prime.signals.Signals;
  import prime.signals.Signal1;
+#if prime_components
  import prime.gui.behaviours.drag.DragInfo;
-
+#else
+private typedef DragInfo = Dynamic; //TODO
+#end
 
 /**
  * Event-signals which are fired when an object is being dragged and dropped.

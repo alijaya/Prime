@@ -37,13 +37,13 @@ package prime.core.geom;
  */
 class Box
 				implements IBox
-#if CSSParser,	implements prime.tools.generator.ICSSFormattable
-			,	implements prime.tools.generator.ICodeFormattable		#end
+#if CSSParser	implements prime.tools.generator.ICSSFormattable
+				implements prime.tools.generator.ICodeFormattable		#end
 {
-	@:isVar public var left		(getLeft, setLeft)		: Int;
-	@:isVar public var right	(getRight, setRight)	: Int;
-	@:isVar public var top		(getTop, setTop)		: Int;
-	@:isVar public var bottom	(getBottom, setBottom)	: Int;
+	@:isVar public var left		(get_left, set_left)	: Int;
+	@:isVar public var right	(get_right, set_right)	: Int;
+	@:isVar public var top		(get_top, set_top)		: Int;
+	@:isVar public var bottom	(get_bottom, set_bottom): Int;
 	
 #if CSSParser
 	public var _oid		(default, null)			: Int;
@@ -64,17 +64,17 @@ class Box
 	
 	public function clone () : IBox			{ return new Box( top, right, bottom, left ); }
 	
-	private inline function getLeft ()		{ return left; }
-	private inline function getRight ()		{ return right; }
-	private inline function getTop ()		{ return top; }
-	private inline function getBottom ()	{ return bottom; }
-	private inline function setLeft (v)		{ return this.left = v; }
-	private inline function setRight (v)	{ return this.right = v; }
-	private inline function setTop (v)		{ return this.top = v; }
-	private inline function setBottom (v)	{ return this.bottom = v; }
+	private inline function get_left ()		{ return left; }
+	private inline function get_right ()		{ return right; }
+	private inline function get_top ()		{ return top; }
+	private inline function get_bottom ()	{ return bottom; }
+	private inline function set_left (v)		{ return this.left = v; }
+	private inline function set_right (v)	{ return this.right = v; }
+	private inline function set_top (v)		{ return this.top = v; }
+	private inline function set_bottom (v)	{ return this.bottom = v; }
 	
 	
-#if (debug && flash9)
+#if (debug && (flash9 || nme))
 	public function toString () { return "Box ( "+top+"px "+right+"px "+bottom+"px "+left+"px )"; }
 #elseif CSSParser
 	public function toString () { return toCSS(); }

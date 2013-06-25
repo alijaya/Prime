@@ -31,7 +31,7 @@ package prime.bindable;
  import prime.bindable.IBindableReadonly;
  import prime.signals.Signal2;
  import prime.core.traits.IClonable;
- import haxe.FastList;
+ import haxe.ds.GenericStack;
   using prime.utils.IfUtil;
 
 
@@ -72,9 +72,9 @@ package prime.bindable;
  * @creation-date	Jun 18, 2010
  * @author			Ruben Weijers, Danny Wilson
  */
-class Bindable<T> implements IBindable<T>, implements IClonable<Bindable<T>>
+class Bindable<T> implements IBindable<T> implements IClonable<Bindable<T>>
 {
-	public var value	(default, setValue)	: T;
+	public var value	(default, set_value) : T;
 	
 	/** 
 	 * Dispatched just before "value" is set to a new value.
@@ -85,11 +85,11 @@ class Bindable<T> implements IBindable<T>, implements IClonable<Bindable<T>>
 	/**
 	 * Keeps track of which Bindables update this.value
 	 */
-	private var boundTo : FastList<IBindableReadonly<T>>;
+	private var boundTo : GenericStack<IBindableReadonly<T>>;
 	/**
 	 * Keeps track of which Bindables should be updated when this.value changes.
 	 */
-	private var writeTo : FastList<IBindable<T>>;
+	private var writeTo : GenericStack<IBindable<T>>;
 	
 	
 	public function new (?val:Null<T>)
@@ -162,7 +162,7 @@ class Bindable<T> implements IBindable<T>, implements IClonable<Bindable<T>>
 #end
 	
 	
-	private function setValue (newValue:T) : T
+	private function set_value (newValue:T) : T
 	{
 		if (value != newValue)	//FIXME (Ruben @ Mar 11, 2011) Will also evaluate true with NaN == NaN and (Null<Bool> = null) == false 
 		{
@@ -197,13 +197,13 @@ class Bindable<T> implements IBindable<T>, implements IClonable<Bindable<T>>
 		
 		var b = this.boundTo;
 		if (!b.notNull())
-			b = this.boundTo = new FastList<IBindableReadonly<T>>();
+			b = this.boundTo = new GenericStack<IBindableReadonly<T>>();
 		
 		addToBoundList(b, otherBindable);
 	}
 	
 	
-	private inline function addToBoundList<T>(list:FastList<T>, otherBindable:T)
+	private inline function addToBoundList<T>(list:GenericStack<T>, otherBindable:T)
 	{
 		Assert.that(list != null);
 		
@@ -231,7 +231,7 @@ class Bindable<T> implements IBindable<T>, implements IClonable<Bindable<T>>
 		
 		var w = this.writeTo;
 		if (!w.notNull())
-			w = this.writeTo = new FastList<IBindable<T>>();
+			w = this.writeTo = new GenericStack<IBindable<T>>();
 		
 		addToBoundList(w, otherBindable);
 	}
@@ -304,9 +304,9 @@ class Bindable<T> implements IBindable<T>, implements IClonable<Bindable<T>>
 class BindableTools
 {
 	/**
-	 * Propagate a value to Bindables in the given FastList.
+	 * Propagate a value to Bindables in the given GenericStack.
 	 */
-	public static #if !noinline inline #end function dispatchValueToBound<T> (list:FastList<IBindable<T>>, newValue:T)
+	public static inline function dispatchValueToBound<T> (list:GenericStack<IBindable<T>>, newValue:T)
 	{
 		if (list != null)
 		{

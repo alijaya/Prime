@@ -27,13 +27,13 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.NetStatusEvent;
  import prime.avm2.net.stream.NetStreamInfo;
  import prime.signals.IWireWatcher;
  import prime.signals.Signal1;
  import prime.signals.Wire;
- import prime.core.ListNode;
 
 
 private typedef Handler = NetStreamInfo -> Void;
@@ -43,7 +43,7 @@ private typedef Handler = NetStreamInfo -> Void;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-class NetStatusSignal extends Signal1<NetStreamInfo>, implements IWireWatcher <Handler> 
+class NetStatusSignal extends Signal1<NetStreamInfo> implements IWireWatcher <Handler> 
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;
@@ -60,7 +60,7 @@ class NetStatusSignal extends Signal1<NetStreamInfo>, implements IWireWatcher <H
 	public function wireEnabled (wire:Wire<Handler>) : Void
 	{
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 	
@@ -77,3 +77,4 @@ class NetStatusSignal extends Signal1<NetStreamInfo>, implements IWireWatcher <H
 		send(new NetStreamInfo( e.info ));
 	}
 }
+#end

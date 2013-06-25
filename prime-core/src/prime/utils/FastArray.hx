@@ -48,7 +48,8 @@ typedef FastArray<T> =
  */
 #if flash10 extern #end class FastArrayUtil
 {
-	static public inline function create<T>(?size:Int = 0, ?fixed:Bool = false) : FastArray<T>
+	#if (flash10 && no_inline) "[!] ERROR Flash 10 Vectors require inlining!" #end
+	static public inline function create<T>(?size:UInt = 0, ?fixed:Bool = false) : FastArray<T>
 	{
 #if flash10
 		return new flash.Vector<T>(size, fixed);
@@ -56,7 +57,7 @@ typedef FastArray<T> =
 		return untyped __new__(Array, size);
 #elseif neko
 		return untyped Array.new1(neko.NativeArray.alloc(size), size);
-#elseif cpp
+#elseif (cpp || php || java || cs)
 		return new Array<T>();
 #elseif js
 		// if size is the constant value 0, only [] will be inlined at the call site.
@@ -64,7 +65,7 @@ typedef FastArray<T> =
 #end
 	}
 	
-	static public inline function toVector<T> ( array:Array<T> ) : FastArray<T> return ofArray(array) 		//alias for ofArray
+	static public inline function toVector<T> ( array:Array<T> ) : FastArray<T> return ofArray(array); 		//alias for ofArray
 	static public inline function ofArray<T>  ( array:Array<T> ) : FastArray<T>
 	{
 	#if flash10
@@ -118,7 +119,7 @@ typedef FastArray<T> =
 
 
 	static public #if flash10 inline #end function validateNewIndex<T>( list:FastArray<T>, pos:Int ) : Int
-		return pos < 0 || pos > list.length.int() ? list.length : pos
+		return pos < 0 || pos > list.length.int() ? list.length : pos;
 
 
 	static public inline function add<T>( list:FastArray<T>, item:T ) : T
@@ -247,10 +248,10 @@ typedef FastArray<T> =
 	 */
 	static public inline function duplicate<T> ( arr:FastArray<T> ) : FastArray<T>
 	{
-		var n:FastArray<T> = FastArrayUtil.create();
 		var l = arr.length;
+		var n:FastArray<T> = FastArrayUtil.create(l);
 		for (i in 0...l)
-			n.push( DuplicateUtil.duplicateItem( arr[i] ) );
+			n[i] = DuplicateUtil.duplicateItem( arr[i] );
 		
 		return n;
 	}

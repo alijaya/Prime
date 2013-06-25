@@ -54,7 +54,7 @@ package prime.types;
 class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 {
 #if debug
-	static function __init__()
+	static var unittest = (function()
 	{
 		var u = new URI();
 		var mailURI = "mailto:mediahuis@tntpost.nl?subject=Een onvergetelijke kerst";
@@ -94,27 +94,28 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 		Assert.that(u.hasScheme( URIScheme.Scheme('asset') ));
 	//	Assert.that(u.scheme == URIScheme.Scheme('asset'), Std.string(u.scheme));
 		Assert.isEqual(u.host, "aap");
-	}
+		return 1;
+	})();
 #end
 	
 	
-	public var string (getString, null) : String;
+	public var string (get_string, null) : String;
 	
-	public var scheme	(default, setScheme)	: URIScheme;
-	public var userinfo	(default, setUserinfo)	: String;
-	public var host		(default, setHost)		: String;
-	public var port		(default, setPort)		: Int;
-	public var path		(default, setPath)		: String;
-	public var query	(default, setQuery)		: String;
-	public var fragment	(default, setFragment)	: String;
+	public var scheme	(default, set_scheme)	: URIScheme;
+	public var userinfo	(default, set_userinfo)	: String;
+	public var host		(default, set_host)		: String;
+	public var port		(default, set_port)		: Int;
+	public var path		(default, set_path)		: String;
+	public var query	(default, set_query)	: String;
+	public var fragment	(default, set_fragment)	: String;
 	
-	private inline function setScheme(v)	{ string = null; return scheme = v; }
-	private inline function setUserinfo(v)	{ string = null; return userinfo = v; }
-	private inline function setHost(v)		{ string = null; return host = v; }
-	private inline function setPort(v)		{ string = null; return port = v; }
-	private inline function setPath(v)		{ string = null; return path = v; }
-	private inline function setQuery(v)		{ string = null; return query = v; }
-	private inline function setFragment(v)	{ string = null; return fragment = v; }
+	private inline function set_scheme(v)	{ string = null; return scheme = v; }
+	private inline function set_userinfo(v)	{ string = null; return userinfo = v; }
+	private inline function set_host(v)		{ string = null; return host = v; }
+	private inline function set_port(v)		{ string = null; return port = v; }
+	private inline function set_path(v)		{ string = null; return path = v; }
+	private inline function set_query(v)	{ string = null; return query = v; }
+	private inline function set_fragment(v)	{ string = null; return fragment = v; }
 	
 	/** Returns true if this URI has a scheme and thus is a URL **/
 	public inline function isURL() : Bool			{ return scheme.notNull(); }
@@ -138,16 +139,16 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 	 	Returns an empty string if it has no dots in the path.
 	 	Returns empty string if the first char is a dot and there are no other dots (UNIX hidden file convention).
 	*/
-	public var fileExt	(getFileExt,setFileExt)	: String;
-		private inline function getFileExt()	: String	{ return path.getExtension().toLowerCase(); }
-		private inline function setFileExt(v)	: String	{ path.setExtension(v); return v; }
+	public var fileExt	(get_fileExt,set_fileExt)	: String;
+		private inline function get_fileExt()		: String	{ return path.getExtension().toLowerCase(); }
+		private inline function set_fileExt(v)		: String	{ path.setExtension(v); return v; }
 	
 	
-	public var isSet		(getIsSet, never) : Bool;
-		private function getIsSet() return
+	public var isSet		(get_isSet, never) : Bool;
+		private function get_isSet() return
 		 	(string.notNull() && string.length.not0()) ||
 		 	(  host.notNull() &&   host.length.not0()) ||
-		 	(  path.notNull() &&   path.length.not0())
+		 	(  path.notNull() &&   path.length.not0());
 	
 	
 #if CSSParser
@@ -173,8 +174,8 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 
 	private inline function reset ()
 	{
-		(untyped this).port = -1;
-		(untyped this).scheme = null; (untyped this).userinfo = (untyped this).host = (untyped this).path = (untyped this).query = (untyped this).fragment = this.string = null;
+		this.port = -1;
+		this.scheme = null; this.userinfo = this.host = this.path = this.query = this.fragment = this.string = null;
 	}
 
 	
@@ -190,7 +191,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 	}
 	
 	
-	private function getString()
+	private function get_string()
 	{
 		if (this.string.notNull())	return this.string;
 		if (isEmpty())				return null;
@@ -235,7 +236,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 		return string = s.toString();
 	}
 	
-#if flash9
+#if (flash9 || nme)
 	public function toRequest(method : prime.net.RequestMethod = null)
 	{
 		var r = new flash.net.URLRequest(this.toString());
@@ -258,15 +259,15 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 		
 		var scheme_pos = str.indexOf(':');
 		if (scheme_pos != -1)
-		{	
+		{
 			var has2slashes = str.charCodeAt(scheme_pos + 1) + str.charCodeAt(scheme_pos + 2) == '/'.code << 1;
 			var scheme_str = str.substr(0, scheme_pos);
 			
-			var us = (untyped this).scheme = Reflect.field(URIScheme, scheme_str);
+			var us = this.scheme = Reflect.field(URIScheme, scheme_str);
 			if (us == null)
 			{
 				if (has2slashes) {
-					(untyped this).scheme = URIScheme.Scheme(scheme_str);
+					this.scheme = URIScheme.Scheme(scheme_str);
 					pos = scheme_pos + 3;
 				}
 				else {
@@ -289,7 +290,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 		
 		var user_pos:Int  = str.indexOf('@', pos);
 		if (user_pos != -1) {
-			(untyped this).userinfo = str.substr(pos, user_pos - pos);
+			this.userinfo = str.substr(pos, user_pos - pos);
 			pos = user_pos + 1;
 		}
 		
@@ -313,8 +314,8 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 				}
 			}
 			
-			(untyped this).host = str.substr(pos, port_pos - pos);
-			(untyped this).port = Std.parseInt(str.substr(port_pos+1, port_end - port_pos));
+			this.host = str.substr(pos, port_pos - pos);
+			this.port = Std.parseInt(str.substr(port_pos+1, port_end - port_pos));
 			pos = port_end;
 		}
 		else if (scheme.notNull())
@@ -329,7 +330,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 				}
 			}
 			
-			(untyped this).host = str.substr(pos, host_end - pos);
+			this.host = str.substr(pos, host_end - pos);
 			pos = host_end;
 		}
 		
@@ -339,21 +340,21 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 			if (query_end == -1)
 				query_end = str.length;
 			
-			(untyped this).path		= str.substr(pos, query_pos - pos);
-			(untyped this).query	= str.substr(query_pos + 1, query_end - pos);
+			this.path		= str.substr(pos, query_pos - pos);
+			this.query	= str.substr(query_pos + 1, query_end - pos);
 		}
 		else if (frag_pos != -1)
 		{
-			(untyped this).path		= str.substr(pos, frag_pos - pos);
-			(untyped this).fragment	= str.substr(frag_pos + 1);
+			this.path		= str.substr(pos, frag_pos - pos);
+			this.fragment	= str.substr(frag_pos + 1);
 		}
 		else
-			(untyped this).path		= str.substr(pos);
+			this.path		= str.substr(pos);
 		
 		if (path == "")
-			(untyped this).path		= null;
+			this.path		= null;
 		
-		(untyped this).string		= str;
+		this.string		= str;
 
 		return this;
 	}
@@ -361,7 +362,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 
 #if CSSParser
 	public function cleanUp () : Void {}
-	public function toCode (code:prime.tools.generator.ICodeGenerator)	code.construct( this, [ getString() ] )
+	public function toCode (code:prime.tools.generator.ICodeGenerator)	code.construct( this, [ get_string() ] );
 #end
 }
 

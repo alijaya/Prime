@@ -46,7 +46,7 @@ package examples.layout;
 class LayoutExample3 extends UIWindow
 {
 	public static function main ()
-		Window.startup(function (stage) { return new LayoutExample3(stage); })
+		Window.startup(function (stage) { return new LayoutExample3(stage); });
 
 
 	override private function createChildren ()
@@ -58,7 +58,7 @@ class LayoutExample3 extends UIWindow
 	//	layoutContainer.algorithm = new prime.layout.algorithms.tile.SimpleTileAlgorithm(vertical);
 		layoutContainer.algorithm = new prime.layout.algorithms.tile.SimpleTileAlgorithm();
 	//	layoutContainer.algorithm = new prime.layout.algorithms.DynamicLayoutAlgorithm( function () { return new prime.layout.algorithms.circle.HorizontalCircleAlgorithm(); }, function () { return new prime.layout.algorithms.circle.VerticalCircleAlgorithm(); } );
-	//	layoutContainer.algorithm = new prime.layout.algorithms.DynamicLayoutAlgorithm( function () { return new prime.layout.algorithms.float.HorizontalFloatAlgorithm(); }, function () { return new prime.layout.algorithms.circle.VerticalCircleAlgorithm(); } );
+	//	layoutContainer.algorithm = new prime.layout.algorithms.DynamicLayoutAlgorithm( function () { return new prime.layout.algorithms.floating.HorizontalFloatAlgorithm(); }, function () { return new prime.layout.algorithms.circle.VerticalCircleAlgorithm(); } );
 
 		// create children
 		for (i in 0...20)	attach( new Box() );

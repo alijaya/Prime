@@ -1,8 +1,6 @@
 package prime.js.display;
-import prime.js.display.DisplayList;
-
-import js.Dom;
-import js.Lib;
+#if js
+ import prime.js.display.DisplayList;
 
 /**
  * @since	April 22, 2011
@@ -12,19 +10,19 @@ import js.Lib;
 class DOMElem
 {
 	public var children		(default, null):DisplayList;
-	public var className	(default, setClassName):String;
+	public var className	(default, set_className):String;
 	public var elem			(default, null):Dynamic;
-	public var height		(default, setHeight):Int;
-	public var id			(default, setId):String;
+	public var height		(default, set_height):Int;
+	public var id			(default, set_id):String;
 	public var matrix		(default, null):Dynamic;//WebKitCSSMatrix;
 	public var parent		:DOMElem;
-	public var scale		(default, setScale):Float;
-	public var style		(getStyle, null):Style;
+	public var scale		(default, set_scale):Float;
+	public var style		(get_style, null):Style;
 	public var type			(default, null):String;
-	public var visible		(default, setVisible):Bool;
-	public var width		(default, setWidth):Int;
-	public var x			(default, setX):Int;
-	public var y			(default, setY):Int;
+	public var visible		(default, set_visible):Bool;
+	public var width		(default, set_width):Int;
+	public var x			(default, set_x):Int;
+	public var y			(default, set_y):Int;
 	
 	public function new(type:String)
 	{
@@ -39,7 +37,7 @@ class DOMElem
 		(untyped this).scale = 1;
 	}
 	
-	private function setWidth(v:Int):Int
+	private function set_width(v:Int):Int
 	{
 		if (width != v)
 		{
@@ -49,7 +47,7 @@ class DOMElem
 		return width;
 	}
 	
-	private function setHeight(v:Int):Int
+	private function set_height(v:Int):Int
 	{
 		if (height != v)
 		{
@@ -59,7 +57,7 @@ class DOMElem
 		return height;
 	}
 	
-	inline private function setX(v:Int):Int
+	inline private function set_x(v:Int):Int
 	{
 		if (x != v)
 		{
@@ -69,7 +67,7 @@ class DOMElem
 		return x;
 	}
 	
-	inline private function setY(v:Int):Int
+	inline private function set_y(v:Int):Int
 	{
 		if (y != v)
 		{
@@ -86,7 +84,7 @@ class DOMElem
 		applyTransforms();
 	}
 	
-	inline private function setScale(v:Float):Float
+	inline private function set_scale(v:Float):Float
 	{
 		if (scale != v)
 		{
@@ -96,26 +94,26 @@ class DOMElem
 		return scale;
 	}
 	
-	inline private function setId(v:String):String
+	inline private function set_id(v:String):String
 	{
 		id = v;
 		elem.id = v;
 		return id;
 	}
 	
-	inline private function getStyle():Style
+	inline private function get_style():Style
 	{
 		return elem.style;
 	}
 	
-	inline private function setClassName(v:String):String
+	inline private function set_className(v:String):String
 	{
 		className = v;
 		elem.className = v;
 		return className;
 	}
 	
-	inline private function setVisible(v:Bool):Bool
+	inline private function set_visible(v:Bool):Bool
 	{
 		if (visible != v)
 		{
@@ -137,3 +135,4 @@ class DOMElem
 	*/
 	}
 }
+#end

@@ -98,7 +98,7 @@ class BaseMediaStream implements IMediaStream
      * To seek the in the stream, you should not change this property but use the "seek"
      * method.
      */
-    public var currentTime  (getCurrentTime, null)  : Bindable<Float>;
+    public var currentTime  (get_currentTime, null)  : Bindable<Float>;
     
             
     
@@ -195,7 +195,7 @@ class BaseMediaStream implements IMediaStream
     
     
     private inline function freezeState ()
-        state.current = MediaStates.frozen( state.current )
+        state.current = MediaStates.frozen( state.current );
     
     
     private inline function defrostState ()
@@ -208,13 +208,12 @@ class BaseMediaStream implements IMediaStream
 			case empty:
 			case error( str ):
 			case loading( origState ):
-			default:
         }
 
 
     public  function freeze ()          { Assert.abstractMethod(); }
     public  function defrost ()         { Assert.abstractMethod(); }
-    private function getCurrentTime()   { return currentTime; }
+    private function get_currentTime()  { return currentTime; }
     
     
     

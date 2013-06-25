@@ -34,8 +34,8 @@ package prime.gui.components;
  import prime.bindable.Bindable;
  import prime.gui.core.IUIContainer;
  import prime.gui.core.UIComponent;
- import prime.layout.algorithms.float.HorizontalFloatAlgorithm;
- import prime.layout.algorithms.float.VerticalFloatAlgorithm;
+ import prime.layout.algorithms.floating.HorizontalFloatAlgorithm;
+ import prime.layout.algorithms.floating.VerticalFloatAlgorithm;
  import prime.layout.LayoutContainer;
  import prime.layout.VirtualLayoutContainer;
  import prime.gui.traits.ISelectable;
@@ -64,7 +64,7 @@ class Form
     private static function createLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, row:LayoutContainer, labelStyleClass:String = null)
     {
         var label = createLabel(input, labelStr);
-        label.styleClasses.add(labelStyleClass);
+        #if prime_css label.styleClasses.add(labelStyleClass); #end
         row.dispose.on( input.state.disposed.entering, row );
         
         var added   = input.displayEvents.addedToStage.observe( form, null );

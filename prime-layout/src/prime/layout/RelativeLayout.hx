@@ -27,15 +27,7 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout;
-#if CSSParser
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICodeGenerator;
- import prime.tools.generator.ICSSFormattable;
- import prime.utils.ID;
-#end
  import prime.signals.Signal0;
- import prime.core.geom.IBox;
- import prime.core.traits.IDisposable;
  import prime.types.Number;
   using prime.utils.NumberUtil;
 
@@ -63,10 +55,10 @@ package prime.layout;
  * @author			Ruben Weijers
  */
 class RelativeLayout 
-				implements IBox
-			,	implements IDisposable	
-#if CSSParser,	implements ICSSFormattable
-			,	implements ICodeFormattable		#end
+				implements prime.core.geom.IBox
+				implements prime.core.traits.IDisposable	
+#if CSSParser	implements prime.tools.generator.ICSSFormattable
+				implements prime.tools.generator.ICodeFormattable		#end
 {
 	
 #if CSSParser
@@ -106,7 +98,7 @@ class RelativeLayout
 	 * 
 	 * @default		Number.INT_NOT_SET
 	 */
-	public var hCenter		(default, setHCenter)	: Int;
+	public var hCenter		(get_hCenter, set_hCenter)	: Int; var _hCenter : Int;
 	
 	/**
 	 * Defines at what vertical-location the center of the layoutclient 
@@ -120,7 +112,7 @@ class RelativeLayout
 	 * 
 	 * @default		Number.INT_NOT_SET
 	 */
-	public var vCenter		(default, setVCenter)	: Int;
+	public var vCenter		(get_vCenter, set_vCenter)	: Int; var _vCenter : Int;
 	
 	
 	
@@ -135,31 +127,31 @@ class RelativeLayout
 	 * 		client.relative.left = 10;	//left side of client will be 10px from the left side of the parent
 	 * @default		Number.INT_NOT_SET
 	 */
-	@:isVar public var left					(getLeft, setLeft)				: Int;
+	public var left   (get_left, set_left)     : Int; var _left : Int;
 	/**
 	 * Property defines the relative right position in relation with the parent.
 	 * @see			prime.layout.RelativeLayout#left
 	 * @default		Number.INT_NOT_SET
 	 */
-	@:isVar public var right				(getRight, setRight)			: Int;
+	public var right  (get_right, set_right)   : Int; var _right : Int;
 	/**
 	 * Property defines the relative top position in relation with the parent.
 	 * @see			prime.layout.RelativeLayout#left
 	 * @default		Number.INT_NOT_SET
 	 */
-	@:isVar public var top					(getTop, setTop)				: Int;
+	public var top    (get_top, set_top)       : Int; var _top : Int;
 	/**
 	 * Property defines the relative bottom position in relation with the parent.
 	 * @see			prime.layout.RelativeLayout#left
 	 * @default		Number.INT_NOT_SET
 	 */
-	@:isVar public var bottom				(getBottom, setBottom)			: Int;
+	public var bottom (get_bottom, set_bottom) : Int; var _bottom : Int;
 	
 	
 	public function new ( top:Int = Number.INT_NOT_SET, right:Int = Number.INT_NOT_SET, bottom:Int = Number.INT_NOT_SET, left:Int = Number.INT_NOT_SET, hCenter:Int = Number.INT_NOT_SET, vCenter:Int = Number.INT_NOT_SET )
 	{
 #if CSSParser
-		this._oid		= ID.getNext();
+		this._oid		= prime.utils.ID.getNext();
 #end
 		this.enabled	= true;
 		this.change		= new Signal0();
@@ -182,7 +174,7 @@ class RelativeLayout
 	}
 	
 	
-	public #if !noinline inline #end function clone () : IBox
+	public #if !noinline inline #end function clone () : prime.core.geom.IBox
 	{
 		return new RelativeLayout( top, right, bottom, left, hCenter, vCenter );
 	}
@@ -201,33 +193,35 @@ class RelativeLayout
 	//
 	
 	
-	private inline function getLeft ()		{ return left; }
-	private inline function getRight ()		{ return right; }
-	private inline function getTop ()		{ return top; }
-	private inline function getBottom ()	{ return bottom; }
+	private inline function get_hCenter () { return _hCenter; }
+	private inline function get_vCenter () { return _vCenter; }
+	private inline function get_left    () { return _left;    }
+	private inline function get_right   () { return _right;   }
+	private inline function get_top     () { return _top;     }
+	private inline function get_bottom  () { return _bottom;  }
 	
 	
 	
-	private function setHCenter (v:Int) {
+	private function set_hCenter (v:Int) {
 		//unset left and right
 		if (v.isSet())
-			left = right = Number.INT_NOT_SET;
+			_left = _right = Number.INT_NOT_SET;
 		
 		if (v != hCenter) {
-			hCenter = v;
+			_hCenter = v;
 			if (enabled)
 				change.send();
 		}
 		return v;
 	}
 	
-	private function setVCenter (v:Int) {
+	private function set_vCenter (v:Int) {
 		//unset top and bottom
 		if (v.isSet())
-			top = bottom = Number.INT_NOT_SET;
+			_top = _bottom = Number.INT_NOT_SET;
 		
 		if (v != vCenter) {
-			vCenter = v;
+			_vCenter = v;
 			if (enabled)
 				change.send();
 		}
@@ -236,48 +230,48 @@ class RelativeLayout
 	
 	
 	
-	private inline function setLeft (v:Int) {
+	private inline function set_left (v:Int) {
 		if (v.isSet())
 			hCenter = Number.INT_NOT_SET;
 		
 		if (v != left) {
-			left = v;
+			_left = v;
 			if (enabled)
 				change.send();
 		}
 		return v;
 	}
 	
-	private inline function setRight (v:Int) {
+	private inline function set_right (v:Int) {
 		if (v.isSet())
 			hCenter = Number.INT_NOT_SET;
 		
 		if (v != right) {
-			right = v;
+			_right = v;
 			if (enabled)
 				change.send();
 		}
 		return v;
 	}
 	
-	private inline function setTop (v:Int) {
+	private inline function set_top (v:Int) {
 		if (v.isSet())
 			vCenter = Number.INT_NOT_SET;
 		
 		if (v != top) {
-			top = v;
+			_top = v;
 			if (enabled)
 				change.send();
 		}
 		return v;
 	}
 	
-	private inline function setBottom (v:Int) {
+	private inline function set_bottom (v:Int) {
 		if (v.isSet())
 			vCenter = Number.INT_NOT_SET;
 		
 		if (v != bottom) {
-			bottom = v;
+			_bottom = v;
 			if (enabled)
 				change.send();
 		}
@@ -337,7 +331,7 @@ class RelativeLayout
 #if CSSParser
 	public function cleanUp () : Void {}
 	
-	public function toCode (code:ICodeGenerator)
+	public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 		{

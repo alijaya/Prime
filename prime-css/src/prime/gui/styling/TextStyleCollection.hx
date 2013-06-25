@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
-#if flash9
+#if (flash9 || nme)
  import flash.text.Font;
 #end
  import prime.gui.components.ITextArea;
@@ -54,8 +54,8 @@ private typedef Flags = TextStyleFlags;
  */
 class TextStyleCollection extends StyleCollectionBase < TextStyle >
 {
-#if flash9
-	private static var embeddedFonts = new Hash<Font>();
+#if (flash9 || nme)
+	private static var embeddedFonts = new Map<String,Font>();
 #end
 
 
@@ -74,7 +74,7 @@ class TextStyleCollection extends StyleCollectionBase < TextStyle >
 			return;
 		
 		var target		= elementStyle.target.as(ITextStylable);
-#if flash9
+#if (flash9 || nme)
 		var textFormat	= target.textStyle;
 		if (textFormat == null)
 			textFormat	= new TextFormat();
@@ -106,7 +106,7 @@ class TextStyleCollection extends StyleCollectionBase < TextStyle >
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private function applyStyleObject ( propsToSet:Int, styleObj:TextStyle, textFormat:TextFormat )
 	{
 		var empty		= styleObj == null;

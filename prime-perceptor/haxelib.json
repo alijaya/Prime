@@ -1,0 +1,15 @@
+{
+  "name": "prime-perceptor",
+  "license": "BSD",
+  "tags": ["prime"],
+  "description": "Prime Perceptor: client library",
+  "contributors": ["optimus"],
+
+  "releasenote": "Initial release. Developed since Mar 20, 2013",
+  "version": "0.1.0",
+  "url": "http://prime.vc/",
+  "dependencies": {
+    "prime-core": "",
+    "prime-signals": ""
+  }
+}

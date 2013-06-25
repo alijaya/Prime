@@ -34,7 +34,7 @@ package prime.gui.traits;
  * @author Ruben Weijers
  * @creation-date Nov 19, 2010
  */
-interface IPropertyValidator implements IValidatable
+interface IPropertyValidator extends IValidatable
 {
 //	public function invalidate ()	: Void;
 	public function validate ()		: Void;

@@ -27,6 +27,7 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import prime.signals.INotifier;
  import prime.gui.events.EditEvents;
@@ -68,3 +69,4 @@ class UserEvents extends prime.gui.events.UserSignals
 	override private function createBlur ()		{ blur	= new FocusSignal(eventDispatcher, flash.events.FocusEvent.FOCUS_OUT); }
 	override private function createEdit ()		{ edit	= new EditEvents(eventDispatcher); }
 }
+#end

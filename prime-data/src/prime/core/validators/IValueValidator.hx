@@ -35,7 +35,7 @@ package prime.core.validators;
  * @author			Ruben Weijers
  */
 #if flash9 @:generic #end
-interface IValueValidator <ValidateType> implements prime.core.traits.IDisposable.IDisposable
+interface IValueValidator <ValidateType> extends prime.core.traits.IDisposable
 {
 	public var change (default, null)			: Signal0;
 	public function validate (v:ValidateType)	: ValidateType;

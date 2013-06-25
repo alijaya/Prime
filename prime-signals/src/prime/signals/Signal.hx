@@ -27,9 +27,6 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.signals;
- import prime.core.traits.IDisablable;
- import prime.core.traits.IDisposable;
-  using prime.core.ListNode;
   using prime.utils.IfUtil;
   using prime.utils.TypeUtil;
   using prime.signals.Wire;
@@ -40,7 +37,7 @@ package prime.signals;
  * @author Danny Wilson
  * @creation-date Jun 09, 2010
  */
-class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements IUnbindable<FunctionSignature>, implements IDisposable, implements IDisablable
+class Signal <FunctionSignature> extends WireList<FunctionSignature> implements IUnbindable<FunctionSignature> implements prime.core.traits.IDisposable implements prime.core.traits.IDisablable
 {
 	static public #if !noinline inline #end function notifyEnabled<T>(s:Signal<T>, w:Wire<T>) : Void
 	{
@@ -76,9 +73,9 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements
 	public var nextSendable : Wire<FunctionSignature>;
 	
 	
-	public #if !noinline inline #end function  enable()   enabled = true
-	public #if !noinline inline #end function disable()   enabled = false
-	public #if !noinline inline #end function isEnabled() return enabled
+	public #if !noinline inline #end function  enable()   enabled = true;
+	public #if !noinline inline #end function disable()   enabled = false;
+	public #if !noinline inline #end function isEnabled() return enabled;
 	
 	
 	/**

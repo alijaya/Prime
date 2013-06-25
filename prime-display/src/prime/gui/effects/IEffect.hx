@@ -27,57 +27,49 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.effects;
-#if CSSParser
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICSSFormattable;
-#end
- import prime.core.traits.IClonable;
- import prime.core.traits.IInvalidatable;
- import prime.core.traits.IDisposable;
-
 
 /**
  * @author Ruben Weijers
  * @creation-date Oct 02, 2010
  */
 interface IEffect
-				implements IDisposable
-			,	implements IInvalidatable	
-#if CSSParser,	implements ICSSFormattable
-			,	implements ICodeFormattable		#end
-			,	implements IClonable < IEffect >
+				extends prime.core.traits.IDisposable
+				extends prime.core.traits.IInvalidatable	
+#if CSSParser	extends prime.tools.generator.ICSSFormattable
+				extends prime.tools.generator.ICodeFormattable		#end
+				extends prime.core.traits.IClonable < IEffect >
 {
 	/**
 	 * The easing type that the effect should use
 	 * @default		null
 	 * @see			feffects.easing
 	 */
-	public var easing			(default, setEasing)			: Easing;
+	public var easing			(default, set_easing)			: Easing;
 	
 	/**
 	 * Number of milliseconds to wait before starting the effect
 	 * @default		0
 	 */
-	public var delay			(default, setDelay)				: Int;
+	public var delay			(default, set_delay)			: Int;
 	
 	/**
 	 * Effect duration
 	 * @default		350
 	 */
-	public var duration			(default, setDuration)			: Int;
+	public var duration			(default, set_duration)			: Int;
 	
 	/**
 	 * Flag indicating if the targets filters should be hidden when the effect
 	 * is running.
 	 * @default	false
 	 */
-	public var autoHideFilters	(default, setAutoHideFilters)	: Bool;
+	public var autoHideFilters	(default, set_autoHideFilters)	: Bool;
 	
 	/**
 	 * Flag indicating if the effect is supposed to be playing backwards
 	 * @default false
 	 */
-	public var isReverted		(default, setIsReverted)		: Bool;
+	public var isReverted		(default, set_isReverted)		: Bool;
 	
 	/**
 	 * Method to set the explicit start and end values of the effect

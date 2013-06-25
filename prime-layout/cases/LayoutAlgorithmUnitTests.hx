@@ -1,7 +1,7 @@
 package cases;
  import prime.core.geom.Point;
  import prime.layout.algorithms.ILayoutAlgorithm;
- import prime.layout.algorithms.float.HorizontalFloatAlgorithm;
+ import prime.layout.algorithms.floating.HorizontalFloatAlgorithm;
  import prime.layout.LayoutClient;
  import prime.layout.LayoutContainer;
 

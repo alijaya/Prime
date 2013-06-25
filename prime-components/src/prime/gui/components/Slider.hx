@@ -30,16 +30,12 @@
  */
 package prime.gui.components;
  import prime.core.geom.space.Direction;
- import prime.bindable.Bindable;
  import prime.gui.behaviours.components.DirectToolTipBehaviour;
  import prime.gui.behaviours.UpdateMaskBehaviour;
- import prime.gui.core.UIElementFlags;
  import prime.gui.core.UIGraphic;
  import prime.gui.display.VectorShape;
-  using prime.utils.BitUtil;
   using prime.utils.NumberUtil;
   using Std;
-
 
 /**
  * Slider component with a filling background to indicate which part of the
@@ -50,34 +46,12 @@ package prime.gui.components;
  */
 class Slider extends SliderBase
 {
-	/**
-	 * String displaying the value in %
-	 */
-	public var label	(default, null)		: Bindable<String>;
-	
-	
-	public function new (id:String = null, value:Float = 0.0, minValue:Float = 0.0, maxValue:Float = 1.0, direction:Direction = null)
-	{
-		super(id, value, minValue, maxValue, direction);
-		label = new Bindable<String>();
-	}
-	
-	
 	override private function init ()
 	{
 		super.init();
 		behaviours.add( new UpdateMaskBehaviour( maskShape, this ) );
 		dragBtn.behaviours.add( new DirectToolTipBehaviour( dragBtn, dragBtn.data ) );
 	}
-	
-	
-	override public function dispose ()
-	{
-		label.dispose();
-		label = null;
-		super.dispose();
-	}
-	
 	
 	
 	//
@@ -97,9 +71,11 @@ class Slider extends SliderBase
 		maskShape			= new VectorShape();
 		background			= new UIGraphic( #if debug id.value + "Background" #end );
 		maskedBackground	= new UIGraphic( #if debug id.value + "MaskedBackground" #end );
-		
+	
+	#if prime_css
 		background.styleClasses.add("background");
 		maskedBackground.styleClasses.add("maskedBackground");
+	#end
 		
 		attach( background ).attach( maskedBackground );
 		maskShape.attachDisplayTo( this );
@@ -121,29 +97,20 @@ class Slider extends SliderBase
 		return super.updateChildren();
 	}
 	
-	
-	override private function setDirection (v)
+#if prime_css
+	override private function set_direction (v)
 	{
 		if (direction != v)
 		{
 			if (direction != null)
 				styleClasses.remove( direction.string()+"Slider" );
 			
-			super.setDirection(v);
+			super.set_direction(v);
 			
 			if (v != null)
 				styleClasses.add( direction.string()+"Slider" );
 		}
 		return v;
 	}
-	
-	
-/*	override public function validate ()
-	{
-		var changes = this.changes;
-		super.validate();
-		
-		if (changes.has(UIElementFlags.PERCENTAGE))
-			label.value = percentage.roundFloat() + "%";
-	}*/
+#end
 }

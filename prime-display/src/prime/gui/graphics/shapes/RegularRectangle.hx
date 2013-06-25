@@ -38,27 +38,28 @@ package prime.gui.graphics.shapes;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-class RegularRectangle extends ShapeBase, implements IGraphicShape
+class RegularRectangle extends ShapeBase implements IGraphicShape
 {
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{
-#if flash9
+#if (flash9 || nme)
 		if (borderRadius == null)
 			target.graphics.drawRect( bounds.left, bounds.top, bounds.width, bounds.height );
 		
-		
-		else if (borderRadius.allCornersEqual())
+		//FIXME
+		else #if !html5 if (borderRadius.allCornersEqual()) #end
 			target.graphics.drawRoundRect(
 				bounds.left - 0.5, bounds.top - 0.5, bounds.width + 0.5, bounds.height + 0.5, 
 				borderRadius.topLeft, borderRadius.topRight
 			);
 		
 		
-		else
+		#if !nme else
 			target.graphics.drawRoundRectComplex(
 				bounds.left - 0.5, bounds.top - 0.5, bounds.width + 0.5, bounds.height + 0.5, 
 				borderRadius.topLeft, borderRadius.topRight, borderRadius.bottomLeft, borderRadius.bottomRight
 			);
+		#end
 #end
 	}
 	

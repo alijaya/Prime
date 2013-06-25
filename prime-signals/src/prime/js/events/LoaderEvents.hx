@@ -1,12 +1,11 @@
 package prime.js.events;
-
+#if js
 import prime.core.events.CommunicationEvents;
 import prime.js.net.URLLoader;
 import prime.core.events.LoaderEvents;
 import prime.signals.Signal0;
 import prime.signals.Signal1;
-import prime.js.net.XMLHttpRequest;
-import js.Dom;
+import js.html.XMLHttpRequest;
 import js.Lib;
 
 /**
@@ -28,3 +27,4 @@ class LoaderEvents extends LoaderSignals
 		httpStatus	= new Signal1<Int>();
 	}
 }
+#end

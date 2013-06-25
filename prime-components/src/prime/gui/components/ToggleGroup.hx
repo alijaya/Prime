@@ -52,7 +52,7 @@ class ToggleGroup extends UIContainer
 	{
 		super(id);
 		selected = new Bindable<Button>();
-		setStyles.on( selected.change, this );
+		#if prime_css setStyles.on( selected.change, this ); #end
 	}
 	
 	
@@ -72,7 +72,7 @@ class ToggleGroup extends UIContainer
 		Assert.that( !children.has(button) );
 		setActive.on( button.userEvents.mouse.click, this );
 		
-		button.styleClasses.add( "toggleBtn" );
+		#if prime_css button.styleClasses.add( "toggleBtn" ); #end
 		button.attachTo(this, depth);
 		return button;
 	}
@@ -82,7 +82,7 @@ class ToggleGroup extends UIContainer
 	{
 		Assert.that( children.has(button) );
 		button.userEvents.mouse.click.unbind(this);
-		button.styleClasses.remove( "toggleBtn" );
+		#if prime_css button.styleClasses.remove( "toggleBtn" ); #end
 		button.detach();
 		return button;
 	}
@@ -103,10 +103,11 @@ class ToggleGroup extends UIContainer
 		select(mouseEvt.target.as(Button));
 	}
 	
-	
+#if prime_css
 	private function setStyles (newVal:Button, oldVal:Button)
 	{
 		if (oldVal != null)		oldVal.styleClasses.remove("active");
 		if (newVal != null)		newVal.styleClasses.add("active");
 	}
+#end
 }

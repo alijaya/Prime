@@ -1,15 +1,8 @@
 package prime.js.events;
-
+#if js
 import prime.js.events.DOMSignal1;
-import js.Dom;
-
-
-typedef TransitionEvent = 
-{
-	>DOMEvent,
-	public var propertyName	(default, null):String; // The name of the CSS property associated with this event.
-	public var elapsedTime	(default, null):Float; // The duration of the transition, in seconds, since the event was sent.
-}
+import js.html.Event;
+import js.html.TransitionEvent;
 
 /**
  * @author	Stanislav Sopov
@@ -17,9 +10,9 @@ typedef TransitionEvent =
  */
 class TransitionSignal extends DOMSignal1<TransitionEvent>
 {
-	override private function dispatch(e:Event) 
+	override private function dispatch(e:Event)
 	{
 		send(cast e);
 	}
 }
-
+#end

@@ -34,7 +34,7 @@ package prime.core.traits;
  * @author Ruben Weijers
  * @creation-date Feb 06, 2011
  */
-interface IQueueingInvalidatable implements IInvalidatable
+interface IQueueingInvalidatable extends IInvalidatable
 {
 	/**
 	 * Flag indicating if the object should broadcast an invalidate call or do
@@ -42,7 +42,7 @@ interface IQueueingInvalidatable implements IInvalidatable
 	 * 
 	 * @default	true
 	 */
-	public var invalidatable	(default, setInvalidatable)	: Bool;
+	public var invalidatable	(default, set_invalidatable)	: Bool;
 	
 	/**
 	 * bitflag with all the changes that have happened to the invalidatable

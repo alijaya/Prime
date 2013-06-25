@@ -35,7 +35,7 @@ package prime.bindable.collections;
  * @creation-date	Jul 1, 2010
  * @author			Ruben Weijers
  */
-#if flash9 @:generic #end
+#if (flash9 || cpp) @:generic #end
 class FastDoubleCell <T>
 {
 	public var data : T;

@@ -27,13 +27,13 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.Event;
  
  import prime.signals.Wire;
  import prime.signals.Signal0;
  import prime.signals.IWireWatcher;
- import prime.core.ListNode;
 
 
 /**
@@ -42,7 +42,7 @@ package prime.avm2.events;
  * @author Danny Wilson
  * @creation-date jun 15, 2010
  */
-class FlashSignal0 extends Signal0, implements IWireWatcher<Void->Void>
+class FlashSignal0 extends Signal0 implements IWireWatcher<Void->Void>
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;
@@ -56,7 +56,7 @@ class FlashSignal0 extends Signal0, implements IWireWatcher<Void->Void>
 	
 	public function wireEnabled (wire:Wire<Void -> Void>) : Void {
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 	
@@ -69,3 +69,4 @@ class FlashSignal0 extends Signal0, implements IWireWatcher<Void->Void>
 		send();
 	}
 }
+#end

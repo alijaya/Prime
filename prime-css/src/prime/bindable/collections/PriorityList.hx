@@ -30,9 +30,7 @@ package prime.bindable.collections;
  import prime.bindable.collections.iterators.IIterator;
  import prime.bindable.collections.iterators.FastDoubleCellForwardIterator;
  import prime.bindable.collections.iterators.FastDoubleCellReversedIterator;
- import prime.core.traits.IClonable;
  import prime.core.traits.IPrioritizable;
- import prime.core.traits.IDisposable;
 
 
 /**
@@ -42,9 +40,9 @@ package prime.bindable.collections;
  * @creation-date Oct 20, 2010
  */
 #if flash9 @:generic #end
-class PriorityList <T:IPrioritizable>
-						implements IDisposable
-					,	implements IClonable<PriorityList<T>>
+class PriorityList<T:prime.core.traits.IPrioritizable>
+		implements prime.core.traits.IDisposable
+		implements prime.core.traits.IClonable<PriorityList<T>>
 {
 	public var length		(default, null)		: Int;
 	/**

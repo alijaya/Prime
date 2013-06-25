@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.net;
+#if flash9
  import prime.gui.events.SelectEvents;
  import prime.net.FileFilter;
  import prime.net.FileReference;
@@ -42,10 +43,10 @@ private typedef FlashFileReferenceList = flash.net.FileReferenceList;
  * @author Ruben Weijers
  * @creation-date Mar 30, 2011
  */
-class FileReferenceList extends SelectEvents, implements IFileReference
+class FileReferenceList extends SelectEvents implements IFileReference
 {
 	private var target	: FlashFileReferenceList;
-	public var list		(getList, null)	: Array<FileReference>;
+	public var list		(get_list, null)	: Array<FileReference>;
 	
 	
 	public function new (target:FlashFileReferenceList = null)
@@ -71,7 +72,7 @@ class FileReferenceList extends SelectEvents, implements IFileReference
 	}
 	
 	
-	private function getList () : Array<FileReference>
+	private function get_list () : Array<FileReference>
 	{
 		if (list != null)
 			return list;
@@ -84,3 +85,4 @@ class FileReferenceList extends SelectEvents, implements IFileReference
 		return list;
 	}
 }
+#end

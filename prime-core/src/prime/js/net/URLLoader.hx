@@ -1,12 +1,13 @@
 package prime.js.net;
+#if js
  import prime.core.events.LoaderEvents;
  import prime.net.ICommunicator;
  import prime.net.CommunicationType;
  import prime.bindable.Bindable;
- import prime.js.net.XMLHttpRequest;
  import prime.types.URI;
  import haxe.io.BytesData;
- import js.Dom;
+ import js.html.XMLHttpRequest;
+ import js.html.Event;
  import js.Lib;
 
 
@@ -66,10 +67,10 @@ package prime.js.net;
 
 class URLLoader implements ICommunicator
 {
-	public var state		(getState, null)		: Int;
-	public var data			(getData, null)			: Dynamic;
-	public var dataFormat	(getDataFormat, null)	: String;
-	public var bytes		(getBytes,	setBytes)	: BytesData;
+	public var state		(get_state, null)		: Int;
+	public var data			(get_data, null)		: Dynamic;
+	public var dataFormat	(get_dataFormat, null)	: String;
+	public var bytes		(get_bytes,	set_bytes)	: BytesData;
 	public var bytesProgress(default, null)			: Int;
 	public var bytesTotal	(default, null)			: Int;
 	public var events		(default, null)			: LoaderSignals;
@@ -93,10 +94,10 @@ class URLLoader implements ICommunicator
 		}
 	}
 	
-	private function getState():Int { return request.readyState; }
-	private function getStatus():Int { return request.status; }
-	private function getData():Dynamic { return request.responseText; }
-	private function getDataFormat():String { return request.getResponseHeader("Content-Type"); }
+	private function get_state():Int { return request.readyState; }
+	private function get_status():Int { return request.status; }
+	private function get_data():Dynamic { return request.responseText; }
+	private function get_dataFormat():String { return request.getResponseHeader("Content-Type"); }
 	// TODO: check what exactly this value represents with different data types
 	//private function getBytesTotal():Int { return Std.parseInt(request.getResponseHeader("Content-Length")); } 
 	
@@ -172,10 +173,10 @@ class URLLoader implements ICommunicator
 	public #if !noinline inline #end function isCompleted()	: Bool	{ return request.readyState == 4; }
 	public #if !noinline inline #end function isInProgress()	: Bool	{ return isStarted && request.readyState != 4; }
 	
-	private inline function getBytes () : BytesData	{ return data; }
-	public  inline function getRawData ()			{ return data; }
+	private inline function get_bytes ()	{ return data; }
+	public  inline function getRawData ()	{ return data; }
 
-	private inline function setBytes (v:BytesData)
+	private inline function set_bytes (v:BytesData)
 	{
 		data = v;
 		
@@ -185,3 +186,4 @@ class URLLoader implements ICommunicator
 		return v;
 	}
 }
+#end

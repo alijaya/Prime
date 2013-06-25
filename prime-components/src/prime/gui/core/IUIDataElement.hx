@@ -29,9 +29,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.core;
- import prime.bindable.collections.DataCursor;
- import prime.core.traits.IValueObject;
- 
 
 /**
  * UIComponent interface with data property.
@@ -39,9 +36,9 @@ package prime.gui.core;
  * @creation-date	Jun 17, 2010
  * @author			Ruben Weijers
  */
-interface IUIDataElement < DataType > implements IUIElement
+interface IUIDataElement<T> extends IUIElement
 {
-	public var data (default, setData)		: DataType;
+	public var data (default, set_data)		: T;
 	
 	
 	/**
@@ -54,5 +51,5 @@ interface IUIDataElement < DataType > implements IUIElement
 	private function removeData ()			: Void;
 	
 	
-	public function getDataCursor ()		: DataCursor < DataType >;
+	public function getDataCursor ()		: prime.bindable.collections.DataCursor<T>;
 }

@@ -1,0 +1,14 @@
+{
+  "name": "prime-locale",
+  "license": "BSD",
+  "tags": ["prime", "localization"],
+  "description": "Prime localisation library for Haxe.",
+  "contributors": ["optimus"],
+
+  "releasenote": "Initial release. Developed since Jun 05, 2012",
+  "version": "1.0.0",
+  "url": "http://prime.vc/",
+  "dependencies": {
+
+  }
+}

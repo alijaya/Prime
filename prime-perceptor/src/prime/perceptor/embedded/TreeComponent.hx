@@ -87,7 +87,6 @@ class TreeComponent<T, F> extends UIDataContainer< TypedProxyTree<T, F> >
 
 			case moved( item, newPos, oldPos ):
 			case reset:
-			default:
 		}
 		
 		label.data.value = data + "";

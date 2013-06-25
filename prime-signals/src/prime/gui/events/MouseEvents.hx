@@ -27,6 +27,7 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.gui.events;
+#if (flash9 || js)
  import prime.signals.Signals;
  import prime.core.geom.Point;
  import prime.core.traits.IClonable;
@@ -34,7 +35,7 @@ package prime.gui.events;
 
 
 typedef MouseEvents =
-	#if     flash9  prime.avm2.events.MouseEvents;
+	#if (flash9 || nme) prime.avm2.events.MouseEvents;
 	#elseif flash   prime.avm1.events.MouseEvents;
 	#elseif nodejs  #error;
 	#elseif js      prime.js  .events.MouseEvents;
@@ -54,41 +55,41 @@ typedef MouseSignal		= prime.signals.Signal1<MouseState>;
 class MouseSignals extends Signals
 {
 	/** Fires when the mouse button is pressed */
-	public var down			(getDown,			null) : MouseSignal;
+	public var down			(get_down,			null) : MouseSignal;
 	/** Fires when the mouse button is released */
-	public var up			(getUp,				null) : MouseSignal;
+	public var up			(get_up,			null) : MouseSignal;
 	/** Fires when the mouse has moved */
-	public var move			(getMove,			null) : MouseSignal;
-	/** Fires when the a user presses and releases a button of the users pointing device over the same InteractiveObject. */
-	public var click		(getClick,			null) : MouseSignal;
+	public var move			(get_move,			null) : MouseSignal;
+	/** Fires when the a user presses and releases a button of the user's pointing device over the same InteractiveObject. */
+	public var click		(get_click,			null) : MouseSignal;
 	/** Fires when the a user double-clicks on an InteractiveObject. */
-	public var doubleClick	(getDoubleClick,	null) : MouseSignal;
+	public var doubleClick	(get_doubleClick,	null) : MouseSignal;
 	/** Fires when a mouse moves over the interactive object, or a child of the object.
 		In Flash 9+ this is a proxy to flash.events.MouseEvent.MOUSE_OVER */
-	public var overChild	(getOverChild,		null) : MouseSignal;
+	public var overChild	(get_overChild,		null) : MouseSignal;
 	/** Fires when a mouse moves out of the interactive object, or a child of the object.
 		In Flash 9+ (default,null) this is a proxy to flash.events.MouseEvent.MOUSE_OUT */
-	public var outOfChild	(getOutOfChild,		null) : MouseSignal;
+	public var outOfChild	(get_outOfChild,	null) : MouseSignal;
 	/** Fires when a mouse moves over the hitarea of the the interactive object.
 		In Flash 9+ this is a proxy to flash.events.MouseEvent.ROLL_OVER */
-	public var rollOver		(getRollOver,		null) : MouseSignal;
+	public var rollOver		(get_rollOver,		null) : MouseSignal;
 	/** Fires when a mouse moves out of the hitarea of the interactive object.
 		In Flash 9+ this is a proxy to flash.events.MouseEvent.ROLL_OUT */
-	public var rollOut		(getRollOut,		null) : MouseSignal;
+	public var rollOut		(get_rollOut,		null) : MouseSignal;
 	/** Fires when a mouse scrollwheel is used. */
-	public var scroll		(getScroll,			null) : MouseSignal;
+	public var scroll		(get_scroll,		null) : MouseSignal;
 	
 	
-	private inline function getDown ()			{ if (down == null)			{ createDown(); }			return down; }
-	private inline function getUp ()			{ if (up == null)			{ createUp(); }				return up; }
-	private inline function getMove ()			{ if (move == null)			{ createMove(); }			return move; }
-	private inline function getClick ()			{ if (click == null)		{ createClick(); }			return click; }
-	private inline function getDoubleClick ()	{ if (doubleClick == null)	{ createDoubleClick(); }	return doubleClick; }
-	private inline function getOverChild ()		{ if (overChild == null)	{ createOverChild(); }		return overChild; }
-	private inline function getOutOfChild ()	{ if (outOfChild == null)	{ createOutOfChild(); }		return outOfChild; }
-	private inline function getRollOver ()		{ if (rollOver == null)		{ createRollOver(); }		return rollOver; }
-	private inline function getRollOut ()		{ if (rollOut == null)		{ createRollOut(); }		return rollOut; }
-	private inline function getScroll ()		{ if (scroll == null)		{ createScroll(); }			return scroll; }
+	private inline function get_down ()			{ if (down == null)			{ createDown(); }			return down; }
+	private inline function get_up ()			{ if (up == null)			{ createUp(); }				return up; }
+	private inline function get_move ()			{ if (move == null)			{ createMove(); }			return move; }
+	private inline function get_click ()		{ if (click == null)		{ createClick(); }			return click; }
+	private inline function get_doubleClick ()	{ if (doubleClick == null)	{ createDoubleClick(); }	return doubleClick; }
+	private inline function get_overChild ()	{ if (overChild == null)	{ createOverChild(); }		return overChild; }
+	private inline function get_outOfChild ()	{ if (outOfChild == null)	{ createOutOfChild(); }		return outOfChild; }
+	private inline function get_rollOver ()		{ if (rollOver == null)		{ createRollOver(); }		return rollOver; }
+	private inline function get_rollOut ()		{ if (rollOut == null)		{ createRollOut(); }		return rollOut; }
+	private inline function get_scroll ()		{ if (scroll == null)		{ createScroll(); }			return scroll; }
 	
 	
 	private function createDown ()			{ Assert.abstractMethod(); }
@@ -126,7 +127,7 @@ class MouseSignals extends Signals
  * @author Danny Wilson
  * @creation-date jun 14, 2010
  */
-class MouseState extends KeyModState, implements IClonable<MouseState>
+class MouseState extends KeyModState implements IClonable<MouseState>
 {
 	public static var fake = new MouseState( 0, null, null, null, null );
 	
@@ -183,7 +184,7 @@ class MouseState extends KeyModState, implements IClonable<MouseState>
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	public #if !noinline inline #end function isDispatchedBy (obj:UserEventTarget) : Bool
 	{
 		return obj != null && obj == related;
@@ -205,3 +206,5 @@ class MouseState extends KeyModState, implements IClonable<MouseState>
 	}
 #end
 }
+
+#end

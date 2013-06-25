@@ -41,14 +41,14 @@ package prime.bindable.collections;
  * @creation-date	Jun 30, 2010
  * @author			Ruben Weijers
  */
-#if flash9 @:generic #end
+//#if flash9 @:generic #end
 class ChainedList <T> extends SimpleList <T>
 {
 	/**
 	 * Maximum number of items. If there are more items, they will be moved to
 	 * the next list
 	 */
-	public var max			(default, setMax)	: Int;
+	public var max			(default, set_max)	: Int;
 	public var nextList							: ChainedList<T>;
 	
 	
@@ -125,7 +125,7 @@ class ChainedList <T> extends SimpleList <T>
 	
 	
 	
-	private function setMax (v) : Int
+	private function set_max (v) : Int
 	{
 		if (max == 0)
 			max = v;

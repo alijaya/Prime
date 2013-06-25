@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.AsyncErrorEvent;
  import flash.events.IEventDispatcher;
  import flash.events.IOErrorEvent;
@@ -56,3 +57,4 @@ class NetConnectionEvents extends Signals
 		securityError	= new TextSignal( dispatcher, SecurityErrorEvent.SECURITY_ERROR );
 	}
 }
+#end

@@ -30,7 +30,9 @@ package prime.gui.display;
  import prime.bindable.collections.DataCursor;
  import prime.bindable.collections.IDataCursor;
  import prime.core.geom.Point;
+ #if prime_components
  import prime.gui.traits.ILayoutable;
+ #end
   using prime.utils.NumberUtil;
   using prime.utils.TypeUtil;
 
@@ -44,7 +46,7 @@ package prime.gui.display;
  * @author			Ruben Weijers
  * @creation-date	Oct 28, 2010
  */
-class DisplayDataCursor extends DataCursor < IDisplayObject >, implements IDataCursor < IDisplayObject >
+class DisplayDataCursor extends DataCursor < IDisplayObject > implements IDataCursor < IDisplayObject >
 {
 	/**
 	 * Current x&y-coordinates of the target
@@ -67,11 +69,13 @@ class DisplayDataCursor extends DataCursor < IDisplayObject >, implements IDataC
 		
 		position = new Point( target.x, target.y );
 
+#if prime_components
 		// save layout state?
 		if (target.is(ILayoutable)) {
 			var l 		= target.as(ILayoutable).layout;
 			layoutDepth = l.parent.children.indexOf(l) + l.parent.fixedChildStart;
 		} else 
+#end		
 			layoutDepth = -1;
 	}
 	

@@ -27,7 +27,6 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.signals;
-  using prime.core.ListNode;
   using prime.signals.Wire;
   using prime.utils.BitUtil;
   using prime.utils.IfUtil;
@@ -38,9 +37,9 @@ package prime.signals;
  * @author Danny Wilson
  * @creation-date Jun 09, 2010
  */
-class Signal0 extends Signal<Void->Void>, implements ISender0, implements INotifier<Void->Void>
+class Signal0 extends Signal<Void->Void> implements ISender0 implements INotifier<Void->Void>
 {
-	public function new() enabled = true
+	public function new() enabled = true;
 	
 	public #if !debug inline #end function send() if (enabled)
 	{
@@ -58,9 +57,9 @@ class Signal0 extends Signal<Void->Void>, implements ISender0, implements INotif
 			if (w.flags.has(Wire.SEND_ONCE))
 				w.disable();
 			
-//#if (flash9 && debug) try { #end
+#if (flash9 && debug) try { #end
 			w.handler();
-//#if (flash9 && debug) } catch (e : flash.errors.TypeError) { throw "Wrong argument type ("+ e +") for " + w+";\n\tstacktrace: "+e.getStackTrace()+"\n"; } #end
+#if (flash9 && debug) } catch (e : flash.errors.Error) { throw "Handler error ("+ e +") for " + w+";\n\tstacktrace: "+e.getStackTrace()+"\n"; } #end
 			
 			if (w.flags.has(Wire.SEND_ONCE))
 				w.dispose();
@@ -71,10 +70,10 @@ class Signal0 extends Signal<Void->Void>, implements ISender0, implements INotif
 		nextSendable = null;
 	}
 	
-	public #if !noinline inline #end function bind				(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, Wire.ENABLED)
-	public #if !noinline inline #end function bindOnce			(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE)
-	public #if !noinline inline #end function bindDisabled		(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, 0)
-	public #if !noinline inline #end function observe			(owner:Dynamic, handler:Void->Void)		return bind(owner, handler)
-	public #if !noinline inline #end function observeOnce		(owner:Dynamic, handler:Void->Void)		return bindOnce(owner, handler)
-	public #if !noinline inline #end function observeDisabled	(owner:Dynamic, handler:Void->Void)		return bindDisabled(owner, handler)
+	public #if !noinline inline #end function bind            (owner:Dynamic, handler:Void->Void #if debug, ?pos : haxe.PosInfos #end)  return Wire.make( this, owner, handler, Wire.ENABLED                  #if debug, pos #end);
+	public #if !noinline inline #end function bindOnce        (owner:Dynamic, handler:Void->Void #if debug, ?pos : haxe.PosInfos #end)  return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE #if debug, pos #end);
+	public #if !noinline inline #end function bindDisabled    (owner:Dynamic, handler:Void->Void #if debug, ?pos : haxe.PosInfos #end)  return Wire.make( this, owner, handler, 0                             #if debug, pos #end);
+	public #if !noinline inline #end function observe         (owner:Dynamic, handler:Void->Void #if debug, ?pos : haxe.PosInfos #end)  return bind(owner, handler                                            #if debug, pos #end);
+	public #if !noinline inline #end function observeOnce     (owner:Dynamic, handler:Void->Void #if debug, ?pos : haxe.PosInfos #end)  return bindOnce(owner, handler                                        #if debug, pos #end);
+	public #if !noinline inline #end function observeDisabled (owner:Dynamic, handler:Void->Void #if debug, ?pos : haxe.PosInfos #end)  return bindDisabled(owner, handler                                    #if debug, pos #end);
 }

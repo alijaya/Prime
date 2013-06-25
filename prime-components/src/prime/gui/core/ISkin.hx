@@ -46,9 +46,7 @@ package prime.gui.core;
  * @author Ruben Weijers
  * @creation-date Aug 03, 2010
  */
-interface ISkin 
-		implements prime.core.traits.IDisposable
-	,	implements prime.gui.traits.IBehaving
+interface ISkin extends prime.core.traits.IDisposable extends prime.gui.traits.IBehaving
 {
 //	public var skinState		(default, null)		: prime.gui.states.SkinStates;
 //	public var owner			(default, setOwner) : OwnerClass;
@@ -114,5 +112,5 @@ interface ISkin
 	public function isFocusOwner (target:prime.gui.events.UserEventTarget) : Bool;
 }
 #else
-interface ISkin implements prime.gui.traits.IBehaving, implements prime.core.traits.IDisposable {}
+interface ISkin extends prime.gui.traits.IBehaving extends prime.core.traits.IDisposable {}
 #end

@@ -27,18 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout;
- import prime.core.geom.Box;
- import prime.core.geom.IntRectangle;
- import prime.core.traits.IQueueingInvalidatable;
-// import prime.core.validators.ValidatingValue;
- import prime.core.validators.IntRangeValidator;
- import prime.core.traits.IDisposable;
- import prime.fsm.SimpleStateMachine;
- import prime.fsm.states.ValidateStates;
- import prime.signals.Signal1;
-
-
-//typedef SizeType = ValidatingValue < Int >;
 
 
 /**
@@ -48,9 +36,7 @@ package prime.layout;
  * @since	mar 19, 2010
  * @author	Ruben Weijers
  */
-interface ILayoutClient 
-		implements IQueueingInvalidatable
-	,	implements IDisposable
+interface ILayoutClient extends prime.core.traits.IQueueingInvalidatable extends prime.core.traits.IDisposable
 {
 	/**
 	 * Flag indicating if the layout should be automaticly revalidated when a 
@@ -78,14 +64,14 @@ interface ILayoutClient
 	 * Flag indicating if this client should be included within the layout
 	 * @default	true
 	 */
-	public var includeInLayout				(default, setIncludeInLayout)	: Bool;
+	public var includeInLayout				(default, set_includeInLayout)	: Bool;
 	
 	/**
 	 * Layout-group to which this client belongs. By setting this property,
 	 * the client can let the parent know when its size or position has
 	 * changed wich could result in revalidating the parents layout.
 	 */
-	public var parent						(default, setParent)			: ILayoutContainer;
+	public var parent						(default, set_parent)			: ILayoutContainer;
 	
 	public function isValidating ()			: Bool;
 	public function isInvalidated ()		: Bool;
@@ -154,12 +140,12 @@ interface ILayoutClient
 	/**
 	 * rules for sizing / positioning the layout with relation to the parent
 	 */
-	public var relative				(default, setRelative)				: RelativeLayout;
+	public var relative				(default, set_relative)				: RelativeLayout;
 	
 	/**
 	 * @default	false
 	 */
-	public var maintainAspectRatio	(default, setMaintainAspectRatio)	: Bool;
+	public var maintainAspectRatio	(default, set_maintainAspectRatio)	: Bool;
 	public var aspectRatio			(default, null)						: Float;
 	
 	
@@ -176,9 +162,9 @@ interface ILayoutClient
 	 * can still be validated by its layout-container when the containers 
 	 * displayobject is still on the stage.
 	 */
-	public var changed				(default, null)						: Signal1<Int>;
+	public var changed				(default, null)						: prime.signals.Signal1<Int>;
 	
-	public var state				(default, null)						: SimpleStateMachine < ValidateStates >;
+	public var state				(default, null)						: prime.fsm.SimpleStateMachine<prime.fsm.states.ValidateStates>;
 	public var hasValidatedWidth	(default, null)						: Bool;
 	public var hasValidatedHeight	(default, null)						: Bool;
 	
@@ -192,12 +178,12 @@ interface ILayoutClient
 	 * Width of the LayoutClient. Changing the width will also change the width
 	 * property in 'bounds'.
 	 */
-	public var width				(getWidth, setWidth)				: Int;
+	public var width				(get_width, set_width)				: Int;
 	/**
 	 * Width of the LayoutClient. Changing the width will also change the height
 	 * property in 'bounds'.
 	 */
-	public var height				(getHeight, setHeight)				: Int;
+	public var height				(get_height, set_height)			: Int;
 	
 	/**
 	 * If percent width is set, the width of the layoutclient will be 
@@ -210,7 +196,7 @@ interface ILayoutClient
 	 * 
 	 * @default		0
 	 */
-	public var percentWidth			(default, setPercentWidth)			: Float;
+	public var percentWidth			(default, set_percentWidth)			: Float;
 	/**
 	 * If percent height is set, the height of the layoutclient will be 
 	 * calculated by the height of the parent layoutContainer. This property
@@ -222,7 +208,7 @@ interface ILayoutClient
 	 * 
 	 * @default		0
 	 */
-	public var percentHeight		(default, setPercentHeight)			: Float;
+	public var percentHeight		(default, set_percentHeight)		: Float;
 	
 	/**
 	 * Padding is the distance between the content of the layout and the rest
@@ -248,28 +234,28 @@ interface ILayoutClient
 	 * 		- right:	470 (400 + 50 + 20)
 	 * 		- bottom:	380 (300 + 60 + 20)
 	 */
-	public var padding	(default, setPadding)	: Box;
-	public var margin	(default, setMargin)	: Box;
+	public var padding	(default, set_padding)	: prime.core.geom.Box;
+	public var margin	(default, set_margin)	: prime.core.geom.Box;
 	
-	public var widthValidator		(default, setWidthValidator)		: IntRangeValidator;
-	public var heightValidator		(default, setHeightValidator)		: IntRangeValidator;
+	public var widthValidator		(default, set_widthValidator)		: prime.core.validators.IntRangeValidator;
+	public var heightValidator		(default, set_heightValidator)		: prime.core.validators.IntRangeValidator;
 	
 	
 	//
 	// POSITION PROPERTIES
 	//
 	
-	public var x		(default, setX)			: Int;
-	public var y		(default, setY)			: Int;
+	public var x		(default, set_x)		: Int;
+	public var y		(default, set_y)		: Int;
 	
 	/**
 	 * Size of the layouclient including the padding but without the margin
 	 */
-	public var innerBounds	(default, null)		: IntRectangle;
+	public var innerBounds	(default, null)		: prime.core.geom.IntRectangle;
 	/**
 	 * Size of the layouclient including the padding and margin
 	 */
-	public var outerBounds	(default, null)		: IntRectangle;
+	public var outerBounds	(default, null)		: prime.core.geom.IntRectangle;
 	
 	public function hasMaxWidth () : Bool;
 	public function hasMaxHeight () : Bool;

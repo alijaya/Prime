@@ -40,13 +40,13 @@ package prime.core.traits;
  * @author Ruben Weijers
  * @creation-date Nov 08, 2010
  */
-class QueueingInvalidatable extends Invalidatable, implements IQueueingInvalidatable
+class QueueingInvalidatable extends Invalidatable implements IQueueingInvalidatable
 {
 	/**
 	 * Flag indicating if the object should broadcast an invalidate call or do
 	 * nothing with it.
 	 */
-	public var invalidatable	(default, setInvalidatable)	: Bool;
+	public var invalidatable	(default, set_invalidatable)	: Bool;
 	public var changes			(default, null)				: Int;
 	
 	
@@ -73,7 +73,7 @@ class QueueingInvalidatable extends Invalidatable, implements IQueueingInvalidat
 	}
 	
 	
-	private inline function setInvalidatable (v:Bool)
+	private inline function set_invalidatable (v:Bool)
 	{
 		if (v != invalidatable)
 		{

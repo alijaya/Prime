@@ -33,7 +33,7 @@ package prime.core.traits;
  * @author Ruben Weijers
  * @creation-date Oct 14, 2010
  */
-interface IInvalidateListener implements IDisposable
+interface IInvalidateListener extends IDisposable
 {
 	public function invalidateCall ( changeFromOther:Int, sender:IInvalidatable ) : Void;
 }

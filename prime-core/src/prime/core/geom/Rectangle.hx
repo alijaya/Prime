@@ -33,21 +33,8 @@ package prime.core.geom;
  * @creation-date	Jun 14, 2010
  * @author			Ruben Weijers
  */
-#if flash9
+#if (flash9 || nme)
  typedef Rectangle = flash.geom.Rectangle;
-/*
- import prime.core.traits.IDisposable;
-
-class Rectangle extends flash.geom.Rectangle, implements IDisposable
-{
-	public function dispose () {}
-}*/
 #else
-
-class Rectangle
-{
-    
-}
-
-
+class Rectangle {}
 #end

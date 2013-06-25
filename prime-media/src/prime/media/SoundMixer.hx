@@ -27,7 +27,7 @@
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
 package prime.media;
-#if flash9
+#if (flash9 || nme)
  import flash.events.Event;
  import flash.media.SoundTransform;
 #end
@@ -54,9 +54,9 @@ class SoundMixer
 {
     public function new () {}
     
-    private static var instance (getInstance, null) : SoundMixerInstance;
+    private static var instance (get_instance, null) : SoundMixerInstance;
     
-    private static inline function getInstance ()
+    private static inline function get_instance ()
     {
         if (instance.isNull())
             instance = new SoundMixerInstance();
@@ -82,14 +82,14 @@ class SoundMixer
 
 
 
-    public static var volume    (getVolume, never)                  : Bindable<Float>;
-        private static inline function getVolume ()                 { return instance.volume; }
+    public static var volume    (get_volume, never)                  : Bindable<Float>;
+        private static inline function get_volume ()                 { return instance.volume; }
     
-    public static var isMuted   (getIsMuted, never)                 : Bindable<Bool>;
-        private inline static function getIsMuted()                 { return instance.isMuted; }
+    public static var isMuted   (get_isMuted, never)                 : Bindable<Bool>;
+        private inline static function get_isMuted()                 { return instance.isMuted; }
     
-    public static var isFrozen  (getIsFrozen, never)                : Bool;
-        private inline static function getIsFrozen()                { return instance.isFrozen; }
+    public static var isFrozen  (get_isFrozen, never)                : Bool;
+        private inline static function get_isFrozen()                { return instance.isFrozen; }
 }
 
 
@@ -116,8 +116,8 @@ private class SoundMixerInstance
     /**
      * Flag indicating if all channels are frozem
      */
-    public var isFrozen (getIsFrozen, never)        : Bool;
-        private inline function getIsFrozen ()      { return numberOfFreezes > 0; }
+    public var isFrozen (get_isFrozen, never)        : Bool;
+        private inline function get_isFrozen ()      { return numberOfFreezes > 0; }
     
     /**
      * The number of times "pauseAll" is called
@@ -216,8 +216,8 @@ private class SoundMixerInstance
     }
 
 
-    public #if !noinline inline #end function mute ()     isMuted.value = true
-    public #if !noinline inline #end function unmute ()   isMuted.value = false
+    public #if !noinline inline #end function mute ()     isMuted.value = true;
+    public #if !noinline inline #end function unmute ()   isMuted.value = false;
 
     
     /**
@@ -233,7 +233,7 @@ private class SoundMixerInstance
 
     private function applyVolume ()
     {
-#if flash9
+#if (flash9 || nme)
         var s    = Sound.soundTransform;
         s.volume = (!isMuted.value).boolCalc() * volume.value;
         Sound.soundTransform = s;

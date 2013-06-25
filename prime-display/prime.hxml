@@ -1,0 +1,15 @@
+-cp ./src
+-cp ./test
+
+-lib feffects
+
+-cp ../libs/apparat
+
+
+-cp ../prime-core/src
+-cp ../prime-fsm/src
+-cp ../prime-signals/src
+-cp ../prime-bindable/src
+-cp ../prime-data/src
+
+-cp ../src

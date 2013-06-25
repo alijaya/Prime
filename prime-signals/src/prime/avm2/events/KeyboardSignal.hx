@@ -27,6 +27,7 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import prime.gui.events.KeyboardEvents;
  import prime.gui.events.KeyModState;
  import prime.signals.Wire;
@@ -35,7 +36,6 @@ package prime.avm2.events;
 // import flash.display.InteractiveObject;
  import flash.events.IEventDispatcher;
  import flash.events.KeyboardEvent;
-  using prime.core.ListNode;
 
 /**
  * Signal<-->flash.KeyboardEvent Proxy implementation
@@ -43,7 +43,7 @@ package prime.avm2.events;
  * @author Danny Wilson
  * @creation-date jun 15, 2010
  */
-class KeyboardSignal extends Signal1<KeyboardState>, implements IWireWatcher<KeyboardHandler>
+class KeyboardSignal extends Signal1<KeyboardState> implements IWireWatcher<KeyboardHandler>
 {
 	private var eventDispatcher:IEventDispatcher;
 	private var event:String;
@@ -83,7 +83,7 @@ class KeyboardSignal extends Signal1<KeyboardState>, implements IWireWatcher<Key
 		*/
 		var flags;
 		
-#if flash9
+#if (flash9 || nme)
 		Assert.that(e.charCode		< 16384); // 14 bits available in AVM2
 		Assert.that(e.keyCode		<  1024);
 		
@@ -107,3 +107,4 @@ class KeyboardSignal extends Signal1<KeyboardState>, implements IWireWatcher<Key
 		return new KeyboardState(flags, e.target);
 	}
 }
+#end

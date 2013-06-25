@@ -45,34 +45,35 @@ class MouseMoveScrollBehaviour extends MouseScrollBehaviourBase
 {
 	override private function calculateScroll (mouseObj:MouseState)
 	{
-		var scrollLayout = target.scrollableLayout;
-		var scrollHor = scrollLayout.horScrollable();
-		var scrollVer = scrollLayout.verScrollable();
-		
+		var layout    = target.scrollableLayout;
+		var scrollHor = layout.horScrollable();
+		var scrollVer = layout.verScrollable();
 		if (!scrollHor && !scrollVer)
 			return;
 		
 		var mousePos	= ScrollHelper.getLocalMouse(target, mouseObj);
+	//	var percentX:Float = 0, percentY:Float = 0;
 		var scrollPos	= new IntPoint();
 		
 		//horScroll
 		if (scrollHor) {
-			var percentX	 = ( mousePos.x / scrollLayout.explicitWidth ).max(0).min(1);
-			scrollPos.x		 = ( scrollLayout.scrollableWidth * percentX ).roundFloat();
-		//	trace("scrollX: "+layoutGroup.scrollX+"; sW: "+scrollableW+"; eW: "+layoutGroup.explicitWidth+"; mW: "+layoutGroup.measuredWidth+"; mX: "+mousePos.x+"; pX "+percentX+"; horP: "+layoutGroup.getHorPosition()+"; x: "+target.x);
+			var percentX	 = ( mousePos.x / layout.width ).max(0).min(1);
+			scrollPos.x		 = ( layout.scrollableWidth * percentX ).roundFloat();
+		//	untyped trace(scrollPos.x + "; scrollX: "+layout.scrollPos.x+"; sW: "+layout.scrollableWidth+"; w: "+layout.width+"; eW: "+layout.explicitWidth+"; mW: "+layout.measuredWidth+"; mX: "+mousePos.x+"; pX "+percentX+"; horP: "+layout.getHorPosition()+"; x: "+target.x);
 		}
 		
 		//verScroll
 		if (scrollVer) {
-			var percentY	 = ( mousePos.y / scrollLayout.explicitHeight ).min(1).max(0);
-			scrollPos.y		 = ( scrollLayout.scrollableHeight * percentY ).roundFloat();
-		//	trace("scrollY: "+layoutGroup.scrollY+"; sH: "+scrollableH+"; eW: "+layoutGroup.explicitHeight+"; mW: "+layoutGroup.measuredHeight+"; mY: "+mousePos.y+"; stageMY: "+mouseObject.stage.y+"; pY "+percentY);
+			var percentY	 = ( mousePos.y / layout.height ).min(1).max(0);
+			scrollPos.y		 = ( layout.scrollableHeight * percentY ).roundFloat();
+		//	untyped trace(scrollPos.y + "; scrollY: "+layout.scrollPos.y+"; sH: "+layout.scrollableHeight+"; h: "+layout.height+"; eH: "+layout.explicitHeight+"; mH: "+layout.measuredHeight+"; mY: "+mousePos.y+"; pY: "+percentY+"; verP: "+layout.getVerPosition()+"; y: "+target.y);
 		}
 		
-		scrollPos = scrollLayout.validateScrollPosition( scrollPos );
+		scrollPos = layout.validateScrollPosition( scrollPos );
+	//	trace(target+" - "+scrollHor+" / "+scrollVer+"; scrollPos "+scrollPos.x+", "+scrollPos.y+"; perc: "+percentX+", "+percentY+"; mouse: "+mousePos.x+", "+mousePos.y+"; size: "+layout.width+", "+layout.height+"; scrollable "+layout.scrollableWidth+", "+layout.scrollableHeight+"; measured "+layout.measuredWidth+", "+layout.measuredHeight);
 		
-		if (!scrollPos.isEqualTo( scrollLayout.scrollPos ))
-			scrollLayout.scrollPos.setTo( scrollPos );
+		if (!scrollPos.isEqualTo( layout.scrollPos ))
+			layout.scrollPos.setTo( scrollPos );
 	}
 }
 

@@ -33,9 +33,9 @@ package prime.gui.display;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-interface IVideo implements IDisplayObject
+interface IVideo extends IDisplayObject
 {
-#if flash9
+#if (flash9 || nme)
 	/**
 	* Indicates the type of filter applied to decoded video as part of post-processing.
 	 */

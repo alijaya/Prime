@@ -29,8 +29,9 @@
 package prime.neko.events;
  import prime.gui.events.MouseEvents;
 
-
+/*
 class MouseEvents extends MouseSignals
 {
 	
 }
+*/

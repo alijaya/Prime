@@ -35,7 +35,7 @@ package prime.layout;
  * @author Ruben Weijers
  * @creation-date Jul 29, 2010
  */
-interface IScrollableLayout implements ILayoutContainer, implements IAdvancedLayoutClient
+interface IScrollableLayout extends ILayoutContainer extends IAdvancedLayoutClient
 {
 	/**
 	 * horizontal and vertical scroll position
@@ -45,23 +45,23 @@ interface IScrollableLayout implements ILayoutContainer, implements IAdvancedLay
 	/**
 	 * The total width of the container that is invisible and can be scrolled
 	 */
-	public var scrollableWidth		(getScrollableWidth, never)		: Int;
+	public var scrollableWidth		(get_scrollableWidth, never)	: Int;
 	
 	/**
 	 * The total height of the container that is invisible and can be scrolled
 	 */
-	public var scrollableHeight		(getScrollableHeight, never)	: Int;
+	public var scrollableHeight		(get_scrollableHeight, never)	: Int;
 	
 	/**
 	 * The minimum value of the scrollX position (<= 0). This is number is set
 	 * by a layoutalgorithm when there are children with a negative x-position.
 	 */
-	public var minScrollXPos		(default, setMinScrollXPos)		: Int;
+	public var minScrollXPos		(default, set_minScrollXPos)	: Int;
 	/**
 	 * The minimum value of the scrollY position (<= 0). This is number is set
 	 * by a layoutalgorithm when there are children with a negative y-position.
 	 */
-	public var minScrollYPos		(default, setMinScrollYPos)		: Int;
+	public var minScrollYPos		(default, set_minScrollYPos)	: Int;
 	
 	
 	/**

@@ -38,7 +38,6 @@ package prime.gui.core;
  import prime.gui.behaviours.RenderGraphicsBehaviour;
 
  import prime.gui.display.IDisplayContainer;
- import prime.gui.display.Sprite;
 
  import prime.gui.effects.UIElementEffects;
  import prime.gui.events.UserEventTarget;
@@ -49,7 +48,7 @@ package prime.gui.core;
  
  import prime.gui.managers.ISystem;
  import prime.gui.states.UIElementStates;
-#if flash9
+#if (prime_css && (flash9 || nme))
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
 #end
@@ -82,7 +81,7 @@ package prime.gui.core;
  * @author Ruben Weijers
  * @creation-date Jun 07, 2010
  */
-class UIComponent extends Sprite, implements IUIComponent
+class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 {
 	public var prevValidatable	: IValidatable;
 	public var nextValidatable	: IValidatable;
@@ -94,19 +93,21 @@ class UIComponent extends Sprite, implements IUIComponent
 	public var state			(default, null)					: UIElementStates;
 	public var effects			(default, default)				: UIElementEffects;
 	
-#if !js
+#if (nme || !js)
 	public var id				(default, null)					: Bindable<String>;
 #end
 
-	public var skin				(default, setSkin)				: ISkin;
+	public var skin				(default, set_skin)				: ISkin;
 	public var layout			(default, null)					: LayoutClient;
-	public var system			(getSystem, never)				: ISystem;
+	public var system			(get_system, never)				: ISystem;
 	
-#if flash9	
+#if (flash9 || nme)
 	public var graphicData		(default, null)					: GraphicProperties;
+  #if prime_css
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
-	public var stylingEnabled	(default, setStylingEnabled)	: Bool;
+	public var stylingEnabled	(default, set_stylingEnabled)	: Bool;
+  #end
 #end
 	
 	public var enabled			(default, null)					: Bindable<Bool>;
@@ -122,17 +123,18 @@ class UIComponent extends Sprite, implements IUIComponent
 #end
 		this.id			= new Bindable<String>(id);
 		this.enabled	= new Bindable<Bool>(true);
-		visible			= false;
+	//	visible			= false;
 		changes			= 0;
 		
 		state			= new UIElementStates();
 		handleEnableChange.on( enabled.change, this );
 		init.onceOn( displayEvents.addedToStage, this );
-#if flash9
+#if (flash9 || nme)
 		graphicData		= new GraphicProperties( rect );
+	#if prime_css
 		styleClasses	= new SimpleList<String>();
 		stylingEnabled	= true;		// <- will create UIElementStyle instance
-		
+	#end	
 		//add default behaviours
 		behaviours = new BehaviourList();
 		behaviours.add( new ValidateLayoutBehaviour(this) );
@@ -157,7 +159,7 @@ class UIComponent extends Sprite, implements IUIComponent
 		if (isInitialized())
 			return;
 
-#if flash9
+#if (prime_css && (flash9 || nme))
 		if (stylingEnabled)
 			behaviours.add( new InteractiveStyleChangeBehaviour(this) );
 		Assert.isNotNull(parent);
@@ -248,7 +250,7 @@ class UIComponent extends Sprite, implements IUIComponent
 		id.dispose();
 		enabled.dispose();
 		
-#if flash9
+#if (prime_css && (flash9 || nme))
 		// will be null if styling is disabled
 		if( style != null )
 			style.dispose();
@@ -266,9 +268,9 @@ class UIComponent extends Sprite, implements IUIComponent
 	}
 	
 	
-	public #if !noinline inline #end function isDisposed ()	{ return state == null || state.is(state.disposed); }
-	public #if !noinline inline #end function isInitialized ()	{ return state != null && state.is(state.initialized); }
-	public function isResizable ()			{ return true; }
+	public #if !noinline inline #end function isDisposed ()		return state == null || state.is(state.disposed);
+	public #if !noinline inline #end function isInitialized ()	return state != null && state.is(state.initialized);
+	public function isResizable ()								return true;
 	
 	
 	//
@@ -298,10 +300,10 @@ class UIComponent extends Sprite, implements IUIComponent
 			var hasEffect = effects != null && effects.show != null;
 			var isPlaying = hasEffect && effects.show.isPlaying();
 			
-			if (!hasEffect && !visible)
-				visible = true;
+		//	if (!hasEffect && !visible)
+		//		visible = true;
 			
-			else if (hasEffect && !isPlaying)
+			if (hasEffect && !isPlaying)
 			{
 				if (!wasDetaching)
 					visible = false;
@@ -346,16 +348,16 @@ class UIComponent extends Sprite, implements IUIComponent
 	// ACTIONS (actual methods performed by UIElementActions util)
 	//
 	
-	public #if !noinline inline #end function show ()						{ this.doShow(); }
-	public #if !noinline inline #end function hide ()						{ this.doHide(); }
-	public #if !noinline inline #end function move (x:Int, y:Int)			{ this.doMove(x, y); }
-	public #if !noinline inline #end function resize (w:Int, h:Int)		{ this.doResize(w, h); }
-	public #if !noinline inline #end function rotate (v:Float)				{ this.doRotate(v); }
-	public function scale (sx:Float, sy:Float)			{ this.doScale(sx, sy); }
+	public #if !noinline inline #end function show ()				this.doShow();
+	public #if !noinline inline #end function hide ()				this.doHide();
+	public #if !noinline inline #end function move (x:Int, y:Int)	this.doMove(x, y);
+	public #if !noinline inline #end function resize (w:Int, h:Int)	this.doResize(w, h);
+	public #if !noinline inline #end function rotate (v:Float)		this.doRotate(v);
+	public function scale (sx:Float, sy:Float)						this.doScale(sx, sy);
 	
-	public #if !noinline inline #end function enable ()					{ /*Assert.that(!isDisposed(), this);*/ enabled.value = true; }
-	public #if !noinline inline #end function disable ()					{ /*Assert.that(!isDisposed(), this);*/ enabled.value = false; }
-	public #if !noinline inline #end function isEnabled ()					{ return enabled.value; }
+	public #if !noinline inline #end function enable ()				enabled.value = true;
+	public #if !noinline inline #end function disable ()			enabled.value = false;
+	public #if !noinline inline #end function isEnabled ()			return enabled.value;
 	
 	
 	//
@@ -374,16 +376,16 @@ class UIComponent extends Sprite, implements IUIComponent
 	    return _behaviours;
 	}*/
 	
-	private inline function getSystem () : ISystem		{ return window.as(ISystem); }
-#if flash9
-	public #if !noinline inline #end function isOnStage () : Bool			{ return stage != null; }			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
+	private inline function get_system () : ISystem					return window.as(ISystem);
+#if (flash9 || nme)
+	public #if !noinline inline #end function isOnStage () : Bool	return stage != null;			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
 #else
-	public #if !noinline inline #end function isOnStage () : Bool			{ return window != null; }
+	public #if !noinline inline #end function isOnStage () : Bool	return window != null;
 #end
-	public #if !noinline inline #end function isQueued () : Bool			{ return nextValidatable != null || prevValidatable != null; }
+	public #if !noinline inline #end function isQueued () : Bool	return nextValidatable != null || prevValidatable != null;
 	
 
-	private inline function setSkin (newSkin)
+	private inline function set_skin (newSkin)
 	{
 		if (skin != null)
 			skin.dispose();
@@ -397,14 +399,14 @@ class UIComponent extends Sprite, implements IUIComponent
 	}
 	
 	
-#if flash9
+#if (prime_css && (flash9 || nme))
 	private inline function setStyle (v)
 	{
 		return style = v;
 	}
 	
 	
-	private function setStylingEnabled (v:Bool)
+	private function set_stylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)
 		{
@@ -502,12 +504,12 @@ class UIComponent extends Sprite, implements IUIComponent
 	
 	private function handleEnableChange (newVal:Bool, oldVal:Bool)
 	{
-		mouseEnabled = tabEnabled = children.mouseEnabled = children.tabEnabled = newVal;
+		mouseEnabled = #if (nme && !cpp) tabEnabled = #end children.mouseEnabled = children.tabEnabled = newVal;
 	}
 	
 	
 #if debug
-	override public function toString ()	{ return id == null ? Type.getClassName(Type.getClass(this))+"" : id.value; }
-	public function readChanges ()			{ return UIElementFlags.readProperties(changes); }
+	override public function toString ()	return id == null ? Type.getClassName(Type.getClass(this))+"" : id.value;
+	public function readChanges ()			return UIElementFlags.readProperties(changes);
 #end
 }

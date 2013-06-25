@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout.algorithms;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.space.Direction;
  import prime.core.geom.space.Horizontal;
  import prime.core.geom.space.Vertical;
@@ -51,22 +48,22 @@ private typedef AlgorithmClass = Factory<ILayoutAlgorithm>;
  * @creation-date	Jun 24, 2010
  * @author			Ruben Weijers
  */
-class DynamicLayoutAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgorithm
+class DynamicLayoutAlgorithm extends LayoutAlgorithmBase implements ILayoutAlgorithm
 {
 	/**
 	 * Defines the start position on the horizontal axis.
 	 * @default		Horizontal.left
 	 */
-	public var horizontalDirection		(default, setHorizontalDirection)	: Horizontal;
+	public var horizontalDirection		(default, set_horizontalDirection)	: Horizontal;
 	/**
 	 * Defines the start position on the vertical axis.
 	 * @default		Vertical.top
 	 */
-	public var verticalDirection		(default, setVerticalDirection)		: Vertical;
+	public var verticalDirection		(default, set_verticalDirection)	: Vertical;
 	
 	
-	public var horAlgorithm				(default, setHorAlgorithm)			: IHorizontalAlgorithm;
-	public var verAlgorithm				(default, setVerAlgorithm)			: IVerticalAlgorithm;
+	public var horAlgorithm				(default, set_horAlgorithm)			: IHorizontalAlgorithm;
+	public var verAlgorithm				(default, set_verAlgorithm)			: IVerticalAlgorithm;
 	
 	
 	public function new (?horAlgorithmInfo:AlgorithmClass, ?verAlgorithmInfo:AlgorithmClass) 
@@ -160,7 +157,7 @@ class DynamicLayoutAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgo
 	//
 	
 	
-	override private function setGroup (v)
+	override private function set_group (v)
 	{
 		if (group != v)
 		{
@@ -169,7 +166,7 @@ class DynamicLayoutAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgo
 				verAlgorithm.group = null;
 			}
 			
-			v = super.setGroup(v);
+			v = super.set_group(v);
 		//	invalidate(true);
 			
 			if (v != null) {
@@ -183,7 +180,7 @@ class DynamicLayoutAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgo
 	}
 	
 	
-	private inline function setHorAlgorithm (v)
+	private inline function set_horAlgorithm (v)
 	{
 		if (horAlgorithm != null) {
 			horAlgorithm.group = null;
@@ -201,7 +198,7 @@ class DynamicLayoutAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgo
 	}
 	
 	
-	private inline function setVerAlgorithm (v)
+	private inline function set_verAlgorithm (v)
 	{
 		if (verAlgorithm != null) {
 			verAlgorithm.group = null;
@@ -219,7 +216,7 @@ class DynamicLayoutAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgo
 	}
 	
 	
-	private function setHorizontalDirection (v:Horizontal)
+	private function set_horizontalDirection (v:Horizontal)
 	{
 		if (v != horizontalDirection) {
 			horizontalDirection		= v;
@@ -230,7 +227,7 @@ class DynamicLayoutAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgo
 	}
 	
 	
-	private function setVerticalDirection (v:Vertical)
+	private function set_verticalDirection (v:Vertical)
 	{
 		if (v != verticalDirection) {
 			verticalDirection		= v;
@@ -249,7 +246,7 @@ class DynamicLayoutAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgo
 #end
 
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		var hor = horAlgorithm == null ? null : new Factory( /*cast */horAlgorithm.getClass(), [ horizontalDirection ] );
 		var ver = verAlgorithm == null ? null : new Factory( /*cast */verAlgorithm.getClass(), [ verticalDirection ] );

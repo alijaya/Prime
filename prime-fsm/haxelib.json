@@ -1,0 +1,15 @@
+{
+  "name": "prime-fsm",
+  "license": "BSD",
+  "tags": ["prime", "state"],
+  "description": "State machines.",
+  "contributors": ["optimus"],
+
+  "releasenote": "Initial release. Developed since Jul 08, 2010",
+  "version": "1.0.0",
+  "url": "http://prime.vc/",
+  "dependencies": {
+    "prime-core": "",
+    "prime-signals": ""
+  }
+}

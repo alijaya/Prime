@@ -32,7 +32,7 @@ package prime.gui.graphics.borders;
  import prime.gui.traits.IGraphicsOwner;
   using prime.utils.Color;
 
-#if flash9
+#if (flash9 || nme)
  import flash.display.LineScaleMode;
 #end
 
@@ -48,7 +48,7 @@ class SolidBorder extends BorderBase <SolidFill>
 	override public function begin (target:IGraphicsOwner, bounds:IRectangle) : Void
 	{
 		super.begin(target, bounds);
-#if flash9
+#if (flash9 || nme)
 		if (weight > 0)
 			target.graphics.lineStyle( weight, fill.color.rgb(), fill.color.alpha().float(), pixelHinting, LineScaleMode.NORMAL, caps, joint );
 #end

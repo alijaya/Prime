@@ -27,7 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.bindable.collections;
- import haxe.FastList;
+ import haxe.ds.GenericStack;
+ import prime.bindable.collections.iterators.IIterator;
  import prime.core.events.ListChangeSignal;
   using prime.utils.FastArray;
   using prime.utils.IfUtil;
@@ -40,15 +41,15 @@ package prime.bindable.collections;
  * @author Ruben Weijers
  * @creation-date Nov 19, 2010
  */
-@:generic class ReadOnlyArrayList<T> implements IReadOnlyList<T>
+class ReadOnlyArrayList<T> implements IReadOnlyList<T>
 {
 	public var beforeChange	(default, null)		: ListChangeSignal<T>;
 	public var change		(default, null)		: ListChangeSignal<T>;
 	public var list			(default, null)		: FastArray<T>;
-	public var length		(getLength, never)	: Int;
+	public var length		(get_length, never)	: Int;
 	
-	public var array		(getArray,null)		: FastArray<T>;
- 		inline function getArray() : FastArray<T> return #if flash10 flash.Vector.convert(list) #else list #end
+	public var array		(get_array,null)	: FastArray<T>;
+ 		inline function get_array() : FastArray<T> return #if flash10 flash.Vector.convert(list) #else list #end;
 	
 
 	public function new( wrapAroundList:FastArray<T> = null )
@@ -84,13 +85,14 @@ package prime.bindable.collections;
 	}
 	
 	
-	@:keep private inline function getLength ()			return list.length
-	@:keep public  inline function iterator () 	        return forwardIterator()
-	@:keep public  inline function forwardIterator () 	return new prime.bindable.collections.iterators.FastArrayForwardIterator<T>(list)
-	@:keep public  inline function reversedIterator () 	return new prime.bindable.collections.iterators.FastArrayReversedIterator<T>(list)
+	@:keep private inline function get_length ()						return list.length;
+	@:keep public  inline function iterator () : Iterator<T>			return forwardIterator();
+	@:keep public  inline function forwardIterator () : IIterator<T>	return new prime.bindable.collections.iterators.FastArrayForwardIterator<T>(list);
+	@:keep public  inline function reversedIterator () : IIterator<T>	return new prime.bindable.collections.iterators.FastArrayReversedIterator<T>(list);
 
-	public #if !noinline inline #end function disableEvents ()								{ beforeChange.disable(); change.disable(); }
-	public #if !noinline inline #end function enableEvents ()								{ beforeChange.enable();  change.enable(); }
+
+	public #if !noinline inline #end function disableEvents ()					{ beforeChange.disable(); change.disable(); }
+	public #if !noinline inline #end function enableEvents ()					{ beforeChange.enable();  change.enable(); }
 	
 	public #if !noinline inline #end function asIterableOf<B> ( type:Class<B> ) : Iterator<B>
 	{
@@ -146,11 +148,11 @@ package prime.bindable.collections;
 	/**
 	 * Keeps track of which lists are updating this list
 	 */
-	private var boundTo : FastList<ReadOnlyArrayList<T>>;
+	private var boundTo : GenericStack<ReadOnlyArrayList<T>>;
 	/**
 	 * Keeps track of which lists should be updated when this list changes
 	 */
-	private var writeTo : FastList<ReadOnlyArrayList<T>>;
+	private var writeTo : GenericStack<ReadOnlyArrayList<T>>;
 
 
 
@@ -207,13 +209,13 @@ package prime.bindable.collections;
 		
 		var b = this.boundTo;
 		if (b.isNull())
-			b = this.boundTo = new FastList<ReadOnlyArrayList<T>>();
+			b = this.boundTo = new GenericStack<ReadOnlyArrayList<T>>();
 		
 		addToBoundList(b, other);
 	}
 	
 	
-	@:keep private inline function addToBoundList<T>(list:FastList<T>, other:T)
+	@:keep private inline function addToBoundList<T>(list:GenericStack<T>, other:T)
 	{
 		Assert.isNotNull(list);
 		
@@ -243,7 +245,7 @@ package prime.bindable.collections;
 		
 		var w = this.writeTo;
 		if (w.isNull())
-			w = this.writeTo = new FastList<ReadOnlyArrayList<T>>();
+			w = this.writeTo = new GenericStack<ReadOnlyArrayList<T>>();
 		
 		addToBoundList(w, other);
 	}

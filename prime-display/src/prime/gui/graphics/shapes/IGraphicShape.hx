@@ -37,7 +37,7 @@ package prime.gui.graphics.shapes;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-interface IGraphicShape implements IGraphicElement
+interface IGraphicShape extends IGraphicElement
 {
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void;
 	

@@ -38,10 +38,10 @@ package prime.gui.graphics.borders;
  * @author Ruben Weijers
  * @creation-date Nov 04, 2010
  */
-class ComposedBorder extends ComposedGraphicProperty, implements IBorder
+class ComposedBorder extends ComposedGraphicProperty implements IBorder
 {
-	public var weight		(default, setWeight)		: Float;
-	public var innerBorder	(default, setInnerBorder)	: Bool;
+	public var weight		(default, set_weight)		: Float;
+	public var innerBorder	(default, set_innerBorder)	: Bool;
 	
 	
 	public function new ()
@@ -79,7 +79,7 @@ class ComposedBorder extends ComposedGraphicProperty, implements IBorder
 	}
 	
 	
-	private inline function setWeight (v:Float)
+	private inline function set_weight (v:Float)
 	{
 		if (v != weight) {
 			weight = v;
@@ -89,7 +89,7 @@ class ComposedBorder extends ComposedGraphicProperty, implements IBorder
 	}
 	
 	
-	private inline function setInnerBorder (v:Bool)
+	private inline function set_innerBorder (v:Bool)
 	{
 		Assert.abstractMethod();
 		return v;

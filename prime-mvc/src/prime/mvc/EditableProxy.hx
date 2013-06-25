@@ -41,7 +41,7 @@ package prime.mvc;
  */
 class EditableProxy	< VOType:IEditableValueObject, EditEnabledVOType:IEditEnabledValueObject, EventsTypedef >
  		extends Proxy <VOType, EventsTypedef>
-	,	implements IEditableProxy < EditEnabledVOType >
+		implements IEditableProxy < EditEnabledVOType >
 {
 	public function beginEdit() : EditEnabledVOType
 	{

@@ -1,5 +1,5 @@
 package prime.js.display;
-
+#if js
 import js.Dom;
 import js.Lib;
 import prime.js.events.TouchEvents;
@@ -11,8 +11,8 @@ import prime.js.events.TouchSignal;
  */
 class Link extends DOMElem
 {	
-	public var href				(default, setHref):String;
-	public var action			(default, setAction):Void -> Void;
+	public var href				(default, set_href):String;
+	public var action			(default, set_action):Void -> Void;
 	public var touches			(default, null):TouchEvents;
 	
 	public function new()
@@ -22,14 +22,14 @@ class Link extends DOMElem
 		touches = new TouchEvents(elem);
 	}
 	
-	private function setAction(v:Void -> Void):Void -> Void
+	private function set_action(v:Void -> Void):Void -> Void
 	{
 		action = v;
 		touches.end.bind(this, applyAction);
 		return action;
 	}
 	
-	private function setHref(v:String):String
+	private function set_href(v:String):String
 	{
 		href = v;
 		elem.href = href;
@@ -42,3 +42,4 @@ class Link extends DOMElem
 		action();
 	}
 }
+#end

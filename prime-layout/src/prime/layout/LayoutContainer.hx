@@ -55,18 +55,18 @@ private typedef Flags = LayoutFlags;
  * @since	Mar 20, 2010
  * @author	Ruben Weijers
  */
-class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer, implements IScrollableLayout
+class LayoutContainer extends AdvancedLayoutClient implements ILayoutContainer implements IScrollableLayout
 {
-	public var algorithm			(default, setAlgorithm)			: ILayoutAlgorithm;
+	public var algorithm			(default, set_algorithm)		: ILayoutAlgorithm;
 	
-	public var childWidth			(default, setChildWidth)		: Int;
-	public var childHeight			(default, setChildHeight)		: Int;
+	public var childWidth			(default, set_childWidth)		: Int;
+	public var childHeight			(default, set_childHeight)		: Int;
 	
 	public var scrollPos			(default, null)					: BindablePoint;
-	public var scrollableWidth		(getScrollableWidth, never)		: Int;
-	public var scrollableHeight		(getScrollableHeight, never)	: Int;
-	public var minScrollXPos		(default, setMinScrollXPos)		: Int;
-	public var minScrollYPos		(default, setMinScrollYPos)		: Int;
+	public var scrollableWidth		(get_scrollableWidth, never)	: Int;
+	public var scrollableHeight		(get_scrollableHeight, never)	: Int;
+	public var minScrollXPos		(default, set_minScrollXPos)	: Int;
+	public var minScrollYPos		(default, set_minScrollYPos)	: Int;
 	
 	
 	
@@ -117,13 +117,11 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 		if (!sender.is(LayoutClient))
 			return super.invalidateCall( childChanges, sender );
 		
-		var isInvalid = childChanges.has(Flags.INCLUDE);
-		if (isInvalid)
+	//	var isInvalid = childChanges.has(Flags.INCLUDE);
+		if (childChanges.has(Flags.INCLUDE))
 			invalidate( Flags.LIST );
-	//	else if (childChanges.has(Flags.ALGORITHM))
-	//		isInvalid = true;
 		
-		if (isInvalid || algorithm.isNull() || algorithm.isInvalid(childChanges))
+		if (childChanges.has(Flags.INCLUDE | Flags.ALGORITHM) || algorithm.isNull() || algorithm.isInvalid(childChanges))
 		{
 			var child = sender.as(LayoutClient);
 			invalidate( Flags.CHILDREN_INVALIDATED );
@@ -241,7 +239,7 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 		if (!hasValidatedWidth)		validateHorizontal();
 		if (!hasValidatedHeight)	validateVertical();
 
-		if (changes.has( Flags.SIZE_PROPERTIES ))
+		if (changes.has(Flags.SIZE_PROPERTIES) && (scrollPos.x > 0 || scrollPos.y > 0))
 			validateScrollPosition( scrollPos );
 		
 		if (algorithm.notNull()) {
@@ -330,6 +328,8 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 				{
 					var child = fillingChildren.pop();
 					child.outerBounds.width = sizePerChild;
+					if (child.is(IAdvancedLayoutClient))
+						(untyped child).explicitWidth = child.width;
 					child.validateHorizontal();
 				}
 			}
@@ -372,7 +372,7 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 				
 				//measure children with explicitHeight and no percentage size
 				else if (checkIfChildGetsPercentageHeight(child, height))
-					child.outerBounds.height = (height * child.percentHeight).roundFloat();
+					child.applyPercentHeight(height);
 			}
 			
 			//measure children
@@ -397,6 +397,8 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 				{
 					var child = fillingChildren.pop();
 					child.outerBounds.height = sizePerChild;
+					if (child.is(IAdvancedLayoutClient))
+						(untyped child).explicitHeight = child.height;
 					child.validateVertical();
 				}
 			}
@@ -415,7 +417,7 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 	//
 	
 	
-	private /*inline*/ function setAlgorithm (v:ILayoutAlgorithm)
+	private /*inline*/ function set_algorithm (v:ILayoutAlgorithm)
 	{
 		if (v != algorithm)
 		{
@@ -440,7 +442,7 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 	}
 
 
-	private inline function setChildWidth (v)
+	private inline function set_childWidth (v)
 	{
 		if (v != childWidth)
 		{
@@ -451,7 +453,7 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 	}
 
 
-	private inline function setChildHeight (v)
+	private inline function set_childHeight (v)
 	{
 		if (v != childHeight)
 		{
@@ -469,11 +471,11 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 	
 	public  inline function horScrollable ()						{ return width.isSet()  && measuredWidth.isSet()  && measuredWidth  > width; }
 	public  inline function verScrollable ()						{ return height.isSet() && measuredHeight.isSet() && measuredHeight > height; }
-	private inline function getScrollableWidth ()					{ return measuredWidth  - width; }
-	private inline function getScrollableHeight ()					{ return measuredHeight - height; }
+	private inline function get_scrollableWidth ()					{ return measuredWidth  - width; }
+	private inline function get_scrollableHeight ()					{ return measuredHeight - height; }
 	
-	private inline function setMinScrollXPos (v:Int)				{ return minScrollXPos = v <= 0 ? v : 0; }
-	private inline function setMinScrollYPos (v:Int)				{ return minScrollYPos = v <= 0 ? v : 0; }
+	private inline function set_minScrollXPos (v:Int)				{ return minScrollXPos = v <= 0 ? v : 0; }
+	private inline function set_minScrollYPos (v:Int)				{ return minScrollYPos = v <= 0 ? v : 0; }
 	
 	public #if !noinline inline #end function validateScrollPosition (pos:IntPoint)
 	{
@@ -526,8 +528,8 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 	 */
 	public var childrenLength		(default, null)					: Int;
 	public var fixedChildStart		(default, default)				: Int;
-	public var invisibleBefore		(default, setInvisibleBefore)	: Int;
-	public var invisibleAfter		(default, setInvisibleAfter)	: Int;
+	public var invisibleBefore		(default, set_invisibleBefore)	: Int;
+	public var invisibleAfter		(default, set_invisibleAfter)	: Int;
 	
 	/**
 	 * Indicated wether the length of the children is fake d or not.
@@ -608,7 +610,7 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 	}
 
 
-	private inline function setInvisibleBefore (v:Int)
+	private inline function set_invisibleBefore (v:Int)
 	{
 		if (v != invisibleBefore)
 		{
@@ -619,7 +621,7 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 	}
 
 
-	private inline function setInvisibleAfter (v:Int)
+	private inline function set_invisibleAfter (v:Int)
 	{
 		if (v != invisibleAfter)
 		{

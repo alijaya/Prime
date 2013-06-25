@@ -41,12 +41,12 @@ package prime.gui.graphics.shapes;
  * @author Ruben Weijers
  * @creation-date Aug 01, 2010
  */
-class Circle extends ShapeBase, implements IGraphicShape
+class Circle extends ShapeBase implements IGraphicShape
 {
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{
 		var radius = Formulas.getCircleRadius( bounds.width, bounds.height );
-#if flash9
+#if (flash9 || nme)
 		target.graphics.drawCircle(bounds.left + radius, bounds.top + radius, radius);
 #end
 	}
@@ -55,7 +55,7 @@ class Circle extends ShapeBase, implements IGraphicShape
 	public function drawFraction (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners, percentage:Float) : Void
 	{
 		var radius = Formulas.getCircleRadius( bounds.width, bounds.height );
-#if flash9
+#if (flash9 || nme)
 		target.drawArc(bounds.left + radius, bounds.top + radius, radius, percentage, -90.0.degreesToRadians());
 #end
 	}

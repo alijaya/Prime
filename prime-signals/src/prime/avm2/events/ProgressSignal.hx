@@ -27,12 +27,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.ProgressEvent;
  import prime.signals.IWireWatcher;
  import prime.signals.Signal2;
  import prime.signals.Wire;
- import prime.core.ListNode;
  import prime.core.events.CommunicationEvents;		// needed for ProgressHandler typedef
   using Std;
 
@@ -47,7 +47,7 @@ package prime.avm2.events;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-class ProgressSignal extends Signal2<UInt, UInt>, implements IWireWatcher < ProgressHandler > 
+class ProgressSignal extends Signal2<UInt, UInt> implements IWireWatcher < ProgressHandler > 
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;
@@ -62,7 +62,7 @@ class ProgressSignal extends Signal2<UInt, UInt>, implements IWireWatcher < Prog
 
 	public function wireEnabled (wire:Wire<ProgressHandler>) : Void {
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 
@@ -75,3 +75,4 @@ class ProgressSignal extends Signal2<UInt, UInt>, implements IWireWatcher < Prog
 		send(e.bytesLoaded.int(), e.bytesTotal.int());
 	}
 }
+#end

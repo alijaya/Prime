@@ -30,14 +30,16 @@ package prime.gui.events;
  import prime.signals.Signal0;
  import prime.signals.Signals;
 
+#if (flash9 || nme)
 
 typedef TextEvents =
-	#if     flash9 prime.avm2.events.TextEvents;
+	#if (flash9 || nme) prime.avm2.events.TextEvents;
 	#elseif flash8 prime.avm1.events.TextEvents;
 	#elseif nodejs 	#error;
 	#elseif js     prime.js  .events.TextEvents;
 	#else   #error #end
 
+#end
 
 typedef TextHandler	= String -> Void;
 typedef TextSignal  = prime.signals.INotifier<TextHandler>;
@@ -48,7 +50,7 @@ typedef TextSignal  = prime.signals.INotifier<TextHandler>;
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-class TextSignals extends Signals, implements haxe.Public 
+@:publicFields class TextSignals extends Signals
 {
 	public var change		(default,null) : Signal0;
 	public var link			(default,null) : TextSignal;

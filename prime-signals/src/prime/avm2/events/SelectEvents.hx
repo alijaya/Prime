@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.Event;
  import prime.gui.events.SelectEvents;
@@ -46,3 +47,4 @@ class SelectEvents extends SelectSignals
 		cancel = new FlashSignal0(target, Event.CANCEL);
 	}
 }
+#end

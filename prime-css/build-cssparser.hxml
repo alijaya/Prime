@@ -1,0 +1,21 @@
+
+-D nodejs
+-cp libs/nodejs
+
+-D CSSParser
+
+-lib prime-bindable
+-lib prime-components
+-lib prime-core
+-lib prime-css
+-lib prime-data
+-lib prime-display
+-lib prime-fsm
+-lib prime-layout
+-lib prime-media
+-lib prime-mvc
+-lib prime-signals
+
+-cp libs/haxe
+-cp libs/apparat
+-cp src

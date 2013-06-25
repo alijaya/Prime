@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.FocusEvent;
  import prime.signals.IWireWatcher;
@@ -34,7 +35,6 @@ package prime.avm2.events;
  import prime.signals.Wire;
  import prime.gui.events.FocusState;
  import prime.gui.events.KeyModState;
-  using prime.core.ListNode;
 
 
 private typedef FocusHandler = FocusState -> Void;
@@ -45,7 +45,7 @@ private typedef FocusHandler = FocusState -> Void;
  * @author Ruben Weijers
  * @creation-date jan 26, 2010
  */
-class FocusSignal extends Signal1<FocusState>, implements IWireWatcher<FocusHandler>
+class FocusSignal extends Signal1<FocusState> implements IWireWatcher<FocusHandler>
 {
 	var eventDispatcher	: IEventDispatcher;
 	var event			: String;
@@ -86,7 +86,7 @@ class FocusSignal extends Signal1<FocusState>, implements IWireWatcher<FocusHand
 		/** scrollDelta				Button				clickCount			KeyModState
 			FF (8-bit) -127-127		FF (8-bit) 0-255	F (4-bit) 0-15		F (4-bit)
 		*/
-#if flash9
+#if (flash9 || nme)
 		flags  = (e.shiftKey ? KeyModState.SHIFT : 0);
 		flags |= (e.keyCode << 8);
 		
@@ -106,4 +106,4 @@ class FocusSignal extends Signal1<FocusState>, implements IWireWatcher<FocusHand
 	}
 #end
 }
-
+#end

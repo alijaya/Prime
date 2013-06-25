@@ -124,7 +124,7 @@ class Csv
 		while (i < l)
 		{
 			var row = out[i];
-			var empty:UInt = 0;
+			var empty:Int = 0;
 			for (cell in row)
 				if (cell == "")
 					empty++;

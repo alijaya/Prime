@@ -45,7 +45,7 @@ package prime.gui.core;
  * @author Ruben Weijers
  * @creation-date Oct 29, 2010
  */
-class UIContainer extends UIComponent, implements IUIContainer
+class UIContainer extends UIComponent implements IUIContainer
 {
     public function new (id:String = null)
     {
@@ -54,12 +54,12 @@ class UIContainer extends UIComponent, implements IUIContainer
     }
 
 
-    public var layoutContainer  (getLayoutContainer, never)     : LayoutContainer;
-    public var scrollableLayout (getScrollableLayout, never)    : IScrollableLayout;
+    public var layoutContainer  (get_layoutContainer, never)    : LayoutContainer;
+    public var scrollableLayout (get_scrollableLayout, never)   : IScrollableLayout;
     public var isScrollable                                     : Bool;
 	
-	private inline function getLayoutContainer () 										{ return layout.as(LayoutContainer); }
-	private inline function getScrollableLayout () 										{ return layout.as(IScrollableLayout); }
+	private inline function get_layoutContainer ()     									{ return layout.as(LayoutContainer); }
+	private inline function get_scrollableLayout () 									{ return layout.as(IScrollableLayout); }
 	public  inline function attach			(child:IUIElement)			: IUIContainer	{ child.attachTo(this);             return this; }
 	public  inline function changeDepthOf	(child:IUIElement, pos:Int)	: IUIContainer	{ child.changeDepth(pos);           return this; }
     public  inline function attachDisplay   (child:IUIElement)          : IUIContainer  { child.attachDisplayTo(this);      return this; }
@@ -88,7 +88,7 @@ class UIContainer extends UIComponent, implements IUIContainer
     public function enableClipping ()
     {
         Assert.isNull(scrollRect, id.value);
-        createScrollRect( rect.width, rect.height);
+        createScrollRect( layout.outerBounds.width, layout.outerBounds.height);
         
         var s = layoutContainer.scrollPos;
         updateScrollRect.on( layoutContainer.changed, this );
@@ -114,8 +114,8 @@ class UIContainer extends UIComponent, implements IUIContainer
             return;
         
         var r = getScrollRect();
-        r.width  = rect.width;
-        r.height = rect.height;
+        r.width  = layout.outerBounds.width;
+        r.height = layout.outerBounds.height;
         
         if (graphicData.border != null)
         {

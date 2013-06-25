@@ -52,7 +52,7 @@ package prime.gui.behaviours.layout;
  * @creation-date	Jun 14, 2010
  * @author			Ruben Weijers
  */
-class ValidateLayoutBehaviour extends ValidatingBehaviour < IUIElement >, implements IPropertyValidator
+class ValidateLayoutBehaviour extends ValidatingBehaviour<IUIElement> implements IPropertyValidator
 {
 	private var isNotPositionedYet	: Bool;
 	private var isNotSizedYet		: Bool;
@@ -150,9 +150,9 @@ class ValidateLayoutBehaviour extends ValidatingBehaviour < IUIElement >, implem
 	}
 	
 	
-	public #if !noinline inline #end function invalidate ()				getValidationManager().add( this )
-	public #if !noinline inline #end function validate ()					if (target.notNull()) { target.layout.validate(); }
-	override private function getValidationManager ()	return isOnStage() ? target.system.invalidation : null
+	public #if !noinline inline #end function invalidate ()		getValidationManager().add( this );
+	public #if !noinline inline #end function validate ()		if (target.notNull()) { target.layout.validate(); };
+	override private function getValidationManager ()			return isOnStage() ? target.system.invalidation : null;
 	
 	
 	public function applyChanges (changes:Int)

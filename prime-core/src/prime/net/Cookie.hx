@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.net;
-#if flash9
+#if (flash9 || nme)
  import flash.events.NetStatusEvent;
  import flash.net.SharedObject;
  import flash.net.SharedObjectFlushStatus;
@@ -53,7 +53,7 @@ class Cookie < DataType >
 		this.name = name;
 		
 		//FIXME write the cookie implementation for other languages
-#if flash9
+#if (flash9 || nme)
 		try
 		{
 			localObj = SharedObject.getLocal( name );
@@ -72,7 +72,7 @@ class Cookie < DataType >
 	 */
 	public function save ()
 	{
-#if flash9
+#if (flash9 || nme)
 		try
 		{
 			var flushStatus = localObj.flush();
@@ -98,13 +98,13 @@ class Cookie < DataType >
 	 */
 	public inline function delete ()
 	{
-#if flash9
+#if (flash9 || nme)
 		localObj.clear();
 #end
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private function onFlushStatus (event)
 	{
 		localObj.removeEventListener(NetStatusEvent.NET_STATUS, onFlushStatus, false);

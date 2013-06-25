@@ -38,7 +38,7 @@ package prime.gui.behaviours;
  * @author Ruben Weijers
  * @creation-date Nov 09, 2010
  */
-class ValidatingBehaviour < TargetType:prime.gui.traits.IDisplayable > extends BehaviourBase < TargetType >, implements IValidatable
+class ValidatingBehaviour < TargetType:prime.gui.traits.IDisplayable > extends BehaviourBase < TargetType > implements IValidatable
 {
 	public var prevValidatable		: IValidatable;
 	public var nextValidatable		: IValidatable;

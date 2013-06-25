@@ -220,7 +220,7 @@ class SelectableListView<ListDataType> extends ListView<ListDataType>
             if (isOnStage() && child.is(IInteractiveObject))
                 window.focus = child.as(IInteractiveObject);
             
-#if flash9  Assert.isEqual(child.parent, this, child+" should be a direct child of "+this); #end
+#if (flash9 || nme)  Assert.isEqual(child.parent, this, child+" should be a direct child of "+this); #end
             currentFocus     = child;
             focusIndex       = depthToIndex( children.indexOf(child) );
         }

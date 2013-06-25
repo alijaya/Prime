@@ -36,7 +36,7 @@ package prime.core.traits;
  * @author Danny Wilson
  * @creation-date Dec 13, 2010
  */
-interface IMessagePackable implements IFlagOwner
+interface IMessagePackable extends IFlagOwner
 {
 	/**
 	 * Serialize this object.

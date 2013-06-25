@@ -28,14 +28,13 @@
  */
 package prime.core.geom;
  import prime.bindable.Bindable;
- import prime.core.traits.IDisposable;
 
 
 /**
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-class BindablePoint extends IntPoint, implements IDisposable
+class BindablePoint extends IntPoint implements prime.core.traits.IDisposable
 {
 	public var xProp (default, null)	: Bindable < Int >;
 	public var yProp (default, null)	: Bindable < Int >;
@@ -70,8 +69,8 @@ class BindablePoint extends IntPoint, implements IDisposable
 	
 	
 	
-	override private function getX ()	{ return xProp.value; }
-	override private function setX (v)	{ return xProp.value = v; }
-	override private function getY ()	{ return yProp.value; }
-	override private function setY (v)	{ return yProp.value = v; }
+	override private function get_x ()	{ return xProp.value; }
+	override private function set_x (v)	{ return xProp.value = v; }
+	override private function get_y ()	{ return yProp.value; }
+	override private function set_y (v)	{ return yProp.value = v; }
 }

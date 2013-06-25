@@ -34,7 +34,7 @@ package prime.core.traits;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-interface IInvalidatable implements IInvalidateListener
+interface IInvalidatable extends IInvalidateListener
 {
 //	public var changes (default, null)			: Int;
 	

@@ -29,7 +29,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.behaviours;
- import prime.core.traits.IDisposable;
  
 
 /**
@@ -39,10 +38,10 @@ package prime.gui.behaviours;
  * @creation-date	Jun 10, 2010
  * @author			Ruben Weijers
  */
-interface IBehaviour < TargetType > implements IDisposable
+interface IBehaviour<T> extends prime.core.traits.IDisposable
 {
 	public var initialized			(default, null)			: Bool;
-	public var target				(default, setTarget)	: TargetType;
+	public var target				(default, set_target)	: T;
 	
 	public function initialize ()	: Void;
 	/**

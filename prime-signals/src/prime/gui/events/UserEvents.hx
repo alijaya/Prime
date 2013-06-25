@@ -30,8 +30,10 @@ package prime.gui.events;
  import prime.signals.Signals;
  import prime.signals.Signal1;
 
+#if (flash9 || js || nme)
+
 typedef UserEvents =
-	#if     flash9 prime.avm2.events.UserEvents;
+	#if (flash9 || nme) prime.avm2.events.UserEvents;
 	#elseif flash  prime.avm1.events.UserEvents;
 	#elseif nodejs #error;
 	#elseif js     prime.js  .events.UserEvents;
@@ -47,22 +49,22 @@ typedef UserEvents =
  */
 class UserSignals extends Signals
 {
-	public var mouse	(getMouse,	null)	: MouseEvents;
-	public var key		(getKey,	null)	: KeyboardEvents;
-	public var focus	(getFocus,	null)	: Signal1<FocusState>;
-	public var blur		(getBlur,	null)	: Signal1<FocusState>;
-	public var edit		(getEdit,	null)	: EditEvents;
+	public var mouse	(get_mouse,	null)	: MouseEvents;
+	public var key		(get_key,	null)	: KeyboardEvents;
+	public var focus	(get_focus,	null)	: Signal1<FocusState>;
+	public var blur		(get_blur,	null)	: Signal1<FocusState>;
+	public var edit		(get_edit,	null)	: EditEvents;
 #if dragEnabled
-	public var drag		(getDrag,	null)	: DragEvents;
+	public var drag		(get_drag,	null)	: DragEvents;
 #end
 	
-	private inline function getMouse ()	{ if (mouse == null)	{ createMouse(); }		return mouse; }
-	private inline function getKey ()	{ if (key == null)		{ createKey(); }		return key; }
-	private inline function getFocus ()	{ if (focus == null)	{ createFocus(); }		return focus; }
-	private inline function getBlur ()	{ if (blur == null)		{ createBlur(); }		return blur; }
-	private inline function getEdit ()	{ if (edit == null)		{ createEdit(); }		return edit; }
+	private inline function get_mouse (){ if (mouse == null)	{ createMouse(); }		return mouse; }
+	private inline function get_key ()	{ if (key == null)		{ createKey(); }		return key; }
+	private inline function get_focus (){ if (focus == null)	{ createFocus(); }		return focus; }
+	private inline function get_blur ()	{ if (blur == null)		{ createBlur(); }		return blur; }
+	private inline function get_edit ()	{ if (edit == null)		{ createEdit(); }		return edit; }
 #if dragEnabled
-	private inline function getDrag ()	{ if (drag == null)		{ createDrag(); }		return drag; }
+	private inline function get_drag ()	{ if (drag == null)		{ createDrag(); }		return drag; }
 #end
 	
 	
@@ -96,3 +98,5 @@ class UserSignals extends Signals
 		blur	= focus = null;
 	}*/
 }
+
+#end

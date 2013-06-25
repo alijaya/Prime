@@ -32,7 +32,9 @@ package prime.gui.components;
  import prime.bindable.Bindable;
  import prime.gui.core.UIDataContainer;
  import prime.gui.graphics.IGraphicProperty;
+#if prime_css
  import prime.gui.styling.IIconOwner;
+#end
  import prime.gui.text.TextFormat;
  import prime.gui.traits.ISelectable;
  import prime.gui.traits.ITextStylable;
@@ -48,15 +50,32 @@ private typedef Flags = prime.gui.core.UIElementFlags;
  * @author Ruben Weijers
  * @creation-date Oct 29, 2010
  */
-class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, implements ITextStylable, implements ISelectable
+class Button extends UIDataContainer <Bindable<String>> #if prime_css implements IIconOwner #end implements ITextStylable implements ISelectable
 {
 	public var selected		(default, null)			: Bindable<Bool>;
-	public var icon			(default, setIcon)		: Asset;
-	public var iconFill		(default, setIconFill)	: IGraphicProperty;
-#if flash9
-	public var textStyle	(default, setTextStyle)	: TextFormat;
+	public var icon			(default, set_icon)		: Asset;
+	public var iconFill		(default, set_iconFill)	: IGraphicProperty;
+#if (flash9 || nme)
+	public var textStyle	(default, set_textStyle)	: TextFormat;
+
+  //FIXME: Get rid of this shit via partials or something
+  #if flash9
 	public var wordWrap		: Bool;
-	public var embedFonts	: Bool;
+  #elseif nme
+	function set_wordWrap(w) return wordWrap = w
+   #if html5
+	public var wordWrap(default, set_wordWrap):Bool;
+   #elseif cpp
+	public var wordWrap(get_wordWrap, set_wordWrap):Bool;
+	function get_wordWrap() return wordWrap
+   #end
+  #end
+
+	public var embedFonts #if cpp (get_embedFonts, set_embedFonts) #end : Bool;
+  #if cpp
+	inline function get_embedFonts()  return embedFonts
+	inline function set_embedFonts(v) return embedFonts = v
+  #end
 #end
 	
 	
@@ -67,7 +86,7 @@ class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, 
 		
 		this.icon	= icon;
 		selected	= new Bindable<Bool>(false);
-		styleClasses.add("formElement");
+		#if prime_css styleClasses.add("formElement"); #end
 	}
 	
 	
@@ -82,7 +101,7 @@ class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, 
 	}
 	
 	
-	private inline function setIcon (v:Asset)
+	private inline function set_icon (v:Asset)
 	{
 		if (v != icon) {
 			icon = v;
@@ -92,7 +111,7 @@ class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, 
 	}
 	
 	
-	private inline function setIconFill (v:IGraphicProperty)
+	private inline function set_iconFill (v:IGraphicProperty)
 	{
 		if (v != iconFill) {
 			iconFill = v;
@@ -102,8 +121,8 @@ class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, 
 	}
 	
 	
-#if flash9
-	private inline function setTextStyle (v:TextFormat)
+#if (flash9 || nme)
+	private inline function set_textStyle (v:TextFormat)
 	{
 		textStyle = v;
 		invalidate( Flags.TEXTSTYLE );

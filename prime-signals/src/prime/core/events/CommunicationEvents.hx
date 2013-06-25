@@ -32,7 +32,7 @@ package prime.core.events;
 
 
 typedef CommunicationEvents =
-	#if		flash9	prime.avm2.events.CommunicationEvents;
+	#if (flash9 || nme) prime.avm2.events.CommunicationEvents;
 	#elseif	flash 	prime.avm1.events.CommunicationEvents;
 	#elseif	nodejs 	Dynamic;
 	#elseif	js		prime.js  .events.CommunicationEvents;

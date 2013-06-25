@@ -26,5 +26,3 @@
 #-cp libs/swfaddress
 -cp generated-src
 -cp src
-
-#--dead-code-elimination

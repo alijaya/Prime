@@ -38,11 +38,11 @@ package prime.gui.graphics.shapes;
  * @author Ruben Weijers
  * @creation-date Aug 01, 2010
  */
-class Ellipse extends ShapeBase, implements IGraphicShape
+class Ellipse extends ShapeBase implements IGraphicShape
 {
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{
-#if flash9
+#if (flash9 || nme)
 		target.graphics.drawEllipse( bounds.left, bounds.top, bounds.width, bounds.height );
 #end
 	}
@@ -52,7 +52,7 @@ class Ellipse extends ShapeBase, implements IGraphicShape
 	{
 		var radiusX = bounds.width * .5;
 		var radiusY = bounds.height * .5;
-#if flash9
+#if (flash9 || nme)
 		target.drawEllipseArc(bounds.left + radiusX, bounds.top + radiusY, radiusX, radiusY, percentage);
 #end
 	}

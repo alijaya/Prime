@@ -41,7 +41,7 @@ private typedef Flags = LayoutFlags;
  * @creation-date	Jun 17, 2010
  * @author			Ruben Weijers
  */
-class AdvancedLayoutClient extends LayoutClient, implements IAdvancedLayoutClient
+class AdvancedLayoutClient extends LayoutClient implements IAdvancedLayoutClient
 {
 	public function new (newWidth:Int = Number.INT_NOT_SET, newHeight:Int = Number.INT_NOT_SET)
 	{
@@ -150,6 +150,27 @@ class AdvancedLayoutClient extends LayoutClient, implements IAdvancedLayoutClien
 		var h = (measuredHeight.isSet() && explicitHeight.notSet()) ? measuredHeight : _height;
 		updateAllHeights( validateHeight( h, Flags.VALIDATE_ALL ));
 	}
+
+
+/*	override public function validateHorizontal ()
+	{
+		if (changes.has(Flags.PERCENT_WIDTH) && percentWidth.notSet()) {
+			untyped explicitWidth = width = Number.INT_NOT_SET;
+			changes = changes.set( Flags.EXPLICIT_WIDTH );
+		}
+		super.validateHorizontal();
+	}*/
+
+
+	/*override public function validateVertical ()
+	{
+		if (changes.has(Flags.PERCENT_HEIGHT) && percentHeight.notSet()) {
+			trace(this + " / " + explicitHeight + " / " + measuredHeight + " / " + percentHeight + " / " + height); // + "; " + Flags.readProperties(changes));
+			explicitHeight = height = Number.INT_NOT_SET;
+			changes = changes.set( Flags.EXPLICIT_HEIGHT );
+		}
+		super.validateVertical();
+	}*/
 	
 	
 	
@@ -157,11 +178,11 @@ class AdvancedLayoutClient extends LayoutClient, implements IAdvancedLayoutClien
 	// SIZE PROPERTIES
 	//
 	
-	public var explicitWidth	(default, setExplicitWidth)		: Int;
-	public var explicitHeight	(default, setExplicitHeight)	: Int;
+	public var explicitWidth	(default, set_explicitWidth)	: Int;
+	public var explicitHeight	(default, set_explicitHeight)	: Int;
 	
-	public var measuredWidth	(default, setMeasuredWidth) 	: Int;
-	public var measuredHeight	(default, setMeasuredHeight)	: Int;
+	public var measuredWidth	(default, set_measuredWidth) 	: Int;
+	public var measuredHeight	(default, set_measuredHeight)	: Int;
 	
 	
 	
@@ -169,7 +190,7 @@ class AdvancedLayoutClient extends LayoutClient, implements IAdvancedLayoutClien
 	// GETTERS / SETTERS
 	//
 	
-	private inline function setExplicitWidth (v:Int)
+	private inline function set_explicitWidth (v:Int)
 	{
 		if (explicitWidth != v) {
 			explicitWidth = width = v;
@@ -179,7 +200,7 @@ class AdvancedLayoutClient extends LayoutClient, implements IAdvancedLayoutClien
 	}
 	
 	
-	private inline function setExplicitHeight (v:Int)
+	private inline function set_explicitHeight (v:Int)
 	{
 		if (explicitHeight != v) {
 			explicitHeight = height = v;
@@ -189,7 +210,7 @@ class AdvancedLayoutClient extends LayoutClient, implements IAdvancedLayoutClien
 	}
 	
 	
-	private function setMeasuredWidth (v:Int)
+	private function set_measuredWidth (v:Int)
 	{
 		if (measuredWidth != v)
 		{
@@ -203,7 +224,7 @@ class AdvancedLayoutClient extends LayoutClient, implements IAdvancedLayoutClien
 	}
 	
 	
-	private function setMeasuredHeight (v:Int)
+	private function set_measuredHeight (v:Int)
 	{
 		if (measuredHeight != v)
 		{

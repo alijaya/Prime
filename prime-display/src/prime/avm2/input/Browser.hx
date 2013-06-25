@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.input;
+#if (flash9 || nme)
  import com.asual.swfaddress.SWFAddress;
  import com.asual.swfaddress.SWFAddressEvent;
  import flash.external.ExternalInterface;
@@ -45,20 +46,20 @@ package prime.avm2.input;
  */
 class Browser
 {
-	public static var instance (getInstance, null)		: Browser;
-		private static inline function getInstance ()	{ return instance == null ? instance = new Browser() : instance; }
+	public static var instance (get_instance, null)		: Browser;
+		private static inline function get_instance ()	{ return instance == null ? instance = new Browser() : instance; }
 	
 	
 	public var events		(default,		null)		: BrowserEvents;
-	public var address		(getAddress,	setAddress)	: String;
-	public var history		(getHistory,	setHistory)	: Bool;
-	public var title		(getTitle,		setTitle)	: String;
-	public var status		(getStatus,		setStatus)	: String;
-	public var strict		(getStrict,		setStrict)	: Bool;
+	public var address		(get_address,	set_address): String;
+	public var history		(get_history,	set_history): Bool;
+	public var title		(get_title,		set_title)	: String;
+	public var status		(get_status,	set_status)	: String;
+	public var strict		(get_strict,	set_strict)	: Bool;
 	/**
 	 * indicating if the application is currently running in the browser
 	 */
-	public var available	(getAvailable,	never)		: Bool;
+	public var available	(get_available,	never)		: Bool;
 	
 	/**
 	 * property with flashvars as an dynamic object
@@ -69,20 +70,20 @@ class Browser
 	/**
 	 * Returns the flash-player version
 	 */
-	public var flashVersion	(getFlashVersion,	never)	: String;
-	public var isFlashDebug	(getIsFlashDebug,	never)	: Bool;
+	public var flashVersion	(get_flashVersion,	never)	: String;
+	public var isFlashDebug	(get_isFlashDebug,	never)	: Bool;
 	
 	/**
 	 * Returns the operatingsystem the user has
 	 */
-	public var os			(getOS,				never)	: String;
+	public var os			(get_os,			never)	: String;
 	
 	/**
 	 * Returns the name of the browser
 	 */
-	public var name			(getName,			null)	: String;
-	public var screenWidth	(getScreenWidth,	never)	: Float;
-	public var screenHeight	(getScreenHeight,	never)	: Float;
+	public var name			(get_name,			null)	: String;
+	public var screenWidth	(get_screenWidth,	never)	: Float;
+	public var screenHeight	(get_screenHeight,	never)	: Float;
 	
 	
 	
@@ -167,33 +168,33 @@ class Browser
 	// GETTERS / SETTERS
 	//
 	
-	private inline function getAddress ()		{ return SWFAddress.getValue(); }
-	private inline function setAddress (v)		{ SWFAddress.setValue(v); return v; }
+	private inline function get_address ()		{ return SWFAddress.getValue(); }
+	private inline function set_address (v)		{ SWFAddress.setValue(v); return v; }
 	
-	private inline function getHistory ()		{ return SWFAddress.getHistory(); }
-	private inline function setHistory (v)		{ SWFAddress.setHistory(v); return v; }
+	private inline function get_history ()		{ return SWFAddress.getHistory(); }
+	private inline function set_history (v)		{ SWFAddress.setHistory(v); return v; }
 	
-	private inline function getTitle ()			{ return SWFAddress.getTitle(); }
-	private inline function setTitle (v)		{ SWFAddress.setTitle(v); return v; }
+	private inline function get_title ()			{ return SWFAddress.getTitle(); }
+	private inline function set_title (v)		{ SWFAddress.setTitle(v); return v; }
 	
-	private inline function getStrict ()		{ return SWFAddress.getStrict(); }
-	private inline function setStrict (v)		{ SWFAddress.setStrict(v); return v; }
+	private inline function get_strict ()		{ return SWFAddress.getStrict(); }
+	private inline function set_strict (v)		{ SWFAddress.setStrict(v); return v; }
 	
-	private inline function getStatus ()		{ return SWFAddress.getStatus(); }
-	private inline function setStatus (v)		{ SWFAddress.setStatus(v); return v; }
+	private inline function get_status ()		{ return SWFAddress.getStatus(); }
+	private inline function set_status (v)		{ SWFAddress.setStatus(v); return v; }
 	
-	private inline function getAvailable ()		{ return ExternalInterface.available; }
+	private inline function get_available ()	{ return ExternalInterface.available; }
 	
-	private inline function getFlashVersion ()	{ return Capabilities.version; }
-	private inline function getIsFlashDebug ()	{ return Capabilities.isDebugger; }
-	private inline function getOS ()			{ return Capabilities.os; }
-	private inline function getScreenWidth ()	{ return Capabilities.screenResolutionX; }
-	private inline function getScreenHeight ()	{ return Capabilities.screenResolutionY; }
+	private inline function get_flashVersion ()	{ return Capabilities.version; }
+	private inline function get_isFlashDebug ()	{ return Capabilities.isDebugger; }
+	private inline function get_os ()			{ return Capabilities.os; }
+	private inline function get_screenWidth ()	{ return Capabilities.screenResolutionX; }
+	private inline function get_screenHeight ()	{ return Capabilities.screenResolutionY; }
 	
 	/**
 	 * Returns the name of the browser
 	 */
-	private function getName ()
+	private function get_name ()
 	{
 		if (!available)		return "no browser";
 		if (name != null)	return name;
@@ -214,3 +215,4 @@ class Browser
 			variables = flash.Lib.current.loaderInfo.parameters;
 	}
 }
+#end

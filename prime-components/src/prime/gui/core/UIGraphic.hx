@@ -32,21 +32,17 @@ package prime.gui.core;
  import prime.signals.Wire;
  import prime.bindable.Bindable;
  
- import prime.gui.behaviours.layout.ValidateLayoutBehaviour;
  import prime.gui.behaviours.BehaviourList;
- import prime.gui.behaviours.RenderGraphicsBehaviour;
  import prime.gui.display.IDisplayContainer;
- import prime.gui.display.VectorShape;
  import prime.gui.effects.UIElementEffects;
  import prime.gui.graphics.GraphicProperties;
  import prime.layout.ILayoutContainer;
  import prime.layout.LayoutClient;
  import prime.gui.managers.ISystem;
  import prime.gui.states.UIElementStates;
-#if flash9
+#if (prime_css && (flash9 || nme))
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
- import prime.gui.traits.IDrawable;
 #end
  import prime.gui.traits.IValidatable;
   using prime.gui.utils.UIElementActions;
@@ -59,9 +55,10 @@ package prime.gui.core;
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
-class UIGraphic extends VectorShape
-			,	implements IUIElement
-#if flash9	,	implements IDrawable	#end
+class UIGraphic extends prime.gui.display.VectorShape
+				implements IUIElement
+#if (flash9 || nme)
+				implements prime.gui.traits.IDrawable	#end
 {
 	public var prevValidatable	: IValidatable;
 	public var nextValidatable	: IValidatable;
@@ -69,18 +66,20 @@ class UIGraphic extends VectorShape
 	
 	
 	public var behaviours		(default, null)					: BehaviourList;
-	public var id				(default, null)					: Bindable < String >;
+	public var id				(default, null)					: Bindable<String>;
 	public var state			(default, null)					: UIElementStates;
 	public var effects			(default, default)				: UIElementEffects;
 	
 	public var layout			(default, null)					: LayoutClient;
-	public var system			(getSystem, never)				: ISystem;
-	
-#if flash9	
+	public var system			(get_system, never)				: ISystem;
+
+#if (flash9 || nme)
 	public var graphicData		(default, null)					: GraphicProperties;
+  #if prime_css
 	public var style			(default, null)					: UIElementStyle;
-	public var styleClasses		(default, null)					: SimpleList< String >;
-	public var stylingEnabled	(default, setStylingEnabled)	: Bool;
+	public var styleClasses		(default, null)					: SimpleList<String>;
+	public var stylingEnabled	(default, set_stylingEnabled)	: Bool;
+  #end
 #end
 	
 	
@@ -98,15 +97,17 @@ class UIGraphic extends VectorShape
 		
 		state			= new UIElementStates();
 		behaviours		= new BehaviourList();
-#if flash9		
+#if (flash9 || nme)
 		graphicData		= new GraphicProperties( rect );
+	#if prime_css
 		styleClasses	= new SimpleList<String>();
 		stylingEnabled	= true;
+	#end
 #end
 		
 		//add default behaviours
-		behaviours.add( new RenderGraphicsBehaviour(this) );
-		behaviours.add( new ValidateLayoutBehaviour(this) );
+		behaviours.add( new prime.gui.behaviours.RenderGraphicsBehaviour(this) );
+		behaviours.add( new prime.gui.behaviours.layout.ValidateLayoutBehaviour(this) );
 		
 		createBehaviours();
 		if (layout == null)
@@ -133,21 +134,19 @@ class UIGraphic extends VectorShape
 		behaviours	.dispose();
 		state		.dispose();
 		id			.dispose();
-#if flash9
+#if (prime_css && (flash9 || nme))
 		if (style.target == this)
 			style.dispose();
 		
 		styleClasses.dispose();
+		style			= null;
+		styleClasses	= null;
 #end
 
 		if (layout != null)			layout.dispose();
 		if (graphicData != null)	graphicData.dispose();
 		
 		id				= null;
-#if flash9
-		style			= null;
-		styleClasses	= null;
-#end
 		state			= null;
 		behaviours		= null;
 		layout			= null;
@@ -296,17 +295,17 @@ class UIGraphic extends VectorShape
 	// GETTERS / SETTESR
 	//
 	
-	private inline function getSystem () : ISystem		{ return window.as(ISystem); }
-#if flash9
-	public #if !noinline inline #end function isOnStage () : Bool			{ return stage != null; }			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
+	private inline function get_system () : ISystem							return window.as(ISystem);
+#if (flash9 || nme)
+	public #if !noinline inline #end function isOnStage () : Bool			return stage != null;			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
 #else
-	public #if !noinline inline #end function isOnStage () : Bool			{ return window != null; }
+	public #if !noinline inline #end function isOnStage () : Bool			return window != null;
 #end
-	public #if !noinline inline #end function isQueued () : Bool			{ return nextValidatable != null || prevValidatable != null; }
+	public #if !noinline inline #end function isQueued () : Bool			return nextValidatable != null || prevValidatable != null;
 	
 	
-#if flash9
-	private function setStylingEnabled (v:Bool)
+#if (prime_css && (flash9 || nme))
+	private function set_stylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)
 		{
@@ -328,12 +327,12 @@ class UIGraphic extends VectorShape
 	// ACTIONS (actual methods performed by UIElementActions util)
 	//
 
-	public #if !noinline inline #end function show ()						{ this.doShow(); }
-	public #if !noinline inline #end function hide ()						{ this.doHide(); }
-	public #if !noinline inline #end function move (x:Int, y:Int)			{ this.doMove(x, y); }
-	public #if !noinline inline #end function resize (w:Int, h:Int)		{ this.doResize(w, h); }
-	public #if !noinline inline #end function rotate (v:Float)				{ this.doRotate(v); }
-	public #if !noinline inline #end function scale (sx:Float, sy:Float)	{ this.doScale(sx, sy); }
+	public #if !noinline inline #end function show ()					 this.doShow();
+	public #if !noinline inline #end function hide ()					 this.doHide();
+	public #if !noinline inline #end function move (x:Int, y:Int)		 this.doMove(x, y);
+	public #if !noinline inline #end function resize (w:Int, h:Int)		 this.doResize(w, h);
+	public #if !noinline inline #end function rotate (v:Float)			 this.doRotate(v);
+	public #if !noinline inline #end function scale (sx:Float, sy:Float) this.doScale(sx, sy);
 	
 	
 	
@@ -345,6 +344,6 @@ class UIGraphic extends VectorShape
 	
 	
 #if debug
-	override public function toString() { return id.value; }
+	override public function toString() return id.value;
 #end
 }

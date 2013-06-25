@@ -19,13 +19,13 @@ libs.hxml
 --next
 
 ## Neko
--main TestMain
-libs.hxml
--neko tmp/neko_test.n
---next
+# -main TestMain
+# libs.hxml
+# -neko tmp/neko_test.n
+# --next
 
-## CPP
--main TestMain
-libs.hxml
-#-D HXCPP_M64
--cpp tmp/cpp_test
+# ## CPP
+# -main TestMain
+# libs.hxml
+# #-D HXCPP_M64
+# -cpp tmp/cpp_test

@@ -53,9 +53,8 @@ package prime.gui.behaviours.scroll;
  * @author Ruben Weijers
  * @creation-date Jul 29, 2010
  */
-
 #if !dragEnabled
-class DragScrollBehaviour extends BehaviourBase<IScrollable>, implements IScrollBehaviour
+class DragScrollBehaviour extends BehaviourBase<IScrollable> implements IScrollBehaviour
 {
 	public function new()
 	{
@@ -64,7 +63,7 @@ class DragScrollBehaviour extends BehaviourBase<IScrollable>, implements IScroll
 	}
 }
 #else
-class DragScrollBehaviour extends BehaviourBase<IScrollable>, implements IScrollBehaviour
+class DragScrollBehaviour extends BehaviourBase<IScrollable> implements IScrollBehaviour
 {
 #if !CSSParser
 	private var scrollLayout	: IScrollableLayout;

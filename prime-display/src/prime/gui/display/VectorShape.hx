@@ -30,7 +30,7 @@ package prime.gui.display;
  
 
 typedef VectorShape = 
-	#if		flash9	prime.avm2.display.VectorShape;
+	#if		(flash9 || nme)	prime.avm2.display.VectorShape;
 	#elseif	flash8	prime.avm1.display.VectorShape;
 //	#elseif	js		prime.js  .display.VectorShape;
 	#else			VectorShapeImpl

@@ -79,32 +79,31 @@ class LayoutStyle extends StyleSubBlock
 	private var _includeInLayout		: Null < Bool >;
 	
 	
-	public var relative				(getRelative,			setRelative)		: RelativeLayout;
-	public var algorithm			(getAlgorithm,			setAlgorithm)		: Algorithm;
-	public var padding				(getPadding,			setPadding)			: Box;
-	public var margin				(getMargin,				setMargin)			: Box;
+	public var relative				(get_relative,			set_relative)		: RelativeLayout;
+	public var algorithm			(get_algorithm,			set_algorithm)		: Algorithm;
+	public var padding				(get_padding,			set_padding)		: Box;
+	public var margin				(get_margin,			set_margin)			: Box;
 	
-	public var width				(getWidth,				setWidth)			: Int;
-	public var maxWidth				(getMaxWidth,			setMaxWidth)		: Int;
-	public var minWidth				(getMinWidth,			setMinWidth)		: Int;
-	public var percentMinWidth		(getPercentMinWidth,	setPercentMinWidth)	: Float;
-	public var percentMaxWidth		(getPercentMaxWidth,	setPercentMaxWidth)	: Float;
-	public var percentWidth			(getPercentWidth,		setPercentWidth)	: Float;
+	public var width				(get_width,				set_width)			: Int;
+	public var maxWidth				(get_maxWidth,			set_maxWidth)		: Int;
+	public var minWidth				(get_minWidth,			set_minWidth)		: Int;
+	public var percentMinWidth		(get_percentMinWidth,	set_percentMinWidth): Float;
+	public var percentMaxWidth		(get_percentMaxWidth,	set_percentMaxWidth): Float;
+	public var percentWidth			(get_percentWidth,		set_percentWidth)	: Float;
 	
-	public var height				(getHeight,				setHeight)			: Int;
-	public var maxHeight			(getMaxHeight,			setMaxHeight)		: Int;
-	public var minHeight			(getMinHeight,			setMinHeight)		: Int;
-	public var percentMinHeight		(getPercentMinHeight,	setPercentMinHeight): Float;
-	public var percentMaxHeight		(getPercentMaxHeight,	setPercentMaxHeight): Float;
-	public var percentHeight		(getPercentHeight,		setPercentHeight)	: Float;
+	public var height				(get_height,			set_height)			: Int;
+	public var maxHeight			(get_maxHeight,			set_maxHeight)		: Int;
+	public var minHeight			(get_minHeight,			set_minHeight)		: Int;
+	public var percentMinHeight		(get_percentMinHeight,	set_percentMinHeight): Float;
+	public var percentMaxHeight		(get_percentMaxHeight,	set_percentMaxHeight): Float;
+	public var percentHeight		(get_percentHeight,		set_percentHeight)	: Float;
 	
-	public var childWidth			(getChildWidth,			setChildWidth)		: Int;
-	public var childHeight			(getChildHeight,		setChildHeight)		: Int;
+	public var childWidth			(get_childWidth,		set_childWidth)		: Int;
+	public var childHeight			(get_childHeight,		set_childHeight)	: Int;
 	
-	public var rotation				(getRotation,			setRotation)		: Float;
-	public var maintainAspectRatio	(getMaintainAspect,		setMaintainAspect)	: Null< Bool >;
-	
-	public var includeInLayout		(getIncludeInLayout,	setIncludeInLayout)	: Null< Bool >;
+	public var rotation				(get_rotation,			set_rotation)		: Float;
+	public var includeInLayout		(get_includeInLayout,	set_includeInLayout): Null< Bool >;
+	public var maintainAspectRatio	(get_maintainAspectRatio, set_maintainAspectRatio) : Null< Bool >;
 	
 	
 	public function new (
@@ -135,33 +134,27 @@ class LayoutStyle extends StyleSubBlock
 	)
 	{
 		super(filledProps);
-		#if flash9 this._relative				#else this.relative				#end = rel;
-		#if flash9 this._algorithm				#else this.algorithm			#end = alg;
-		#if flash9 this._padding				#else this.padding				#end = padding;
-		#if flash9 this._margin					#else this.margin				#end = margin;
-
-		#if flash9 this._percentWidth			#else this.percentWidth			#end = percentW == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentW;
-		#if flash9 this._percentHeight			#else this.percentHeight		#end = percentH == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentH;
-
-		#if flash9 this._width					#else this.width				#end = width;
-		#if flash9 this._height					#else this.height				#end = height;
-
-		#if flash9 this._childWidth				#else this.childWidth			#end = childWidth;
-		#if flash9 this._childHeight			#else this.childHeight			#end = childHeight;
-		#if flash9 this._rotation				#else this.rotation				#end = rotation == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : rotation;
-
-		#if flash9 this._maintainAspectRatio	#else this.maintainAspectRatio	#end = maintainAspect;
-		#if flash9 this._includeInLayout		#else this.includeInLayout		#end = include;
-
-		#if flash9 this._minWidth				#else this.minWidth				#end = minWidth;
-		#if flash9 this._minHeight				#else this.minHeight			#end = minHeight;
-		#if flash9 this._maxWidth				#else this.maxWidth				#end = maxWidth;
-		#if flash9 this._maxHeight				#else this.maxHeight			#end = maxHeight;
-
-		#if flash9 this._percentMinWidth		#else this.percentMinWidth		#end = percentMinWidth  == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMinWidth;
-		#if flash9 this._percentMaxWidth		#else this.percentMaxWidth		#end = percentMaxWidth  == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMaxWidth;
-		#if flash9 this._percentMinHeight		#else this.percentMinHeight		#end = percentMinHeight == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMinHeight;
-		#if flash9 this._percentMaxHeight		#else this.percentMaxHeight		#end = percentMaxHeight == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMaxHeight;
+		#if (flash9 || nme) this._relative              #else this.relative             #end = rel;
+		#if (flash9 || nme) this._algorithm             #else this.algorithm            #end = alg;
+		#if (flash9 || nme) this._padding               #else this.padding              #end = padding;
+		#if (flash9 || nme) this._margin                #else this.margin               #end = margin;
+		#if (flash9 || nme) this._percentWidth          #else this.percentWidth         #end = percentW == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentW;
+		#if (flash9 || nme) this._percentHeight         #else this.percentHeight        #end = percentH == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentH;
+		#if (flash9 || nme) this._width                 #else this.width                #end = width;
+		#if (flash9 || nme) this._height                #else this.height               #end = height;
+		#if (flash9 || nme) this._childWidth            #else this.childWidth           #end = childWidth;
+		#if (flash9 || nme) this._childHeight           #else this.childHeight          #end = childHeight;
+		#if (flash9 || nme) this._rotation              #else this.rotation             #end = rotation == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : rotation;
+		#if (flash9 || nme) this._maintainAspectRatio   #else this.maintainAspectRatio  #end = maintainAspect;
+		#if (flash9 || nme) this._includeInLayout       #else this.includeInLayout      #end = include;
+		#if (flash9 || nme) this._minWidth              #else this.minWidth             #end = minWidth;
+		#if (flash9 || nme) this._minHeight             #else this.minHeight            #end = minHeight;
+		#if (flash9 || nme) this._maxWidth              #else this.maxWidth             #end = maxWidth;
+		#if (flash9 || nme) this._maxHeight             #else this.maxHeight            #end = maxHeight;
+		#if (flash9 || nme) this._percentMinWidth       #else this.percentMinWidth      #end = percentMinWidth  == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMinWidth;
+		#if (flash9 || nme) this._percentMaxWidth       #else this.percentMaxWidth      #end = percentMaxWidth  == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMaxWidth;
+		#if (flash9 || nme) this._percentMinHeight      #else this.percentMinHeight     #end = percentMinHeight == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMinHeight;
+		#if (flash9 || nme) this._percentMaxHeight      #else this.percentMaxHeight     #end = percentMaxHeight == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : percentMaxHeight;
 	}
 	
 	
@@ -327,7 +320,7 @@ class LayoutStyle extends StyleSubBlock
 	//
 	
 	
-	private function getRelative ()
+	private function get_relative ()
 	{
 		var v = _relative;
 		if (v == null && extendedStyle != null)		v = extendedStyle.relative;
@@ -337,7 +330,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getAlgorithm ()
+	private function get_algorithm ()
 	{
 		//if the algorithm flag is set, the property is allowed to be null (algorithm: 'none')
 		var v:Algorithm = null;
@@ -354,7 +347,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getPadding ()
+	private function get_padding ()
 	{
 		var v = _padding;
 		if (v == null && extendedStyle != null)		v = extendedStyle.padding;
@@ -364,7 +357,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getMargin ()
+	private function get_margin ()
 	{
 		var v = _margin;
 		if (v == null && extendedStyle != null)		v = extendedStyle.margin;
@@ -374,7 +367,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getWidth ()
+	private function get_width ()
 	{
 		var v = _width;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.width;
@@ -384,7 +377,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getMaxWidth ()
+	private function get_maxWidth ()
 	{
 		var v = _maxWidth;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.maxWidth;
@@ -394,7 +387,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getMinWidth ()
+	private function get_minWidth ()
 	{
 		var v = _minWidth;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.minWidth;
@@ -404,7 +397,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getPercentWidth ()
+	private function get_percentWidth ()
 	{
 		var v = _percentWidth;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.percentWidth;
@@ -414,7 +407,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getHeight ()
+	private function get_height ()
 	{
 		var v = _height;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.height;
@@ -424,7 +417,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getMaxHeight ()
+	private function get_maxHeight ()
 	{
 		var v = _maxHeight;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.maxHeight;
@@ -434,7 +427,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getMinHeight ()
+	private function get_minHeight ()
 	{
 		var v = _minHeight;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.minHeight;
@@ -444,7 +437,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getPercentHeight ()
+	private function get_percentHeight ()
 	{
 		var v = _percentHeight;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.percentHeight;
@@ -454,7 +447,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getChildWidth ()
+	private function get_childWidth ()
 	{
 		var v = _childWidth;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.childWidth;
@@ -464,7 +457,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getChildHeight ()
+	private function get_childHeight ()
 	{
 		var v = _childHeight;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.childHeight;
@@ -474,7 +467,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getRotation ()
+	private function get_rotation ()
 	{
 		var v = _rotation;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.rotation;
@@ -484,7 +477,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 
 
-	private function getIncludeInLayout ()
+	private function get_includeInLayout ()
 	{
 		var v = _includeInLayout;
 		if (v == null && extendedStyle != null)		v = extendedStyle.includeInLayout;
@@ -494,7 +487,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getMaintainAspect ()
+	private function get_maintainAspectRatio ()
 	{
 		var v = _maintainAspectRatio;
 		if (v == null && extendedStyle != null)		v = extendedStyle.maintainAspectRatio;
@@ -504,7 +497,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getPercentMinWidth ()
+	private function get_percentMinWidth ()
 	{
 		var v = _percentMinWidth;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.percentMinWidth;
@@ -514,7 +507,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getPercentMaxWidth ()
+	private function get_percentMaxWidth ()
 	{
 		var v = _percentMaxWidth;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.percentMaxWidth;
@@ -524,7 +517,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getPercentMinHeight ()
+	private function get_percentMinHeight ()
 	{
 		var v = _percentMinHeight;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.percentMinHeight;
@@ -534,7 +527,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function getPercentMaxHeight ()
+	private function get_percentMaxHeight ()
 	{
 		var v = _percentMaxHeight;
 		if (v.notSet() && extendedStyle != null)	v = extendedStyle.percentMaxHeight;
@@ -551,7 +544,7 @@ class LayoutStyle extends StyleSubBlock
 	//
 	
 	
-	private function setRelative (v)
+	private function set_relative (v)
 	{
 		if (v != _relative) {
 			_relative = v;
@@ -561,7 +554,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setAlgorithm (v)
+	private function set_algorithm (v)
 	{
 		if (v != _algorithm) {
 			_algorithm = v;
@@ -571,7 +564,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setPadding (v)
+	private function set_padding (v)
 	{
 		if (v != _padding) {
 			_padding = v;
@@ -581,7 +574,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setMargin (v)
+	private function set_margin (v)
 	{
 		if (v != _margin) {
 			_margin = v;
@@ -591,7 +584,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setWidth (v)
+	private function set_width (v)
 	{
 		if (v != _width) {
 			_width = v;
@@ -601,7 +594,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setMaxWidth (v)
+	private function set_maxWidth (v)
 	{
 		if (v != _maxWidth) {
 			_maxWidth = v;
@@ -611,7 +604,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setMinWidth (v)
+	private function set_minWidth (v)
 	{
 		if (v != _minWidth) {
 			_minWidth = v;
@@ -621,7 +614,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setPercentWidth (v)
+	private function set_percentWidth (v)
 	{
 		if (v != _percentWidth) {
 			_percentWidth = v;
@@ -631,7 +624,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setHeight (v)
+	private function set_height (v)
 	{
 		if (v != _height) {
 			_height = v;
@@ -641,7 +634,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setMaxHeight (v)
+	private function set_maxHeight (v)
 	{
 		if (v != _maxHeight) {
 			_maxHeight = v;
@@ -651,7 +644,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setMinHeight (v)
+	private function set_minHeight (v)
 	{
 		if (v != _minHeight) {
 			_minHeight = v;
@@ -661,7 +654,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setPercentHeight (v)
+	private function set_percentHeight (v)
 	{
 		if (v != _percentHeight) {
 			_percentHeight = v;
@@ -670,7 +663,7 @@ class LayoutStyle extends StyleSubBlock
 		return v;
 	}
 	
-	private function setChildWidth (v)
+	private function set_childWidth (v)
 	{
 		if (v != _childWidth) {
 			_childWidth = v;
@@ -680,7 +673,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setChildHeight (v)
+	private function set_childHeight (v)
 	{
 		if (v != _childHeight) {
 			_childHeight = v;
@@ -690,7 +683,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setRotation (v)
+	private function set_rotation (v)
 	{
 		if (v != _rotation) {
 			_rotation = v;
@@ -700,7 +693,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 
 
-	private function setIncludeInLayout (v)
+	private function set_includeInLayout (v)
 	{
 		if (v != _includeInLayout) {
 			_includeInLayout = v;
@@ -710,7 +703,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setMaintainAspect (v)
+	private function set_maintainAspectRatio (v)
 	{
 		if (v != _maintainAspectRatio) {
 			_maintainAspectRatio = v;
@@ -720,7 +713,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setPercentMaxHeight (v)
+	private function set_percentMaxHeight (v)
 	{
 		if (v != _percentMaxHeight) {
 			_percentMaxHeight = v;
@@ -730,7 +723,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setPercentMinHeight (v)
+	private function set_percentMinHeight (v)
 	{
 		if (v != _percentMinHeight) {
 			_percentMinHeight = v;
@@ -740,7 +733,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setPercentMaxWidth (v)
+	private function set_percentMaxWidth (v)
 	{
 		if (v != _percentMaxWidth) {
 			_percentMaxWidth = v;
@@ -750,7 +743,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	private function setPercentMinWidth (v)
+	private function set_percentMinWidth (v)
 	{
 		if (v != _percentMinWidth) {
 			_percentMinWidth = v;
@@ -867,6 +860,6 @@ class LayoutStyle extends StyleSubBlock
 
 #if debug
 	override public function readProperties (flags:Int = -1) : String
-		return Flags.read(flags == -1 ? filledProperties : flags)
+		return Flags.read(flags == -1 ? filledProperties : flags);
 #end
 }

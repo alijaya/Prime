@@ -27,12 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
- import prime.types.SimpleDictionary;
-#end
- import prime.core.traits.IInvalidatable;
- import prime.core.traits.IPrioritizable;
  import prime.gui.styling.StyleChildren;	//needed for SelectorMapType typedef
   using prime.gui.styling.StyleFlags;
   using prime.utils.BitUtil;
@@ -47,7 +41,7 @@ package prime.gui.styling;
 private typedef Flags	= StyleFlags;
 private typedef SType	= StyleBlockType;
 
-typedef ChildrenList = #if CSSParser SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
+typedef ChildrenList = #if CSSParser prime.types.SimpleDictionary<String, StyleBlock> #else Map<String,StyleBlock> #end;
 
 
 /**
@@ -56,9 +50,7 @@ typedef ChildrenList = #if CSSParser SimpleDictionary<String, StyleBlock> #else 
  * @author Ruben Weijers
  * @creation-date Aug 04, 2010
  */
-class StyleBlock extends StyleBlockBase
-	,	implements IStyleBlock
-	,	implements IPrioritizable
+class StyleBlock extends StyleBlockBase implements IStyleBlock implements prime.core.traits.IPrioritizable
 {
 	/**
 	 * Reference to style of which this style is inheriting when the requested
@@ -95,7 +87,7 @@ class StyleBlock extends StyleBlockBase
 	 * trace(b.font);		//output: "Arial"
 	 * 
 	 */
-	public var nestingInherited		(default, setNestingInherited)	: StyleBlock;
+	public var nestingInherited		(default, set_nestingInherited)	: StyleBlock;
 	
 	/**
 	 * Reference to other style-object of whom this style is inheriting when
@@ -117,7 +109,7 @@ class StyleBlock extends StyleBlockBase
 	 * trace( objA.style.fill );	//output:	SolidFill( 0xfff000 );
 	 * trace( objB.style.fill );	//output:	SolidFill( 0xfff000 );
 	 */
-	public var superStyle			(default, setSuperStyle)		: StyleBlock;
+	public var superStyle			(default, set_superStyle)		: StyleBlock;
 	
 	/**
 	 * Style object which was declared for the same property, only before..
@@ -134,7 +126,7 @@ class StyleBlock extends StyleBlockBase
 	 * buttonStyle.font.size = 10;
 	 * buttonStyle.font.family -> buttonStyle.font.extendedStyle.family = "Verdana";
 	 */
-	public var extendedStyle		(default, setExtendedStyle)		: StyleBlock;
+	public var extendedStyle		(default, set_extendedStyle)		: StyleBlock;
 	
 	/**
 	 * Parent StyleBlock object. This property is only set if the style 
@@ -147,7 +139,7 @@ class StyleBlock extends StyleBlockBase
 	 * will be .headerBlock.
 	 * This property is needed to find the correct inherited styles.
 	 */
-	public var parentStyle			(default, setParentStyle)		: StyleBlock;
+	public var parentStyle			(default, set_parentStyle)		: StyleBlock;
 
 	
 	//
@@ -173,18 +165,18 @@ class StyleBlock extends StyleBlockBase
 	
 	public var type					(default,				null)					: StyleBlockType;
 	
-	public var graphics				(getGraphics,			setGraphics)			: GraphicsStyle;
-	public var layout				(getLayout,				setLayout)				: LayoutStyle;
-	public var font					(getFont,				setFont)				: TextStyle;
-	public var effects				(getEffects,			setEffects)				: EffectsStyle;
-	public var boxFilters			(getBoxFilters,			setBoxFilters)			: FiltersStyle;
-	public var bgFilters			(getBgFilters,			setBgFilters)			: FiltersStyle;
+	public var graphics				(get_graphics,			set_graphics)			: GraphicsStyle;
+	public var layout				(get_layout,			set_layout)				: LayoutStyle;
+	public var font					(get_font,				set_font)				: TextStyle;
+	public var effects				(get_effects,			set_effects)			: EffectsStyle;
+	public var boxFilters			(get_boxFilters,		set_boxFilters)			: FiltersStyle;
+	public var bgFilters			(get_bgFilters,			set_bgFilters)			: FiltersStyle;
 	
-	public var states				(getStates,				setStates)				: StatesStyle;
-//	public var children				(getChildren,			setChildren)			: StyleChildren;
-	public var idChildren			(getIdChildren,			setIdChildren)			: ChildrenList;
-	public var styleNameChildren	(getStyleNameChildren,	setStyleNameChildren)	: ChildrenList;
-	public var elementChildren		(getElementChildren,	setElementChildren)		: ChildrenList;
+	public var states				(get_states,			set_states)				: StatesStyle;
+//	public var children				(get_children,			set_children)			: StyleChildren;
+	public var idChildren			(get_idChildren,		set_idChildren)			: ChildrenList;
+	public var styleNameChildren	(get_styleNameChildren,	set_styleNameChildren)	: ChildrenList;
+	public var elementChildren		(get_elementChildren,	set_elementChildren)	: ChildrenList;
 	
 	
 	public function new (
@@ -494,7 +486,7 @@ class StyleBlock extends StyleBlockBase
 	 * nested-style is changed. If the property is not set in this style-object,
 	 * it means that the allFilledPropertiesFlag needs to be changed..
 	 */
-	override public function invalidateCall ( changeFromOther:Int, sender:IInvalidatable ) : Void
+	override public function invalidateCall ( changeFromOther:Int, sender:prime.core.traits.IInvalidatable ) : Void
 	{
 		Assert.that(sender != null);
 		
@@ -535,7 +527,7 @@ class StyleBlock extends StyleBlockBase
 	// GETTERS
 	//
 	
-	private function getLayout ()
+	private function get_layout ()
 	{
 		var v = _layout;
 		if (v == null && extendedStyle != null)	v = extendedStyle.layout;
@@ -544,19 +536,19 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function getFont ()
+	private function get_font ()
 	{
 		var v = _font;
 			if (v == null && extendedStyle != null)		v = extendedStyle.font;
-#if flash9	if (v == null && nestingInherited != null)	v = nestingInherited.font; #end
+#if (flash9 || nme)	if (v == null && nestingInherited != null)	v = nestingInherited.font; #end
 			if (v == null && superStyle != null)		v = superStyle.font;
-#if flash9	if (v == null && parentStyle != null)		v = parentStyle.font; #end
+#if (flash9 || nme)	if (v == null && parentStyle != null)		v = parentStyle.font; #end
 		
 		return v;
 	}
 	
 	
-	private function getEffects ()
+	private function get_effects ()
 	{
 		var v = _effects;
 		if (v == null && extendedStyle != null)	v = extendedStyle.effects;
@@ -565,7 +557,7 @@ class StyleBlock extends StyleBlockBase
 	}
 
 
-	private function getBoxFilters ()
+	private function get_boxFilters ()
 	{
 		var v = _boxFilters;
 		if (v == null && extendedStyle != null)	v = extendedStyle.boxFilters;
@@ -574,7 +566,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 
-	private function getBgFilters ()
+	private function get_bgFilters ()
 	{
 		var v = _bgFilters;
 		if (v == null && extendedStyle != null)	v = extendedStyle.bgFilters;
@@ -583,7 +575,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function getStates ()
+	private function get_states ()
 	{
 		var v = _states;
 		if (v == null && extendedStyle != null)		v = extendedStyle.states;
@@ -592,7 +584,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function getGraphics ()
+	private function get_graphics ()
 	{
 		var v = _graphics;
 		if (v == null && extendedStyle != null)		v = extendedStyle.graphics;
@@ -601,7 +593,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function getIdChildren ()
+	private function get_idChildren ()
 	{
 		var v = _idChildren;
 		if (v == null && extendedStyle != null)		v = extendedStyle.idChildren;
@@ -610,7 +602,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function getElementChildren ()
+	private function get_elementChildren ()
 	{
 		var v = _elementChildren;
 		if (v == null && extendedStyle != null)		v = extendedStyle.elementChildren;
@@ -619,7 +611,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function getStyleNameChildren ()
+	private function get_styleNameChildren ()
 	{
 		var v = _styleNameChildren;
 		if (v == null && extendedStyle != null)		v = extendedStyle.styleNameChildren;
@@ -634,7 +626,7 @@ class StyleBlock extends StyleBlockBase
 	// SETTERS
 	//
 	
-	private function setNestingInherited (v)
+	private function set_nestingInherited (v)
 	{
 		Assert.notEqual(v, this);
 		if (v != nestingInherited)
@@ -651,7 +643,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function setSuperStyle (v)
+	private function set_superStyle (v)
 	{
 		Assert.notEqual(v, this);
 		if (v != superStyle)
@@ -676,7 +668,7 @@ class StyleBlock extends StyleBlockBase
 	}
 
 
-	private function setExtendedStyle (v)
+	private function set_extendedStyle (v)
 	{
 		Assert.notEqual(v, this);
 		if (v != extendedStyle)
@@ -700,7 +692,7 @@ class StyleBlock extends StyleBlockBase
 	}
 
 
-	private function setParentStyle (v)
+	private function set_parentStyle (v)
 	{
 		Assert.notEqual(v, this);
 		if (v != parentStyle)
@@ -720,7 +712,7 @@ class StyleBlock extends StyleBlockBase
 	
 	
 	
-	private function setLayout (v)
+	private function set_layout (v)
 	{
 		if (v != _layout)
 		{
@@ -738,7 +730,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function setFont (v)
+	private function set_font (v)
 	{
 		if (v != _font)
 		{
@@ -756,7 +748,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 
-	private function setEffects (v)
+	private function set_effects (v)
 	{
 		if (v != _effects)
 		{
@@ -774,7 +766,7 @@ class StyleBlock extends StyleBlockBase
 	}
 
 
-	private function setBoxFilters (v)
+	private function set_boxFilters (v)
 	{
 		if (v != _boxFilters)
 		{
@@ -792,7 +784,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 
-	private function setBgFilters (v)
+	private function set_bgFilters (v)
 	{
 		if (v != _bgFilters)
 		{
@@ -810,7 +802,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function setStates (v)
+	private function set_states (v)
 	{
 		if (v != _states)
 		{
@@ -828,7 +820,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function setIdChildren (v)
+	private function set_idChildren (v)
 	{
 		if (v != _idChildren)
 		{
@@ -839,7 +831,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function setElementChildren (v)
+	private function set_elementChildren (v)
 	{
 		if (v != _elementChildren)
 		{
@@ -850,7 +842,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function setStyleNameChildren (v)
+	private function set_styleNameChildren (v)
 	{
 		if (v != _styleNameChildren)
 		{
@@ -861,7 +853,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	private function setGraphics (v)
+	private function set_graphics (v)
 	{
 		if (v != _graphics)
 		{
@@ -879,7 +871,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	public  function setInheritedStyles( nestedStyle:StyleBlock = null, superStyle:StyleBlock = null, extendedStyle:StyleBlock = null, parentStyle:StyleBlock = null )
+	public  function set_inheritedStyles( nestedStyle:StyleBlock = null, superStyle:StyleBlock = null, extendedStyle:StyleBlock = null, parentStyle:StyleBlock = null )
 	{
 		if (nestingInherited != null)	this.nestingInherited	= nestedStyle;
 		if (superStyle != null)			this.superStyle			= superStyle;
@@ -888,7 +880,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-	public  function setChildren (idChildren:ChildrenList = null, styleNameChildren:ChildrenList = null, elementChildren:ChildrenList = null)
+	public  function set_children (idChildren:ChildrenList = null, styleNameChildren:ChildrenList = null, elementChildren:ChildrenList = null)
 	{
 		if (idChildren != null)			this.idChildren			= idChildren;
 		if (styleNameChildren != null)	this.styleNameChildren	= styleNameChildren;
@@ -1069,7 +1061,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 		{
@@ -1079,7 +1071,7 @@ class StyleBlock extends StyleBlockBase
 				code.construct(this, [ filledProperties, type ]);
 			
 			if (filledProperties.has( Flags.INHERETING_STYLES ))
-				code.setAction( this, "setInheritedStyles", [ nestingInherited, superStyle, extendedStyle, parentStyle ], true );
+				code.setAction( this, "set_inheritedStyles", [ nestingInherited, superStyle, extendedStyle, parentStyle ], true );
 		/*	{
 				if (nestingInherited != null)			code.setProp( this, "nestingInherited",	nestingInherited,	true );
 				if (superStyle != null)					code.setProp( this, "superStyle",		superStyle,			true );
@@ -1089,7 +1081,7 @@ class StyleBlock extends StyleBlockBase
 			
 			//important to do after the styleblock is constructed. otherwise references to the parentstyle might nog yet exist
 			if (filledProperties.has( Flags.CHILDREN ))
-				code.setAction( this, "setChildren", [ idChildren, styleNameChildren, elementChildren ], true );
+				code.setAction( this, "set_children", [ idChildren, styleNameChildren, elementChildren ], true );
 	//		if (filledProperties.has( Flags.ID_CHILDREN ))				code.setProp(this, "idChildren",		_idChildren,		true);
 	//		if (filledProperties.has( Flags.STYLE_NAME_CHILDREN ))		code.setProp(this, "styleNameChildren",	_styleNameChildren,	true);
 	//		if (filledProperties.has( Flags.ELEMENT_CHILDREN ))			code.setProp(this, "elementChildren",	_elementChildren,	true);

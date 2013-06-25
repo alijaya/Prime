@@ -42,10 +42,10 @@ class StopWatch
 //	public static inline var MAX_VALUE:Int			= 2147483647;
 	
 	private var timesList							: FastArray < Float >;
-	public var average		(getAverage, null)		: Float;
-	public var fastest		(getFastest, null)		: Float;
-	public var currentTime	(getCurrentTime, null)	: Float;
-	public var times		(getTimes, null)		: String;
+	public var average		(get_average, null)		: Float;
+	public var fastest		(get_fastest, null)		: Float;
+	public var currentTime	(get_currentTime, null)	: Float;
+	public var times		(get_times, null)		: String;
 	
 	private var startTime							: Float;
 	private var runnedTime							: Float;
@@ -60,11 +60,11 @@ class StopWatch
 	public  inline function resume ()			{ startTime		 = TimerUtil.stamp(); }
 	public  inline function start ()			{ reset(); resume(); return this; }
 	public  inline function stop ()				{ pause(); timesList.push( runnedTime ); return currentTime; }
-	private inline function getCurrentTime ()	{ return runnedTime; }
-	public  inline function getTimes ()			{ return "Times: " + timesList.join(" ms, ") + " ms"; }
+	private inline function get_currentTime ()	{ return runnedTime; }
+	public  inline function get_times ()		{ return "Times: " + timesList.join(" ms, ") + " ms"; }
 	
 	
-	private inline function getAverage () : Float
+	private inline function get_average () : Float
 	{
 		var len:Int		= timesList.length;
 		var total:Float	= 0;
@@ -75,7 +75,7 @@ class StopWatch
 	}
 	
 	
-	private inline function getFastest () : Float
+	private inline function get_fastest () : Float
 	{
 		var len:Int	= timesList.length;
 		var fas		= len > 0 ? timesList[0] : -1.0;

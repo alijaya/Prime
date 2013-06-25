@@ -27,17 +27,17 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.ErrorEvent;
  import flash.events.IEventDispatcher;
  import prime.signals.IWireWatcher;
  import prime.signals.Signal1;
  import prime.signals.Wire;
  import prime.core.Error;
- import prime.core.ListNode;
 
 
 
-private typedef EventHandler	= Error -> Void;
+private typedef EventHandler	= String -> Void;
 //private typedef ErrorHolder		= { var error:Error; };
 
 
@@ -47,7 +47,7 @@ private typedef EventHandler	= Error -> Void;
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-class ErrorSignal extends Signal1 <Error>, implements IWireWatcher < EventHandler > 
+class ErrorSignal extends Signal1 <String> implements IWireWatcher < EventHandler > 
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;
@@ -62,7 +62,7 @@ class ErrorSignal extends Signal1 <Error>, implements IWireWatcher < EventHandle
 
 	public function wireEnabled (wire:Wire<EventHandler>) : Void {
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 
@@ -74,6 +74,7 @@ class ErrorSignal extends Signal1 <Error>, implements IWireWatcher < EventHandle
 	private function dispatch(e:ErrorEvent)
 	{
 		if (Reflect.hasField(e, "error"))	send( untyped(e).error );
-		else								send( new Error( e.text ) );
+		else								send( e.text );
 	}
 }
+#end

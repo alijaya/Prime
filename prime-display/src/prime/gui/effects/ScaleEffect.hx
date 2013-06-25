@@ -78,7 +78,7 @@ class ScaleEffect extends Effect<prime.gui.display.IDisplayObject, ScaleEffect>
 	
 	
 	override public function clone ()
-		return new ScaleEffect( duration, duration, easing, isReverted, startX, startY, endX, endY )
+		return new ScaleEffect( duration, duration, easing, isReverted, startX, startY, endX, endY );
 	
 	
 	override public function setValues ( v:EffectProperties ) 
@@ -97,7 +97,7 @@ class ScaleEffect extends Effect<prime.gui.display.IDisplayObject, ScaleEffect>
 	
 #if !CSSParser
 	override public function createEffectInstance (target)
-		return new prime.gui.effects.effectInstances.ScaleEffectInstance(target, this)
+		return new prime.gui.effects.effectInstances.ScaleEffectInstance(target, this);
 #else
 
 	override public function toCSS (prefix:String = "") : String

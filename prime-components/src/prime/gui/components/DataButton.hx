@@ -46,7 +46,7 @@ package prime.gui.components;
  * @author Ruben Weijers
  * @creation-date Feb 11, 2011
  */
-class DataButton <DataType> extends Button, implements IItemRenderer <DataType>
+class DataButton <DataType> extends Button implements IItemRenderer <DataType>
 {
 	// IItemRenderer Properties
 	public var vo				(default, null)				: Bindable<DataType>;
@@ -57,7 +57,7 @@ class DataButton <DataType> extends Button, implements IItemRenderer <DataType>
 	 * (i.e. the selected value label).
 	 */
 	public var getLabelForVO								: DataType -> String;
-	public var defaultLabel		(default, setDefaultLabel)	: String;
+	public var defaultLabel		(default, set_defaultLabel)	: String;
 	
 	private var updateLabelBinding							: Wire<Dynamic>;
 	
@@ -105,18 +105,20 @@ class DataButton <DataType> extends Button, implements IItemRenderer <DataType>
 			newVal = defaultLabel;
 		data.set(newVal);
 
+	#if prime_css
 		if (oldVal != newVal) {
 			if (oldVal == defaultLabel)		styleClasses.remove("empty");
 			if (newVal == defaultLabel)		styleClasses.add("empty");
 		//	trace((newVal == defaultLabel)+"; "+(oldVal == defaultLabel)+"; "+oldVal+" ========> "+newVal+"; "+defaultLabel+"; "+styleClasses);
 		}
+	#end
 	//	trace(v+": "+oldVal+" => "+newVal+"; "+styleClasses);
 
 		data.change.send( newVal, null );
 	}
 	
 	
-	private function setDefaultLabel (v:String) : String
+	private function set_defaultLabel (v:String) : String
 	{
 		if (v != defaultLabel)
 		{

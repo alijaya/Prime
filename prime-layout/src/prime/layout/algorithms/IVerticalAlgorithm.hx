@@ -27,7 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout.algorithms;
- import prime.core.geom.space.Vertical;
  
 
 /**
@@ -37,7 +36,7 @@ package prime.layout.algorithms;
  * @creation-date	Jun 24, 2010
  * @author			Ruben Weijers
  */
-interface IVerticalAlgorithm implements ILayoutAlgorithm
+interface IVerticalAlgorithm extends ILayoutAlgorithm
 {
-	public var direction			(default, setDirection)	: Vertical;
+	public var direction			(default, set_direction)	: prime.core.geom.space.Vertical;
 }

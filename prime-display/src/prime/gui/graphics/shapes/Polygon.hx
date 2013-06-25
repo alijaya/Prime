@@ -41,7 +41,7 @@ package prime.gui.graphics.shapes;
  * @author Ruben Weijers
  * @creation-date Apr 19, 2011
  */
-class Polygon extends ShapeBase, implements IGraphicShape
+class Polygon extends ShapeBase implements IGraphicShape
 {
 	private var sides : Int;
 	
@@ -57,7 +57,7 @@ class Polygon extends ShapeBase, implements IGraphicShape
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{
 		var radius = Formulas.getCircleRadius( bounds.width, bounds.height );
-#if flash9
+#if (flash9 || nme)
 		target.drawPolygon( sides, bounds.left + radius, bounds.top + radius, radius );
 #end
 	}
@@ -66,7 +66,7 @@ class Polygon extends ShapeBase, implements IGraphicShape
 	public function drawFraction (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners, percentage:Float) : Void
 	{
 		var radius = Formulas.getCircleRadius( bounds.width, bounds.height );
-#if flash9
+#if (flash9 || nme)
 		target.drawPolygonFraction( sides, bounds.left + radius, bounds.top + radius, radius, percentage );
 #end
 	}

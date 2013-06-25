@@ -43,7 +43,7 @@ package prime.mvc;
  */
 class Mediator <FacadeDef, GUIType> extends MVCActor <FacadeDef>
 {
-	public var gui (default, setGUI) : GUIType;
+	public var gui (default, set_gui) : GUIType;
 	
 	
 	public function new (facade:FacadeDef, enabled:Bool = true, gui:GUIType = null)
@@ -66,7 +66,7 @@ class Mediator <FacadeDef, GUIType> extends MVCActor <FacadeDef>
 	/**
 	 * Set the UI element that the mediator serves.
 	 */
-	private function setGUI (v:GUIType)
+	private function set_gui (v:GUIType)
 	{
 		if (v != gui)
 		{

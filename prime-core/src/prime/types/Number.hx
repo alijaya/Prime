@@ -27,12 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.types;
- /*
-
-typedef IntType = 
-	#if neko	neko.Int32;
-	#else		Int;	#end
-*/
 
 /**
  * Defines the min and max values of integers
@@ -40,14 +34,14 @@ typedef IntType =
  * @creation-date	Jun 17, 2010
  * @author			Ruben Weijers
  */
-class Number // FIXME: should be extern, but can't be because of FLOAT_NOT_SET
+extern class Number // FIXME: should be extern, but can't be because of FLOAT_NOT_SET
 {
 	//floats can actually be a lot bigger (64 bit) but this will work for now
 	public static inline var FLOAT_MIN:Float		= -3.40282346638528e+38;
 	public static inline var FLOAT_MAX:Float		=  3.40282346638528e+38;
 	
-	public static inline var INT_MIN:Int			= #if neko -1073741824 #else 0x80000000 #end;
-	public static inline var INT_MAX:Int			= #if neko 1073741823  #else 0x7fffffff #end;
+	public static inline var INT_MIN:Int			= 0x80000000;
+	public static inline var INT_MAX:Int			= 0x7fffffff;
 
 #if (flash9 || js) //breaks CPP
 	public static inline var UINT_MIN:UInt			=  0;
@@ -59,12 +53,12 @@ class Number // FIXME: should be extern, but can't be because of FLOAT_NOT_SET
 	 * Math.NaN for integers..
 	 */
 	public static inline var INT_NOT_SET:Int		=  INT_MIN; //#if flash9 INT_MIN #else null #end;
-	public static        var FLOAT_NOT_SET:Float	=  Math.NaN;
+	public static inline var FLOAT_NOT_SET:Float	=  0/0;
 	
 	/**
 	 * Integer-value to indicate a value is set but doesn't have a value. 
 	 * If for example the height is set to 'none' in the css, it wil become 
 	 * NONE. This way the style-object won't look in other style-classes.
 	 */
-	public static inline var EMPTY:Int				= #if neko -1073741820 #else -2147483640 #end;
+	public static inline var EMPTY:Int				= -2147483640;
 }

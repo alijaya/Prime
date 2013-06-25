@@ -27,13 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.effects;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#else
- import prime.gui.effects.effectInstances.ParallelEffectInstance;
-#end
  import prime.utils.NumberUtil;
-  using prime.utils.Bind;
 
 
 /**
@@ -53,12 +47,12 @@ class ParallelEffect extends CompositeEffect
 #if !CSSParser
 	override public function createEffectInstance (target)
 	{
-		return new ParallelEffectInstance( target, this );
+		return new prime.gui.effects.effectInstances.ParallelEffectInstance( target, this );
 	}
 #end
 	
 	
-	override private function getCompositeDuration ()
+	override private function get_compositeDuration ()
 	{
 		var d = 0;
 		for (effect in effects)

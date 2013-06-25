@@ -29,13 +29,16 @@
  */
 package prime.bindable;
   using prime.utils.IfUtil;
+ #if debug
+  using prime.utils.BitUtil;
+ #end
 
 
 /**
  * @creation-date	Jun 18, 2010
  * @author			Danny Wilson
  */
- #if !noinline extern #end class RevertableBindableFlags
+#if !noinline extern #end class RevertableBindableFlags
 {
 	/**
 	 * When this flag is set, any (valid) value change will send
@@ -134,7 +137,6 @@ package prime.bindable;
 }
 
 #if debug
-  using prime.utils.BitUtil;
 /**
  * Seperate class for debugging flags. Method is not inline and therefor can't be part of an 'extern' class.
  */

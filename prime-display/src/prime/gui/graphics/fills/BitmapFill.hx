@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.fills;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.IRectangle;
  import prime.core.geom.Matrix2D;
  import prime.gui.display.BitmapData;
@@ -48,13 +45,13 @@ package prime.gui.graphics.fills;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-class BitmapFill extends GraphicElement, implements IGraphicProperty 
+class BitmapFill extends prime.gui.graphics.GraphicElement implements prime.gui.graphics.IGraphicProperty 
 {
-	public var asset		(default, setAsset)			: Asset;
-	public var assetFactory	(default, setAssetFactory)	: Factory<Dynamic>;
-	public var matrix		(default, setMatrix)		: Matrix2D;
-	public var smooth		(default, setSmooth)		: Bool;
-	public var repeat		(default, setRepeat)		: Bool;
+	public var asset		(default, set_asset)		: Asset;
+	public var assetFactory	(default, set_assetFactory)	: Factory<Dynamic>;
+	public var matrix		(default, set_matrix)		: Matrix2D;
+	public var smooth		(default, set_smooth)		: Bool;
+	public var repeat		(default, set_repeat)		: Bool;
 	public var isFinished	(default, null)				: Bool;
 	public var data			(default, null)				: BitmapData;
 	
@@ -80,7 +77,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 		if (matrix != null)
 			untyped matrix = null;
 		
-#if flash9
+#if (flash9 || nme)
 		data = null;
 #end
 		super.dispose();
@@ -92,11 +89,11 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	// GETTERS / SETTERES
 	//
 	
-	private inline function setAsset (v)
+	private inline function set_asset (v)
 	{
 		if (v != asset)
 		{
-#if flash9
+#if (flash9 || nme)
 			if (asset != null)
 				asset.state.change.unbind(this);
 			
@@ -119,7 +116,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	}
 	
 	
-	private inline function setAssetFactory (v)
+	private inline function set_assetFactory (v)
 	{
 		if (v != assetFactory)
 		{
@@ -133,7 +130,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	}
 
 
-	private inline function setMatrix (v:Matrix2D)
+	private inline function set_matrix (v:Matrix2D)
 	{
 		if (v != matrix) {
 			matrix = v;
@@ -143,7 +140,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	}
 
 
-	private inline function setSmooth (v:Bool)
+	private inline function set_smooth (v:Bool)
 	{
 		if (v != smooth) {
 			smooth = v;
@@ -153,7 +150,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	}
 
 
-	private inline function setRepeat (v:Bool)
+	private inline function set_repeat (v:Bool)
 	{
 		if (v != repeat) {
 			repeat = v;
@@ -163,7 +160,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private inline function setData (v:BitmapData)
 	{
 		if (v != data)
@@ -186,13 +183,10 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	{
 		switch (newState) {
 			case AssetStates.ready:
-#if flash9		data = asset.toBitmapData(); #end
+#if (flash9 || nme)		data = asset.toBitmapData(); #end
 			
 			case AssetStates.empty:
-#if flash9		data = null; #end
-			
-			case AssetStates.loading:
-			case AssetStates.loadable:
+#if (flash9 || nme)		data = null; #end
 			default:
 		}
 	}
@@ -205,7 +199,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	
 	public /*inline*/ function begin (target:IGraphicsOwner, bounds:IRectangle)
 	{	
-#if flash9
+#if (flash9 || nme)
 		isFinished = true;
 		if (assetFactory == null && asset == null)
 			return;
@@ -236,7 +230,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	public #if !noinline inline #end function end (target:IGraphicsOwner, bounds:IRectangle)
 	{	
 		isFinished = false;
-#if flash9
+#if (flash9 || nme)
 		if (asset != null && asset.isReady())
 			target.graphics.endFill();
 #end
@@ -244,8 +238,8 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	
 	
 #if CSSParser
-	override public function toString ()					{ return "BitmapFill( " + asset + ", " + smooth + ", " + repeat + " )"; }
-	override public function toCSS (prefix:String = "")		{ return asset + " " + repeat; }
-	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [ assetFactory, asset, matrix, repeat, smooth ] ); }
+	override public function toString ()										{ return "BitmapFill( " + asset + ", " + smooth + ", " + repeat + " )"; }
+	override public function toCSS (prefix:String = "")							{ return asset + " " + repeat; }
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)	{ code.construct( this, [ assetFactory, asset, matrix, repeat, smooth ] ); }
 #end
 }

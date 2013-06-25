@@ -52,16 +52,33 @@ private typedef Flags		= prime.gui.core.UIElementFlags;
  * @author Ruben Weijers
  * @creation-date Oct 29, 2010
  */
-class Label extends UIDataComponent <Bindable<String>>, implements ITextStylable
+class Label extends UIDataComponent <Bindable<String>> implements ITextStylable
 {
 	public var field				(default, null)				: UITextField;
-	public var displayHTML			(default, setDisplayHTML)	: Bool;
-	public var multiline			(default, setMultiline)		: Bool;
+	public var displayHTML			(default, set_displayHTML)	: Bool;
+	public var multiline			(default, set_multiline)	: Bool;
 	
-#if flash9
-	public var textStyle			(default, setTextStyle)		: TextFormat;
-	public var wordWrap				: Bool;
-	public var embedFonts			: Bool;
+#if (flash9 || nme)
+	public var textStyle			(default, set_textStyle)	: TextFormat;
+
+  //FIXME: Get rid of this shit via partials or something
+  #if flash9
+	public var wordWrap		: Bool;
+  #elseif nme
+	function set_wordWrap(w) return wordWrap = w
+   #if html5
+	public var wordWrap(default, set_wordWrap):Bool;
+   #elseif cpp
+	public var wordWrap(get_wordWrap, set_wordWrap):Bool;
+	function get_wordWrap()  return wordWrap
+   #end
+  #end
+
+	public var embedFonts #if cpp (get_embedFonts, set_embedFonts) #end : Bool;
+  #if cpp
+	inline function get_embedFonts()  return embedFonts
+	inline function set_embedFonts(v) return embedFonts = v
+  #end
 #end
 
 	
@@ -95,7 +112,7 @@ class Label extends UIDataComponent <Bindable<String>>, implements ITextStylable
 	override private function removeData ()		{ field.data = null; }
 	
 	
-#if flash9
+#if (flash9 || nme)
 	override public function isFocusOwner (target:UserEventTarget)
 	{
 		return super.isFocusOwner(target) || field.isFocusOwner(target);
@@ -116,8 +133,8 @@ class Label extends UIDataComponent <Bindable<String>>, implements ITextStylable
 	// GETERS / SETTERS
 	//
 	
-#if flash9
-	private inline function setTextStyle (v:TextFormat)
+#if (flash9 || nme)
+	private inline function set_textStyle (v:TextFormat)
 	{
 		if (field != null) {
 			field.wordWrap		= wordWrap;
@@ -130,7 +147,7 @@ class Label extends UIDataComponent <Bindable<String>>, implements ITextStylable
 #end
 	
 	
-	private inline function setDisplayHTML (v:Bool)
+	private inline function set_displayHTML (v:Bool)
 	{
 		if (displayHTML != v)
 		{
@@ -141,7 +158,7 @@ class Label extends UIDataComponent <Bindable<String>>, implements ITextStylable
 	}
 	
 	
-	private inline function setMultiline (v:Bool)
+	private inline function set_multiline (v:Bool)
 	{
 		if (multiline != v)
 		{

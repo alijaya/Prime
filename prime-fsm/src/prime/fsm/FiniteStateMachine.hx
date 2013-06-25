@@ -39,8 +39,8 @@ package prime.fsm;
 @:autoBuild(prime.utils.MacroUtils.autoDispose())
 class FiniteStateMachine implements IFiniteStateMachine
 {
-	@manual public var current		(default, setCurrent)		: IState;
-	@manual public var defaultState	(default, setDefaultState)	: IState;
+	@manual public var current		(default, set_current)		: IState;
+	@manual public var defaultState	(default, set_defaultState)	: IState;
 	
 //	public var states		(default, null) : FastArray <IState>;
 	public var change		(default, null)	: Signal2 < IState, IState >;
@@ -85,7 +85,7 @@ class FiniteStateMachine implements IFiniteStateMachine
 	 * 
 	 * @private
 	 */
-	private function setCurrent (newState:IState) : IState
+	private function set_current (newState:IState) : IState
 	{
 		if (newState == null)
 			newState = defaultState;
@@ -116,7 +116,7 @@ class FiniteStateMachine implements IFiniteStateMachine
 	 * it will be set to the default-state.
 	 * @private
 	 */
-	private inline function setDefaultState (newState:IState) : IState
+	private inline function set_defaultState (newState:IState) : IState
 	{
 		defaultState = newState;
 
@@ -153,6 +153,6 @@ class FiniteStateMachine implements IFiniteStateMachine
 	
 	public #if !noinline inline #end function changeTo (toState:IState) : Void -> Void
 	{
-		return function () { this.setCurrent( toState ); };
+		return function () { this.set_current( toState ); };
 	}
 }

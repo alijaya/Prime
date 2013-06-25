@@ -49,14 +49,20 @@ class HaxeOutputUtil
 	public static function writeValues (values:Array<ValueType>) : StringBuf
 	{
 		var doc = new StringBuf();
-		for (value in values)
+		for (value in values) {
+			switch(value) {
+				case tObject(instance): if (instance.instantiated) continue;
+				default:
+			}
+
 			doc.addLine( doc.write(value) );
+		}
 		
 		return doc;
 	}
 	
 	
-	public static function writeImports (list:Hash<String>) : StringBuf
+	public static function writeImports (list:Map<String,String>) : StringBuf
 	{
 		var output	= new StringBuf();
 		
@@ -116,6 +122,7 @@ class HaxeOutputUtil
 			case tCallStatic(o, m, p):		return doc.writeStaticCall(o, m, p);
 			case tCallMethod(o, m, p):		return doc.writeMethodCall(o, m, p);
 			case tSetProperty(o, n, v):		return doc.writeSetProperty(o, n, v);
+			case tMapLiteral(keys,values):	return doc.writeMapLiteral(keys, values);
 		}
 	}
 	
@@ -173,6 +180,25 @@ class HaxeOutputUtil
 	private static inline function writeSetProperty (doc:StringBuf, v:ValueType, prop:String, value:ValueType) : String
 	{
 		return (v != null ? doc.write(v) : "this") + "." + prop + " = " + doc.write(value);
+	}
+
+
+
+
+	private static function writeMapLiteral (doc:StringBuf, keys:Array<ValueType>, values:Array<ValueType>) : String
+	{
+		var b = new StringBuf();
+		b.addChar("[".code);
+		for (i in 0 ... keys.length) {
+			if (i > 0) b.add(", ");
+			b.add(b.write(keys[i]));
+			b.add(" => ");
+			b.add(b.write(values[i]));
+		}
+		b.addChar("]".code);
+		var v = b.toString();
+		trace(v);
+		return v;
 	}
 	
 	

@@ -40,7 +40,7 @@ package prime.media;
  * @since   Sep 28, 2011
  * @author  Ruben Weijers
  */
-interface IMediaStream implements IFreezable, implements IDisposable
+interface IMediaStream extends IFreezable extends IDisposable
 {
     //
     // STREAM PROPERTIES
@@ -92,7 +92,7 @@ interface IMediaStream implements IFreezable, implements IDisposable
      * To seek the in the stream, you should not change this property but use the "seek"
      * method.
      */
-    public var currentTime  (getCurrentTime, null)  : Bindable<Float>;
+    public var currentTime  (get_currentTime, null)  : Bindable<Float>;
 
 
     //

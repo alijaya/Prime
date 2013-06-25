@@ -27,6 +27,7 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
 // import flash.display.InteractiveObject;
  import flash.events.IEventDispatcher;
  import flash.events.MouseEvent;
@@ -36,7 +37,6 @@ package prime.avm2.events;
  import prime.core.geom.Point;
  import prime.gui.events.KeyModState;
  import prime.gui.events.MouseEvents;
-  using prime.core.ListNode;
 
 /**
  * Signal<-->flash.MouseEvent Proxy implementation
@@ -44,7 +44,7 @@ package prime.avm2.events;
  * @author Danny Wilson
  * @creation-date jun 15, 2010
  */
-class MouseSignal extends Signal1<MouseState>, implements IWireWatcher<MouseHandler>
+class MouseSignal extends Signal1<MouseState> implements IWireWatcher<MouseHandler>
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;
@@ -97,7 +97,7 @@ class MouseSignal extends Signal1<MouseState>, implements IWireWatcher<MouseHand
 			FF (8-bit) -127-127		FF (8-bit) 0-255	F (4-bit) 0-15		F (4-bit)
 		*/
 		
-#if flash9
+#if (flash9 || nme)
 		Assert.that(clickCount >=  0);
 		Assert.that(clickCount <= 15);
 		
@@ -125,7 +125,7 @@ class MouseSignal extends Signal1<MouseState>, implements IWireWatcher<MouseHand
 	}
 #end
 }
-
+#end
 /*
 
 
@@ -141,7 +141,7 @@ class FlashMouseState extends MouseState
 		/** scrollDelta				Button				clickCount			KeyModState
 			FF (8-bit) -127-127		FF (8-bit) 0-255	F (4-bit) 0-15		F (4-bit)
 		*//*
-#if flash9
+#if (flash9 || nme)
 		Assert.that(clickCount >=  0);
 		Assert.that(clickCount <= 15);
 		

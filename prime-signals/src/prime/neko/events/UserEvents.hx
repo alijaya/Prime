@@ -29,8 +29,9 @@
 package prime.neko.events;
  import prime.gui.events.UserEvents;
 
-
+/*
 class UserEvents extends UserSignals
 {
 	
 }
+*/

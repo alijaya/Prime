@@ -35,8 +35,8 @@ package prime.utils;
  */
 extern class TimerUtil
 {
-#if !neko
-	public static inline function after (method:Void -> Void, delayMs:Int) : Void
+#if (flash || js || cs || java)
+	public static inline function after (method:Dynamic, delayMs:Int) : Void
 	{
 		haxe.Timer.delay( method, delayMs );
 	}

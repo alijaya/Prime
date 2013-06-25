@@ -33,9 +33,9 @@ package prime.layout;
  * @since	mar 19, 2010
  * @author	Ruben Weijers
  */
-interface ILayoutContainer implements ILayoutClient
+interface ILayoutContainer extends ILayoutClient
 {
-	public var algorithm			(default, setAlgorithm)		: prime.layout.algorithms.ILayoutAlgorithm;
+	public var algorithm			(default, set_algorithm)	: prime.layout.algorithms.ILayoutAlgorithm;
 	
 	
 	//
@@ -84,11 +84,11 @@ interface ILayoutContainer implements ILayoutClient
 	 * Number of rows or columns (depending on the algorithm) that should be
 	 * added before the first visible child (in case not all the layoutclients are added).
 	 */
-	public var invisibleBefore		(default, setInvisibleBefore)	: Int;
+	public var invisibleBefore		(default, set_invisibleBefore)	: Int;
 	/**
 	 * @see invisibleBefore
 	 */
-	public var invisibleAfter		(default, setInvisibleAfter)	: Int;
+	public var invisibleAfter		(default, set_invisibleAfter)	: Int;
 	
 	/**
 	 * The maximum width of each child. Their orignal width will be ignored if
@@ -96,14 +96,14 @@ interface ILayoutContainer implements ILayoutClient
 	 * 
 	 * @default		Number.INT_NOT_SET
 	 */
-	public var childWidth			(default, setChildWidth)	: Int;
+	public var childWidth			(default, set_childWidth)		: Int;
 	/**
 	 * The maximum height of each child. Their orignal height will be ignored if
 	 * the child is heigher then this number (it won't get resized).
 	 * 
 	 * @default		Number.INT_NOT_SET
 	 */
-	public var childHeight			(default, setChildHeight)	: Int;
+	public var childHeight			(default, set_childHeight)		: Int;
 
 
 	public function attach (target:LayoutClient, depth:Int = -1) : ILayoutContainer;

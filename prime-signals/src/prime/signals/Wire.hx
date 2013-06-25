@@ -27,9 +27,6 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.signals;
- import prime.core.traits.IDisablable;
- import prime.core.traits.IDisposable;
- import prime.core.ListNode;
   using prime.utils.BitUtil;
   using prime.signals.Signal;
 
@@ -41,7 +38,7 @@ package prime.signals;
  * Implementation detail: Wires are added to a bounded freelist (max MAX_WIRES free objects) to reduce garbage collector pressure.
  * This means you should never reuse a Wire after calling dispose() and/or after unbinding the handler from the signal (which returned this Wire).
  */
-class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements IDisposable, implements IDisablable
+class Wire <FunctionSignature> extends WireList<FunctionSignature> implements prime.core.traits.IDisposable implements prime.core.traits.IDisablable
 {
 	static private inline var MAX_WIRES		= 8096;
 	
@@ -52,12 +49,13 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	/** Wire.flags bit which tells if the Wire should be disposed() right after Signal.send(...) */
 	static public inline var SEND_ONCE		= 4;
 	
-	static private var free : Wire<Dynamic>;
+	static private var free : Wire<Dynamic> = null;
 	static public  var freeCount : Int = 0;
 	
 	static function __init__()
 	{
 		var W = Wire;
+		freeCount = 0;
 	  #if js
 		var dummyOwner   = new Signal0();
 		var dummyHandler = dummyOwner.unbindAll;
@@ -68,17 +66,16 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 		for (i in 0 ... MAX_WIRES) {
 			var w     = new Wire<Dynamic>();
 		  #if js // Set all fields to increase the odds V8 will initialize the correct hidden class type
-			w.owner   = dummyOwner;
-			w.signal  = dummyOwner;
-			w.handler = dummyHandler;
-			w.flags   = 0;
-			w.owner   = null;
-			w.signal  = null;
-			w.handler = null;
+			w.owner    = dummyOwner;
+			w.signal   = dummyOwner;
+			w._handler = dummyHandler;
+			w.owner    = null;
+			w.signal   = null;
+			w._handler = null;
 		  #end
 			w.n       = W.free;
 			W.free    = w;
-			W.freeCount++;
+			++W.freeCount;
 		}
 	}
 
@@ -89,31 +86,35 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 		var w:Wire<Dynamic>,
 			W = Wire;
 		
-		if (W.free == null)
+		if (W.free == null) {
+			Assert.that(freeCount == 0, "Expected 0 free, but is: " + freeCount);
 			w = new Wire<T>();
+		}
 		else {
+			Assert.that(freeCount >= 1, "Expected >1 free, but is: " + freeCount);
 			W.free = (w = W.free).n; // I know it's unreadable.. but it's faster.
 			--W.freeCount;
 			w.n = null;
 			Assert.that(w.owner == null && w.handler == null && w.signal == null && w.n == null, w.owner + ", " + w.handler + ", " + w.signal + ", " + w.n);
-			w.flags	  = flags;
 		}
 		
-		w.owner   = owner;
-		w.signal  = dispatcher;
-		w.handler = handlerFn;
-		w.flags   = flags;
-		if (flags.has(ENABLED))
+		w.owner    = owner;
+		w.signal   = dispatcher;
+		w._handler = handlerFn;
+		w.flags    = flags;
+		if (flags.has(ENABLED)) {
 			w.doEnable();
+			Assert.isNotNull(untyped w.signal.n);
+		}
+		Assert.that(flags == w.flags);
 		
 		#if debug w.bindPos = pos; #end
 		Assert.isNotNull(w.signal);
-		Assert.isNotNull(untyped w.signal.n);
 		return cast w;
 	}
 	
 	static public #if !noinline inline #end function sendVoid<T>( wire:Wire<Dynamic> ) {
-		wire.handler();
+		wire._handler();
 	}
 	
 	
@@ -125,7 +126,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	/** Is this Wire connected? Should it be called with 0 args? Should it be unbound after calling? **/
 	public var flags	(default, null) : Int;
 	/** Handler function **/
-	public var handler	(default, null) : FunctionSignature;
+	public var handler  (get_handler, set_handler) : FunctionSignature;
 	/** Wire owner object **/
 	public var owner	(default, null) : Dynamic;
 	/** Object referencing the parent Link in the Chain **/
@@ -185,19 +186,21 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 		return flags.has(ENABLED);
 	}
 	
-	public #if !noinline inline #end function setArgsHandler( h:FunctionSignature )
+
+	private var _handler : Dynamic;
+	private #if !noinline inline #end function get_handler() : FunctionSignature  return _handler;
+	private #if !noinline inline #end function set_handler( h:FunctionSignature ) : FunctionSignature
 	{
-		// setHandler only accepts functions with FunctionSignature
+		// set_handler only accepts functions with FunctionSignature
 		// and this is not a VOID_HANDLER for Signal1..4
 		flags.unset( VOID_HANDLER );
-		
-		return handler = h;
+		return _handler = h;
 	}
 	
 	public #if !noinline inline #end function setVoidHandler( h:Void->Void )
 	{
-		flags.set(VOID_HANDLER);
-		return handler = cast h;
+		flags.set( VOID_HANDLER );
+		_handler = h;
 	}
 	
 	/** Enable propagation for the handler this link belongs too. **/
@@ -212,7 +215,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	
 	private inline function doEnable()
 	{
-		var s:ListNode<Wire<FunctionSignature>> = this.signal;
+		var s = this.signal;
 		this.n = s.n;
 		s.n = this;
 		signal.notifyEnabled(this);
@@ -232,7 +235,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 			flags.unset( ENABLED );
 			
 			// Find LinkNode before this one
-			var x:ListNode<Wire<FunctionSignature>> = signal;
+			var x:WireList<FunctionSignature> = signal;
 			while (x.n != null && x.n != this) x = x.n;
 			
 			x.n = this.n;
@@ -244,7 +247,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 			if (signal.nextSendable == this)
 				signal.nextSendable = x.n;
 			
-			Signal.notifyDisabled(signal, this);
+			signal.notifyDisabled(this);
 		}
 	}
 	
@@ -255,14 +258,14 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 		disable();
 		
 		// Cleanup all connections
-		handler = owner = signal = null;
+		_handler = owner = signal = null;
 		flags	= 0;
 		
 #if debug
 		disposeCount++;
 #end
 		var W = Wire;
-		if (W.freeCount != MAX_WIRES) {
+		if (W.freeCount < MAX_WIRES) {
 			++W.freeCount;
 			this.n = cast W.free;
 			W.free = this;
@@ -277,8 +280,8 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 		return this.owner == target 
 			&& (handlerFn == null ||
 		(
-		  #if flash9
-			this.handler == handlerFn
+		  #if (cpp||flash9)
+			this._handler == handlerFn
 		  #else
 			Reflect.compareMethods(handlerFn, this.handler)
 		  #end

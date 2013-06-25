@@ -37,14 +37,14 @@ class Base implements IUIdentifiable
 }
 
 
-class HolderList extends Base, implements ICodeFormattable
+class HolderList extends Base implements ICodeFormattable
 {
-	public var children : haxe.FastList < Holder >;
+	public var children : haxe.ds.GenericStack < Holder >;
 	
 	public function new ()
 	{
 		super();
-		children = new haxe.FastList();
+		children = new haxe.ds.GenericStack();
 	}
 	
 	
@@ -57,7 +57,7 @@ class HolderList extends Base, implements ICodeFormattable
 }
 
 
-class Holder extends Base, implements ICodeFormattable
+class Holder extends Base implements ICodeFormattable
 {
 	public var a (default, null)	: A;
 	public var b (default, null)	: B;
@@ -84,7 +84,7 @@ class Holder extends Base, implements ICodeFormattable
 
 
 
-class A extends Base, implements ICodeFormattable
+class A extends Base implements ICodeFormattable
 {
 	public var value (default, null) : String;
 	
@@ -105,7 +105,7 @@ class A extends Base, implements ICodeFormattable
 
 
 
-class B extends Base, implements ICodeFormattable
+class B extends Base implements ICodeFormattable
 {
 	public var value (default, null) : Int;
 	public var secret : String;
@@ -128,7 +128,7 @@ class B extends Base, implements ICodeFormattable
 
 
 
-class C extends Base, implements ICodeFormattable
+class C extends Base implements ICodeFormattable
 {
 	public var value (default, null)	: Bool;
 	public var direction				: Direction;

@@ -30,7 +30,6 @@
  */
 package prime.core.math;
  import prime.signals.Wire;
- import prime.core.traits.IDisposable;
  import prime.bindable.Bindable;
  import prime.core.validators.FloatRangeValidator;
   using prime.utils.Bind;
@@ -44,7 +43,7 @@ package prime.core.math;
  * @author Ruben Weijers
  * @creation-date Mar 24, 2011
  */
-class PercentageHelper extends Bindable<Float>, implements IDisposable
+class PercentageHelper extends Bindable<Float> implements prime.core.traits.IDisposable
 {
 	//
 	// PUBLIC VARS
@@ -59,11 +58,11 @@ class PercentageHelper extends Bindable<Float>, implements IDisposable
 	/**
 	 * getter / setter to quickly access the value of data
 	 */
-//	public var value		(getValue, setValue)			: Float;
+//	public var value		(get_value, set_value)			: Float;
 	/**
 	 * getter / setter to quickly access the value of perc
 	 */
-	public var percentage	(getPercentage, setPercentage)	: Float;
+	public var percentage	(get_percentage, set_percentage): Float;
 	
 	
 	/**
@@ -82,10 +81,10 @@ class PercentageHelper extends Bindable<Float>, implements IDisposable
 	 * 
 	 * @default false
 	 */
-	public var inverted		(default, setInverted)			: Bool;
+	public var inverted		(default, set_inverted)			: Bool;
 	
-	public var min			(getMin, setMin)				: Float;
-	public var max			(getMax, setMax)				: Float;
+	public var min			(get_min, set_min)				: Float;
+	public var max			(get_max, set_max)				: Float;
 	
 	
 	//
@@ -208,11 +207,11 @@ class PercentageHelper extends Bindable<Float>, implements IDisposable
 	//
 	
 	
-	private inline function getPercentage ()		{ return perc.value; }
-	private inline function setPercentage (v:Float)	{ Assert.that( v <= 1, v + " > 1" ); Assert.that( v >= 0, v + " < 0" ); return perc.value = v; }
+	private inline function get_percentage ()		{ return perc.value; }
+	private inline function set_percentage (v:Float)	{ Assert.that( v <= 1, v + " > 1" ); Assert.that( v >= 0, v + " < 0" ); return perc.value = v; }
 	
 	
-	private inline function setInverted (v:Bool)
+	private inline function set_inverted (v:Bool)
 	{
 		if (v != inverted)
 		{
@@ -224,8 +223,8 @@ class PercentageHelper extends Bindable<Float>, implements IDisposable
 	}
 	
 	
-	private inline function getMin ()			{ return validator.min; }
-	private inline function getMax ()			{ return validator.max; }
-	private inline function setMin (v:Float)	{ return validator.min = v; }
-	private inline function setMax (v:Float)	{ return validator.max = v; }
+	private inline function get_min ()			{ return validator.min; }
+	private inline function get_max ()			{ return validator.max; }
+	private inline function set_min (v:Float)	{ return validator.min = v; }
+	private inline function set_max (v:Float)	{ return validator.max = v; }
 }

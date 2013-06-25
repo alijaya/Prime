@@ -39,8 +39,9 @@ package prime.gui.behaviours.layout;
  * @creation-date	Jun 25, 2010
  * @author			Ruben Weijers
  */
-class ClippedLayoutBehaviour extends prime.gui.behaviours.BehaviourBase<prime.gui.traits.IScrollable>, implements prime.gui.behaviours.scroll.IScrollBehaviour
+class ClippedLayoutBehaviour extends prime.gui.behaviours.BehaviourBase<prime.gui.traits.IScrollable> implements prime.gui.behaviours.scroll.IScrollBehaviour
 {
-	override private function init ()		target.enableClipping()
-	override private function reset ()		target.disableClipping()
+	private var wasClipping : Bool;
+	override private function init ()	{ wasClipping = target.getScrollRect() != null; if (!wasClipping) { target.enableClipping(); } }
+	override private function reset ()	{ if (!wasClipping && target.getScrollRect() != null) { target.disableClipping(); } }
 }

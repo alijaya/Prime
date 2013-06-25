@@ -38,16 +38,16 @@ import haxe.macro.Context;
  * flag is used on the haxe compiler command line.
  **/
 #if !macro extern #end class Assert {
-	#if macro static private var emptyExpr = Context.makeExpr(null, Context.currentPos()); #end
+	#if macro static private var emptyExpr = macro null; #end
 	/**
 	* Asserts that expected is equal to actual
 	* @param expected Any expression that can test against actual
 	* @param actual Any expression that can test againt expected
 	**/
-	@:macro public static function  isEqual( expected : Expr, actual : Expr, ?message:ExprRequire<String> ) : Expr return buildCompareAssert(expected, OpNotEq, actual, message)
-	@:macro public static function notEqual( expected : Expr, actual : Expr, ?message:ExprRequire<String> ) : Expr return buildCompareAssert(expected, OpEq, actual, message)
+	macro public static function  isEqual( expected : Expr, actual : Expr, ?message:ExprOf<String> ) : Expr return buildCompareAssert(expected, OpNotEq, actual, message);
+	macro public static function notEqual( expected : Expr, actual : Expr, ?message:ExprOf<String> ) : Expr return buildCompareAssert(expected, OpEq, actual, message);
 
-	#if macro private static function buildCompareAssert( expected:Expr, assertCompareOp:Binop, actual:Expr, ?message:ExprRequire<String> ) : Expr {
+	#if macro private static function buildCompareAssert( expected:Expr, assertCompareOp:Binop, actual:Expr, ?message:ExprOf<String> ) : Expr {
 		if(!Context.defined("debug"))
 			return emptyExpr;
 		var pos = Context.currentPos();
@@ -75,12 +75,8 @@ import haxe.macro.Context;
 								case OpLt:	"> ";
 								case OpLte:	">= ";
 								default: ""; }))), pos : pos },
-							{ expr : EBinop(
-								OpAdd,
-								{ expr : ECall({ expr : EField({ expr : EConst(CType("Std")), pos : pos },"string"),pos : pos },[expected]), pos : pos },
-								{ expr : EBinop(OpAdd, { expr : EConst(CString(". Got ")), pos : pos }, { expr : ECall({ expr : EField({ expr : EConst(CType("Std")), pos : pos },"string"), pos : pos },[actual]), pos : pos }), pos:pos}
-								),
-							pos : pos
+							{ expr : (macro Std.string($expected) + ". Got " + Std.string($actual)).expr,
+							   pos : pos
 							}),
 						pos : pos
 						},
@@ -97,15 +93,15 @@ import haxe.macro.Context;
 	* Asserts that expr evaluates to true
 	* @param expr An expression that evaluates to a Bool
 	**/
-	@:macro public static function that( expr:Expr, ?message:ExprRequire<String> ) : Expr   return isTrue_impl(expr, message)
+	macro public static function that( expr:Expr, ?message:ExprOf<String> ) : Expr   return isTrue_impl(expr, message);
 
 	/**
 	* Asserts that expr evaluates to true
 	* @param expr An expression that evaluates to a Bool
 	**/
-	@:macro public static function isTrue( expr:Expr, ?message:ExprRequire<String> ) : Expr return isTrue_impl(expr)
+	macro public static function isTrue( expr:Expr, ?message:ExprOf<String> ) : Expr return isTrue_impl(expr);
 
-	#if macro public static function isTrue_impl( expr:Expr, ?message:ExprRequire<String> ) : Expr {
+	#if macro public static function isTrue_impl( expr:Expr, ?message:ExprOf<String> ) : Expr {
 		if(!Context.defined("debug"))
 			return emptyExpr;
 		var pos = Context.currentPos();
@@ -125,7 +121,8 @@ import haxe.macro.Context;
 						params : []
 					},
 					[
-						message != null? message : { expr : EConst(CString("Assertion failed. Expected "+ #if thx thx.macro.Macros.stringOfExpr(expr) #else "" #end +" but was false")), pos : pos }
+						message != null? message : { expr : EConst(CString("Assertion failed. Expected ... but was false")), pos : pos }
+                        //FIXME: new haxe.macro.Printer().printExpr(expr) will be available once we get pattern matching working for prime.
 					]),
 				pos : pos }),
 			pos : pos },
@@ -138,13 +135,13 @@ import haxe.macro.Context;
 	* Asserts that expr evaluates to false
 	* @param expr An expression that evaluates to a Bool
 	**/
-	@:macro public static function not( expr:Expr ) : Expr     return isFalse_impl(expr)
+	macro public static function not( expr:Expr ) : Expr     return isFalse_impl(expr);
 
 	/**
 	* Asserts that expr evaluates to false
 	* @param expr An expression that evaluates to a Bool
 	**/
-	@:macro public static function isFalse( expr:Expr ) : Expr return isFalse_impl(expr)
+	macro public static function isFalse( expr:Expr ) : Expr return isFalse_impl(expr);
 
 	#if macro private static function isFalse_impl( expr:Expr ) : Expr {
 		if(!Context.defined("debug"))
@@ -179,8 +176,8 @@ import haxe.macro.Context;
 	* Checks that the passed expression is not null.
 	* @param expr A string, class or anything that can be tested for null
 	**/
-	@:macro public static function isNull   ( expr:Expr, ?message:ExprRequire<String> ) : Expr return compareNull(expr, OpNotEq, message)
-	@:macro public static function isNotNull( expr:Expr, ?message:ExprRequire<String> ) : Expr return compareNull(expr, OpEq,    message)
+	macro public static function isNull   ( expr:Expr, ?message:ExprOf<String> ) : Expr return compareNull(expr, OpNotEq, message);
+	macro public static function isNotNull( expr:Expr, ?message:ExprOf<String> ) : Expr return compareNull(expr, OpEq,    message);
 
 	#if macro private static function compareNull( expr:Expr, assertCompareOp:Binop, message:Expr ) : Expr {
 		if(!Context.defined("debug"))

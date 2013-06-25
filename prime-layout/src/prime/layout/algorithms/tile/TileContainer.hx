@@ -53,11 +53,11 @@ private typedef Flags = LayoutFlags;
  * @creation-date	Jun 30, 2010
  * @author			Ruben Weijers
  */
-class TileContainer extends LayoutClient, implements ILayoutContainer
+class TileContainer extends LayoutClient implements ILayoutContainer
 {
-	public var algorithm	(default, setAlgorithm)		: ILayoutAlgorithm;
-	public var childWidth	(default, setChildWidth)	: Int;
-	public var childHeight	(default, setChildHeight)	: Int;
+	public var algorithm	(default, set_algorithm)	: ILayoutAlgorithm;
+	public var childWidth	(default, set_childWidth)	: Int;
+	public var childHeight	(default, set_childHeight)	: Int;
 	
 	
 	public function new( list:IEditableList<LayoutClient> = null )
@@ -73,7 +73,7 @@ class TileContainer extends LayoutClient, implements ILayoutContainer
 			for (i in 0...children.length) {
 				var child = children.getItemAt(i);
 				if (child.includeInLayout)
-					child.listeners.add(this);
+					child.invalidated.bind( this, invalidateCall );
 			}
 		
 		changes = 0;
@@ -86,7 +86,7 @@ class TileContainer extends LayoutClient, implements ILayoutContainer
 		{
 			while (children.length > 0) {
 				var child = children.getItemAt(0);
-				child.listeners.remove(this);
+				child.invalidated.unbind( this );
 				children.remove(child);
 			}
 			
@@ -190,10 +190,10 @@ class TileContainer extends LayoutClient, implements ILayoutContainer
 	}
 	
 	
-	override private function setX (v)
+	override private function set_x (v)
 	{
 		if (v != x) {
-			v = super.setX(v);
+			v = super.set_x(v);
 			for (i in 0...children.length)
 			{
 				var child = children.getItemAt(i);
@@ -205,10 +205,10 @@ class TileContainer extends LayoutClient, implements ILayoutContainer
 	}
 	
 	
-	override private function setY (v)
+	override private function set_y (v)
 	{
 		if (v != y) {
-			v = super.setY(v);
+			v = super.set_y(v);
 			for (i in 0...children.length)
 			{
 				var child = children.getItemAt(i);
@@ -225,7 +225,7 @@ class TileContainer extends LayoutClient, implements ILayoutContainer
 	// GETTERS / SETTERS
 	//
 	
-	private inline function setAlgorithm (v:ILayoutAlgorithm)
+	private inline function set_algorithm (v:ILayoutAlgorithm)
 	{
 		if (v != algorithm)
 		{
@@ -246,7 +246,7 @@ class TileContainer extends LayoutClient, implements ILayoutContainer
 	}
 
 
-	private inline function setChildWidth (v)
+	private inline function set_childWidth (v)
 	{
 		if (v != childWidth)
 		{
@@ -257,7 +257,7 @@ class TileContainer extends LayoutClient, implements ILayoutContainer
 	}
 
 
-	private inline function setChildHeight (v)
+	private inline function set_childHeight (v)
 	{
 		if (v != childHeight)
 		{
@@ -314,13 +314,13 @@ class TileContainer extends LayoutClient, implements ILayoutContainer
 			case added( child, newPos ):
 				child.outerBounds.left	= innerBounds.left;
 				child.outerBounds.top	= innerBounds.top;
-				child.listeners.add(this);
+				child.invalidated.bind( this, invalidateCall );
 				
 				if (!fixedLength)			childrenLength++;
 				if (child.includeInLayout)	invalidate( Flags.LIST );
 			
 			case removed( child, oldPos ):
-				child.listeners.remove(this);
+				child.invalidated.unbind( this );
 				
 				if (!fixedLength)			childrenLength--;
 				if (child.includeInLayout)	invalidate( Flags.LIST );
@@ -356,12 +356,12 @@ class TileContainer extends LayoutClient, implements ILayoutContainer
 	}
 
 
-	public var invisibleBefore		(default, setInvisibleBefore)	: Int;
-	public var invisibleAfter		(default, setInvisibleAfter)	: Int;
+	public var invisibleBefore		(default, set_invisibleBefore)	: Int;
+	public var invisibleAfter		(default, set_invisibleAfter)	: Int;
 	
 
 
-	private inline function setInvisibleBefore (v:Int)
+	private inline function set_invisibleBefore (v:Int)
 	{
 		if (v != invisibleBefore)
 		{
@@ -372,7 +372,7 @@ class TileContainer extends LayoutClient, implements ILayoutContainer
 	}
 
 
-	private inline function setInvisibleAfter (v:Int)
+	private inline function set_invisibleAfter (v:Int)
 	{
 		if (v != invisibleAfter)
 		{

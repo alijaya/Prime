@@ -40,7 +40,7 @@ package examples.layout;
 class LayoutExample4 extends prime.gui.core.UIWindow
 {
 	public static function main ()
-		prime.gui.display.Window.startup(function (stage) { return new LayoutExample4(stage); })
+		prime.gui.display.Window.startup(function (stage) { return new LayoutExample4(stage); });
 
 
 	override private function createChildren () {

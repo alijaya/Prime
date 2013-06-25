@@ -51,10 +51,10 @@ package prime.gui.components;
  * @author Ruben Weijers
  * @creation-date Feb 12, 2011
  */
-class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType>, implements IListHolder<ListDataType>
+class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType> implements IListHolder<ListDataType>
 {
 	public var list		(default, default)		: ListView<ListDataType>;
-	public var listData	(default, setListData)	: IReadOnlyList < ListDataType >;
+	public var listData	(default, set_listData)	: IReadOnlyList < ListDataType >;
 	public var childClick (default, null)		: Signal1<MouseState>;
 	
 	/**
@@ -64,13 +64,13 @@ class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType>, im
 	 * @param	pos:Int
 	 * @return 	IUIDataElement
 	 */
-	public var createItemRenderer				(default, setCreateItemRenderer) : ListDataType -> Int -> IUIDataElement<ListDataType>;
+	public var createItemRenderer				(default, set_createItemRenderer) : ListDataType -> Int -> IUIDataElement<ListDataType>;
 	
 	
 	public function new (id:String, data:DataType = null, listData:IReadOnlyList<ListDataType> = null, list:ListView<ListDataType> = null)
 	{
 		super(id, data);
-		styleClasses.add("listHolder");
+		#if prime_css styleClasses.add("listHolder"); #end
 		this.listData	= listData;
 		this.list		= list;
 	}
@@ -109,7 +109,7 @@ class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType>, im
 	//	mouseEnabled 	= false;
 	//	mouseChildren 	= true;
 		
-		list.styleClasses.add("listContent");
+		#if prime_css list.styleClasses.add("listContent"); #end
 		childClick.send.on( list.childClick, this );
 	}
 	
@@ -127,7 +127,7 @@ class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType>, im
 	// GETTERS / SETTERS
 	//
 	
-	private inline function setListData (v)
+	private inline function set_listData (v)
 	{
 		if (listData != v) {
 			listData = v;
@@ -140,7 +140,7 @@ class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType>, im
 	}
 	
 	
-	private inline function setCreateItemRenderer (v)
+	private inline function set_createItemRenderer (v)
 	{
 		if (v != createItemRenderer) {
 			createItemRenderer = v;

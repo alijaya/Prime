@@ -36,13 +36,13 @@ package prime.gui.display;
  * @author Ruben Weijers
  * @creation-date Jul 13, 2010
  */
-interface IDisplayContainer implements IInteractive, implements IDisplayable
+interface IDisplayContainer extends IInteractive extends IDisplayable
 {
 #if !CSSParser
 	var children	(default, null)			: DisplayList;
 #end
 	
-#if flash9
+#if (flash9 || nme)
 	public function globalToLocal (point : Point) : Point;
 	public function localToGlobal (point : Point) : Point;
 #end

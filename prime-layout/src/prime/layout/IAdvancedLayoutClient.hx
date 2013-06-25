@@ -33,13 +33,13 @@ package prime.layout;
  * @creation-date	Jun 17, 2010
  * @author			Ruben Weijers
  */
-interface IAdvancedLayoutClient implements ILayoutClient
+interface IAdvancedLayoutClient extends ILayoutClient
 {
-	public var explicitWidth	(default, setExplicitWidth)		: Int;
-	public var explicitHeight	(default, setExplicitHeight)	: Int;
+	public var explicitWidth	(default, set_explicitWidth)	: Int;
+	public var explicitHeight	(default, set_explicitHeight)	: Int;
 
-	public var measuredWidth	(default, setMeasuredWidth) 	: Int;
-	public var measuredHeight	(default, setMeasuredHeight)	: Int;
+	public var measuredWidth	(default, set_measuredWidth) 	: Int;
+	public var measuredHeight	(default, set_measuredHeight)	: Int;
 	
 	
 	public function isVisible ()	: Bool;

@@ -38,7 +38,7 @@ package prime.gui.traits;
  * @author Ruben Weijers
  * @creation-date Sep 03, 2010
  */
-interface IGraphicsValidator implements IValidatable
+interface IGraphicsValidator extends IValidatable
 {
 	/**
 	 * Sends a request to the RenderManager to get a render action.

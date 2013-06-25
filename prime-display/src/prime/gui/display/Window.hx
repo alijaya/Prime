@@ -30,7 +30,7 @@ package prime.gui.display;
  import prime.signals.Signal0;
  import prime.core.geom.IntRectangle;
  import prime.core.traits.IDisablable;
-#if flash9
+#if (flash9 || nme)
  import flash.display.InteractiveObject;
  import flash.events.Event;
  import prime.avm2.events.FlashSignal0;
@@ -55,17 +55,17 @@ package prime.gui.display;
  * @creation-date Jul 13, 2010
  */
 #if !CSSParser
-class Window implements IDisplayContainer, implements IDisablable
+class Window implements IDisplayContainer implements IDisablable
 {
 	public static #if !noinline inline #end function startup<WindowInstance>(windowClassFactory : Stage -> WindowInstance) : WindowInstance
 	{
 		var stage:Stage = null;
-#if flash9
+#if (flash9 || nme)
 		stage = flash.Lib.current.stage;
 		stage.scaleMode	= flash.display.StageScaleMode.NO_SCALE;
 	
 	#if (debug && FlashTrace)
-		haxe.Log.trace	= primevc.utils.DebugTrace.trace;
+		haxe.Log.trace	= prime.utils.DebugTrace.trace;
 	
 	#elseif (debug && Monster2Trace)
 		var monster		= new nl.demonsters.debugger.MonsterDebugger(flash.Lib.current);
@@ -90,7 +90,7 @@ class Window implements IDisplayContainer, implements IDisablable
 #end
 #if debug
 		haxe.Log.clear();
-		haxe.Log.setColor(0xc00000);
+		#if flash9 haxe.Log.setColor(0xc00000); #end
 		trace("started");
 #end
 		var inst = windowClassFactory(stage);
@@ -118,7 +118,7 @@ class Window implements IDisplayContainer, implements IDisablable
 	// IDISPLAYABLE PROPERTIES
 	//
 	
-	public var window			(default, setWindow)	: Window;
+	public var window			(default, set_window)	: Window;
 	public var container		(default, default)		: IDisplayContainer;
 	public var rect				(default, null)			: IntRectangle;
 	public var displayEvents	(default, null)			: DisplayEvents;
@@ -136,8 +136,8 @@ class Window implements IDisplayContainer, implements IDisablable
 	 */
 	public var activated		(default, null)			: Signal0;
 	
-#if flash9
-	public var focus			(getFocus, setFocusOn)	: IInteractiveObject;
+#if (flash9 || nme)
+	public var focus			(get_focus, set_focus)	: IInteractiveObject;
 #end
 	
 	
@@ -154,7 +154,7 @@ class Window implements IDisplayContainer, implements IDisablable
 		mouse			= new Mouse( this );
 		
 		target.doubleClickEnabled = true;
-#if flash9 /*&& debug)*/
+#if (flash9 || nme) /*&& debug)*/
 		deactivated	= new FlashSignal0( target, Event.DEACTIVATE );
 		activated	= new FlashSignal0( target, Event.ACTIVATE );
 		disable	.on( deactivated, this );
@@ -191,11 +191,17 @@ class Window implements IDisplayContainer, implements IDisablable
 	//
 	
 	public var mouseEnabled			: Bool;
-#if flash9	
+#if (flash9 || nme)
 	public var doubleClickEnabled	: Bool;
 	public var tabEnabled			: Bool;
+
+  #if html5
+	public var tabIndex(get_tabIndex, set_tabIndex):Int;
+	function get_tabIndex()  return target.tabIndex
+	function set_tabIndex(v) return target.tabIndex = v
+  #else
 	public var tabIndex				: Int;
-	
+  #end
 	
 	public #if !noinline inline #end function globalToLocal (point:Point) : Point		{ return target.globalToLocal(point); }
 	public #if !noinline inline #end function localToGlobal (point:Point) : Point		{ return target.localToGlobal(point); }
@@ -206,8 +212,8 @@ class Window implements IDisplayContainer, implements IDisablable
 	public function disable ()										{ mouseEnabled = tabEnabled = children.mouseEnabled = children.tabEnabled = false; }	//use local mouseEnabled and tabEnabled since Stage doesn't have these properties
 	public #if !noinline inline #end function isEnabled ()								{ return mouseEnabled; }
 	
-	private inline function setFocusOn (child:IInteractiveObject)	{ target.focus = child.as(InteractiveObject); return child; }
-	private inline function getFocus ()	: IInteractiveObject		{ return target.focus.as(IInteractiveObject); }
+	private inline function set_focus (child:IInteractiveObject)	{ target.focus = child.as(InteractiveObject); return child; }
+	private inline function get_focus ()	: IInteractiveObject	{ return target.focus.as(IInteractiveObject); }
 
 //	@:getter(scrollRect)
 	// FIXME => won't be called since scrollRect can't be defined as (getScrollRect, setScrollRect)
@@ -218,7 +224,7 @@ class Window implements IDisplayContainer, implements IDisablable
 	
 	/**
 	 * Method will give the acti focus to the stage.
-	 * FIXME better naming -> looks alot like setFocusOn (the setter)
+	 * FIXME better naming -> looks alot like set_focus (the setter)
 	 */
 	public #if !noinline inline #end function setFocus ()		{ target.focus = target; }
 	public #if !noinline inline #end function removeFocus ()	{ if (target.focus == target) { target.focus = null; } }
@@ -232,7 +238,7 @@ class Window implements IDisplayContainer, implements IDisablable
 	
 	
 	
-	private inline function setWindow (v)		{ return window = this; }
+	private inline function set_window (v)		{ return window = this; }
 //	private inline function setContainer (v)	{ return container = this; }
 }
 

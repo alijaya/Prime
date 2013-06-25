@@ -27,10 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
- import prime.core.traits.IInvalidatable;
  import prime.gui.effects.Effect;
  import prime.gui.effects.EffectFlags;
   using prime.utils.BitUtil;
@@ -63,46 +59,46 @@ class EffectsStyle extends StyleSubBlock
 	 * Effect that is performed when the coordinates of the targets 
 	 * layoutobject have changed.
 	 */
-	public var move		(getMove, setMove)		: EffectType;
+	public var move		(get_move, set_move)		: EffectType;
 	
 	/**
 	 * Effect that is performed when the size of targets layoutobject is 
 	 * changed.
 	 */
-	public var resize	(getResize, setResize)	: EffectType;
+	public var resize	(get_resize, set_resize)	: EffectType;
 	
 	/**
 	 * Effect that is performed when the 'rotate' method of the target is called.
 	 */
-	public var rotate	(getRotate, setRotate)	: EffectType;
+	public var rotate	(get_rotate, set_rotate)	: EffectType;
 	
 	/**
 	 * Effect that is performed when the 'scale' method of the target is called.
 	 */
-	public var scale	(getScale, setScale)	: EffectType;
+	public var scale	(get_scale, set_scale)		: EffectType;
 	
 	/**
 	 * Effect that is performed when the 'show' method of the target is called.
 	 * This effect will stop the 'hide' effect if it's playing.
 	 */
-	public var show		(getShow, setShow)		: EffectType;
+	public var show		(get_show, set_show)		: EffectType;
 	/**
 	 * Effect that is performed when the 'hide' method of the target is called.
 	 * This effect will stop the 'show' effect if it's playing.
 	 */
-	public var hide		(getHide, setHide)		: EffectType;
+	public var hide		(get_hide, set_hide)		: EffectType;
 	
 	
 	
 	public function new (filledProps:Int = 0, move:EffectType = null, resize:EffectType = null, rotate:EffectType = null, scale:EffectType = null, show:EffectType = null, hide:EffectType = null)
 	{
 		super(filledProps);
-		#if flash9 this._move		#else this.move		#end = move;
-		#if flash9 this._resize		#else this.resize	#end = resize;
-		#if flash9 this._rotate		#else this.rotate	#end = rotate;
-		#if flash9 this._scale		#else this.scale	#end = scale;
-		#if flash9 this._show		#else this.show		#end = show;
-		#if flash9 this._hide		#else this.hide		#end = hide;
+		#if (flash9 || nme) this._move    #else this.move    #end = move;
+		#if (flash9 || nme) this._resize  #else this.resize  #end = resize;
+		#if (flash9 || nme) this._rotate  #else this.rotate  #end = rotate;
+		#if (flash9 || nme) this._scale   #else this.scale   #end = scale;
+		#if (flash9 || nme) this._show    #else this.show    #end = show;
+		#if (flash9 || nme) this._hide    #else this.hide    #end = hide;
 	}
 	
 	
@@ -174,7 +170,7 @@ class EffectsStyle extends StyleSubBlock
 	 * changed. If the property is not set in this style-object, it means that 
 	 * the allFilledPropertiesFlag needs to be changed..
 	 */
-	override public function invalidateCall ( changeFromOther:Int, sender:IInvalidatable ) : Void
+	override public function invalidateCall ( changeFromOther:Int, sender:prime.core.traits.IInvalidatable ) : Void
 	{
 		Assert.that(sender != null);
 		
@@ -215,7 +211,7 @@ class EffectsStyle extends StyleSubBlock
 	// GETTERS
 	//
 	
-	private function getMove ()
+	private function get_move ()
 	{
 		var v = _move;
 		if (v == null && extendedStyle != null)		v = extendedStyle.move;
@@ -224,7 +220,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 	
 	
-	private function getResize ()
+	private function get_resize ()
 	{
 		var v = _resize;
 		if (v == null && extendedStyle != null)		v = extendedStyle.resize;
@@ -233,7 +229,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 	
 	
-	private function getRotate ()
+	private function get_rotate ()
 	{
 		var v = _rotate;
 		if (v == null && extendedStyle != null)		v = extendedStyle.rotate;
@@ -242,7 +238,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 	
 	
-	private function getScale ()
+	private function get_scale ()
 	{
 		var v = _scale;
 		if (v == null && extendedStyle != null)		v = extendedStyle.scale;
@@ -251,7 +247,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 	
 	
-	private function getShow ()
+	private function get_show ()
 	{
 		var v = _show;
 		if (v == null && extendedStyle != null)		v = extendedStyle.show;
@@ -260,7 +256,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 	
 	
-	private function getHide ()
+	private function get_hide ()
 	{
 		var v = _hide;
 		if (v == null && extendedStyle != null)		v = extendedStyle.hide;
@@ -275,7 +271,7 @@ class EffectsStyle extends StyleSubBlock
 	//
 	
 	
-	private function setMove (v)
+	private function set_move (v)
 	{
 		if (v != _move) {
 			_move = v;
@@ -285,7 +281,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 	
 	
-	private function setResize (v)
+	private function set_resize (v)
 	{
 		if (v != _resize) {
 			_resize = v;
@@ -295,7 +291,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 	
 	
-	private function setRotate (v)
+	private function set_rotate (v)
 	{
 		if (v != _rotate) {
 			_rotate = v;
@@ -305,7 +301,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 	
 	
-	private function setScale (v)
+	private function set_scale (v)
 	{
 		if (v != _scale) {
 			_scale = v;
@@ -315,7 +311,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 	
 	
-	private function setShow (v)
+	private function set_show (v)
 	{
 		if (v != _show) {
 			_show = v;
@@ -325,7 +321,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 	
 	
-	private function setHide (v)
+	private function set_hide (v)
 	{
 		if (v != _hide) {
 			_hide = v;
@@ -414,7 +410,7 @@ class EffectsStyle extends StyleSubBlock
 	}
 
 
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 			code.construct( this, [ filledProperties, _move, _resize, _rotate, _scale, _show, _hide ] );

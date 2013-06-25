@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObject;
  import prime.bindable.Bindable;
  import prime.core.geom.IntRectangle;
@@ -62,7 +63,7 @@ package prime.avm2.display;
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-class TextField extends flash.text.TextField, implements ITextField 
+class TextField extends flash.text.TextField implements ITextField 
 {	
 	/**
 	 * The padding to be added to textWidth to get the width
@@ -78,7 +79,7 @@ class TextField extends flash.text.TextField, implements ITextField
 	
 	
 	public var container		(default, default)			: IDisplayContainer;
-	public var window			(default, setWindow)		: Window;
+	public var window			(default, set_window)		: Window;
 	
 	public var displayEvents	(default, null)				: DisplayEvents;
 	public var textEvents		(default, null)				: TextEvents;
@@ -89,21 +90,21 @@ class TextField extends flash.text.TextField, implements ITextField
 	/**
 	 * Returns the textWidth + TEXT_WIDTH_PADDING
 	 */
-	public var realTextWidth	(getRealTextWidth, never)	: Float;
+	public var realTextWidth	(get_realTextWidth, never)	: Float;
 	/**
 	 * Returns the textHeight + TEXT_HEIGHT_PADDING
 	 */
-	public var realTextHeight	(getRealTextHeight, never)	: Float;
+	public var realTextHeight	(get_realTextHeight, never)	: Float;
 	
-	public var data				(default, setData)			: Bindable < String >;
+	public var data				(default, set_data)			: Bindable < String >;
 	
 	/**
 	 * getter / setter to update the text/htmlText property of the textfield,
 	 * depending on wether displayHTML is true or false.
 	 */
-	public var content			(getContent, setContent)	: String;
-	public var value			(getValue, setValue)		: String;
-	public var textStyle		(default, setTextStyle)		: TextFormat;
+	public var content			(get_content, set_content)	: String;
+	public var value			(get_value, set_value)		: String;
+	public var textStyle		(default, set_textStyle)	: TextFormat;
 	
 	
 	/**
@@ -111,7 +112,7 @@ class TextField extends flash.text.TextField, implements ITextField
 	 * plain-text or as HTML.
 	 * @default	false
 	 */
-	public var displayHTML		(default, setDisplayHTML)	: Bool;
+	public var displayHTML		(default, set_displayHTML)	: Bool;
 	
 	
 	
@@ -137,7 +138,7 @@ class TextField extends flash.text.TextField, implements ITextField
 	}
 	
 	
-	private function setData (v:Bindable<String>)
+	private function set_data (v:Bindable<String>)
 	{
 		if (v != data)
 		{
@@ -309,13 +310,13 @@ class TextField extends flash.text.TextField, implements ITextField
 	}
 */	
 	
-	private inline function setWindow (v)
+	private inline function set_window (v)
 	{
 		return window = v;
 	}
 	
 	
-	private function setTextStyle (v:TextFormat)
+	private function set_textStyle (v:TextFormat)
 	{
 		textStyle = v;
 		
@@ -329,11 +330,11 @@ class TextField extends flash.text.TextField, implements ITextField
 	}
 	
 	
-	private inline function setValue (v:String)		{ return data.value = v; }
-	private inline function getValue () : String	{ return data.value; }
+	private inline function set_value (v:String)	{ return data.value = v; }
+	private inline function get_value () : String	{ return data.value; }
 	
-	private inline function getRealTextWidth ()		{ return textWidth + TEXT_WIDTH_PADDING; }
-	private inline function getRealTextHeight ()	{ return getNonZeroTextHeight() + TEXT_HEIGHT_PADDING; }
+	private inline function get_realTextWidth ()	{ return textWidth + TEXT_WIDTH_PADDING; }
+	private inline function get_realTextHeight ()	{ return getNonZeroTextHeight() + TEXT_HEIGHT_PADDING; }
 	
 	
 	/**
@@ -354,7 +355,7 @@ class TextField extends flash.text.TextField, implements ITextField
     }
 
 
-	private inline function setDisplayHTML (v:Bool)
+	private inline function set_displayHTML (v:Bool)
 	{
 		if (v != displayHTML)
 		{
@@ -366,8 +367,8 @@ class TextField extends flash.text.TextField, implements ITextField
 	}
 
 	
-	private inline function getContent ()			{ return displayHTML ? htmlText : text; }
-	private inline function setContent (v:String)	{ return displayHTML ? htmlText = v : text = v; }
+	private inline function get_content ()			{ return displayHTML ? htmlText : text; }
+	private inline function set_content (v:String)	{ return displayHTML ? htmlText = v : text = v; }
 	
 	
 	
@@ -377,7 +378,7 @@ class TextField extends flash.text.TextField, implements ITextField
 	
 	public #if !noinline inline #end function focussed ()		{ return window.notNull() && window.focus == this; }
 	public #if !noinline inline #end function setFocus ()		{ if (window.notNull())		{ window.focus = this; } }
-	public #if !noinline inline #end function removeFocus ()	{ if (focussed())			{ window.focus = null; } }
+	public #if !noinline inline #end function removeFocus ()	{ window.focus = null; }
 	
 	
 	/**
@@ -458,3 +459,4 @@ class TextField extends flash.text.TextField, implements ITextField
 			focusTarget.userEvents.blur.send( event );
 	}
 }
+#end

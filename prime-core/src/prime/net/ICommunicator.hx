@@ -27,11 +27,11 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.net;
- import haxe.io.BytesData;
  import prime.bindable.Bindable;
  import prime.core.events.LoaderEvents;
  import prime.core.traits.IDisposable;
 
+private typedef BytesData = #if (flash9 || nme)  flash.utils.ByteArray  #else  haxe.io.BytesData  #end;
 
 /**
  * Interface to describe objects that communicate with another resource and
@@ -40,20 +40,20 @@ package prime.net;
  * @author Ruben Weijers
  * @creation-date Mar 28, 2011
  */
-interface ICommunicator implements IDisposable
+interface ICommunicator extends IDisposable
 {
 	public var events		(default,				null)		: LoaderSignals;
-	public var bytes		(getBytes,				setBytes)	: BytesData;
+	public var bytes		(get_bytes,				set_bytes)	: BytesData;
 	public var type			(default,				null)		: CommunicationType;
 	
 	/**
 	 * Total bytes loaded/send for all processes together
 	 */
-	public var bytesProgress	(#if js default #else getBytesProgress #end,	never)		: Int;
+	public var bytesProgress	(#if (!nme && js) default #else get_bytesProgress #end,	never)		: Int;
 	/**
 	 * Total number of bytes to load/send for all processes together
 	 */
-	public var bytesTotal		(#if js default #else getBytesTotal #end,		never)		: Int;
+	public var bytesTotal		(#if (!nme && js) default #else get_bytesTotal #end,		never)		: Int;
 	
 	/**
 	 * Indicates the number of process going on within the communicator

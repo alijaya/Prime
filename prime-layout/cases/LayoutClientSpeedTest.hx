@@ -84,7 +84,7 @@ class DynamicLayoutClientTest
 		nextNum = 1;
 		client.sizeConstraint = new SizeConstraint();
 	}
-	public function setConstraints () {
+	public function  setConstraints () {
 		var c = client.sizeConstraint;
 		c.width.min = 10;
 		c.width.max = 1000000;
@@ -114,7 +114,7 @@ class DynamicLayoutClientTest
 		var a = client.width;
 	}
 	
-	public function setMaxWidth () {
+	public function  setMaxWidth () {
 		client.sizeConstraint.width.max++;
 	}
 	
@@ -158,21 +158,21 @@ class ManualLayoutClient
 	public static inline var Y_CHANGED			= 8;
 	public static inline var INCLUDE_CHANGED	= 16;
 	
-	public var width	(default, setWidth)		: Float;
-	public var height	(default, setHeight)	: Float;
-	public var x		(default, setX)			: Float;
-	public var y		(default, setY)			: Float;
+	public var width	(default, set_width)	: Float;
+	public var height	(default, set_height)	: Float;
+	public var x		(default, set_x)		: Float;
+	public var y		(default, set_y)		: Float;
 	
-	public var maxWidth		(default, setMaxWidth)			: Float;
-	public var maxHeight	(default, setMaxHeight)			: Float;
-	public var minWidth		(default, setMinWidth)			: Float;
-	public var minHeight	(default, setMinHeight)			: Float;
+	public var maxWidth		(default, set_maxWidth)			: Float;
+	public var maxHeight	(default, set_maxHeight)		: Float;
+	public var minWidth		(default, set_minWidth)			: Float;
+	public var minHeight	(default, set_minHeight)		: Float;
 	
 	private var rangedWidth		(default, null)				: RangedFloat; // RangedNumber < Float >;
 	private var rangedHeight	(default, null)				: RangedFloat; // RangedNumber < Float >;
 	
 	public var events			(default, null)				: LayoutEvents;
-	public var changes 			(default, setChanges)		: Int;
+	public var changes 			(default, set_changes)		: Int;
 	
 	public function new ()
 	{
@@ -186,13 +186,13 @@ class ManualLayoutClient
 	}
 	
 	
-//	private inline function setWidth (v)	{ return width = v; }
-//	private inline function setHeight (v)	{ return width = v; }
-//	private inline function setX (v)		{ return width = v; }
-//	private inline function setY (v)		{ return width = v; }
+//	private inline function set_width (v)	{ return width = v; }
+//	private inline function set_height (v)	{ return width = v; }
+//	private inline function set_x (v)		{ return width = v; }
+//	private inline function set_y (v)		{ return width = v; }
 	
 	
-	private inline function setX (v:Float)
+	private inline function set_x (v:Float)
 	{
 		if (x != v) {
 			x = v;
@@ -201,7 +201,7 @@ class ManualLayoutClient
 		return v;
 	}
 	
-	private inline function setY (v:Float)
+	private inline function set_y (v:Float)
 	{
 		if (y != v) {
 			y = v;
@@ -211,7 +211,7 @@ class ManualLayoutClient
 	}
 	
 	
-	private function setWidth (v:Float)
+	private function set_width (v:Float)
 	{
 		if (v != width) {
 			width	= rangedWidth.value = v;
@@ -221,7 +221,7 @@ class ManualLayoutClient
 	}
 	
 	
-	private function setHeight (v:Float)
+	private function set_height (v:Float)
 	{
 		if (v != height) {
 			height	= rangedHeight.value = v;
@@ -231,7 +231,7 @@ class ManualLayoutClient
 	}
 	
 	
-	private function setMaxWidth (v:Float)
+	private function set_maxWidth (v:Float)
 	{
 		if (v != maxWidth) {
 			maxWidth	= rangedWidth.max = v;
@@ -241,7 +241,7 @@ class ManualLayoutClient
 	}
 	
 	
-	private function setMaxHeight (v:Float)
+	private function set_maxHeight (v:Float)
 	{
 		if (v != maxHeight) {
 			maxHeight	= rangedHeight.max = v;
@@ -251,7 +251,7 @@ class ManualLayoutClient
 	}
 	
 	
-	private function setMinWidth (v:Float)
+	private function set_minWidth (v:Float)
 	{
 		if (v != minWidth) {
 			minWidth	= rangedWidth.min = v;
@@ -261,7 +261,7 @@ class ManualLayoutClient
 	}
 	
 	
-	private function setMinHeight (v:Float)
+	private function set_minHeight (v:Float)
 	{
 		if (v != minHeight) {
 			minHeight	= rangedHeight.min = v;
@@ -271,7 +271,7 @@ class ManualLayoutClient
 	}
 	
 	
-	private inline function setChanges (v:Int)
+	private inline function set_changes (v:Int)
 	{
 		var oldVal	= v;
 		changes		= v;
@@ -336,13 +336,13 @@ class SimpleManualLayoutClient
 	public static inline var Y_CHANGED			= 8;
 	public static inline var INCLUDE_CHANGED	= 16;
 	
-	public var width	(default, setWidth)		: Float;
-	public var height	(default, setHeight)	: Float;
-	public var x		(default, setX)			: Float;
-	public var y		(default, setY)			: Float;
+	public var width	(default, set_width)	: Float;
+	public var height	(default, set_height)	: Float;
+	public var x		(default, set_x)		: Float;
+	public var y		(default, set_y)		: Float;
 	
 	public var events			(default, null)				: LayoutEvents;
-	public var changes 			(default, setChanges)		: Int;
+	public var changes 			(default, set_changes)		: Int;
 	
 	public function new ()
 	{
@@ -353,7 +353,7 @@ class SimpleManualLayoutClient
 		y		= 0;
 	}
 	
-	private inline function setX (v:Float)
+	private inline function set_x (v:Float)
 	{
 		if (x != v) {
 			x = v;
@@ -362,7 +362,7 @@ class SimpleManualLayoutClient
 		return v;
 	}
 	
-	private inline function setY (v:Float)
+	private inline function set_y (v:Float)
 	{
 		if (y != v) {
 			y = v;
@@ -372,7 +372,7 @@ class SimpleManualLayoutClient
 	}
 	
 	
-	private function setWidth (v:Float)
+	private function set_width (v:Float)
 	{
 		if (v != width) {
 			width	= v;
@@ -382,7 +382,7 @@ class SimpleManualLayoutClient
 	}
 	
 	
-	private function setHeight (v:Float)
+	private function set_height (v:Float)
 	{
 		if (v != height) {
 			height	= v;
@@ -392,7 +392,7 @@ class SimpleManualLayoutClient
 	}
 	
 	
-	private inline function setChanges (v:Int)
+	private inline function set_changes (v:Int)
 	{
 		var oldVal	= v;
 		changes		= v;
@@ -458,21 +458,21 @@ class ManualIntLayoutClient
 	public static inline var Y_CHANGED			= 8;
 	public static inline var INCLUDE_CHANGED	= 16;
 	
-	public var width	(default, setWidth)		: Int;
-	public var height	(default, setHeight)	: Int;
-	public var x		(default, setX)			: Int;
-	public var y		(default, setY)			: Int;
+	public var width	(default, set_width)	: Int;
+	public var height	(default, set_height)	: Int;
+	public var x		(default, set_x)		: Int;
+	public var y		(default, set_y)		: Int;
 	
-	public var maxWidth		(default, setMaxWidth)			: Int;
-	public var maxHeight	(default, setMaxHeight)			: Int;
-	public var minWidth		(default, setMinWidth)			: Int;
-	public var minHeight	(default, setMinHeight)			: Int;
+	public var maxWidth		(default, set_maxWidth)			: Int;
+	public var maxHeight	(default, set_maxHeight)		: Int;
+	public var minWidth		(default, set_minWidth)			: Int;
+	public var minHeight	(default, set_minHeight)		: Int;
 	
 	private var rangedWidth		(default, null)				: RangedInt; // RangedNumber < Float >;
 	private var rangedHeight	(default, null)				: RangedInt; // RangedNumber < Float >;
 	
 	public var events			(default, null)				: LayoutEvents;
-	public var changes 			(default, setChanges)		: Int;
+	public var changes 			(default, set_changes)		: Int;
 	
 	public function new ()
 	{
@@ -486,13 +486,13 @@ class ManualIntLayoutClient
 	}
 	
 	
-//	private inline function setWidth (v)	{ return width = v; }
-//	private inline function setHeight (v)	{ return width = v; }
-//	private inline function setX (v)		{ return width = v; }
-//	private inline function setY (v)		{ return width = v; }
+//	private inline function set_width (v)	{ return width = v; }
+//	private inline function set_height (v)	{ return width = v; }
+//	private inline function set_x (v)		{ return width = v; }
+//	private inline function set_y (v)		{ return width = v; }
 	
 	
-	private inline function setX (v:Int)
+	private inline function set_x (v:Int)
 	{
 		if (x != v) {
 			x = v;
@@ -501,7 +501,7 @@ class ManualIntLayoutClient
 		return v;
 	}
 	
-	private inline function setY (v:Int)
+	private inline function set_y (v:Int)
 	{
 		if (y != v) {
 			y = v;
@@ -511,7 +511,7 @@ class ManualIntLayoutClient
 	}
 	
 	
-	private function setWidth (v:Int)
+	private function set_width (v:Int)
 	{
 		if (v != width) {
 			width	= rangedWidth.value = v;
@@ -521,7 +521,7 @@ class ManualIntLayoutClient
 	}
 	
 	
-	private function setHeight (v:Int)
+	private function set_height (v:Int)
 	{
 		if (v != height) {
 			height	= rangedHeight.value = v;
@@ -531,7 +531,7 @@ class ManualIntLayoutClient
 	}
 	
 	
-	private function setMaxWidth (v:Int)
+	private function set_maxWidth (v:Int)
 	{
 		if (v != maxWidth) {
 			maxWidth	= rangedWidth.max = v;
@@ -541,7 +541,7 @@ class ManualIntLayoutClient
 	}
 	
 	
-	private function setMaxHeight (v:Int)
+	private function set_maxHeight (v:Int)
 	{
 		if (v != maxHeight) {
 			maxHeight	= rangedHeight.max = v;
@@ -551,7 +551,7 @@ class ManualIntLayoutClient
 	}
 	
 	
-	private function setMinWidth (v:Int)
+	private function set_minWidth (v:Int)
 	{
 		if (v != minWidth) {
 			minWidth	= rangedWidth.min = v;
@@ -561,7 +561,7 @@ class ManualIntLayoutClient
 	}
 	
 	
-	private function setMinHeight (v:Int)
+	private function set_minHeight (v:Int)
 	{
 		if (v != minHeight) {
 			minHeight	= rangedHeight.min = v;
@@ -571,7 +571,7 @@ class ManualIntLayoutClient
 	}
 	
 	
-	private inline function setChanges (v:Int)
+	private inline function set_changes (v:Int)
 	{
 		var oldVal	= v;
 		changes		= v;
@@ -607,9 +607,9 @@ class ManualIntLayoutClient
 
 class RangedInt
 {
-	public var value	(default, setValue)		: Int;
-	public var min		(default, setMin)		: Int;
-	public var max		(default, setMax)		: Int;
+	public var value	(default, set_value)	: Int;
+	public var min		(default, set_min)		: Int;
+	public var max		(default, set_max)		: Int;
 	
 	
 	public function new( value, min = Number.INT_MIN, max = Number.INT_MAX ) 
@@ -620,12 +620,12 @@ class RangedInt
 	}
 	
 	
-	private inline function setValue (v:Int) {
+	private inline function set_value (v:Int) {
 		return value = v.within( min, max );
 	}
 	
 	
-	private inline function setMin (v:Int) {
+	private inline function set_min (v:Int) {
 		Assert.that( v < max, "v: "+v+"; max: "+max);
 		if (v != min)
 		{
@@ -637,7 +637,7 @@ class RangedInt
 	}
 	
 	
-	private inline function setMax (v:Int) {
+	private inline function set_max (v:Int) {
 		Assert.that( v > min, "v: "+v+"; min: "+min);
 		if (v != max)
 		{

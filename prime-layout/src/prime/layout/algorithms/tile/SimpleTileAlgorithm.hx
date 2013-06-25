@@ -55,13 +55,13 @@ package prime.layout.algorithms.tile;
  * @author Ruben Weijers
  * @creation-date Jun 25, 2011
  */
-class SimpleTileAlgorithm extends LayoutAlgorithmBase, implements ITileAlgorithm
+class SimpleTileAlgorithm extends LayoutAlgorithmBase implements ITileAlgorithm
 {
 	private var validatePreparedHor : Bool;
 	private var validatePreparedVer : Bool;
 	
 
-	public var direction	(default, setDirection)		: Direction;
+	public var direction	(default, set_direction)	: Direction;
 	private var columns		: Int;
 	private var rows		: Int;
 	
@@ -74,7 +74,7 @@ class SimpleTileAlgorithm extends LayoutAlgorithmBase, implements ITileAlgorithm
 	}
 	
 	
-	private inline function setDirection (v:Direction)
+	private inline function set_direction (v:Direction)
 	{
 		if (v != direction) {
 			direction = v;

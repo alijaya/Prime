@@ -28,11 +28,7 @@
  */
 package prime.gui.styling;
  import prime.bindable.collections.iterators.IIterator;
- import prime.bindable.collections.PriorityList;
  import prime.bindable.collections.FastDoubleCell;
- import prime.core.traits.IInvalidatable;
- import prime.core.traits.IInvalidateListener;
- import prime.core.traits.IDisposable;
   using prime.utils.BitUtil;
   using prime.utils.TypeUtil;
 #if debug
@@ -47,9 +43,8 @@ package prime.gui.styling;
  * @author Ruben Weijers
  * @creation-date Oct 22, 2010
  */
-class StyleCollectionBase < StyleGroupType:StyleSubBlock >
-				implements IInvalidateListener
-//#if flash9	,	implements haxe.rtti.Generic #end
+//#if (flash9 || cpp) @:generic #end
+class StyleCollectionBase <StyleGroupType:StyleSubBlock> implements prime.core.traits.IInvalidateListener
 {
 	/**
 	 * Flag with all the style-declaration-properties that are defined for 
@@ -117,7 +112,7 @@ class StyleCollectionBase < StyleGroupType:StyleSubBlock >
 	}
 	
 	
-	public function invalidateCall ( changeFromSender:Int, sender:IInvalidatable ) : Void
+	public function invalidateCall ( changeFromSender:Int, sender:prime.core.traits.IInvalidatable ) : Void
 	{
 		changes = changes.set( getRealChangesOf( cast sender, changeFromSender ) );
 	//	trace("\tchanged properties " + readProperties(changes));
@@ -245,7 +240,7 @@ class StyleCollectionBase < StyleGroupType:StyleSubBlock >
  * @author Ruben Weijers
  * @creation-date Oct 22, 2010
  */
-class StyleCollectionIteratorBase implements IDisposable
+class StyleCollectionIteratorBase implements prime.core.traits.IDisposable
 {
 	private var elementStyle	: UIElementStyle;
 	public var currentCell		: FastDoubleCell<StyleBlock>;
@@ -306,11 +301,10 @@ class StyleCollectionIteratorBase implements IDisposable
  * @author Ruben Weijers
  * @creation-date Oct 22, 2010
  */
-class StyleCollectionForwardIterator < StyleGroupType > extends StyleCollectionIteratorBase
-			,	implements IIterator < StyleGroupType >
-//#if flash9	,	implements haxe.rtti.Generic #end
+//#if (flash9 || cpp) @:generic #end
+class StyleCollectionForwardIterator<StyleGroupType> extends StyleCollectionIteratorBase implements IIterator<StyleGroupType>
 {
-	public function new (elementStyle:UIElementStyle, groupFlag:Int) super(elementStyle, groupFlag)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
+	//public function new (elementStyle:UIElementStyle, groupFlag:Int) super(elementStyle, groupFlag)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 	override public function rewind () : Void	{ setCurrent( elementStyle.styles.first ); }
 	public function next () : StyleGroupType	{ Assert.abstractMethod(); return null; }
 	public function value () : StyleGroupType	{ Assert.abstractMethod(); return null; }
@@ -353,11 +347,10 @@ class StyleCollectionForwardIterator < StyleGroupType > extends StyleCollectionI
  * @author Ruben Weijers
  * @creation-date Oct 22, 2010
  */
-class StyleCollectionReversedIterator < StyleGroupType > extends StyleCollectionIteratorBase
-			,	implements IIterator < StyleGroupType >
-//#if flash9	,	implements haxe.rtti.Generic #end
+//#if flash9 @:generic #end
+class StyleCollectionReversedIterator<StyleGroupType> extends StyleCollectionIteratorBase implements IIterator<StyleGroupType>
 {
-	public function new (elementStyle:UIElementStyle, groupFlag:Int) { super(elementStyle, groupFlag); }	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
+	//public function new (elementStyle:UIElementStyle, groupFlag:Int) { super(elementStyle, groupFlag); }	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 	override public function rewind () : Void	{ setCurrent( elementStyle.styles.last ); }
 	public function next () : StyleGroupType	{ Assert.abstractMethod(); return null; }
 	public function value () : StyleGroupType	{ Assert.abstractMethod(); return null; }

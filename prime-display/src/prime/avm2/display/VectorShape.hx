@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObject;
  import prime.core.geom.IntRectangle;
  import prime.gui.display.DisplayDataCursor;
@@ -46,10 +47,10 @@ package prime.avm2.display;
  * @creation-date	Jun 11, 2010
  * @author			Ruben Weijers
  */
-class VectorShape extends flash.display.Shape, implements IDisplayObject, implements IGraphicsOwner
+class VectorShape extends flash.display.Shape implements IDisplayObject implements IGraphicsOwner
 {
 	public var container		(default, default)		: IDisplayContainer;
-	public var window			(default, setWindow)	: Window;
+	public var window			(default, set_window)	: Window;
 	public var displayEvents	(default, null)			: DisplayEvents;
 	public var rect				(default, null)			: IntRectangle;
 	
@@ -107,7 +108,8 @@ class VectorShape extends flash.display.Shape, implements IDisplayObject, implem
 	}*/
 	
 	
-	private inline function setWindow (v) {
+	private inline function set_window (v) {
 		return window = v;
 	}
 }
+#end

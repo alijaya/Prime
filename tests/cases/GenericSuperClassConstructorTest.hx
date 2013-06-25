@@ -22,7 +22,7 @@ class BasicClass {
 }
 
 
-class GenericClass<T> extends BasicClass, implements haxe.rtti.Generic {
+@:generic class GenericClass<T> extends BasicClass {
 	private var prop : T;
 //	public function new () {super(); }
 }

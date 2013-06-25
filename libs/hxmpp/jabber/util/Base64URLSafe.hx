@@ -35,7 +35,7 @@ class Base64URLSafe
 	public static var CHARS	= 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
 	
 #if (!nodejs && !php)
-	static var bc = new haxe.BaseCode( Bytes.ofString( CHARS ) );
+	static var bc = new haxe.crypto.BaseCode( Bytes.ofString( CHARS ) );
 #end
 	
 

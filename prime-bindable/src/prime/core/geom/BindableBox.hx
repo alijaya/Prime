@@ -28,7 +28,6 @@
  */
 package prime.core.geom;
  import prime.bindable.Bindable;
- import prime.core.traits.IDisposable;
  import prime.types.Number;
 
 
@@ -42,12 +41,12 @@ package prime.core.geom;
  * @creation-date	Jun 21, 2010
  * @author			Ruben Weijers
  */
-class BindableBox implements IBox, implements IDisposable
+class BindableBox implements IBox implements prime.core.traits.IDisposable
 {
-	public var top			(getTop, setTop)		: Int;
-	public var bottom		(getBottom, setBottom)	: Int;
-	public var left			(getLeft, setLeft)		: Int;
-	public var right		(getRight, setRight)	: Int;
+	public var top			(get_top, set_top)		: Int;
+	public var bottom		(get_bottom, set_bottom): Int;
+	public var left			(get_left, set_left)	: Int;
+	public var right		(get_right, set_right)	: Int;
 	
 	public var leftProp		(default, null)			: Bindable <Int>;
 	public var rightProp	(default, null)			: Bindable <Int>;
@@ -89,15 +88,15 @@ class BindableBox implements IBox, implements IDisposable
 	// GETTERS / SETTERS
 	//
 	
-	private inline function getLeft ()		{ return leftProp.value; }
-	private inline function getRight ()		{ return rightProp.value; }
-	private inline function getTop ()		{ return topProp.value; }
-	private inline function getBottom ()	{ return bottomProp.value; }
+	private inline function get_left ()		{ return leftProp.value; }
+	private inline function get_right ()	{ return rightProp.value; }
+	private inline function get_top ()		{ return topProp.value; }
+	private inline function get_bottom ()	{ return bottomProp.value; }
 	
-	private function setLeft (v:Int)		{ return leftProp.value = v; }
-	private function setRight (v:Int)		{ return rightProp.value = v; }
-	private function setTop (v:Int)			{ return topProp.value = v; }
-	private function setBottom (v:Int)		{ return bottomProp.value = v; }
+	private function set_left (v:Int)		{ return leftProp.value = v; }
+	private function set_right (v:Int)		{ return rightProp.value = v; }
+	private function set_top (v:Int)		{ return topProp.value = v; }
+	private function set_bottom (v:Int)		{ return bottomProp.value = v; }
 	
 
 #if debug

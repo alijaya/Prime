@@ -27,12 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.core.geom;
-#if CSSParser
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICodeGenerator;
- import prime.utils.ID;
-#end
- import prime.core.traits.IClonable;
  import prime.types.Number;
   using prime.utils.NumberUtil;
 
@@ -43,8 +37,8 @@ package prime.core.geom;
  * @author Ruben Weijers
  * @creation-date Aug 01, 2010
  */
-class Corners	implements IClonable < Corners >
-#if CSSParser,	implements ICodeFormattable		#end
+class Corners	implements prime.core.traits.IClonable < Corners >
+#if CSSParser	implements prime.tools.generator.ICodeFormattable	#end
 {
 	public var topLeft		: Float;
 	public var topRight		: Float;
@@ -56,15 +50,15 @@ class Corners	implements IClonable < Corners >
 #end
 	
 	
-	public function new ( ?topLeft:Float = 0, ?topRight:Float = Number.INT_NOT_SET, ?bottomRight:Float = Number.INT_NOT_SET, ?bottomLeft:Float = Number.INT_NOT_SET )
+	public function new ( topLeft:Float = 0, topRight:Float = Number.INT_NOT_SET, bottomRight:Float = Number.INT_NOT_SET, bottomLeft:Float = Number.INT_NOT_SET )
 	{
 #if CSSParser
-		this._oid			= ID.getNext();
+		this._oid			= prime.utils.ID.getNext();
 #end
-		this.topLeft		= topLeft;
-		this.topRight		= topRight.isSet()		? topRight		: this.topLeft;
-		this.bottomLeft		= bottomLeft.isSet()	? bottomLeft	: this.topLeft;
-		this.bottomRight	= bottomRight.isSet()	? bottomRight	: this.topRight;
+		this.topLeft     = topLeft;
+		this.topRight    = (topRight    != Number.INT_NOT_SET)? topRight    : this.topLeft;
+		this.bottomLeft  = (bottomLeft  != Number.INT_NOT_SET)? bottomLeft  : this.topLeft;
+		this.bottomRight = (bottomRight != Number.INT_NOT_SET)? bottomRight : this.topRight;
 	}
 	
 	
@@ -72,9 +66,9 @@ class Corners	implements IClonable < Corners >
 	public #if !noinline inline #end function allCornersEqual ()	: Bool		{ return topLeft == topRight && topLeft == bottomLeft && topLeft == bottomRight; }
 	
 #if CSSParser
-	public function cleanUp () : Void				{}
-	public function isEmpty ()						{ return topLeft.notSet() && topRight.notSet() && bottomRight.notSet() && bottomLeft.notSet(); }
-	public function toCode (code:ICodeGenerator)	{ code.construct( this, [ topLeft, topRight, bottomRight, bottomLeft ] ); }
+	public function cleanUp () : Void	{}
+	public function isEmpty ()			{ return topLeft.notSet() && topRight.notSet() && bottomRight.notSet() && bottomLeft.notSet(); }
+	public function toCode (code:prime.tools.generator.ICodeGenerator)	{ code.construct( this, [ topLeft, topRight, bottomRight, bottomLeft ] ); }
 #end
 
 #if debug

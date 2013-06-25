@@ -27,10 +27,9 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.net;
+#if (flash9 || nme)
  import flash.net.URLLoaderDataFormat;
  import flash.net.URLRequest;
-
- import haxe.io.BytesData;
 
  import prime.bindable.Bindable;
  import prime.core.events.LoaderEvents;
@@ -52,6 +51,7 @@ package prime.avm2.net;
   using Std;
 
 
+private typedef BytesData = #if (flash9 || nme) flash.utils.ByteArray  #else haxe.io.BytesData #end;
 private typedef FlashLoader = flash.net.URLLoader;
 
 
@@ -103,8 +103,8 @@ class URLLoader implements ICommunicator
 	public static inline var COMPLETED	= 1 << 3;
 	
 	public  var events			(default,			null)			: LoaderSignals;
-	public  var bytesProgress	(getBytesProgress,	null)			: Int;
-	public  var bytesTotal		(getBytesTotal,		null)			: Int;
+	public  var bytesProgress	(get_bytesProgress,	null)			: Int;
+	public  var bytesTotal		(get_bytesTotal,	null)			: Int;
 	public  var length			(default,			never)			: Null<Bindable<Int>>;
 	public  var type			(default,			null)			: CommunicationType;
 	
@@ -112,9 +112,9 @@ class URLLoader implements ICommunicator
 	public  var isStarted		(default,			null)			: Bool;
 	private var isFinished											: Bool;
 	
-	@:isVar public  var data			(getData,			setData)		: Dynamic;
-	public  var bytes			(getBytes,			setBytes)		: BytesData;
-	public  var dataFormat		(getDataFormat,		setDataFormat)	: URLLoaderDataFormat;
+	@:isVar public  var data	(get_data,			set_data)		: Dynamic;
+	public  var bytes			(get_bytes,			set_bytes)		: BytesData;
+	public  var dataFormat		(get_dataFormat,	set_dataFormat)	: URLLoaderDataFormat;
 	private var loader			: FlashLoader;
 #if debug
 	private var uri				: URI;
@@ -269,17 +269,17 @@ class URLLoader implements ICommunicator
 	// GETTERS / SETTERS
 	//
 	
-	private inline function getBytesProgress ()		{ return bytesProgress.isSet()	? bytesProgress	: loader.bytesLoaded; }
-	private inline function getBytesTotal ()		{ return bytesTotal.isSet()  	? bytesTotal	: loader.bytesTotal; }
-	private inline function getData ()				{ return data != null			? data			: loader.data; }
+	private inline function get_bytesProgress ()	{ return bytesProgress.isSet()	? bytesProgress	: loader.bytesLoaded; }
+	private inline function get_bytesTotal ()		{ return bytesTotal.isSet()  	? bytesTotal	: loader.bytesTotal; }
+	private inline function get_data ()				{ return data != null			? data			: loader.data; }
 	public  inline function getRawData ()			{ return loader.data; }
-//	private inline function getLength ()			{ return 1; }
+//	private inline function get_length ()			{ return 1; }
 	
-	private inline function getDataFormat ()		{ return loader.dataFormat; }
-	private inline function setDataFormat (v)		{ return loader.dataFormat  = v; }
+	private inline function get_dataFormat ()		{ return loader.dataFormat; }
+	private inline function set_dataFormat (v)		{ return loader.dataFormat  = v; }
 	
 	
-	private  function setData (v)
+	private  function set_data (v)
 	{
 		if (data != v)
 		{
@@ -299,8 +299,8 @@ class URLLoader implements ICommunicator
 	}
 	
 	
-	private inline function getBytes () : BytesData	{ return isBinary() ? cast(data, BytesData) : null; }
-	private inline function setBytes (v:BytesData)
+	private inline function get_bytes () : BytesData	{ return isBinary() ? cast(data, BytesData) : null; }
+	private inline function set_bytes (v:BytesData)
 	{
 		data = v;
 		
@@ -335,3 +335,4 @@ class URLLoader implements ICommunicator
 //	private function trackCompleted ()					{ trace(uri+"[ "+bytesProgress+" / "+ bytesTotal+" ]; type: "+type+"; format: "+dataFormat+"; "+loader.data); }
 #end
 }
+#end

@@ -59,15 +59,15 @@ class InputField <VOType> extends DataButton <VOType>
 	 * 		- the inputfield loses focus
 	 * 		- the user presses enter while the inputfield has focus
 	 */
-	public var updateVO				(default, setUpdateVO)	: Void -> Void;
+	public var updateVO				(default, set_updateVO)	: Void -> Void;
 	/**
 	 * @see flash.text.TextField#maxChars
 	 */
-	public var maxChars				(default, setMaxChars)	: Int;
+	public var maxChars				(default, set_maxChars)	: Int;
 	/**
 	 * @see flash.text.TextField#restrict
 	 */
-	public var restrict				(default, setRestrict)	: String;
+	public var restrict				(default, set_restrict)	: String;
 	
 	/**
 	 * Reference to the textfield.
@@ -115,7 +115,7 @@ class InputField <VOType> extends DataButton <VOType>
 	}
 	
 	
-	private inline function getRevertableData ()	return cast( data, RevertableBindable<String>)
+	private inline function getRevertableData () : RevertableBindable<String>  return cast data;
 
 	
 	//
@@ -123,7 +123,7 @@ class InputField <VOType> extends DataButton <VOType>
 	//
 	
 	
-	private inline function setRestrict (v:String) : String
+	private inline function set_restrict (v:String) : String
 	{
 		if (restrict != v) {
 			restrict = v;
@@ -133,7 +133,7 @@ class InputField <VOType> extends DataButton <VOType>
 	}
 	
 	
-	private inline function setMaxChars (v:Int) : Int
+	private inline function set_maxChars (v:Int) : Int
 	{
 		if (maxChars != v) {
 			maxChars = v;
@@ -143,7 +143,7 @@ class InputField <VOType> extends DataButton <VOType>
 	}
 
 
-	private inline function setUpdateVO (v:Void -> Void)
+	private inline function set_updateVO (v:Void -> Void)
 	{
 		if (v != updateVO)
 		{
@@ -185,7 +185,7 @@ class InputField <VOType> extends DataButton <VOType>
 		if (data.value == defaultLabel) {
 			data.set("");
 			data.change.send("", null);
-			styleClasses.remove("empty");
+			#if prime_css styleClasses.remove("empty"); #end
 		}
 		
 		getRevertableData().beginEdit();

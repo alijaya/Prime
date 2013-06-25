@@ -72,11 +72,11 @@ package prime.bindable.collections;
  * @creation-date	Jul 1, 2010
  * @author			Ruben Weijers
  */
-class BalancingListCollection<T> implements IEditableList<T>, implements IListCollection<T, BalancingList<T>>
-	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
+//#if flash9 @:generic #end
+class BalancingListCollection<T> implements IEditableList<T> implements IListCollection<T, BalancingList<T>>
 {
 	private var _length		: Int;
-	public var length		(getLength, never)			: Int;
+	public var length		(get_length, never)			: Int;
 	public var change		(default, null)				: Signal1<ListChange<T>>;
 	public var lists		(default, null)				: ArrayList<BalancingList<T>>;
 	
@@ -445,7 +445,7 @@ class BalancingListCollection<T> implements IEditableList<T>, implements IListCo
 	// GETTERS / SETTERS
 	//
 	
-	private inline function getLength () {
+	private inline function get_length () {
 		return _length;
 	}
 	
@@ -492,8 +492,8 @@ class BalancingListCollection<T> implements IEditableList<T>, implements IListCo
  * @creation-date	Jul 1, 2010
  * @author			Ruben Weijers
  */
+#if flash9 @:generic #end
 class BalancingListCollectionForwardIterator<T> implements IIterator<T>
-	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
 	private var target			(default, null) : BalancingListCollection<T>;
 	private var currentListNum	: Int;
@@ -545,8 +545,8 @@ class BalancingListCollectionForwardIterator<T> implements IIterator<T>
  * @creation-date	Jul 23, 2010
  * @author			Ruben Weijers
  */
+#if flash9 @:generic #end
 class BalancingListCollectionReversedIterator<T> implements IIterator<T>
-	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
 	private var target			(default, null) : BalancingListCollection<T>;
 	private var currentListNum	: Int;

@@ -29,7 +29,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.effects;
- import prime.core.traits.IDisposable;
  import prime.gui.core.IUIElement;
  import prime.gui.effects.effectInstances.IEffectInstance;
 // import prime.types.Number;
@@ -50,7 +49,7 @@ private typedef Flags 				= prime.gui.effects.EffectFlags;
  * @author Ruben Weijers
  * @creation-date Sep 01, 2010
  */
-class UIElementEffects implements IDisposable
+class UIElementEffects implements prime.core.traits.IDisposable
 {
 	public  var target		(default, null)			: IUIElement;
 	/**
@@ -72,34 +71,34 @@ class UIElementEffects implements IDisposable
 	 * Effect that is performed when the coordinates of the targets 
 	 * layoutobject have changed.
 	 */
-	public var move			(default, setMove)			: EffectInstanceType;
+	public var move			(default, set_move)			: EffectInstanceType;
 	
 	/**
 	 * Effect that is performed when the size of targets layoutobject is 
 	 * changed.
 	 */
-	public var resize		(default, setResize)		: EffectInstanceType;
+	public var resize		(default, set_resize)		: EffectInstanceType;
 	
 	/**
 	 * Effect that is performed when the 'rotate' method of the target is called.
 	 */
-	public var rotate		(default, setRotate)		: EffectInstanceType;
+	public var rotate		(default, set_rotate)		: EffectInstanceType;
 	
 	/**
 	 * Effect that is performed when the 'scale' method of the target is called.
 	 */
-	public var scale		(default, setScale)			: EffectInstanceType;
+	public var scale		(default, set_scale)		: EffectInstanceType;
 	
 	/**
 	 * Effect that is performed when the 'show' method of the target is called.
 	 * This effect will stop the 'hide' effect if it's playing.
 	 */
-	public var show			(default, setShow)			: EffectInstanceType;
+	public var show			(default, set_show)			: EffectInstanceType;
 	/**
 	 * Effect that is performed when the 'hide' method of the target is called.
 	 * This effect will stop the 'show' effect if it's playing.
 	 */
-	public var hide			(default, setHide)			: EffectInstanceType;
+	public var hide			(default, set_hide)			: EffectInstanceType;
 	
 	
 	public function new ( target:IUIElement )
@@ -229,9 +228,11 @@ class UIElementEffects implements IDisposable
 			else							target.visible = false;
 			
 			if (target.layout.isInvalidated())
-				callback(show.play).onceOnEntering( target.layout.state, validated, this );
+				show.play.bind().onceOnEntering( target.layout.state, validated, this );
 			else
 				show.play();
+		} else {
+			target.visible = true;
 		}
 #end
 	}
@@ -250,6 +251,8 @@ class UIElementEffects implements IDisposable
 				if (show == hide)			hide.isReverted = !hide.effect.isReverted;
 			}
 			hide.play();
+		} else {
+			target.visible = false;
 		}
 #end
 	}
@@ -265,7 +268,7 @@ class UIElementEffects implements IDisposable
 	//
 	
 	
-	private function setMove (v)
+	private function set_move (v)
 	{
 		if (v != move)
 		{
@@ -282,7 +285,7 @@ class UIElementEffects implements IDisposable
 	}
 	
 	
-	private function setResize (v)
+	private function set_resize (v)
 	{
 		if (v != resize)
 		{
@@ -298,7 +301,7 @@ class UIElementEffects implements IDisposable
 	}
 	
 	
-	private function setRotate (v)
+	private function set_rotate (v)
 	{
 		if (v != rotate)
 		{
@@ -312,7 +315,7 @@ class UIElementEffects implements IDisposable
 	}
 	
 	
-	private function setScale (v)
+	private function set_scale (v)
 	{
 		if (v != scale)
 		{
@@ -326,7 +329,7 @@ class UIElementEffects implements IDisposable
 	}
 	
 	
-	private function setShow (v)
+	private function set_show (v)
 	{
 		if (v != show)
 		{
@@ -340,7 +343,7 @@ class UIElementEffects implements IDisposable
 	}
 	
 	
-	private function setHide (v)
+	private function set_hide (v)
 	{
 		if (v != hide)
 		{

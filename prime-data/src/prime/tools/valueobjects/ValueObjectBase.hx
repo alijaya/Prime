@@ -45,7 +45,7 @@ private typedef Flags = RevertableBindableFlags;
  * @author Danny Wilson
  * @creation-date Dec 03, 2010
  */
-class ValueObjectBase implements IValueObject, implements IFlagOwner
+class ValueObjectBase implements IValueObject implements IFlagOwner
 {
 	public var change (default, null) : Signal1<ObjectChangeSet>;
 	
@@ -121,7 +121,7 @@ class ValueObjectBase implements IValueObject, implements IFlagOwner
 	public function objectChangedHandler(propertyID : Int) : ObjectChangeSet -> Void
 	{
 		// Same ObjectPathVO instance reused
-		return callback(objectChangedHandlerBody, propertyID, ObjectPathVO.make(this, propertyID));
+		return objectChangedHandlerBody.bind(propertyID, ObjectPathVO.make(this, propertyID));
 	}
 	
 	private function objectChangedHandlerBody(propertyID : Int, pathNode : ObjectPathVO, change : ObjectChangeSet)

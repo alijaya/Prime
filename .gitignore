@@ -12,6 +12,10 @@ Thumb.db
 Autocomplete_.hx
 *.hx.tmp
 
+/prime*/prime-*.zip
+/prime*/test/
+.temp
+
 /docs/output/*
 /docs/diagrams/*
 
@@ -32,3 +36,4 @@ Autocomplete_.hx
 
 *bin-debug/*
 *bin-release/*
+Export/

@@ -27,26 +27,27 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
+ import prime.bindable.collections.iterators.IIterator;
  import prime.core.events.ListChangeSignal;
   using prime.utils.NumberUtil;
  
 
 /**
- *.IEditableList implementation as FastList. When this list is iterated it will
+ *.IEditableList implementation as GenericStack. When this list is iterated it will
  * start with the first added item instead of the last added item as with
- * FastList.
+ * GenericStack.
  * 
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-#if flash9 @:generic #end
+//#if flash9 @:generic #end
 class SimpleList<T> implements IEditableList<T> 
 {
 	public var change		(default, null)		: ListChangeSignal<T>;
 	public var beforeChange	(default, null)		: ListChangeSignal<T>;
 	
 	private var _length		: Int;
-	public var length		(getLength, never)	: Int;
+	public var length		(get_length, never)	: Int;
 	/**
 	 * Pointer to the first added cell
 	 */
@@ -123,10 +124,10 @@ class SimpleList<T> implements IEditableList<T>
 		return length == 0;
 	}
 	
-	private inline function getLength ()	return _length
-	public function iterator ()				return forwardIterator()
-	public function forwardIterator ()		return new prime.bindable.collections.iterators.FastDoubleCellForwardIterator  <T> (first)
-	public function reversedIterator ()		return new prime.bindable.collections.iterators.FastDoubleCellReversedIterator <T> (last)
+	private inline function get_length ()	: Int			{ return _length; }
+	public function iterator ()				: Iterator <T>	{ return forwardIterator(); }
+	public function forwardIterator ()		: IIterator <T>	{ return new prime.bindable.collections.iterators.FastDoubleCellForwardIterator <T> (first); }
+	public function reversedIterator ()		: IIterator <T>	{ return new prime.bindable.collections.iterators.FastDoubleCellReversedIterator <T> (last); }
 	
 	
 	/**
@@ -207,7 +208,7 @@ class SimpleList<T> implements IEditableList<T>
 	
 	
 	@:keep public inline function has (item:T) : Bool
-		return indexOf(item) > -1
+		return indexOf(item) > -1;
 	
 	
 	/**

@@ -83,7 +83,7 @@ class URIValidator implements IValueValidator <String>
 	}
 	
 	
-	private static inline var validator = new EReg( R_URI_PRETENDER, "i" );
+	private static var validator = new EReg( R_URI_PRETENDER, "i" );
 	
 	
 	//

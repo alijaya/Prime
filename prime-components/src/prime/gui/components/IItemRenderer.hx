@@ -29,21 +29,18 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.components;
- import prime.bindable.Bindable;
- import prime.gui.core.IUIElement;
- import prime.gui.styling.IIconOwner;
- import prime.types.Asset;
 
 
 /**
  * @author Ruben Weijers
  * @creation-date Feb 11, 2011
  */
-interface IItemRenderer <DataType> implements IUIElement, implements IIconOwner
+interface IItemRenderer <T> extends prime.gui.core.IUIElement
+	#if prime_css extends prime.gui.styling.IIconOwner #end
 {
-	public var data				(default, null)				: Bindable<String>;
-	public var vo				(default, null)				: Bindable<DataType>;
-	public var defaultLabel		(default, setDefaultLabel)	: String;
+	public var data				(default, null)				: prime.bindable.Bindable<String>;
+	public var vo				(default, null)				: prime.bindable.Bindable<T>;
+	public var defaultLabel		(default, set_defaultLabel)	: String;
 	
 	
 	/**
@@ -52,5 +49,5 @@ interface IItemRenderer <DataType> implements IUIElement, implements IIconOwner
 	 * 
 	 * Method is called every time the vo changes
 	 */
-	public var getLabelForVO	: DataType -> String;
+	public var getLabelForVO	: T -> String;
 }

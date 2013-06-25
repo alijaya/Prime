@@ -1,4 +1,5 @@
 package prime.js.events;
+#if js
  import prime.signals.Signals;
  import prime.gui.events.UserEventTarget;
 
@@ -10,12 +11,12 @@ class FocusEvents extends Signals
 {
 	private var eventDispatcher : UserEventTarget;
 	
-	public var focus		(getFocus,		 null) : FocusSignal;
-	public var focusIn		(getFocusIn,	 null) : FocusSignal;
-	public var DOMFocusIn	(getDOMFocusIn,	 null) : FocusSignal;
-	public var blur			(getBlur,		 null) : FocusSignal;
-	public var focusOut		(getFocusOut,	 null) : FocusSignal;
-	public var DOMFocusOut	(getDOMFocusOut, null) : FocusSignal;
+	public var focus		(get_focus,		 null) : FocusSignal;
+	public var focusIn		(get_focusIn,	 null) : FocusSignal;
+	public var DOMFocusIn	(get_DOMFocusIn, null) : FocusSignal;
+	public var blur			(get_blur,		 null) : FocusSignal;
+	public var focusOut		(get_focusOut,	 null) : FocusSignal;
+	public var DOMFocusOut	(get_DOMFocusOut, null) : FocusSignal;
 	
 
 	public function new(eventDispatcher)
@@ -32,12 +33,12 @@ class FocusEvents extends Signals
 	}
 
 	
-	private inline function getFocus			() { if (focus		 == null) { createFocus();		 } return focus; }
-	private inline function getFocusIn			() { if (focusIn 	 == null) { createFocusIn();	 } return focusIn; }
-	private inline function getDOMFocusIn		() { if (DOMFocusIn	 == null) { createDOMFocusIn();	 } return DOMFocusIn; }
-	private inline function getBlur				() { if (blur 		 == null) { createBlur();		 } return blur; }
-	private inline function getFocusOut			() { if (focusOut 	 == null) { createFocusOut();	 } return focusOut; }
-	private inline function getDOMFocusOut		() { if (DOMFocusOut == null) { createDOMFocusOut(); } return DOMFocusOut; }
+	private inline function get_focus			() { if (focus		 == null) { createFocus();		 } return focus; }
+	private inline function get_focusIn			() { if (focusIn 	 == null) { createFocusIn();	 } return focusIn; }
+	private inline function get_DOMFocusIn		() { if (DOMFocusIn	 == null) { createDOMFocusIn();	 } return DOMFocusIn; }
+	private inline function get_blur			() { if (blur 		 == null) { createBlur();		 } return blur; }
+	private inline function get_focusOut		() { if (focusOut 	 == null) { createFocusOut();	 } return focusOut; }
+	private inline function get_DOMFocusOut		() { if (DOMFocusOut == null) { createDOMFocusOut(); } return DOMFocusOut; }
 	
 	private inline function createFocus			() { focus			= new FocusSignal(eventDispatcher, "focus"); }
 	private inline function createFocusIn		() { focusIn		= new FocusSignal(eventDispatcher, "focusin"); }
@@ -46,12 +47,4 @@ class FocusEvents extends Signals
 	private inline function createFocusOut		() { focusOut		= new FocusSignal(eventDispatcher, "focusout"); }
 	private inline function createDOMFocusOut	() { DOMFocusOut	= new FocusSignal(eventDispatcher, "DOMFocusOut"); }
 }
-
-
-
-	
-
-
-
-
-
+#end

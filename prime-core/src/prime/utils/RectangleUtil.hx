@@ -46,7 +46,7 @@ extern class RectangleUtil
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	public static inline function toFloatRectangle (r:IntRectangle) : Rectangle {
 		return new Rectangle (0, 0, r.width, r.height);
 	}

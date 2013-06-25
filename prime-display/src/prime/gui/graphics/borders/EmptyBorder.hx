@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.borders;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.IRectangle;
  import prime.gui.graphics.GraphicElement;
  import prime.gui.graphics.IGraphicProperty;
@@ -42,10 +39,10 @@ package prime.gui.graphics.borders;
  * @author Ruben Weijers
  * @creation-date May 4, 2011
  */
-class EmptyBorder extends GraphicElement, implements IGraphicProperty, implements IBorder
+class EmptyBorder extends prime.gui.graphics.GraphicElement implements prime.gui.graphics.IGraphicProperty implements IBorder
 {
-	public var weight		(default, setWeight)		: Float;
-	public var innerBorder	(default, setInnerBorder)	: Bool;
+	public var weight		(default, set_weight)		: Float;
+	public var innerBorder	(default, set_innerBorder)	: Bool;
 	
 	
 	public #if !noinline inline #end function begin (target:IGraphicsOwner, bounds:IRectangle)
@@ -60,12 +57,12 @@ class EmptyBorder extends GraphicElement, implements IGraphicProperty, implement
 	}
 	
 	
-	private inline function setWeight (v:Float)			{ return 0; }
-	private inline function setInnerBorder (v:Bool)		{ return false; }
+	private inline function set_weight (v:Float)			{ return 0; }
+	private inline function set_innerBorder (v:Bool)		{ return false; }
 	
 	
 #if CSSParser
-	override public function toCSS (prefix:String = "")		{ return "none"; }
-	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [] ); }
+	override public function toCSS (prefix:String = "")							{ return "none"; }
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)	{ code.construct( this, [] ); }
 #end
 }

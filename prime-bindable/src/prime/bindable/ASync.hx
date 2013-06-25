@@ -27,9 +27,7 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.bindable;
- import prime.signals.IUnbindable;
  import prime.signals.Signal1;
- import prime.core.traits.IDisposable;
   using prime.utils.Bind;
   using prime.utils.BitUtil;
 
@@ -38,7 +36,7 @@ package prime.bindable;
  * @author Ruben Weijers
  * @creation-date May 16, 2011
  */
-class ASync<T> implements IDisposable, implements IUnbindable<T->Dynamic>
+class ASync<T> implements prime.core.traits.IDisposable implements prime.signals.IUnbindable<T->Dynamic>
 {
 	private static inline var NONE		= 0;
 	private static inline var CANCELED	= 1 << 0;
@@ -56,8 +54,8 @@ class ASync<T> implements IDisposable, implements IUnbindable<T->Dynamic>
 	private var state			: Int;
 	private var _reply			: T;
 	
-	public var handleRequest	(default, setHandleRequest)	: Void -> Void;
-	public var handleCancel		(default, setHandleCancel)	: Void -> Void;
+	public var handleRequest	(default, set_handleRequest): Void -> Void;
+	public var handleCancel		(default, set_handleCancel)	: Void -> Void;
 	
 	
 	
@@ -164,7 +162,7 @@ class ASync<T> implements IDisposable, implements IUnbindable<T->Dynamic>
 	// GETTERS / SETTERS
 	//
 	
-	private inline function setHandleRequest (handler:Void->Void)
+	private inline function set_handleRequest (handler:Void->Void)
 	{
 		Assert.that( state.hasNone(DISPOSED) );
 		handleRequest = handler;
@@ -174,7 +172,7 @@ class ASync<T> implements IDisposable, implements IUnbindable<T->Dynamic>
 	}
 	
 	
-	private inline function setHandleCancel (handler:Void->Void)
+	private inline function set_handleCancel (handler:Void->Void)
 	{
 		Assert.that( state.hasNone(DISPOSED) );
 		handleCancel = handler;

@@ -27,13 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics;
- import prime.core.traits.Invalidatable;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
-#if (CSSParser || debug)
- import prime.utils.ID;
-#end
 
 
 /**
@@ -42,7 +35,7 @@ package prime.gui.graphics;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-class GraphicElement extends Invalidatable, implements IGraphicElement 
+class GraphicElement extends prime.core.traits.Invalidatable implements IGraphicElement 
 {
 #if (CSSParser || debug)
 	public var _oid (default, null)	: Int;
@@ -63,7 +56,7 @@ class GraphicElement extends Invalidatable, implements IGraphicElement
 #end
 
 #if CSSParser	
-	public function toCode (code:ICodeGenerator) { Assert.abstractMethod(); }
+	public function toCode (code:prime.tools.generator.ICodeGenerator) { Assert.abstractMethod(); }
 #end
 
 

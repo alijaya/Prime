@@ -34,6 +34,7 @@ package prime.gui.behaviours.scroll;
  import prime.gui.events.MouseEvents;
   using prime.utils.Bind;
   using prime.utils.TypeUtil;
+  using Std;
 #end
 
 
@@ -43,13 +44,16 @@ package prime.gui.behaviours.scroll;
  * @author Ruben Weijers
  * @creation-date Jul 29, 2010
  */
-class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.gui.traits.IScrollable>, implements IScrollBehaviour
+class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.gui.traits.IScrollable> implements IScrollBehaviour
 {
 #if !CSSParser
 	private var activateBinding		: Wire < Dynamic >;
 	private var deactivateBinding	: Wire < Dynamic >;
 	private var calcScrollBinding	: Wire < Dynamic >;
-	
+	/**
+	 * Flag indicating if the target already was clipped before the behaviour was applied. Needed for resetting
+	 */
+	private var hadClipping 		: Bool;
 	
 	override private function init ()
 	{
@@ -64,16 +68,22 @@ class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.
 
 	private function addListeners ()
 	{
-		var mouse = target.container.userEvents.mouse;
-		activateBinding		= mouse.rollOver.bind(this, activateScrolling);
-		deactivateBinding	= mouse.rollOut.observeDisabled(this, deactivateScrolling);
-		calcScrollBinding	= mouse.move.bindDisabled(this, calculateScroll);
+		hadClipping = target.getScrollRect() != null;
+		if (!hadClipping)
+			target.enableClipping();
+		var mouseEvt 		= target.container.userEvents.mouse;
+		activateBinding		= mouseEvt.rollOver.bind(this, activateScrolling);
+		deactivateBinding	= mouseEvt.rollOut.observeDisabled(this, deactivateScrolling);
+		calcScrollBinding	= mouseEvt.move.bindDisabled(this, calculateScroll);
+
+		var mouse = target.container.globalToLocal(target.window.mouse.pos);
+		if (target.rect.containsPoint(mouse.x.int(), mouse.y.int()))
+			activateScrolling.bind(new MouseState(0, cast target, mouse, target.window.mouse.pos, cast target)).onceOn(target.displayEvents.enterFrame, this);
 	}
 	
 	
 	override private function reset ()
 	{
-		trace(this+" - "+target);
 		target.displayEvents.addedToStage.unbind(this);
 		calcScrollBinding.dispose();
 		activateBinding.dispose();
@@ -81,18 +91,16 @@ class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.
 		activateBinding		= null;
 		deactivateBinding	= null;
 		calcScrollBinding	= null;
-		target.disableClipping();
+		if (!hadClipping)
+			target.disableClipping();
 	}
 
 
-	private function activateScrolling (mouseObj:MouseState) {
-		if (!target.isScrollable)
-			return;
-		
+	private function activateScrolling (mouseObj:MouseState) if (target.isScrollable)
+	{
 		activateBinding.disable();
 		deactivateBinding.enable();
 		calcScrollBinding.enable();
-		
 		calculateScroll( mouseObj );
 	}
 

@@ -1,0 +1,7 @@
+-cp src
+-cp test
+
+-cp ../prime-core/src
+-cp ../prime-signals/src
+
+-cp ../libs/apparat

@@ -29,13 +29,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.core;
- import prime.core.traits.IDisablable;
- import prime.bindable.Bindable;
- import prime.gui.display.IDisplayContainer;
- import prime.gui.traits.ISkinnable;
-#if flash9
- import prime.gui.traits.IDrawable;
-#end
  
 
 /**
@@ -45,13 +38,14 @@ package prime.gui.core;
  * @author			Ruben Weijers
  */
 interface IUIComponent
-				implements IDisplayContainer
-			,	implements IUIElement
-			,	implements IDisablable
-			,	implements ISkinnable
-#if flash9	,	implements IDrawable	#end
+				extends prime.gui.display.IDisplayContainer
+				extends IUIElement
+				extends prime.core.traits.IDisablable
+				extends prime.gui.traits.ISkinnable
+#if (flash9 || nme)
+				extends prime.gui.traits.IDrawable	#end
 {
-	public var enabled	(default, null)				: Bindable < Bool >;
+	public var enabled	(default, null)				: prime.bindable.Bindable<Bool>;
 	
 	/**
 	 * This is the first method that will be runned by the constructor.

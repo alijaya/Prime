@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.shapes;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.space.Position;
  import prime.core.geom.Corners;
  import prime.core.geom.IntPoint;
@@ -45,9 +42,9 @@ package prime.gui.graphics.shapes;
  * @author Ruben Weijers
  * @creation-date Aug 01, 2010
  */
-class Triangle extends ShapeBase, implements IGraphicShape
+class Triangle extends ShapeBase implements IGraphicShape
 {
-	public var direction (default, setDirection)	: Position;
+	public var direction (default, set_direction)	: Position;
 	
 	private var a		: IntPoint; 
 	private var b		: IntPoint;
@@ -74,7 +71,7 @@ class Triangle extends ShapeBase, implements IGraphicShape
 	
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{
-#if flash9
+#if (flash9 || nme)
 		var a = a, b = b, c = c;
 		var x = bounds.left;
 		var y = bounds.top;
@@ -161,7 +158,7 @@ class Triangle extends ShapeBase, implements IGraphicShape
 	//	var vertices : flash.Vector<Float> = [a.x, a.y];
 	//	vertices.insert( cast a.x, cast a.y, cast b.x, cast b.y, cast c.x, cast c.y );
 	//	target.graphics.drawTriangles( vertices );
-	#if flash9
+	#if (flash9 || nme)
 		target.graphics.moveTo( a.x, a.y );
 		target.graphics.lineTo( b.x, b.y );
 		target.graphics.lineTo( c.x, c.y );
@@ -180,7 +177,7 @@ class Triangle extends ShapeBase, implements IGraphicShape
 	}
 	
 	
-	private inline function setDirection (v:Position)
+	private inline function set_direction (v:Position)
 	{
 		if (v != direction) {
 			direction = v;
@@ -197,7 +194,7 @@ class Triangle extends ShapeBase, implements IGraphicShape
 #end
 
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ direction ] );
 	}

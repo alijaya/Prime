@@ -27,13 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.fills;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.IRectangle;
- import prime.gui.graphics.GraphicElement;
  import prime.gui.graphics.GraphicFlags;
- import prime.gui.graphics.IGraphicProperty;
  import prime.gui.traits.IGraphicsOwner;
  import prime.types.RGBA;
   using prime.utils.Color;
@@ -45,10 +40,10 @@ package prime.gui.graphics.fills;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-class SolidFill extends GraphicElement, implements IGraphicProperty
+class SolidFill extends prime.gui.graphics.GraphicElement implements prime.gui.graphics.IGraphicProperty
 {
-	public var color		(default, setColor)	: RGBA;
-	public var isFinished	(default, null)		: Bool;
+	public var color		(default, set_color)	: RGBA;
+	public var isFinished	(default, null)			: Bool;
 	
 	
 	public function new ( color:RGBA )
@@ -61,7 +56,7 @@ class SolidFill extends GraphicElement, implements IGraphicProperty
 	
 	public #if !noinline inline #end function begin (target:IGraphicsOwner, bounds:IRectangle)
 	{
-#if flash9
+#if (flash9 || nme)
 		target.graphics.beginFill( color.rgb(), color.alpha().float() );
 #end
 		isFinished = true;
@@ -70,14 +65,14 @@ class SolidFill extends GraphicElement, implements IGraphicProperty
 	
 	public #if !noinline inline #end function end (target:IGraphicsOwner, bounds:IRectangle)
 	{
-#if flash9
+#if (flash9 || nme)
 		target.graphics.endFill();
 #end
 		isFinished = false;
 	}
 	
 	
-	private inline function setColor (v:RGBA)
+	private inline function set_color (v:RGBA)
 	{
 		if (color != v) {
 			this.color = v;
@@ -91,6 +86,6 @@ class SolidFill extends GraphicElement, implements IGraphicProperty
 	override public function toCSS (prefix:String = "")		{ return color.string(); }
 #end
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [ color ] ); }
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)	{ code.construct( this, [ color ] ); }
 #end
 }

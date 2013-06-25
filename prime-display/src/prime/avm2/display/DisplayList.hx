@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObjectContainer;
  import flash.display.DisplayObject;
  import prime.bindable.collections.iterators.IIterator;
@@ -68,17 +69,17 @@ class DisplayList implements IEditableList <ChildType>
 	
 	public var change		(default, null)				: ListChangeSignal<ChildType>;
 //	public var beforeChange	(default, null)				: ListChangeSignal<ChildType>;		// FIXME: not implemented
-	public var length		(getLength, never)			: Int;
+	public var length		(get_length, never)			: Int;
 	
 	/**
 	 * Property to enable mouse events on children or not
 	 */
-	public var mouseEnabled	(default, setMouseEnabled)	: Bool;
+	public var mouseEnabled	(default, set_mouseEnabled)	: Bool;
 	
 	/**
 	 * Property to enable tab events on children or not
 	 */
-	public var tabEnabled	(default, setTabEnabled)	: Bool;
+	public var tabEnabled	(default, set_tabEnabled)	: Bool;
 	
 	
 	public function new ( target:DisplayObjectContainer, ?owner:IDisplayContainer )
@@ -165,9 +166,9 @@ class DisplayList implements IEditableList <ChildType>
 	// GETTERS / SETTERS
 	//
 	
-	private inline function setMouseEnabled (v)		{ return mouseEnabled	= target.mouseChildren = v; }
-	private inline function setTabEnabled (v)		{ return tabEnabled		= target.tabChildren = v; }
-	private inline function getLength	()			{ return target.numChildren; }
+	private inline function set_mouseEnabled (v)	{ return mouseEnabled	= target.mouseChildren = v; }
+	private inline function set_tabEnabled (v)		{ return tabEnabled		= target.tabChildren = v; }
+	private inline function get_length	()			{ return target.numChildren; }
 	
 	
 	//
@@ -299,3 +300,4 @@ class DisplayListReversedIterator implements IIterator <ChildType>
 	public #if !noinline inline #end function next ()					{ return list.getItemAt( current-- ); }
 	public #if !noinline inline #end function value ()					{ return list.getItemAt( current ); }
 }
+#end

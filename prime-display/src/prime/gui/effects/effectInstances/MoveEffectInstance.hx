@@ -29,7 +29,9 @@
 package prime.gui.effects.effectInstances;
  import prime.gui.effects.EffectProperties;
  import prime.gui.effects.MoveEffect;
+#if prime_layout
  import prime.gui.traits.ILayoutable;
+#end
  import prime.gui.traits.IPositionable;
  import prime.types.Number;
  import prime.utils.NumberUtil;
@@ -98,8 +100,8 @@ class MoveEffectInstance extends EffectInstance < IPositionable, MoveEffect >
 	override private function initStartValues ()
 	{
 	//	trace(target.as(ILayoutable).layout.getHorPosition()+", "+target.as(ILayoutable).layout.getVerPosition()+"; "+target.x+", "+target.y);
-	/*	if (endX.notSet())	*/		endX	= effect.endX.isSet() ? effect.endX : target.is(ILayoutable) ? target.as(ILayoutable).layout.getHorPosition() : target.x;
-	/*	if (endY.notSet())	*/		endY	= effect.endY.isSet() ? effect.endY : target.is(ILayoutable) ? target.as(ILayoutable).layout.getVerPosition() : target.y;
+	/*	if (endX.notSet())	*/		endX	= effect.endX.isSet() ? effect.endX : #if prime_layout target.is(ILayoutable)? target.as(ILayoutable).layout.getHorPosition() : #end target.x;
+	/*	if (endY.notSet())	*/		endY	= effect.endY.isSet() ? effect.endY : #if prime_layout target.is(ILayoutable)? target.as(ILayoutable).layout.getVerPosition() : #end target.y;
 
 		if (effect.startX.isSet())	startX	= target.x = effect.startX;
 		else						startX	= target.x;

@@ -28,9 +28,9 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.mvc;
+ import prime.core.traits.IDisposable;
  import prime.signals.Signal0;
  import prime.signals.Signals;
- import prime.core.traits.IDisposable;
 
 
 /**
@@ -57,8 +57,8 @@ package prime.mvc;
  * @creation-date Jun 22, 2010
  * @type <EventsType> all event groups used in this application/subsystem.
  */
+//#if !docs @:generic #end
 class Facade<EventsType:Signals, ModelType:IMVCCore, StatesType:IDisposable, ControllerType:IMVCCoreActor, ViewType:IMVCCoreActor> implements IDisposable
-//    #if !docs, implements haxe.rtti.Generic #end
 {
 	/**
 	 * Signal that's dispatched when facade.start is called

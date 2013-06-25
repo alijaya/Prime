@@ -43,7 +43,7 @@ package prime.gui.components;
  */
 class AlertPanel extends Panel
 {
-    public var acceptLabel  (default, setAcceptLabel)   : String;
+    public var acceptLabel  (default, set_acceptLabel)   : String;
     public var acceptBtn    (default, null)             : Button;
     public var accepted     (default, null)             : Signal0;
 
@@ -61,7 +61,7 @@ class AlertPanel extends Panel
         super.createChildren();
 
         acceptBtn = new Button("acceptBtn", acceptLabel);
-        acceptBtn.styleClasses.add("confirmBtn");
+        #if prime_css acceptBtn.styleClasses.add("confirmBtn"); #end
 
         addToFooter( acceptBtn );
         accept.on( acceptBtn.userEvents.mouse.click, this );
@@ -94,7 +94,7 @@ class AlertPanel extends Panel
     }
 
 
-    private inline function setAcceptLabel (v:String)
+    private inline function set_acceptLabel (v:String)
     {
         if (v != acceptLabel) {
             acceptLabel = v;

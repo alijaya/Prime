@@ -27,12 +27,10 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
- import prime.core.traits.IInvalidatable;
- import prime.types.SimpleDictionary;
   using prime.utils.BitUtil;
 
 
-typedef StatesListType	= #if CSSParser SimpleDictionary<Int, StyleBlock> #else IntHash<StyleBlock> #end;
+typedef StatesListType	= #if CSSParser prime.types.SimpleDictionary<Int, StyleBlock> #else Map<Int,StyleBlock> #end;
 private typedef Flags	= StyleStateFlags;
 
 
@@ -139,7 +137,7 @@ class StatesStyle extends StyleSubBlock
 	 * changed. If the property is not set in this style-object, it means that 
 	 * the allFilledPropertiesFlag needs to be changed..
 	 */
-	override public function invalidateCall ( changeFromOther:Int, sender:IInvalidatable ) : Void
+	override public function invalidateCall ( changeFromOther:Int, sender:prime.core.traits.IInvalidatable ) : Void
 	{
 		Assert.that(sender != null);
 		
@@ -272,7 +270,7 @@ class StatesStyle extends StyleSubBlock
 #end
 
 
-#if (debug && flash9)
+#if (debug && (flash9 || nme))
 	override public function toString () 
 	{
 		var statesToFind	= allFilledProperties;

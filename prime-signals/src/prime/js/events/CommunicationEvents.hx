@@ -1,9 +1,8 @@
 package prime.js.events;
-
+#if js
 import prime.core.events.CommunicationEvents;
-import prime.js.net.XMLHttpRequest;
+import js.html.XMLHttpRequest;
 import prime.signals.Signal0;
-import js.Dom;
 
 /**
  * @author	Danny Wilson
@@ -22,3 +21,4 @@ class CommunicationEvents extends CommunicationSignals
 		error		= new ErrorSignal();
 	}
 }
+#end

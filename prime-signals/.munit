@@ -4,4 +4,4 @@ bin=tmp
 report=report
 hxml=test.hxml
 classPaths=src
-coveragePackages=prime.signal
+coveragePackages=prime.signals

@@ -39,11 +39,12 @@ package prime.gui.behaviours.layout;
  * Behaviour to overwrite the ClippedLayoutBehaviour. Behaviour will remove
  * the scrollrect of the target to represent the css property 
  * "overflow = visible;".
+ * UNUSED
  * 
  * @author Ruben Weijers
  * @creation-date Oct 13, 2010
  */
-class UnclippedLayoutBehaviour extends BehaviourBase < IScrollable >, implements IScrollBehaviour
+class UnclippedLayoutBehaviour extends BehaviourBase < IScrollable > implements IScrollBehaviour
 {
 #if !CSSParser
 	override private function init ()	{ target.removeScrollRect(); }

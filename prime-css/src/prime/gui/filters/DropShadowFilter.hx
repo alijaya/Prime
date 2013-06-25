@@ -29,7 +29,7 @@
 package prime.gui.filters;
 
 
-#if (flash9 || flash8)
+#if (flash9 || nme || flash8)
 typedef DropShadowFilter = flash.filters.DropShadowFilter;
 
 //#elseif	js
@@ -103,6 +103,7 @@ class DropShadowFilter extends BitmapFilter
 			case 1:		"low";
 			case 2:		"medium";
 			case 3:		"high";
+			default:	throw "unknown quality level";
 		} );
 		
 		return css.join(" ");

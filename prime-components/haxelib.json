@@ -1,0 +1,21 @@
+{
+  "name": "prime-components",
+  "license": "BSD",
+  "tags": ["prime", "button", "label", "container"],
+  "description": "GUI components.",
+  "contributors": ["optimus"],
+
+  "releasenote": "Initial release. Developed since Jul 08, 2010",
+  "version": "1.0.0",
+  "url": "http://prime.vc/",
+  "dependencies": {
+    "prime-bindable": "",
+    "prime-core": "",
+    "prime-data": "",
+    "feffects": "",
+    "prime-display": "",
+    "prime-signals": "",
+    "prime-layout": "",
+    "prime-fsm": ""
+  }
+}

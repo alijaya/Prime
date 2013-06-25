@@ -27,7 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
- import prime.core.traits.IDisposable;
   using prime.utils.Bind;
   using prime.utils.BitUtil;
   using prime.utils.FastArray;
@@ -37,9 +36,9 @@ package prime.gui.styling;
  * @author Ruben Weijers
  * @creation-date Oct 20, 2010
  */
-class StyleState implements IDisposable
+class StyleState implements prime.core.traits.IDisposable
 {
-	public var current		(default, setCurrent)	: Int;
+	public var current		(default, set_current)	: Int;
 	public var elementStyle	(default, null)			: UIElementStyle;
 	
 	
@@ -71,7 +70,7 @@ class StyleState implements IDisposable
 	}
 	
 	
-	private function setCurrent (v:Int) : Int
+	private function set_current (v:Int) : Int
 	{
 		if (v != current)
 		{

@@ -37,8 +37,8 @@ package prime.layout.algorithms.tile;
  import prime.core.geom.Box;
  import prime.core.geom.IRectangle;
  import prime.core.validators.IntRangeValidator;
- import prime.layout.algorithms.float.HorizontalFloatAlgorithm;
- import prime.layout.algorithms.float.VerticalFloatAlgorithm;
+ import prime.layout.algorithms.floating.HorizontalFloatAlgorithm;
+ import prime.layout.algorithms.floating.VerticalFloatAlgorithm;
  import prime.layout.algorithms.tile.TileContainer;
  import prime.layout.algorithms.ILayoutAlgorithm;
  import prime.layout.LayoutClient;
@@ -65,7 +65,7 @@ private typedef Flags = LayoutFlags;
  * @creation-date	Jul 7, 2010
  * @author			Ruben Weijers
  */
-class DynamicTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
+class DynamicTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 {
 	/**
 	 * tileGroups is a TileContainer containing a reference to each TileContainer
@@ -204,7 +204,7 @@ class DynamicTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorith
 				
 				tileCollection.move(client, newPos, oldPos);
 			
-			default:
+			case reset:
 		}
 	}
 	
@@ -374,7 +374,7 @@ class DynamicTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorith
 	//
 	
 	
-	override private function setStartDirection (v)
+	override private function set_startDirection (v)
 	{
 		if (v != startDirection)
 		{
@@ -389,7 +389,7 @@ class DynamicTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorith
 	}
 	
 	
-	override private function setGroup (v)
+	override private function set_group (v)
 	{
 		if (group != v)
 		{
@@ -401,7 +401,7 @@ class DynamicTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorith
 				group.children.change.unbind(this);
 			}
 			
-			v = super.setGroup(v);
+			v = super.set_group(v);
 			
 			if (v != null)
 				updateMapsAfterChange.on( group.children.change, this );
@@ -410,10 +410,10 @@ class DynamicTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorith
 	}
 	
 	
-	override private function setHorizontalDirection (v:Horizontal)
+	override private function set_horizontalDirection (v:Horizontal)
 	{
 		if (v != horizontalDirection) {
-			super.setHorizontalDirection(v);
+			super.set_horizontalDirection(v);
 			if (childAlgorithm != null && childAlgorithm.is(DynamicRowAlgorithm))
 				childAlgorithm.as(DynamicRowAlgorithm).direction = v;
 		}
@@ -421,10 +421,10 @@ class DynamicTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorith
 	}
 	
 	
-	override private function setVerticalDirection (v:Vertical)
+	override private function set_verticalDirection (v:Vertical)
 	{
 		if (v != verticalDirection) {
-			super.setVerticalDirection(v);
+			super.set_verticalDirection(v);
 			if (childAlgorithm != null && childAlgorithm.is(DynamicColumnAlgorithm))
 				childAlgorithm.as(DynamicColumnAlgorithm).direction = v;
 		}

@@ -29,6 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.components.skins;
+#if prime_css
  import prime.net.CommunicationType;
  import prime.gui.behaviours.UpdateMaskBehaviour;
  import prime.bindable.Bindable;
@@ -126,3 +127,4 @@ class CircleProgressSkin extends Skin<ProgressBar>
 		indicator.graphicData.percentage = newVal;
 	}
 }
+#end

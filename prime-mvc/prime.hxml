@@ -1,0 +1,4 @@
+-cp src
+-cp ../prime-core/src
+-cp ../prime-signals/src
+-cp ../prime-bindable/src

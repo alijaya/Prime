@@ -44,8 +44,8 @@ class IntRangeValidator implements IValueValidator <Int>
 {
 	public var change (default, null)	: Signal0;
 	
-	public var min		(default, setMin)	: Int;
-	public var max		(default, setMax)	: Int;
+	public var min		(default, set_min)	: Int;
+	public var max		(default, set_max)	: Int;
 	public var scale	(default, null)		: Float;
 	
 	
@@ -71,7 +71,7 @@ class IntRangeValidator implements IValueValidator <Int>
 	}
 	
 	
-	private inline function setMin (v)
+	private inline function set_min (v)
 	{
 		if (v != min) {
 			min = scale == 1 || v.notSet() ? v : (v * scale).roundFloat();
@@ -81,7 +81,7 @@ class IntRangeValidator implements IValueValidator <Int>
 	}
 	
 	
-	private inline function setMax (v)
+	private inline function set_max (v)
 	{
 		if (v != max) {
 			max = scale == 1 || v.notSet() ? v : (v * scale).roundFloat();

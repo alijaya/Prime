@@ -38,7 +38,7 @@ package prime.core;
  */
 class RangeIterator
 {
-	public var start	(default, setStart) : Int;
+	public var start	(default, set_start) : Int;
 	public var max		: Int;
 	public var stepSize	: Int;
 	public var current	: Int;
@@ -74,7 +74,7 @@ class RangeIterator
 	}
 	
 	
-	private inline function setStart (v) {
+	private inline function set_start (v) {
 		return start = current = v;
 	}
 	

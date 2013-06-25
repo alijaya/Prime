@@ -29,6 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.components.skins;
+#if prime_css
  import prime.gui.behaviours.UpdateMaskBehaviour;
  import prime.gui.components.ProgressBar;
 
@@ -114,3 +115,4 @@ class LinearProgressSkin extends Skin<ProgressBar>
 		indicator.layout.percentWidth = newVal;
 	}
 }
+#end

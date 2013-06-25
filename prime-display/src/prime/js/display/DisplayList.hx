@@ -1,8 +1,5 @@
 package prime.js.display;
-
-import js.Dom;
-import js.Lib;
-
+#if js
 
 /**
  * @author 	Stanislav Sopov
@@ -36,3 +33,4 @@ class DisplayList
 		}
 	}
 }
+#end

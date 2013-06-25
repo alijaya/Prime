@@ -27,15 +27,10 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.gui.display;
-#if flash9
+#if (flash9 || nme)
  import prime.core.geom.Point;
  import prime.core.geom.Rectangle;
-	#if dragEnabled
- import prime.gui.behaviours.drag.DragInfo;
-	#end
 #end
- import prime.gui.traits.IDisplayable;
- import prime.gui.traits.IGraphicsOwner;
 
 
 /**
@@ -45,14 +40,18 @@ package prime.gui.display;
  * @author			Ruben Weijers
  */
 interface ISprite 
-		implements IDisplayContainer
-	,	implements IInteractiveObject
-	,	implements IGraphicsOwner
-	,	implements IDisplayable
+		extends IDisplayContainer
+		extends IInteractiveObject
+		extends prime.gui.traits.IGraphicsOwner
+		extends prime.gui.traits.IDisplayable
 {
-#if flash9
+#if (flash9 || nme)
 		public var buttonMode						: Bool;
+	#if (flash9 || (nme && cpp))
 		public var useHandCursor					: Bool;
+	#elseif (nme && html5)
+		public var useHandCursor(default, set_useHandCursor):Bool;
+	#end
 
 	#if dragEnabled
 		public var isDragging						: Bool;
@@ -60,7 +59,7 @@ interface ISprite
 	
 		public function stopDrag()												: Void;
 		public function startDrag(lockCenter:Bool = false, ?bounds:Rectangle)	: Void;
-		public function createDragInfo ()										: DragInfo;
+		public function createDragInfo ()										: prime.gui.behaviours.drag.DragInfo;
         public function getObjectsUnderPoint(point : Point) : Array<flash.display.DisplayObject>;
 	#end
 #else

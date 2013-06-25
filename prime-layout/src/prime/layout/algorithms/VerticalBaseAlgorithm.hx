@@ -44,7 +44,7 @@ package prime.layout.algorithms;
  */
 class VerticalBaseAlgorithm extends prime.layout.algorithms.LayoutAlgorithmBase
 {
-	public var direction			(default, setDirection)		: Vertical;
+	public var direction			(default, set_direction)	: Vertical;
 	
 	/**
 	 * Property indicating if and how the children of the group should be 
@@ -54,7 +54,7 @@ class VerticalBaseAlgorithm extends prime.layout.algorithms.LayoutAlgorithmBase
 	 * 
 	 * @default null
 	 */
-	public var horizontal			(default, setHorizontal)	: Horizontal;
+	public var horizontal			(default, set_horizontal)	: Horizontal;
 	
 	
 	public function new ( ?direction:Vertical, ?horizontal:Horizontal = null )
@@ -75,7 +75,7 @@ class VerticalBaseAlgorithm extends prime.layout.algorithms.LayoutAlgorithmBase
 	 * on the given direction. After that it will dispatch a 'directionChanged'
 	 * signal.
 	 */
-	private inline function setDirection (v:Vertical) : Vertical
+	private inline function set_direction (v:Vertical) : Vertical
 	{
 		if (v != direction) {
 			direction = v;
@@ -85,7 +85,7 @@ class VerticalBaseAlgorithm extends prime.layout.algorithms.LayoutAlgorithmBase
 	}
 
 
-	private inline function setHorizontal (v:Horizontal) : Horizontal
+	private inline function set_horizontal (v:Horizontal) : Horizontal
 	{
 		if (v != horizontal) {
 			horizontal = v;
@@ -153,7 +153,7 @@ class VerticalBaseAlgorithm extends prime.layout.algorithms.LayoutAlgorithmBase
 	
 	public function apply ()
 	{
-		if (horizontal != null)
+		if (horizontal != null && group.children.length > 0)
 			switch (horizontal) {
 				case Horizontal.left:	applyHorizontalLeft();
 				case Horizontal.center:	applyHorizontalCenter();
@@ -166,53 +166,38 @@ class VerticalBaseAlgorithm extends prime.layout.algorithms.LayoutAlgorithmBase
 
 	private  function applyHorizontalLeft ()
 	{
-		if (group.children.length > 0)
-		{
-			var start = getLeftStartValue();
-			for (child in group.children) {
-				if (!child.includeInLayout)
-					continue;
-				
+		var start = getLeftStartValue();
+		for (child in group.children)
+			if (child.includeInLayout)
 				child.outerBounds.left = start;
-			}
-		}
 	}
 	
 	
 	private inline function applyHorizontalCenter ()
 	{
-		if (group.children.length > 0)
+		var start = getLeftStartValue();
+		if (group.childWidth.notSet())
 		{
-			var start = getLeftStartValue();
-			if (group.childWidth.notSet())
-			{
-				for (child in group.children) {
-					if (!child.includeInLayout)
-						continue;
-					
+			for (child in group.children)
+				if (child.includeInLayout)
 					child.outerBounds.left = start + ( (group.width - child.outerBounds.width) >> 1 ); // * .5 ).roundFloat();
-				}
-			}
-			else
-			{
-				var childX = start + ( (group.innerBounds.width - group.childWidth) >> 1 ); // * .5 ).roundFloat();
-				for (child in group.children)
-					if (child.includeInLayout)
-						child.outerBounds.left = childX;
-			}
+		}
+		else
+		{
+			var childX = start + ( (group.innerBounds.width - group.childWidth) >> 1 ); // * .5 ).roundFloat();
+			for (child in group.children)
+				if (child.includeInLayout)
+					child.outerBounds.left = childX;
 		}
 	}
 	
 	
 	private  function applyHorizontalRight ()
 	{
-		if (group.children.length > 0)
-		{
-			var start = getRightStartValue();
-			for (child in group.children)
-				if (child.includeInLayout)
-					child.outerBounds.right = start;
-		}
+		var start = getRightStartValue();
+		for (child in group.children)
+			if (child.includeInLayout)
+				child.outerBounds.right = start;
 	}
 
 	

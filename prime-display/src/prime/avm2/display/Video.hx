@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObject;
  import prime.core.geom.IntRectangle;
  import prime.gui.display.DisplayDataCursor;
@@ -46,10 +47,10 @@ package prime.avm2.display;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-class Video extends flash.media.Video, implements IVideo 
+class Video extends flash.media.Video implements IVideo 
 {
 	public var container		(default, default)		: IDisplayContainer;
-	public var window			(default, setWindow)	: Window;
+	public var window			(default, set_window)	: Window;
 	public var displayEvents	(default, null)			: DisplayEvents;
 	public var rect				(default, null)			: IntRectangle;
 	
@@ -87,10 +88,10 @@ class Video extends flash.media.Video, implements IVideo
 	
 	
 #if !CSSParser
-	public function getDisplayCursor			() : DisplayDataCursor											{ return new DisplayDataCursor(this); }
-	public #if !noinline inline #end function attachDisplayTo		(target:IDisplayContainer, pos:Int = -1)	: IDisplayObject	{ target.children.add( this, pos ); return this; }
-	public #if !noinline inline #end function detachDisplay		()											: IDisplayObject	{ container.children.remove( this ); return this; }
-	public #if !noinline inline #end function changeDisplayDepth	(newPos:Int)								: IDisplayObject	{ container.children.move( this, newPos ); return this; }
+	public function getDisplayCursor () : DisplayDataCursor																	{ return new DisplayDataCursor(this); }
+	public #if !noinline inline #end function attachDisplayTo (target:IDisplayContainer, pos:Int = -1)	: IDisplayObject	{ target.children.add( this, pos ); return this; }
+	public #if !noinline inline #end function detachDisplay	()											: IDisplayObject	{ container.children.remove( this ); return this; }
+	public #if !noinline inline #end function changeDisplayDepth (newPos:Int)							: IDisplayObject	{ container.children.move( this, newPos ); return this; }
 #end
 	
 	
@@ -107,7 +108,8 @@ class Video extends flash.media.Video, implements IVideo
 	}
 */	
 	
-	private inline function setWindow (v) {
+	private inline function set_window (v) {
 		return window = v;
 	}
 }
+#end

@@ -1,4 +1,3 @@
-package prime.locale;
 /* The BSD 2-Clause Licence
 
 Copyright (c) 2011, YamlHX Contributors
@@ -25,17 +24,19 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
-import haxe.xml.Fast;
+package prime.locale;
+ import haxe.xml.Fast;
+
 class YamlHX extends Fast
 {
 	private static inline var LINE_SEPARATOR = "\n";
-	public var anchors: Hash<Xml>;
+	public var anchors: Map<String,Xml>;
 	
 	public function new(input:String)
 	{
-	  anchors = new Hash<Xml>();
+	  anchors = new Map<String,Xml>();
 		var x:Xml = Xml.parse('<YamlHX xmlns="tag:yaml.org,2002" xmlns:yaml="tag:yaml.org,2002"></YamlHX>');
-		x.addChild(Xml.createProlog('xml version="1.0" encoding="utf-8"'));
+		x.addChild(Xml.createProcessingInstruction('xml version="1.0" encoding="utf-8"'));
 		
 		var line = 0;
 		var lines = input.split(LINE_SEPARATOR);
@@ -138,7 +139,7 @@ class YamlHX extends Fast
 						{
 							//TODO: check if plural, ignore
 							var auxResult = [];
-							regExp.customReplace(value, function (e) {
+							regExp.map(value, function (e) {
 							auxResult.push(	e.matched(0) );
 							return "";
 							});
@@ -152,7 +153,9 @@ class YamlHX extends Fast
 						}
 					}
 					
-					if(spaces > 0){
+					if(spaces > 0) {
+						if (indents > levels.length) indents = levels.length;	// BUGFIX, appearently indents is sometimes too high
+						//Assert.notNull(levels[indents-1], indents +  " / " + levels.length);
 						levels[indents-1].addChild(new_element);
 					}else{
 						root.addChild(new_element);

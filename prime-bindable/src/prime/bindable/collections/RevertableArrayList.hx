@@ -44,7 +44,7 @@ private typedef Flags = prime.bindable.RevertableBindableFlags;
  * @author Ruben Weijers
  * @creation-date Nov 19, 2010
  */
-class RevertableArrayList<T> extends ReadOnlyArrayList<T>, implements IRevertableList<T> //, implements haxe.rtti.Generic
+class RevertableArrayList<T> extends ReadOnlyArrayList<T> implements IRevertableList<T>
 {
 	/**
 	 * Keeps track of settings.
@@ -212,6 +212,6 @@ class RevertableArrayList<T> extends ReadOnlyArrayList<T>, implements IRevertabl
 
 #if debug
 	public #if !noinline inline #end function readFlags ()
-		return Flags.readProperties(flags)
+		return Flags.readProperties(flags);
 #end
 }

@@ -43,7 +43,7 @@ package prime.tools.valueobjects;
 {
     // Could come from freelist if profiling tells us to
     public static #if !noinline inline #end function make ()   { return new GroupChangeSet(); }
-    public var length   (getLength, never)  : Int;
+    public var length   (get_length, never)  : Int;
 
 
     public function add (change:ChangeSet)
@@ -53,7 +53,7 @@ package prime.tools.valueobjects;
     }
 
 
-    private inline function getLength ()
+    private inline function get_length ()
     {
         var l = 0, n = nextSet;
         while (n != null) {

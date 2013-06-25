@@ -42,7 +42,7 @@ package prime.gui.behaviours.layout;
  * @author Ruben Weijers
  * @creation-date Jul 26, 2010
  */
-class WindowLayoutBehaviour extends ValidatingBehaviour < UIWindow >, implements IPropertyValidator
+class WindowLayoutBehaviour extends ValidatingBehaviour < UIWindow > implements IPropertyValidator
 {
 	public function new (target:UIWindow) { super(target); }
 	
@@ -59,7 +59,7 @@ class WindowLayoutBehaviour extends ValidatingBehaviour < UIWindow >, implements
 		//trigger the event handler for the current state as well
 		layoutStateChangeHandler( target.topLayout.state.current, null );
 		
-#if flash9
+#if (flash9 || nme)
 		updateBgSize.on( target.topLayout.changed, this );
 	//	updateBgSize();
 #end
@@ -83,12 +83,12 @@ class WindowLayoutBehaviour extends ValidatingBehaviour < UIWindow >, implements
 	}
 	
 	
-	public #if !noinline inline #end function invalidate ()				{ target.invalidation.add(this); }
-	public #if !noinline inline #end function validate ()					{ target.topLayout.validate(); }
-	override private function getValidationManager ()	{ return target.invalidation; }
+	public #if !noinline inline #end function invalidate ()	{ target.invalidation.add(this); }
+	public #if !noinline inline #end function validate ()	{ target.topLayout.validate(); }
+	override private function getValidationManager ()		{ return target.invalidation; }
 	
 	
-#if flash9
+#if (flash9 || nme)
 	private function updateBgSize (changes:Int)
 	{
 		if (changes.hasNone( LayoutFlags.WIDTH | LayoutFlags.HEIGHT ))

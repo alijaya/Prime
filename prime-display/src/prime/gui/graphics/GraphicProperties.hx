@@ -43,15 +43,6 @@ package prime.gui.graphics;
   using prime.utils.TypeUtil;
 
 
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
-#if (debug || CSSParser)
- import prime.utils.ID;
-#end
-
-
-
 /**
  * Collection of a fill, border, layout and shape object.
  * Object can fire an event when a property in one of these objects is changed.
@@ -69,22 +60,22 @@ class GraphicProperties implements IGraphicElement
 	 */
 	public var changeEvent	(default, null)				: Signal1<Int>;
 
-	public var fill			(default, setFill)			: IGraphicProperty;
-	public var border		(default, setBorder)		: IBorder;
-	public var shape		(default, setShape)			: IGraphicShape;
-	public var layout		(default, setLayout)		: IntRectangle;
-	public var borderRadius	(default, setBorderRadius)	: Corners;
+	public var fill			(default, set_fill)			: IGraphicProperty;
+	public var border		(default, set_border)		: IBorder;
+	public var shape		(default, set_shape)		: IGraphicShape;
+	public var layout		(default, set_layout)		: IntRectangle;
+	public var borderRadius	(default, set_borderRadius)	: Corners;
 	/**
 	 * Percentage of the graphic-shape to draw (value between 0-1)
 	 * @default 1
 	 */
-	public var percentage	(default, setPercentage)	: Float;
+	public var percentage	(default, set_percentage)	: Float;
 	
 	
 	public function new (layout:IntRectangle = null, shape:IGraphicShape = null, fill:IGraphicProperty = null, border:IBorder = null, borderRadius:Corners = null)
 	{
 #if (debug || CSSParser)
-		_oid = ID.getNext();
+		_oid = prime.utils.ID.getNext();
 #end
 		invalidated		= new Signal2();
 		this.shape			= shape; // == null ? new RegularRectangle() : shape;
@@ -130,17 +121,18 @@ class GraphicProperties implements IGraphicElement
 	public function invalidateCall (changeFromOther:Int, sender:IInvalidatable) : Void
 	{
 		Assert.notEqual( sender, this );	// <-- prevent infinite loops
-		invalidate(switch (sender) {
-			case cast border:	GraphicFlags.BORDER;
-			case cast shape:	GraphicFlags.SHAPE;
-			case cast fill:		GraphicFlags.FILL;
-			case cast layout:
+		invalidate(
+			if      (sender == border) GraphicFlags.BORDER
+			else if (sender == shape)  GraphicFlags.SHAPE
+			else if (sender == fill)   GraphicFlags.FILL
+			else if (sender == layout) {
 				if (changeFromOther.has( RectangleFlags.WIDTH | RectangleFlags.HEIGHT ))
 					GraphicFlags.LAYOUT;
 				else
 					0;
-			default: 0;
-		});
+			}
+			else 0
+		);
 	}
 	
 	
@@ -273,7 +265,7 @@ class GraphicProperties implements IGraphicElement
 	//
 	
 	
-	private function setShape (v:IGraphicShape)
+	private function set_shape (v:IGraphicShape)
 	{
 		if (v != shape)
 		{
@@ -290,7 +282,7 @@ class GraphicProperties implements IGraphicElement
 	}
 	
 	
-	private function setFill (v:IGraphicProperty)
+	private function set_fill (v:IGraphicProperty)
 	{
 		if (v != fill)
 		{
@@ -307,7 +299,7 @@ class GraphicProperties implements IGraphicElement
 	}
 
 
-	private function setBorder (v:IBorder)
+	private function set_border (v:IBorder)
 	{
 		if (v != border)
 		{
@@ -324,7 +316,7 @@ class GraphicProperties implements IGraphicElement
 	}
 
 
-	private function setLayout (v)
+	private function set_layout (v)
 	{
 		if (v != layout)
 		{
@@ -341,7 +333,7 @@ class GraphicProperties implements IGraphicElement
 	}
 	
 	
-	private inline function setBorderRadius (v:Corners)
+	private inline function set_borderRadius (v:Corners)
 	{
 		if (v != borderRadius) {
 			borderRadius = v;
@@ -351,7 +343,7 @@ class GraphicProperties implements IGraphicElement
 	}
 	
 	
-	private inline function setPercentage (v:Float)
+	private inline function set_percentage (v:Float)
 	{
 		if (v != percentage) {
 			percentage = v;
@@ -365,8 +357,8 @@ class GraphicProperties implements IGraphicElement
 	
 	
 #if CSSParser
-	public function toString ()						{ return "GraphicProperties: l: "+layout+"; s: "+shape+"; f: "+fill+"; b: "+border; }
-	public function toCSS (prefix:String = "")		{ Assert.abstractMethod(); return ""; }
-	public function toCode (code:ICodeGenerator)	{ code.construct(this, [ layout, shape, fill, border, borderRadius ]); }
+	public function toString ()											return "GraphicProperties: l: "+layout+"; s: "+shape+"; f: "+fill+"; b: "+border;
+	public function toCSS (prefix:String = "")							Assert.abstractMethod(); return "";
+	public function toCode (code:prime.tools.generator.ICodeGenerator)	code.construct(this, [ layout, shape, fill, border, borderRadius ]);
 #end
 }

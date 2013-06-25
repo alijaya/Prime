@@ -45,7 +45,7 @@ package prime.gui.behaviours;
  * @author Ruben Weijers
  * @creation-date Jul 16, 2010
  */
-class RenderGraphicsBehaviour extends ValidatingBehaviour < IDrawable >, implements IGraphicsValidator
+class RenderGraphicsBehaviour extends ValidatingBehaviour < IDrawable > implements IGraphicsValidator
 {
 	public function new (target:IDrawable) { super(target); }
 	

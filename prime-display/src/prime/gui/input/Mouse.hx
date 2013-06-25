@@ -40,9 +40,9 @@ package prime.gui.input;
  */
 class Mouse //implements IInputDevice 
 {
-	public  var x		(getX, 		never)	: Float;
-	public  var y		(getY, 		never)	: Float;
-	public  var pos		(getPos, 	never) 	: Point;
+	public  var x		(get_x, 	never)	: Float;
+	public  var y		(get_y, 	never)	: Float;
+	public  var pos 	(get_pos, 	never) 	: Point;
 	
 	private var window	(default, 	null)	: Window;
 	public  var events	(default, 	null)	: MouseEvents;
@@ -56,7 +56,7 @@ class Mouse //implements IInputDevice
 	
 	public #if !noinline inline #end function show ()
 	{
-#if (flash9 || air)
+#if (flash9 || nme || air)
 		flash.ui.Mouse.show();
 #end
 	}
@@ -64,7 +64,7 @@ class Mouse //implements IInputDevice
 	
 	public #if !noinline inline #end function hide ()
 	{
-#if (flash9 || air)
+#if (flash9 || nme || air)
 		flash.ui.Mouse.hide();
 #end
 	}
@@ -75,17 +75,20 @@ class Mouse //implements IInputDevice
 	// GETTERS / SETTERS
 	//
 	
-	private inline function getX () {
-#if flash9	return window.target.mouseX; #end
+	private inline function get_x ()
+	{
+#if (flash9 || nme) return window.target.mouseX; #end
 	}
 	
 	
-	private inline function getY () {
-#if flash9	return window.target.mouseY; #end
+	private inline function get_y ()
+	{
+#if (flash9 || nme) return window.target.mouseY; #end
 	}
 
 
-	private inline function getPos () {
+	private inline function get_pos ()
+	{
 		return new Point(x,y);
 	}
 }

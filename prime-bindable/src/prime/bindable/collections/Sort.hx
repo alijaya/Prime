@@ -37,10 +37,11 @@ package prime.bindable.collections;
  * @author Ruben Weijers
  * @creation-date Jan 5, 2012
  */
-@:generic class Sort<DataType> extends ReadOnlyArrayList<DataType>
+//@:generic
+class Sort<DataType> extends ReadOnlyArrayList<DataType>
 {
-	public  var source 	(default, setSource) 	: IReadOnlyList<DataType>;
-	public  var sort 	(default, setSort) 		: DataType -> DataType -> Int;
+	public  var source 	(default, set_source) 	: IReadOnlyList<DataType>;
+	public  var sort 	(default, set_sort) 	: DataType -> DataType -> Int;
 
 
 	public function new (list:FastArray<DataType> = null, sort:DataType->DataType->Int = null)
@@ -59,7 +60,7 @@ package prime.bindable.collections;
 	}
 
 
-	private function setSort (v:DataType->DataType->Int)
+	private function set_sort (v:DataType->DataType->Int)
 	{
 		if (v != sort) {
 			sort = v;
@@ -70,7 +71,7 @@ package prime.bindable.collections;
 	}
 
 
-	public function setSource (v:IReadOnlyList<DataType>)
+	public function set_source (v:IReadOnlyList<DataType>)
 	{
 		if (v != source)
 		{

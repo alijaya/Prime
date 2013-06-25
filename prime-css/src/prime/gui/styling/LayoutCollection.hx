@@ -52,11 +52,11 @@ private typedef PValidator	= PercentIntRangeValidator;
  */
 class LayoutCollection extends StyleCollectionBase < LayoutStyle >
 {
-	public function new (elementStyle:UIElementStyle)			super( elementStyle, StyleFlags.LAYOUT )
-	override public function forwardIterator ()					return new LayoutCollectionForwardIterator( elementStyle, propertyTypeFlag)
-	override public function reversedIterator ()				return new LayoutCollectionReversedIterator( elementStyle, propertyTypeFlag)
+	public function new (elementStyle:UIElementStyle)			super( elementStyle, StyleFlags.LAYOUT );
+	override public function forwardIterator ()					return new LayoutCollectionForwardIterator( elementStyle, propertyTypeFlag);
+	override public function reversedIterator ()				return new LayoutCollectionReversedIterator( elementStyle, propertyTypeFlag);
 #if debug
-	override public function readProperties (props:Int = -1)	return Flags.read( (props == -1) ? filledProperties : props )
+	override public function readProperties (props:Int = -1)	return Flags.read( (props == -1) ? filledProperties : props );
 #end
 
 	
@@ -199,8 +199,8 @@ class LayoutCollection extends StyleCollectionBase < LayoutStyle >
 		var pHeightRange	= propsToSet.has( Flags.PERCENT_HEIGHT_CONSTRAINTS ) ? heightRange.as(PValidator) : null;
 		
 		if (propsToSet.has( Flags.RELATIVE ))			layout.relative				= notEmpty ? styleObj.relative						: null;
-		if (propsToSet.has( Flags.INCLUDE ))			layout.includeInLayout		= notEmpty ? styleObj.includeInLayout				: null;
-		if (propsToSet.has( Flags.MAINTAIN_ASPECT ))	layout.maintainAspectRatio	= notEmpty ? styleObj.maintainAspectRatio			: null;
+		if (propsToSet.has( Flags.INCLUDE ))			layout.includeInLayout		= notEmpty ? styleObj.includeInLayout				: false;
+		if (propsToSet.has( Flags.MAINTAIN_ASPECT ))	layout.maintainAspectRatio	= notEmpty ? styleObj.maintainAspectRatio			: false;
 		if (propsToSet.has( Flags.PADDING ))			layout.padding				= notEmpty ? styleObj.padding						: null;
 		if (propsToSet.has( Flags.MARGIN ))				layout.margin				= notEmpty ? styleObj.margin						: null;
 		

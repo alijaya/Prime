@@ -1,5 +1,3 @@
-
-
 /*
  * Copyright (c) 2010, The PrimeVC Project Contributors
  * All rights reserved.
@@ -29,6 +27,7 @@
  *  Ruben Weijers   <ruben @ rubenw.nl>
  */
 package prime.gui.components.skins;
+#if prime_media
  import prime.fsm.states.MediaStates;
  import prime.gui.components.AudioPlayer;
  import prime.gui.components.Button;
@@ -57,10 +56,9 @@ class ButtonAudioPlayerSkin extends Skin<AudioPlayer>
 
     override public function childrenCreated ()
     {
-        owner.styleClasses.add("buttonAudioPlayer");
+        #if prime_css owner.styleClasses.add("buttonAudioPlayer"); #end
         progress    = new UIGraphic("progress");
         playStopBtn = new Button();
-    //  playStopBtn.styleClasses.add("normalBtn");
         
         handleStreamState.on( owner.stream.state.change, this );
         updateProgressBar.on( owner.stream.currentTime.change, this);
@@ -74,7 +72,7 @@ class ButtonAudioPlayerSkin extends Skin<AudioPlayer>
 
     override public  function disposeChildren ()
     {
-        owner.styleClasses.remove("buttonAudioPlayer");
+        #if prime_css owner.styleClasses.remove("buttonAudioPlayer"); #end
         owner.stream.state.change.unbind( this );
         owner.stream.currentTime.change.unbind( this );
 
@@ -129,3 +127,4 @@ class ButtonAudioPlayerSkin extends Skin<AudioPlayer>
         progress.graphicData.percentage = (newV == 0 || total == 0) ? 0 : newV / total;
     }
 }
+#end

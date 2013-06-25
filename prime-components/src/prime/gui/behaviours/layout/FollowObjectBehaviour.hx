@@ -58,7 +58,7 @@ package prime.gui.behaviours.layout;
  */
 class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 {
-	public  var followedElement 		(default, setFollowedElement) : IUIElement;
+	public  var followedElement 		(default, set_followedElement) : IUIElement;
 	
 	private var followedLayoutBinding	: Wire<Dynamic>;
 	private var containerLayoutBinding	: Wire<Dynamic>;
@@ -78,9 +78,10 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 			createFollowBindings();
 		containerLayoutBinding	= checkChanges			.on( target.container.as(ILayoutable).layout.changed,	this );
 		targetLayoutBinding		= checkTargetChanges	.on( target.layout.changed,								this );
+		target.layout.includeInLayout = false;
 		
-		updateTarget	.on( target.displayEvents.addedToStage, this );
-		disableWires	.on( target.displayEvents.removedFromStage, this );
+		updateTarget.on( target.displayEvents.addedToStage, this );
+		disableWires.on( target.displayEvents.removedFromStage, this );
 		
 		if (target.window == null)			disableWires();
 		else if (followedElement != null)	updatePosition();
@@ -179,7 +180,7 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 		followedLayoutBinding.disable();
 		targetLayoutBinding.disable();
 		bounds.invalidatable = false;
-#if flash9
+#if (flash9 || nme)
 		newPos 				= followedElement.container.localToGlobal( newPos );
 		var windowBounds	= target.window.as(ILayoutable).layout.innerBounds;
 		
@@ -200,7 +201,7 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 	}
 
 
-	private function setFollowedElement (v:IUIElement)
+	private function set_followedElement (v:IUIElement)
 	{
 		if (v != followedElement) {
 			if (initialized) {

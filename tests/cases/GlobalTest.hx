@@ -177,10 +177,10 @@ class Tile extends DataButton < DataVOType >
 }
 
 
-class TileList extends ListView < DataVOType >, implements IDataDropTarget < DataVOType >
+class TileList extends ListView < DataVOType > implements IDataDropTarget < DataVOType >
 {
 	public var dragEvents	(default, null)		: DropTargetEvents;
-	public var list			(getList, never)	: IEditableList < DataVOType >;
+	public var list			(get_list, never)	: IEditableList < DataVOType >;
 	
 	
 	public function new (id:String = null, list:ArrayList<DataVOType> = null)
@@ -225,7 +225,7 @@ class TileList extends ListView < DataVOType >, implements IDataDropTarget < Dat
 	}
 	
 	
-	private inline function getList ()
+	private inline function get_list ()
 	{
 		return cast data;
 	}

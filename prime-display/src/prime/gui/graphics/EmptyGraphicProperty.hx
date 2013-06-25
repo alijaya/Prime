@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.IRectangle;
  import prime.gui.traits.IGraphicsOwner;
 
@@ -40,7 +37,7 @@ package prime.gui.graphics;
  * @author Ruben Weijers
  * @creation-date Mar 14, 2011
  */
-class EmptyGraphicProperty extends GraphicElement, implements IGraphicProperty
+class EmptyGraphicProperty extends GraphicElement implements IGraphicProperty
 {
 	public #if !noinline inline #end function begin (target:IGraphicsOwner, bounds:IRectangle)
 	{
@@ -55,7 +52,7 @@ class EmptyGraphicProperty extends GraphicElement, implements IGraphicProperty
 	
 	
 #if CSSParser
-	override public function toCSS (prefix:String = "")		{ return "none"; }
-	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [] ); }
+	override public function toCSS (prefix:String = "")							{ return "none"; }
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)	{ code.construct( this, [] ); }
 #end
 }

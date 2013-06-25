@@ -28,13 +28,11 @@
  */
 package prime.gui.display;
 
-typedef DisplayList = 
-	#if		flash9	prime.avm2.display.DisplayList;
-	#elseif	flash8	prime.avm1.display.DisplayList;
-	#elseif nodejs 	DisplayListImpl;
-	#elseif	js		prime.js.display.DisplayList;
-	#else			DisplayListImpl;
+#if (flash9 || nme)
 
+typedef DisplayList = prime.avm2.display.DisplayList;
+
+#else
 
  import prime.bindable.collections.ArrayList;
  import prime.gui.traits.IDisplayable;
@@ -48,13 +46,13 @@ typedef DisplayList =
  */
 class DisplayListImpl extends ArrayList <IDisplayable>
 {
-	public var window		(default, setWindow)		: Window;
-	public var mouseEnabled (default, setMouseEnabled)	: Bool;
-	public var tabEnabled	(default, setTabEnabled)	: Bool;
+	public var window		(default, set_window)		: Window;
+	public var mouseEnabled (default, set_mouseEnabled)	: Bool;
+	public var tabEnabled	(default, set_tabEnabled)	: Bool;
 	
-	private inline function setMouseEnabled (v)	{ return mouseEnabled = v; }
-	private inline function setTabEnabled (v)	{ return tabEnabled = v; }
-	private inline function setWindow (v)		{ return window = v; }
+	private inline function set_mouseEnabled (v)	{ return mouseEnabled = v; }
+	private inline function set_tabEnabled (v)	{ return tabEnabled = v; }
+	private inline function set_window (v)		{ return window = v; }
 }
 
 #end

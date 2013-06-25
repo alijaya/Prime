@@ -37,7 +37,7 @@ package prime.bindable.collections;
 class DataCursor<T> implements IDataCursor<T> 
 {
 	public var target	(default, null)		: T;
-	public var list		(default, setList)	: IEditableList<T>;
+	public var list		(default, set_list)	: IEditableList < T >;
 	public var depth	(default, null)		: Int;
 	
 	
@@ -56,7 +56,7 @@ class DataCursor<T> implements IDataCursor<T>
 	}
 	
 	
-	private inline function setList (v)
+	private inline function set_list (v)
 	{
 		if (v != list)
 		{

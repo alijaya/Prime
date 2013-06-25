@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.net;
+#if (flash9 || nme)
  import prime.avm2.events.NetStreamEvents;
  import prime.core.traits.IDisposable;
 
@@ -37,7 +38,7 @@ package prime.avm2.net;
  * @author Ruben Weijers
  * @creation-date Jan 07, 2011
  */
-class NetStream extends flash.net.NetStream //, implements prime.core.traits.IDisposable
+class NetStream extends flash.net.NetStream // implements prime.core.traits.IDisposable
 {
 	public var events (default, null)	: NetStreamEvents;
 	
@@ -57,3 +58,4 @@ class NetStream extends flash.net.NetStream //, implements prime.core.traits.IDi
 #if flash_11_2 dispose(); #end 
 	}
 }
+#end

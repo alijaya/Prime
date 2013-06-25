@@ -30,7 +30,7 @@ while getopts "s:tfd" OptionName
 	esac
 done
 
-if [ -z $StyleFolder ]; then echo "Usage: build-styles <path/to/style/directory>"; exit 1; fi;
+if [[ -z $StyleFolder ]]; then echo "Usage: build-styles <path/to/style/directory>"; exit 1; fi;
 
 #StyleFolder="$PRJROOT/$STYLE"
 StyleInputFile="$StyleFolder/Style.css"
@@ -54,7 +54,7 @@ if $Force || [[ ! -f "$Parser" ]]  ||  test "$MainFile" -nt "$Parser"  ||  test 
 		-main $MainClass \
 		-js "$Parser" \
 		$Debug \
-		${Debug:---no-traces --dead-code-elimination} || exit 1;
+		${Debug:---no-traces -dce full} || exit 1;
 	CompilerUpdated=true
 	cd -
 fi;

@@ -27,12 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
- import prime.bindable.collections.PriorityList;
  import prime.signals.Signal0;
- import prime.core.traits.IInvalidateListener;
- import prime.core.traits.IDisposable;
  import prime.gui.styling.StyleBlock;
- import prime.gui.traits.IStylable;
  import prime.utils.FastArray;
 
 
@@ -40,10 +36,10 @@ package prime.gui.styling;
  * @author Ruben Weijers
  * @creation-date Oct 22, 2010
  */
-interface IUIElementStyle implements IInvalidateListener, implements IDisposable
+interface IUIElementStyle extends prime.core.traits.IInvalidateListener extends prime.core.traits.IDisposable
 {
-	public var target					(default, null) : IStylable;
-	public var styles					(default, null) : PriorityList < StyleBlock >;
+	public var target					(default, null) : prime.gui.traits.IStylable;
+	public var styles					(default, null) : prime.bindable.collections.PriorityList < StyleBlock >;
 	
 	/**
 	 * Bitflag-collection with all properties that are set in the styles of 

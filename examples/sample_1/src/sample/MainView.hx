@@ -7,7 +7,7 @@ package sample;
  * Defines and groups together and couples 
  * mediators and application windows.
  */
-class MainView extends prime.mvc.MVCActor<MainFacade>, implements prime.mvc.IMVCCoreActor
+class MainView extends prime.mvc.MVCActor<MainFacade> implements prime.mvc.IMVCCoreActor
 {
     private var window:MainWindow;
     public var buttonMediator(default, null):ButtonMediator;

@@ -1,6 +1,18 @@
 = TODO =
 Ruben Weijers
+Danny Wilson
 :toc:
+
+== NME compatibility (or OpenFL?)
+
+* Port JS event handling code from Niel:
++
+https://github.com/touch/PrimeVC/commits/jeash
+
+* Port JS stuff where applicable from Stan:
++
+https://github.com/touch/PrimeVC/commits/ipad-viewer
+
 
 == CSS-Parser
 * benchmarken van compilen van grote stylesheets

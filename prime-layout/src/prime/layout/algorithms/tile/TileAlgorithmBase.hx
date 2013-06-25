@@ -27,14 +27,11 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout.algorithms.tile;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.space.Direction;
  import prime.core.geom.space.Horizontal;
  import prime.core.geom.space.Vertical;
- import prime.layout.algorithms.float.HorizontalFloatAlgorithm;
- import prime.layout.algorithms.float.VerticalFloatAlgorithm;
+ import prime.layout.algorithms.floating.HorizontalFloatAlgorithm;
+ import prime.layout.algorithms.floating.VerticalFloatAlgorithm;
  import prime.layout.algorithms.DynamicLayoutAlgorithm;
  import prime.layout.LayoutFlags;
  
@@ -45,13 +42,13 @@ package prime.layout.algorithms.tile;
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-class TileAlgorithmBase extends DynamicLayoutAlgorithm, implements ITileAlgorithm
+class TileAlgorithmBase extends DynamicLayoutAlgorithm implements ITileAlgorithm
 {
 	/**
 	 * Defines in which direction the layout will start calculating.
 	 * @default		Direction.horizontal
 	 */
-	public var startDirection			(default, setStartDirection)		: Direction;
+	public var startDirection			(default, set_startDirection)	: Direction;
 	
 	
 	public function new( ?startDir:Direction, ?horDirection:Horizontal, ?verDirection:Vertical ) 
@@ -72,7 +69,7 @@ class TileAlgorithmBase extends DynamicLayoutAlgorithm, implements ITileAlgorith
 	//
 	
 	
-	private function setStartDirection (v) {
+	private function set_startDirection (v) {
 		if (v != startDirection) {
 			startDirection = v;
 			invalidate( false );
@@ -82,7 +79,7 @@ class TileAlgorithmBase extends DynamicLayoutAlgorithm, implements ITileAlgorith
 	
 	
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ startDirection, horizontalDirection, verticalDirection ] );
 	}

@@ -28,7 +28,7 @@
  */
 package prime.gui.styling;
 
-#if flash9
+#if (flash9 || nme)
  import prime.bindable.collections.FastDoubleCell;
  import prime.bindable.collections.ListChange;
  import prime.bindable.collections.PriorityList;
@@ -36,10 +36,6 @@ package prime.gui.styling;
  import prime.signals.Wire;
  import prime.gui.traits.IDisplayable;
  import prime.gui.traits.IStylable;
- import prime.utils.FastArray;
-#if debug
- import prime.utils.ID;
-#end
   using prime.gui.styling.StyleFlags;
   using prime.utils.Bind;
   using prime.utils.BitUtil;
@@ -72,7 +68,7 @@ private typedef Flags = StyleFlags;
  * @author Ruben Weijers
  * @creation-date Sep 22, 2010
  */
-class UIElementStyle implements prime.core.traits.IInvalidateListener, implements prime.core.traits.IDisposable
+class UIElementStyle implements prime.core.traits.IInvalidateListener implements prime.core.traits.IDisposable
 {
 #if debug
 	public var _oid						(default, null)			: Int;
@@ -123,15 +119,15 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener, implement
 	 */
 	private var stylesAreSearched		: Bool;
 	
-	public var graphics					(getGraphics, null)		: GraphicsCollection;
-	public var effects					(getEffects, null)		: EffectsCollection;
-	public var boxFilters				(getBoxFilters, null)	: FiltersCollection;
-	public var font						(getFont, null)			: TextStyleCollection;
-	public var layout					(getLayout, null)		: LayoutCollection;
+	public var graphics					(get_graphics, null)	: GraphicsCollection;
+	public var effects					(get_effects, null)		: EffectsCollection;
+	public var boxFilters				(get_boxFilters, null)	: FiltersCollection;
+	public var font						(get_font, null)		: TextStyleCollection;
+	public var layout					(get_layout, null)		: LayoutCollection;
 	/**
 	 * Proxy object to loop through all available states in this object.
 	 */
-	public var states					(getStates, null)		: StatesCollection;
+	public var states					(get_states, null)		: StatesCollection;
 	
 	/**
 	 * Reference to the style of whom the current-style got its properties
@@ -163,13 +159,10 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener, implement
 		stylesAreSearched	= false;
 		filledProperties	= 0;
 		
-		styleNamesBinding 	= updateStyleNameStyles	.on( target.styleClasses.change, this );
-		idChangeBinding		= updateIdStyle			.on( target.id.change, this );
-		addedBinding		= enableStyleListeners	.on( owner.displayEvents.addedToStage, this );
-		removedBinding		= disableStyleListeners	.on( owner.displayEvents.removedFromStage, this );
-		
-		styleNamesBinding.disable();
-		idChangeBinding.disable();
+		styleNamesBinding = target.styleClasses .change    .bindDisabled( this, updateStyleNameStyles );
+		idChangeBinding   = target.id           .change .observeDisabled( this, updateIdStyle         );
+		addedBinding      = enableStyleListeners	.on( owner.displayEvents.addedToStage,     this );
+		removedBinding    = disableStyleListeners	.on( owner.displayEvents.removedFromStage, this );
 		
 		init();
 	}
@@ -293,8 +286,8 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener, implement
 		if (removedBinding != null)		removedBinding.enable();
 		if (addedBinding != null)		addedBinding.disable();
 		
-		styleNamesBinding.setArgsHandler(updateStyleNameStyles);
-		idChangeBinding.setVoidHandler(cast updateIdStyle);
+		styleNamesBinding.handler = updateStyleNameStyles;
+		idChangeBinding.setVoidHandler(updateIdStyle);
 
 		removedBinding   .enable();
 		addedBinding     .disable();
@@ -370,19 +363,19 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener, implement
 	{
 		//update styles.. start with the lowest priorities
 		stylesAreSearched	= false;
-		var changes			= updateElementStyle() | updateStyleNameStyles(reset) | updateIdStyle() | updateStatesStyle();
+		var changes			= updateElementStyle() | updateStyleNameStyles(reset) | updateIdStyle() | updateStatesStyle() | Flags.CHILDREN;
 		stylesAreSearched 	= true;
 		
 		return broadcastChanges(changes);
 	}
 	
 	
-	private inline function getBoxFilters ()	return boxFilters.isNull()	? boxFilters	= new FiltersCollection( this, FilterCollectionType.box ) : boxFilters
-	private inline function getEffects ()		return effects.isNull()		? effects		= new EffectsCollection( this ) : effects
-	private inline function getFont ()			return font.isNull()		? font			= new TextStyleCollection( this ) : font
-	private inline function getGraphics ()		return graphics.isNull()	? graphics		= new GraphicsCollection( this ) : graphics
-	private inline function getLayout ()		return layout.isNull()		? layout		= new LayoutCollection( this ) : layout
-	private inline function getStates ()		return states.isNull()		? states		= new StatesCollection( this ) : states
+	private inline function get_boxFilters ()	{ return (boxFilters == null)	? boxFilters	= new FiltersCollection( this, FilterCollectionType.box ) : boxFilters; }
+	private inline function get_effects ()		{ return (effects == null)		? effects		= new EffectsCollection( this ) : effects; }
+	private inline function get_font ()			{ return (font == null)			? font			= new TextStyleCollection( this ) : font; }
+	private inline function get_graphics ()		{ return (graphics == null)		? graphics		= new GraphicsCollection( this ) : graphics; }
+	private inline function get_layout ()		{ return (layout == null)		? layout		= new LayoutCollection( this ) : layout; }
+	private inline function get_states ()		{ return (states == null)		? states		= new StatesCollection( this ) : states; }
 	
 	
 	/**
@@ -412,6 +405,7 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener, implement
 		//	states.change.send( statesChangedProps );
 		}
 		
+	//	trace(target+".broadcastChanges "+Flags.read(changedProperties));
 		if (changedProperties.has( Flags.STATES ))			states		.apply();
 		if (changedProperties.has( Flags.GRAPHICS ))		graphics	.apply();
 		if (changedProperties.has( Flags.LAYOUT ))			layout		.apply();
@@ -422,8 +416,6 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener, implement
 		Assert.isNotNull(childrenChanged);
 		if (changedProperties.has( Flags.CHILDREN ))
 			childrenChanged.send();
-		
-	//	trace(target+".broadcastChanges "+Flags.readProperties(changedProperties));
 		
 		return changedProperties;
 	}
@@ -529,8 +521,8 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener, implement
 	//
 	
 
-	private function invalidateStyleNames ()	invalidated = invalidated.set(Flags.STYLE_NAME_CHILDREN)
-	private function invalidateIdStyle ()		invalidated = invalidated.set(Flags.ID_CHILDREN)
+	private function invalidateStyleNames ()	invalidated = invalidated.set(Flags.STYLE_NAME_CHILDREN);
+	private function invalidateIdStyle ()		invalidated = invalidated.set(Flags.ID_CHILDREN);
 	
 	
 	/**
@@ -554,7 +546,7 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener, implement
 	
 	
 	private inline function updateIdStyle () : Int
-		return broadcastChanges( replaceStylesOfType( StyleBlockType.id, parentStyle.getChildStyles( this, target.id.value, StyleBlockType.id ) ) )
+		return broadcastChanges( replaceStylesOfType( StyleBlockType.id, parentStyle.getChildStyles( this, target.id.value, StyleBlockType.id ) ) );
 	
 	
 	private function updateStyleNameStyles (change:ListChange<String>) : Int

@@ -28,12 +28,12 @@
  */
 package prime.gui.graphics.borders;
  import prime.core.geom.IRectangle;
- import prime.gui.graphics.GraphicElement;
  import prime.gui.graphics.GraphicFlags;
- import prime.gui.graphics.IGraphicProperty;
  import prime.gui.traits.IGraphicsOwner;
+ import prime.gui.traits.IScaleable;
   using prime.utils.IfUtil;
   using prime.utils.NumberUtil;
+  using prime.utils.TypeUtil;
 
 
 /**
@@ -42,31 +42,31 @@ package prime.gui.graphics.borders;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements IBorder
+class BorderBase <FillType:prime.gui.graphics.IGraphicProperty> extends prime.gui.graphics.GraphicElement implements IBorder
 {
-	public var weight		(default, setWeight)		: Float;
-	public var fill			(default, setFill)			: FillType;
+	public var weight		(default, set_weight)		: Float;
+	public var fill			(default, set_fill)			: FillType;
 	/**
 	 * The capsstyle that is used at the end of lines
 	 */
-	public var caps			(default, setCaps)			: CapsStyle;
+	public var caps			(default, set_caps)			: CapsStyle;
 	/**
 	 * The jointstyle that is used at angles
 	 */
-	public var joint		(default, setJoint)			: JointStyle;
-	public var pixelHinting	(default, setPixelHinting)	: Bool;
+	public var joint		(default, set_joint)		: JointStyle;
+	public var pixelHinting	(default, set_pixelHinting)	: Bool;
 	/**
 	 * Should this border be drawn on the inside of the parent shape (true) or
 	 * on the outside of the parentshape.
 	 */
-	public var innerBorder	(default, setInnerBorder)	: Bool;
+	public var innerBorder	(default, set_innerBorder)	: Bool;
 	
 	
 	
 	public function new ( fill:FillType, weight:Float = 1.0, innerBorder:Bool = false, caps:CapsStyle = null, joint:JointStyle = null, pixelHinting:Bool = false )
 	{
 		super();
-#if flash9
+#if (flash9 || nme)
 		Assert.isNotNull(fill);
 #end
 		this.fill			= fill;
@@ -87,11 +87,11 @@ class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements 
 	
 	public function begin (target:IGraphicsOwner, bounds:IRectangle)
 	{
-#if flash9
+#if (flash9 || nme)
 		if (!innerBorder && bounds.notNull())
 		{
-			var borderW		= (weight * target.scaleX).roundFloat();
-			var borderH		= (weight * target.scaleY).roundFloat();
+			var borderW		= (weight * target.as(IScaleable).scaleX).roundFloat();
+			var borderH		= (weight * target.as(IScaleable).scaleY).roundFloat();
 			
 			bounds.move(	bounds.left - borderW,			bounds.top - borderH );
 			bounds.resize(	bounds.width + (borderW * 2),	bounds.height + (borderH * 2) );
@@ -102,12 +102,12 @@ class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements 
 	
 	public function end (target:IGraphicsOwner, bounds:IRectangle)
 	{
-#if flash9
+#if (flash9 || nme)
 		target.graphics.lineStyle( 0, 0 , 0 );
 		if (!innerBorder && bounds.notNull())
 		{
-			var borderW		= (weight * target.scaleX).roundFloat();
-			var borderH		= (weight * target.scaleY).roundFloat();
+			var borderW		= (weight * target.as(IScaleable).scaleX).roundFloat();
+			var borderH		= (weight * target.as(IScaleable).scaleY).roundFloat();
 			
 			bounds.move(	bounds.left + borderW,			bounds.top + borderH );
 			bounds.resize(	bounds.width - (borderW * 2),	bounds.height - (borderH * 2) );
@@ -123,7 +123,7 @@ class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements 
 	//
 	
 	
-	private inline function setWeight (v:Float)
+	private inline function set_weight (v:Float)
 	{
 		if (v != weight) {
 			weight = v;
@@ -133,7 +133,7 @@ class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements 
 	}
 	
 	
-	private inline function setFill (v:FillType)
+	private inline function set_fill (v:FillType)
 	{
 		if (v != fill) {
 			if (fill != null)
@@ -149,7 +149,7 @@ class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements 
 	}
 
 
-	private inline function setCaps (v:CapsStyle)
+	private inline function set_caps (v:CapsStyle)
 	{
 		if (v != caps) {
 			caps = v;
@@ -159,7 +159,7 @@ class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements 
 	}
 
 
-	private inline function setJoint (v:JointStyle)
+	private inline function set_joint (v:JointStyle)
 	{
 		if (v != joint) {
 			joint = v;
@@ -169,7 +169,7 @@ class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements 
 	}
 
 
-	private inline function setPixelHinting (v:Bool)
+	private inline function set_pixelHinting (v:Bool)
 	{
 		if (v != pixelHinting) {
 			pixelHinting = v;
@@ -179,7 +179,7 @@ class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements 
 	}
 
 
-	private inline function setInnerBorder (v:Bool)
+	private inline function set_innerBorder (v:Bool)
 	{
 		if (v != innerBorder) {
 			innerBorder = v;

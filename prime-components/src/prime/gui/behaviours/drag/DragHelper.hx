@@ -31,8 +31,6 @@
 package prime.gui.behaviours.drag;
  import haxe.Timer;
  import prime.signals.Wire;
- import prime.core.traits.IDisablable;
- import prime.core.traits.IDisposable;
  import prime.gui.display.ISprite;
  import prime.gui.events.KeyboardEvents;
  import prime.gui.events.MouseEvents;
@@ -59,7 +57,6 @@ package prime.gui.behaviours.drag;
  * @creation-date Jul 29, 2010
  */
 #if !dragEnabled
-
 class DragHelper
 {
 	public function new (target:ISprite, startHandler:MouseState -> Void, stopHandler:MouseState -> Void, cancelHandler:MouseState -> Void)
@@ -67,10 +64,8 @@ class DragHelper
 		Assert.abstractMethod("Dragging not enabled. Add -D dragEnabled");
 	}
 }
-
 #else
-
-class DragHelper implements IDisposable, implements IDisablable
+class DragHelper implements prime.core.traits.IDisposable implements prime.core.traits.IDisablable
 {
 	private var target				: ISprite;
 	private var startHandler		: MouseState -> Void;

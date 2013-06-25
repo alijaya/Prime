@@ -28,9 +28,6 @@
  */
 package prime.tools.valueobjects;
  import prime.bindable.collections.IEditableList;
- import prime.bindable.collections.ListChange;
- import prime.core.traits.IEditableValueObject;
- import prime.core.traits.IValueObject;
   using prime.bindable.collections.ListChange;
   using prime.utils.TypeUtil;
   using Reflect;
@@ -163,9 +160,9 @@ class ChangesUtil
 	
 	
 	
-	public static #if !noinline inline #end function findChangedVOOfClass (change:ObjectChangeSet, classType:Class<Dynamic>) : IValueObject
+	public static #if !noinline inline #end function findChangedVOOfClass (change:ObjectChangeSet, classType:Class<Dynamic>)
 	{
-		var vo:IValueObject = null;
+		var vo:prime.core.traits.IValueObject = null;
 		if (change.vo.is(classType))
 		{
 			vo = change.vo;

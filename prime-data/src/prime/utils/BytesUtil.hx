@@ -46,6 +46,7 @@ class BytesUtil
 	 */
 	public static function toHex (data:BytesData) : String
 	{
+		#if flash9
 		data.position = 0;
 		
 		var l = Std.int(data.length);
@@ -68,5 +69,10 @@ class BytesUtil
 		
 		trace(s.length+" / "+rows+"; "+l);
 		return "\n\t"+s.join("\n\t");
+
+		#else
+		throw "not implemented for this platform";
+		return "";
+		#end
 	}
 }

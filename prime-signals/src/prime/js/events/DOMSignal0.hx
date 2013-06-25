@@ -1,16 +1,15 @@
 package prime.js.events;
-
+#if js
 import prime.signals.Wire;
 import prime.signals.Signal0;
 import prime.signals.IWireWatcher;
-import prime.core.ListNode;
-import js.Dom;
+import js.html.Event;
 
 /**
  * @author	Stanislav Sopov
  * @since 	April 6, 2011
  */
-class DOMSignal0 extends Signal0, implements IWireWatcher<Void->Void>
+class DOMSignal0 extends Signal0 implements IWireWatcher<Void->Void>
 {
 	var eventDispatcher:Dynamic;
 	var event:String;
@@ -26,7 +25,7 @@ class DOMSignal0 extends Signal0, implements IWireWatcher<Void->Void>
 	{	
 		Assert.isNotNull(n);
 		
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 		{
 			untyped eventDispatcher.addEventListener(event, dispatch, false);
 		}
@@ -45,3 +44,4 @@ class DOMSignal0 extends Signal0, implements IWireWatcher<Void->Void>
 		Assert.abstractMethod();
 	}
 }
+#end

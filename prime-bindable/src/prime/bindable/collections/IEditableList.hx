@@ -32,8 +32,9 @@ package prime.bindable.collections;
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-interface IEditableList<T> implements IReadOnlyList<T>
-	#if prime_data, implements prime.core.traits.IEditEnabledValueObject #end
+//#if (flash9 || cpp) @:generic #end
+interface IEditableList<T> extends IReadOnlyList<T>
+	#if prime_data extends prime.core.traits.IEditEnabledValueObject #end
 {
 	//
 	// LIST MANIPULATION METHODS

@@ -27,15 +27,10 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.types;
-#if CSSParser
- import prime.tools.generator.ValueType;
-#end
- import prime.types.Factory;
-
 
 enum Reference {
 	func			(name:String, cssValue:String);						//function reference
-	objInstance		(obj:Factory<Dynamic>);								//reference to a class-object that will be instantiated
+	objInstance		(obj:prime.types.Factory<Dynamic>);					//reference to a class-object that will be instantiated
 	classInstance	(name:String, p:Array<Dynamic>, cssValue:String);	//reference to a classname that will be instantiated
 	className		(name:String, cssValue:String);						//reference to a class in string form
 }
@@ -54,14 +49,13 @@ class ReferenceUtil
 		}
 	}
 
-	public static inline function toCode (ref:Reference, code:prime.tools.generator.ICodeGenerator) : ValueType
+	public static inline function toCode (ref:Reference, code:prime.tools.generator.ICodeGenerator) : prime.tools.generator.ValueType
 	{
 		return switch (ref) {
 			case className ( name, css ):			tClass(name);
 			case objInstance ( factory ):			code.getObject(factory); //code.construct( factory ); return code.varName(factory); //code.createClassConstructor( factory.classRef, factory.params );
 			case classInstance ( name, p, css ):	code.createClassNameConstructor( name, p );
 			case func ( name, css ):				tFunction(name);
-			default:								null;
 		}
 	}
 }

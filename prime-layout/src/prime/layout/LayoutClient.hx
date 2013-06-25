@@ -53,8 +53,8 @@ private typedef Flags = LayoutFlags;
  * @author			Ruben Weijers
  */
 class LayoutClient extends prime.core.traits.Invalidatable
-			,	implements prime.layout.ILayoutClient
-#if debug	,	implements prime.core.traits.IUIdentifiable #end
+				implements prime.layout.ILayoutClient
+#if debug		implements prime.core.traits.IUIdentifiable #end
 {
 	private static var EMPTY_BOX 	 = new Box(0,0,0,0);
 
@@ -63,7 +63,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	 * Flag indicating if the object should broadcast an invalidate call or do
 	 * nothing with it.
 	 */
-	public var invalidatable		(default, setInvalidatable)			: Bool;
+	public var invalidatable		(default, set_invalidatable)		: Bool;
 	
 	/**
 	 * Bitflag with all the changes that are done to the layout until it gets
@@ -71,9 +71,9 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	 */
 	public var changes 				(default, null)						: Int;
 //	public var filledProperties		(default, null)						: Int;
-	public var includeInLayout		(default, setIncludeInLayout)		: Bool;
+	public var includeInLayout		(default, set_includeInLayout)		: Bool;
 	
-	public var parent				(default, setParent)				: ILayoutContainer;
+	public var parent				(default, set_parent)				: ILayoutContainer;
 	public var changed				(default, null)						: Signal1<Int>;
 	
 	
@@ -91,12 +91,12 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	/**
 	 * rules for sizing / positioning the layout with relation to the parent
 	 */
-	public var relative				(default, setRelative)				: RelativeLayout;
+	public var relative				(default, set_relative)				: RelativeLayout;
 	
 	/**
 	 * @default	false
 	 */
-	public var maintainAspectRatio	(default, setMaintainAspectRatio)	: Bool;
+	public var maintainAspectRatio	(default, set_maintainAspectRatio)	: Bool;
 	public var aspectRatio			(default, null)						: Float;
 	
 	
@@ -120,22 +120,22 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	// POSITION PROPERTIES
 	//
 	
-	public var x					(default, setX)						: Int;
-	public var y					(default, setY)						: Int;
+	public var x					(default, set_x)					: Int;
+	public var y					(default, set_y)					: Int;
 	
-	public var width				(getWidth, setWidth)				: Int;
-	public var height				(getHeight, setHeight)				: Int;
+	public var width				(get_width, set_width)				: Int;
+	public var height				(get_height, set_height)			: Int;
 		private var _width			: Int;
 		private var _height			: Int;
 	
-	public var widthValidator		(default, setWidthValidator)		: IntRangeValidator;
-	public var heightValidator		(default, setHeightValidator)		: IntRangeValidator;
+	public var widthValidator		(default, set_widthValidator)		: IntRangeValidator;
+	public var heightValidator		(default, set_heightValidator)		: IntRangeValidator;
 	
-	public var percentWidth			(default, setPercentWidth)			: Float;
-	public var percentHeight		(default, setPercentHeight)			: Float;
+	public var percentWidth			(default, set_percentWidth)			: Float;
+	public var percentHeight		(default, set_percentHeight)		: Float;
 	
-	public var padding				(default, setPadding)				: Box;
-	public var margin				(default, setMargin)				: Box;
+	public var padding				(default, set_padding)				: Box;
+	public var margin				(default, set_margin)				: Box;
 	
 #if debug
 	public var _oid					(default, null)						: Int;
@@ -156,7 +156,9 @@ class LayoutClient extends prime.core.traits.Invalidatable
 #end
 		maintainAspectRatio = false;
 		invalidatable		= true;
-		
+#if !flash
+		(untyped this).x = (untyped this).y = 0;
+#end
 		changed		= new Signal1<Int>();
 		innerBounds	= new IntRectangle( x.roundFloat() , y.roundFloat(), newWidth.getBiggest(0).roundFloat(), newHeight.getBiggest(0).roundFloat() );
 		outerBounds	= innerBounds.clone().as(IntRectangle);
@@ -357,7 +359,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	// SIZE METHODS
 	//
 
-	public  inline function setMaxSize (maxWidth:Int, maxHeight:Int = Number.INT_NOT_SET)
+	public  inline function set_maxSize (maxWidth:Int, maxHeight:Int = Number.INT_NOT_SET)
 	{
 		if (maxWidth.isSet()) {
 			if (widthValidator  == null)	widthValidator = new IntRangeValidator(Number.INT_NOT_SET, maxWidth);
@@ -370,7 +372,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 
 
-	public  inline function setMinSize (minWidth:Int, minHeight:Int = Number.INT_NOT_SET)
+	public  inline function set_minSize (minWidth:Int, minHeight:Int = Number.INT_NOT_SET)
 	{
 		if (minWidth.isSet()) {
 			if (widthValidator  == null)	widthValidator = new IntRangeValidator(minWidth);
@@ -384,8 +386,8 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 
 	
-	private inline function getWidth ()		{ return _width; }
-	private inline function getHeight ()	{ return _height; }
+	private inline function get_width ()	{ return _width; }
+	private inline function get_height ()	{ return _height; }
 	
 	
 	/**
@@ -397,7 +399,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	 *		4. invalidate object
 	 *		5. apply aspectratio to height
 	 */
-	private  function setWidth (v:Int)
+	private  function set_width (v:Int)
 	{
 		if (_width != v)
 		{
@@ -422,7 +424,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	 * Setter for height value.
 	 * @see setWidth
 	 */
-	private  function setHeight (v:Int)
+	private  function set_height (v:Int)
 	{
 		if (_height != v)
 		{
@@ -844,13 +846,13 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	public #if !noinline inline #end function getHorPadding () : Int	{ return /*padding == null ? 0 : */padding.left	+ padding.right; }
+	public #if !noinline inline #end function getHorPadding () : Int{ return /*padding == null ? 0 : */padding.left	+ padding.right; }
 	public #if !noinline inline #end function getVerPadding() : Int	{ return /*padding == null ? 0 : */padding.top	+ padding.bottom; }
 	public #if !noinline inline #end function getHorMargin () : Int	{ return /*margin  == null ? 0 : */margin.left	+ margin.right; }
-	public #if !noinline inline #end function getVerMargin() : Int		{ return /*margin  == null ? 0 : */margin.top	+ margin.bottom; }
+	public #if !noinline inline #end function getVerMargin() : Int	{ return /*margin  == null ? 0 : */margin.top	+ margin.bottom; }
 	
 	public #if !noinline inline #end function hasMaxWidth () : Bool	{ return widthValidator  != null && widthValidator.max.isSet(); }
-	public #if !noinline inline #end function hasMaxHeight () : Bool	{ return heightValidator != null && heightValidator.max.isSet(); }
+	public #if !noinline inline #end function hasMaxHeight () : Bool{ return heightValidator != null && heightValidator.max.isSet(); }
 	
 	
 	
@@ -859,7 +861,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	// POSITION SETTERS
 	//
 	
-	private function setX (v:Int) : Int
+	private function set_x (v:Int) : Int
 	{
 		if (x != v)
 		{
@@ -873,7 +875,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	private function setY (v:Int) : Int
+	private function set_y (v:Int) : Int
 	{
 		if (y != v)
 		{
@@ -887,7 +889,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	private inline function setPercentWidth (v:Float)
+	private inline function set_percentWidth (v:Float)
 	{
 		if (v.notEqualTo( percentWidth ))	//notEqualTo will also compare NaN.. @see NumberUtil
 		{
@@ -898,7 +900,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	private inline function setPercentHeight (v:Float)
+	private inline function set_percentHeight (v:Float)
 	{
 		if (v.notEqualTo( percentHeight ))	//notEqualTo will also compare NaN
 		{
@@ -909,7 +911,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	private function setPadding (v:Box)
+	private function set_padding (v:Box)
 	{
 		if (v == null)
 			v = EMPTY_BOX;
@@ -925,7 +927,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	private function setMargin (v:Box)
+	private function set_margin (v:Box)
 	{
 		if (v == null)
 			v = EMPTY_BOX;
@@ -942,13 +944,13 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	private inline function setParent (v)
+	private inline function set_parent (v)
 	{
 		return parent = v;
 	}
 	
 	
-	private  function setIncludeInLayout (v:Bool)
+	private  function set_includeInLayout (v:Bool)
 	{
 		if (includeInLayout != v)
 		{
@@ -960,7 +962,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	private  function setMaintainAspectRatio (v:Bool) : Bool
+	private  function set_maintainAspectRatio (v:Bool) : Bool
 	{
 		if (v != maintainAspectRatio)
 		{
@@ -972,7 +974,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	private  function setRelative (v:RelativeLayout)
+	private  function set_relative (v:RelativeLayout)
 	{
 		if (relative != v)
 		{
@@ -986,7 +988,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	private  function setWidthValidator (v:IntRangeValidator)
+	private  function set_widthValidator (v:IntRangeValidator)
 	{
 		if (widthValidator != v)
 		{
@@ -1000,7 +1002,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	}
 	
 	
-	private  function setHeightValidator (v:IntRangeValidator)
+	private  function set_heightValidator (v:IntRangeValidator)
 	{
 		if (heightValidator != v)
 		{
@@ -1020,7 +1022,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	private var oldChanges : Int;
 
 
-	private  function setInvalidatable (v:Bool)
+	private  function set_invalidatable (v:Bool)
 	{
 		if (v != invalidatable)
 		{

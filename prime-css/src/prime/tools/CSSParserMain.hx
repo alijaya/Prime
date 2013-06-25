@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.tools;
+#if !flash9
  import prime.gui.styling.StyleBlock;
  import prime.gui.styling.StyleFlags;
  import prime.tools.generator.ICodeFormattable;
@@ -45,8 +46,8 @@ package prime.tools;
 class CSSParserMain
 {
 	public static #if !noinline inline #end function print(v:String)
-		#if js 	untyped console.log(v)
-		#else	neko.Lib.print(v+"\n") #end
+		#if js 	untyped console.log(v);
+		#else	neko.Lib.print(v+"\n"); #end
 
 	/**
 	 * This script needs one parameter to run: the location of the skin folder
@@ -92,7 +93,7 @@ class CSSParserMain
 		generator	= new CodeGenerator();
 		generator.instanceIgnoreList.set( styles._oid, styles );
 		
-		var tplName = primevcDir + "prime/tools/StyleSheet.tpl.hx";
+		var tplName = primevcDir + "prime/tools/StyleSheet.hx.tpl";
 		if (#if nodejs !js.Node.fs.existsSync(tplName) #else !sys.FileSystem.exists( tplName ) #end)
 			throw "Template does not exist! "+tplName;
 		
@@ -173,7 +174,7 @@ class CSSParserMain
 	}
 	
 	
-	private inline function beginTimer ()	timer.start()
+	private inline function beginTimer()	timer.start();
 	private inline function stopTimer (name:String)
 	{
 		timer.stop();
@@ -182,3 +183,4 @@ class CSSParserMain
 	//	print(Date.now() +" - "+name);
 	}
 }
+#end

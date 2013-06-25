@@ -27,23 +27,17 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.graphics.fills;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.core.geom.IRectangle;
  import prime.core.geom.Matrix2D;
- import prime.gui.graphics.GraphicElement;
  import prime.gui.graphics.GraphicFlags;
- import prime.gui.graphics.IGraphicProperty;
  import prime.gui.traits.IGraphicsOwner;
- import prime.utils.FastArray;
   using prime.utils.Color;
   using prime.utils.FastArray;
   using prime.utils.RectangleUtil;
   using prime.utils.Formulas;
   using prime.utils.TypeUtil;
 
-#if flash9
+#if (flash9 || nme)
 typedef FlashGradientType = flash.display.GradientType;
 #end
 
@@ -54,18 +48,18 @@ typedef FlashGradientType = flash.display.GradientType;
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-class GradientFill extends GraphicElement, implements IGraphicProperty 
+class GradientFill extends prime.gui.graphics.GraphicElement implements prime.gui.graphics.IGraphicProperty 
 {
-	public var gradientStops	(default, null)			: FastArray <GradientStop>;
-	public var type				(default, setType)		: GradientType;
-	public var spread			(default, setSpread)	: SpreadMethod;
-	public var focalPointRatio	(default, setFocalP)	: Float;
-	public var isFinished		(default, null)			: Bool;
+	public var gradientStops	(default, null)					: FastArray <GradientStop>;
+	public var type				(default, set_type)				: GradientType;
+	public var spread			(default, set_spread)			: SpreadMethod;
+	public var focalPointRatio	(default, set_focalPointRatio)	: Float;
+	public var isFinished		(default, null)					: Bool;
 	
 	/**
 	 * gradient rotation in degrees
 	 */
-	public var rotation			(default, setRotation)	: Int;
+	public var rotation			(default, set_rotation)	: Int;
 	
 	private var lastBounds		: IRectangle;
 	private var lastMatrix		: Matrix2D;
@@ -101,7 +95,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	// SETTERS
 	//
 	
-	private inline function setRotation ( v:Int )
+	private inline function set_rotation ( v:Int )
 	{
 		if (v != rotation) {
 			lastMatrix	= null;
@@ -112,7 +106,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	}
 	
 	
-	private inline function setType (v:GradientType)
+	private inline function set_type (v:GradientType)
 	{
 		if (v != type) {
 			type = v;
@@ -122,7 +116,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	}
 
 
-	private inline function setSpread (v:SpreadMethod)
+	private inline function set_spread (v:SpreadMethod)
 	{
 		if (v != spread) {
 			spread = v;
@@ -132,7 +126,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	}
 
 
-	private inline function setFocalP (v:Float)
+	private inline function set_focalPointRatio (v:Float)
 	{
 		if (v != focalPointRatio) {
 			focalPointRatio = v;
@@ -152,7 +146,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	{
 		Assert.that( gradientStops.length >= 2, "There should be at least be two fills in an gradient.");
 			
-#if flash9
+#if (flash9 || nme)
 		if (lastMatrix == null || bounds != lastBounds || !bounds.isEqualTo(lastBounds))
 			lastMatrix = createMatrix(bounds);
 		
@@ -175,14 +169,14 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	
 	public #if !noinline inline #end function end (target:IGraphicsOwner, bounds:IRectangle)
 	{
-#if flash9
+#if (flash9 || nme)
 		target.graphics.endFill();
 #end
 		isFinished = false;
 	}
 	
 	
-#if flash9
+#if (flash9 || nme)
 	public #if !noinline inline #end function createMatrix (bounds:IRectangle) : Matrix2D
 	{
 		var m = new Matrix2D();
@@ -193,7 +187,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 #end
 	
 
-#if flash9
+#if (flash9 || nme)
 	public #if !noinline inline #end function getFlashType () : FlashGradientType
 	{
 		return (type == GradientType.linear) ? FlashGradientType.LINEAR : FlashGradientType.RADIAL;
@@ -241,7 +235,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ type, spread, focalPointRatio, rotation ] );
 		for (stop in gradientStops)

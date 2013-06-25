@@ -30,7 +30,7 @@ package prime.bindable.collections;
 
 
 /**
- * Copied from haxe.FastList (since it's not in a seperate file :-S)
+ * Copied from haxe.ds.GenericStack (since it's not in a seperate file :-S)
  * @since	20 okt 2010
  */
 #if flash9 @:generic #end

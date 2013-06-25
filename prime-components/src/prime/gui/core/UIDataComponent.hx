@@ -50,9 +50,9 @@ package prime.gui.core;
  * @creation-date	Jun 17, 2010
  * @author			Ruben Weijers
  */
-class UIDataComponent <DataType> extends UIComponent, implements IUIDataElement <DataType>
+class UIDataComponent <DataType> extends UIComponent implements IUIDataElement <DataType>
 {
-	public var data (default, setData)	: DataType;
+	public var data (default, set_data)	: DataType;
 	
 	
 	public function new (id:String = null, data:DataType = null)
@@ -122,7 +122,7 @@ class UIDataComponent <DataType> extends UIComponent, implements IUIDataElement 
 	/**
 	 * Public setter so that it can be used as event-handler
 	 */
-	public function setData (v:DataType)
+	public function set_data (v:DataType)
 	{
 		if (v != data)
 		{

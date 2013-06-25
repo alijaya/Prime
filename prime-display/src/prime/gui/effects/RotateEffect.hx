@@ -84,7 +84,7 @@ class RotateEffect extends #if !CSSParser Effect<prime.gui.display.IDisplayObjec
 	
 #if !CSSParser
 	override public function createEffectInstance (target)
-		return new prime.gui.effects.effectInstances.RotateEffectInstance(target, this)
+		return new prime.gui.effects.effectInstances.RotateEffectInstance(target, this);
 #else
 
 	override public function toCSS (prefix:String = "") : String

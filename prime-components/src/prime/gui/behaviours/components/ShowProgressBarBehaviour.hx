@@ -29,6 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.behaviours.components;
+#if prime_css
  import prime.net.ICommunicator;
  import prime.gui.behaviours.BehaviourBase;
  import prime.gui.components.ProgressBar;
@@ -152,3 +153,4 @@ class ShowProgressBarBehaviour extends BehaviourBase<IUIContainer>
 	}
 #end
 }
+#end

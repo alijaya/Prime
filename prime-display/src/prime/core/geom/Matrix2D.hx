@@ -28,7 +28,7 @@
  */
 package prime.core.geom;
 
-#if flash9
+#if (flash9 || nme)
 typedef Matrix2D = flash.geom.Matrix;
 #elseif flash
 typedef Matrix2D = flash.geom.Matrix;

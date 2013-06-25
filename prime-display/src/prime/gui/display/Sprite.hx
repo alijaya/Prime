@@ -34,7 +34,7 @@ package prime.gui.display;
 // ----------------------------------
 
 typedef Sprite = 
-	#if		flash9	prime.avm2.display.Sprite;
+	#if		(flash9 || nme)	prime.avm2.display.Sprite;
 	#elseif	flash8	prime.avm1.display.Sprite;
 	#elseif nodejs 	#error;
 	#elseif	js		prime.js.display.Sprite;

@@ -29,8 +29,8 @@ import prime.layout.algorithms.RelativeAlgorithm;
 import prime.layout.algorithms.VerticalBaseAlgorithm;
 import prime.layout.algorithms.circle.HorizontalCircleAlgorithm;
 import prime.layout.algorithms.circle.VerticalCircleAlgorithm;
-import prime.layout.algorithms.float.HorizontalFloatAlgorithm;
-import prime.layout.algorithms.float.VerticalFloatAlgorithm;
+import prime.layout.algorithms.floating.HorizontalFloatAlgorithm;
+import prime.layout.algorithms.floating.VerticalFloatAlgorithm;
 import prime.layout.algorithms.tile.DynamicTileAlgorithm;
 import prime.layout.algorithms.tile.FixedTileAlgorithm;
 import prime.layout.algorithms.tile.ITileAlgorithm;
@@ -43,7 +43,6 @@ import examples.layout.LayoutExample1;
 import examples.layout.LayoutExample2;
 import examples.layout.LayoutExample3;
 import examples.layout.LayoutExample4;
-import examples.styles.layoutExample4.StyleSheet;
 
 //import cases.LayoutAlgorithmUnitTests;
 /**

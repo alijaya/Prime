@@ -1,5 +1,3 @@
-
-
 /*
  * Copyright (c) 2010, The PrimeVC Project Contributors
  * All rights reserved.
@@ -54,7 +52,8 @@ package prime.gui.components;
  * @author Ruben Weijers
  * @creation-date Oct 26, 2010
  */
-class ListView<ListDataType> extends prime.gui.core.UIDataContainer<prime.bindable.collections.IReadOnlyList<ListDataType>>, implements prime.gui.traits.IDropTarget
+//@:generic
+class ListView<ListDataType> extends prime.gui.core.UIDataContainer<prime.bindable.collections.IReadOnlyList<ListDataType>> implements prime.gui.traits.IDropTarget
 {
 	/**
 	 * Signal which will dispatch mouse-clicks of interactive item-rendered 
@@ -287,17 +286,13 @@ class ListView<ListDataType> extends prime.gui.core.UIDataContainer<prime.bindab
 	}
 	
 	
-	private inline function setRendererData (r:IUIDataElement<ListDataType>, v:ListDataType)
-	{
+	private #if !noinline inline #end function setRendererData (r:IUIDataElement<ListDataType>, v:ListDataType)
 	    if (r.is(IItemRenderer))	r.as(IItemRenderer).vo.value = cast v;
 	 	else						r.data = v;
-	}
 	
 	
-	private inline function getRendererData (r:IUIDataElement<ListDataType>) : ListDataType
-	{
+	public #if !noinline inline #end function getRendererData (r:IUIDataElement<ListDataType>) : ListDataType
 	    return r.is(IItemRenderer) ? cast r.as(IItemRenderer).vo.value : r.data;
-	}
 	
 	
 	
@@ -307,7 +302,7 @@ class ListView<ListDataType> extends prime.gui.core.UIDataContainer<prime.bindab
 	 * Method returns the item-renderer for the given data item
 	 */
 	public #if !noinline inline #end function getRendererFor ( dataItem:ListDataType ) : IUIDataElement<ListDataType>
-		return renderMap.get(dataItem)
+		return renderMap.get(dataItem);
 	
 	
 	/**
@@ -346,25 +341,25 @@ class ListView<ListDataType> extends prime.gui.core.UIDataContainer<prime.bindab
 	 * If the index is -1, the method will return -1.
 	 */
 	public #if !noinline inline #end function depthToIndex (depth:Int) : Int
-	    return depth > -1 ? depth + layoutContainer.fixedChildStart : -1
+	    return depth > -1 ? depth + layoutContainer.fixedChildStart : -1;
 	
 	
 	/**
 	 * returns true if there's an item-renderer for the given data-item.
 	 */
 	public #if !noinline inline #end function hasRendererFor (dataItem:ListDataType) : Bool
-	    return renderMap.exists(dataItem)
+	    return renderMap.exists(dataItem);
 	
 	
 	/**
 	 * returns true if there's an item-renderer for the given data-item.
 	 */
 	public #if !noinline inline #end function hasRendererAtDepth (depth:Int) : Bool
-	    return depth < children.length && depth > -1
+	    return depth < children.length && depth > -1;
 	
 	
 	public function getDepthForBounds (bounds : prime.core.geom.IRectangle) : Int
-		return layoutContainer.algorithm.getDepthForBounds(bounds)
+		return layoutContainer.algorithm.getDepthForBounds(bounds);
 	
 	
 	
@@ -376,13 +371,11 @@ class ListView<ListDataType> extends prime.gui.core.UIDataContainer<prime.bindab
 	
 	
 	private function checkItemRenderers (changes:Int)
-	{
 		if (changes.has(LayoutFlags.CHILD_SIZE | LayoutFlags.SIZE))
 		{
 			var a = layoutContainer.algorithm;
 			updateVisibleItemRenderers( a.getDepthOfFirstVisibleChild(), a.getMaxVisibleChildren() );
 		}
-	}
 	
 	
 	private function invalidateScrollPos ()

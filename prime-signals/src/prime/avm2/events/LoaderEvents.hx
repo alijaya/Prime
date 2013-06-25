@@ -27,7 +27,10 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
- import flash.events.DataEvent;
+#if	(flash9 || nme)
+#if !cpp
+ import #if flash9 flash #else native #end .events.DataEvent;
+#end
  import flash.events.IEventDispatcher;
  import flash.events.Event;
  import prime.signals.Signal0;
@@ -52,7 +55,10 @@ class LoaderEvents extends LoaderSignals
 		unloaded		= new FlashSignal0( target, Event.UNLOAD );
 		load			= new CommunicationEvents( target );
 		httpStatus		= new HttpSignal( target );
+#if !cpp
 		uploadComplete	= new DataSignal( target, DataEvent.UPLOAD_COMPLETE_DATA );
 		uploadCanceled	= new Signal0();
+#end
 	}
 }
+#end

@@ -1,0 +1,16 @@
+{
+  "name": "prime-layout",
+  "license": "BSD",
+  "tags": ["prime", "layout", "algorithm"],
+  "description": "Prime layout library for Haxe.",
+  "contributors": ["optimus"],
+
+  "releasenote": "Initial release. Developed since Jul 08, 2010",
+  "version": "1.0.0",
+  "url": "http://prime.vc/",
+  "dependencies": {
+    "prime-core"     :"",
+    "prime-signals"  :"",
+    "prime-bindable" :""
+  }
+}

@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout.algorithms.tile;
-#if CSSParser
- import prime.tools.generator.ICodeGenerator;
-#end
  import prime.bindable.collections.BalancingListCollection;
  import prime.bindable.collections.BalancingList;
  import prime.bindable.collections.ChainedListCollection;
@@ -43,8 +40,8 @@ package prime.layout.algorithms.tile;
  import prime.core.geom.IRectangle;
  import prime.types.Number;
  import prime.core.RangeIterator;
- import prime.layout.algorithms.float.HorizontalFloatAlgorithm;
- import prime.layout.algorithms.float.VerticalFloatAlgorithm;
+ import prime.layout.algorithms.floating.HorizontalFloatAlgorithm;
+ import prime.layout.algorithms.floating.VerticalFloatAlgorithm;
  import prime.layout.algorithms.ILayoutAlgorithm;
  import prime.layout.ILayoutContainer;
  import prime.layout.LayoutClient;
@@ -65,7 +62,7 @@ package prime.layout.algorithms.tile;
  * @creation-date	Jun 25, 2010
  * @author			Ruben Weijers
  */
-class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
+class FixedTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 {
 	/**
 	 * Maximum number of rows or columns that the layout can have. 
@@ -79,7 +76,7 @@ class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
 	 * 
 	 * @default		4
 	 */
-	public var maxTilesInDirection	(default, setMaxTilesInDirection)		: Int;
+	public var maxTilesInDirection	(default, set_maxTilesInDirection)		: Int;
 	
 	
 	
@@ -89,14 +86,14 @@ class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
 	 * 
 	 * @default		Number.INT_NOT_SET
 	 */
-//	public var tileWidth			(default, setTileWidth)					: Int;
+//	public var tileWidth			(default, set_tileWidth)				: Int;
 	/**
 	 * The maximum height of each tile. Their orignal height will be ignored if
 	 * the tile is heigher then this number (it won't get resized).
 	 * 
 	 * @default		Number.INT_NOT_SET
 	 */
-//	public var tileHeight			(default, setTileHeight)				: Int;
+//	public var tileHeight			(default, set_tileHeight)				: Int;
 	
 	
 	
@@ -321,7 +318,7 @@ class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
 				horizontalMap.move(client, newPos, oldPos);
 				verticalMap.move(client, newPos, oldPos);
 			
-			default:
+			case reset:
 		}
 		
 #if unitTesting
@@ -474,7 +471,7 @@ class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
 	//
 	
 	
-	private inline function setMaxTilesInDirection (v)
+	private inline function set_maxTilesInDirection (v)
 	{
 		if (v != maxTilesInDirection) {
 			maxTilesInDirection = v;
@@ -484,17 +481,17 @@ class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
 	}
 	
 	
-	override private function setStartDirection (v)
+	override private function set_startDirection (v)
 	{
 		if (v != startDirection) {
 			swapHorizontalAndVertical();
-			super.setStartDirection(v);
+			super.set_startDirection(v);
 		}
 		return v;
 	}
 	
 	
-	override private function setGroup (v)
+	override private function set_group (v)
 	{
 		if (group != v)
 		{
@@ -507,7 +504,7 @@ class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
 				group.children.change.unbind(this);
 			}
 			
-			v = super.setGroup(v);
+			v = super.set_group(v);
 			
 			if (v != null)
 				updateMapsAfterChange.on( group.children.change, this );
@@ -517,7 +514,7 @@ class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
 	
 	
 #if CSSParser
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ startDirection, maxTilesInDirection, horizontalDirection, verticalDirection ] );
 	}

@@ -38,18 +38,18 @@ package prime.core.geom;
  * @author Ruben Weijers
  * @creation-date Aug 03, 2010
  */
-class IntRectangle extends QueueingInvalidatable, implements IRectangle
+class IntRectangle extends QueueingInvalidatable implements IRectangle
 {
-	public var centerX	(getCenterX, setCenterX)	: Int;
-	public var centerY	(getCenterY, setCenterY)	: Int;
+	public var centerX	(get_centerX, set_centerX)	: Int;
+	public var centerY	(get_centerY, set_centerY)	: Int;
 	
-	@:isVar public var left		(getLeft, setLeft)			: Int;
-	@:isVar public var right	(getRight, setRight)		: Int;
-	@:isVar public var top		(getTop, setTop)			: Int;
-	@:isVar public var bottom	(getBottom, setBottom)		: Int;
+	@:isVar public var left		(get_left, set_left)		: Int;
+	@:isVar public var right	(get_right, set_right)		: Int;
+	@:isVar public var top		(get_top, set_top)			: Int;
+	@:isVar public var bottom	(get_bottom, set_bottom)	: Int;
 	
-	@:isVar public var width	(getWidth, setWidth)		: Int;
-	@:isVar public var height	(getHeight, setHeight)		: Int;
+	@:isVar public var width	(get_width, set_width)		: Int;
+	@:isVar public var height	(get_height, set_height)	: Int;
 	
 	
 	public function new ( x:Int = 0, y:Int = 0, width:Int = 0, height:Int = 0 )
@@ -98,7 +98,7 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 	//
 	
 	
-	private inline function setWidth (v:Int)
+	private inline function set_width (v:Int)
 	{
 		if (v != width) {
 #if debug	Assert.that( v.isSet() ); #end
@@ -113,7 +113,7 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 	}
 	
 	
-	private inline function setHeight (v:Int)
+	private inline function set_height (v:Int)
 	{
 		if (v != height) {
 #if debug	Assert.that( v.isSet() ); #end
@@ -128,7 +128,7 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 	}
 	
 	
-	private inline function setTop (v:Int)
+	private inline function set_top (v:Int)
 	{
 		if (v != top) {
 #if debug	Assert.that( v.isSet() ); #end
@@ -143,7 +143,7 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 	}
 	
 	
-	private function setBottom (v:Int)
+	private function set_bottom (v:Int)
 	{
 		if (v != bottom) {
 #if debug	Assert.that( v.isSet() ); #end
@@ -159,7 +159,7 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 	}
 	
 	
-	private inline function setLeft (v:Int)
+	private inline function set_left (v:Int)
 	{
 		if (v != left) {
 #if debug	Assert.that( v.isSet() ); #end
@@ -174,7 +174,7 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 	}
 	
 	
-	private function setRight (v:Int)
+	private function set_right (v:Int)
 	{
 		if (v != right) {
 #if debug	Assert.that( v.isSet() ); #end
@@ -189,7 +189,7 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 	}
 	
 	
-	private inline function setCenterX (v:Int)
+	private inline function set_centerX (v:Int)
 	{	
 #if debug	Assert.that( v.isSet() ); #end
 			left = v - (width >> 1); //* .5).roundFloat();
@@ -197,7 +197,7 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 	}
 	
 	
-	private inline function setCenterY (v:Int)
+	private inline function set_centerY (v:Int)
 	{	
 #if debug	Assert.that( v.isSet() ); #end
 			top = v - (height >> 1); //* .5)).roundFloat();
@@ -206,15 +206,15 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 	
 	
 	
-	private inline function getLeft ()		{ return left; }
-	private inline function getRight ()		{ return right; }
-	private inline function getTop ()		{ return top; }
-	private inline function getBottom ()	{ return bottom; }
-	private inline function getWidth ()		{ return width; }
-	private inline function getHeight ()	{ return height; }
+	private inline function get_left ()		{ return left; }
+	private inline function get_right ()	{ return right; }
+	private inline function get_top ()		{ return top; }
+	private inline function get_bottom ()	{ return bottom; }
+	private inline function get_width ()	{ return width; }
+	private inline function get_height ()	{ return height; }
 	
-	private inline function getCenterX ()	{ return left + (width >> 1); } // * .5).roundFloat(); }
-	private inline function getCenterY ()	{ return top + (height >> 1); } // * .5).roundFloat(); }
+	private inline function get_centerX ()	{ return left + (width >> 1); } // * .5).roundFloat(); }
+	private inline function get_centerY ()	{ return top + (height >> 1); } // * .5).roundFloat(); }
 	
 	
 	public function isEmpty ()
@@ -258,6 +258,12 @@ class IntRectangle extends QueueingInvalidatable, implements IRectangle
 		
 		invalidatable = c;
 		return !isChanged;
+	}
+
+
+	public #if !noinline inline #end function containsPoint (x:Int, y:Int) : Bool
+	{
+		return x >= left && x <= right && y >= top && y <= bottom;
 	}
 	
 	

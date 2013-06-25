@@ -50,11 +50,11 @@ private typedef Flags = GraphicFlags;
  */
 class GraphicsCollection extends StyleCollectionBase < GraphicsStyle >
 {
-	public function new (elementStyle:UIElementStyle)			super( elementStyle, StyleFlags.GRAPHICS )
-	override public function forwardIterator ()					return new GraphicsCollectionForwardIterator(elementStyle, propertyTypeFlag)
-	override public function reversedIterator ()				return new GraphicsCollectionReversedIterator(elementStyle, propertyTypeFlag)
+	public function new (elementStyle:UIElementStyle)			super( elementStyle, StyleFlags.GRAPHICS );
+	override public function forwardIterator ()					return new GraphicsCollectionForwardIterator(elementStyle, propertyTypeFlag);
+	override public function reversedIterator ()				return new GraphicsCollectionReversedIterator(elementStyle, propertyTypeFlag);
 #if debug
-	override public function readProperties (props:Int = -1)	return Flags.readProperties( (props == -1) ? filledProperties : props )
+	override public function readProperties (props:Int = -1)	return Flags.readProperties( (props == -1) ? filledProperties : props );
 #end
 	
 	
@@ -79,7 +79,7 @@ class GraphicsCollection extends StyleCollectionBase < GraphicsStyle >
 		//
 		
 		var graphicProps:GraphicProperties = null;
-#if flash9		
+#if (flash9 || nme)
 		if (changes.has( Flags.DRAWING_PROPERTIES ))
 			graphicProps = elementStyle.target.as(IDrawable).graphicData;
 #end		
@@ -110,7 +110,7 @@ class GraphicsCollection extends StyleCollectionBase < GraphicsStyle >
 		
 		if ( propsToSet.has( Flags.SHAPE ))			graphicProps.shape					= empty ? null	: styleObj.shape;
 		if ( propsToSet.has( Flags.BORDER_RADIUS ))	graphicProps.borderRadius			= empty ? null	: styleObj.borderRadius;
-#if flash9
+#if (flash9 || nme)
 		if ( propsToSet.has( Flags.ICON ))			target.as(IIconOwner).icon			= empty ? null	: styleObj.getIconInstance(); 
 #end
 		if ( propsToSet.has( Flags.ICON_FILL ))		target.as(IIconOwner).iconFill		= empty ? null	: styleObj.iconFill;
@@ -128,7 +128,7 @@ class GraphicsCollection extends StyleCollectionBase < GraphicsStyle >
 		if (propsToSet.has( Flags.OVERFLOW ))
 		{
 			var target = target.as(IUIContainer);
-
+			
 			//remove old overflow behaviours
 			for (b in target.behaviours.list)
 				if (b.is(prime.gui.behaviours.scroll.IScrollBehaviour)) {
@@ -138,7 +138,7 @@ class GraphicsCollection extends StyleCollectionBase < GraphicsStyle >
 
 			//create new overflow behaviour
 			if (!empty && styleObj.overflow != null)
-				target.behaviours.add( styleObj.overflow(target) );
+				target.behaviours.add(styleObj.overflow(target));
 		}
 		
 		

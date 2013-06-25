@@ -27,15 +27,17 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.net;
-
+#if flash9
 
 /**
  * @author	Ruben Weijers
  * @since	Mar 29, 2011
  */
 typedef FileReferenceList = 
-	#if		flash9	prime.avm2.net.FileReferenceList;
+	#if		(flash9 || nme)	prime.avm2.net.FileReferenceList;
 	#elseif	flash8	prime.avm1.net.FileReferenceList;
 	#elseif	nodejs	#error;
 	#elseif	js		prime.js  .net.FileReferenceList;
 	#else			error; #end
+
+#end

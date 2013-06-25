@@ -70,8 +70,8 @@ class PointBoundries
 	public var size		: Point;
 	public var maxSize	: Point;
 	public var minSize	: Point;
-	public var width	(getWidth, setWidth)	: Float;
-	public var height	(getHeight, setHeight)	: Float;
+	public var width	(get_width, set_width)	: Float;
+	public var height	(get_height, set_height)	: Float;
 	
 	
 	public function new () { }
@@ -84,17 +84,17 @@ class PointBoundries
 	}
 	
 	
-	private inline function getWidth ()		{ return size.x; }
-	private inline function getHeight ()	{ return size.y; }
+	private inline function get_width ()		{ return size.x; }
+	private inline function get_height ()	{ return size.y; }
 	
 	
-	private inline function setWidth (v:Float) {
+	private inline function set_width (v:Float) {
 		if (v < minSize.x)	v = minSize.x;
 		if (v > maxSize.x)	v = maxSize.x;
 		return size.x = v;
 	}
 	
-	private inline function setHeight (v:Float) {
+	private inline function set_height (v:Float) {
 		if (v < minSize.y)	v = minSize.y;
 		if (v > maxSize.y)	v = maxSize.y;
 		return size.y = v;
@@ -128,8 +128,8 @@ class FloatBoundries
 	private var _width		: Float;
 	private var _height		: Float;
 	
-	public var width	(getWidth, setWidth)	: Float;
-	public var height	(getHeight, setHeight)	: Float;
+	public var width	(get_width, set_width)	: Float;
+	public var height	(get_height, set_height)	: Float;
 	
 	
 	public function new () { }
@@ -145,17 +145,17 @@ class FloatBoundries
 	}
 	
 	
-	private inline function getWidth ()		{ return _width; }
-	private inline function getHeight ()	{ return _height; }
+	private inline function get_width ()	{ return _width; }
+	private inline function get_height ()	{ return _height; }
 	
 	
-	private inline function setWidth (v:Float) {
+	private inline function set_width (v:Float) {
 		if (v < minWidth)	v = minWidth;
 		if (v > maxWidth)	v = maxWidth;
 		return _width = v;
 	}
 	
-	private inline function setHeight (v:Float) {
+	private inline function set_height (v:Float) {
 		if (v < minHeight)	v = minHeight;
 		if (v > maxHeight)	v = maxHeight;
 		return _height = v;
@@ -184,8 +184,8 @@ class CustomPointBoundries
 {
 	private var _width	: FloatBoundry;
 	private var _height	: FloatBoundry;
-	public var width	(getWidth, setWidth) 	: Float;
-	public var height	(getHeight, setHeight)	: Float;
+	public var width	(get_width, set_width) 	: Float;
+	public var height	(get_height, set_height): Float;
 	
 	
 	public function new () { }
@@ -197,10 +197,10 @@ class CustomPointBoundries
 	}
 	
 	
-	private inline function getWidth ()		{ return _width.value; }
-	private inline function getHeight ()	{ return _height.value; }
-	private inline function setWidth (v)	{ return _width.value = v; }
-	private inline function setHeight (v)	{ return _height.value = v; }
+	private inline function get_width ()	{ return _width.value; }
+	private inline function get_height ()	{ return _height.value; }
+	private inline function set_width (v)	{ return _width.value = v; }
+	private inline function set_height (v)	{ return _height.value = v; }
 }
 
 class FloatBoundry
@@ -208,9 +208,9 @@ class FloatBoundry
 	public static inline var MAX_VALUE:Float	= 2147483647;
 	public static inline var MIN_VALUE:Float	= -2147483647;
 	
-	public var value	(default, setValue)		: Float;
-	public var max		(default, setMax)		: Float;
-	public var min		(default, setMin)		: Float;
+	public var value	(default, set_value)	: Float;
+	public var max		(default, set_max)		: Float;
+	public var min		(default, set_min)		: Float;
 	
 	
 	public function new (value:Float = 0, minValue:Float = MIN_VALUE, maxValue:Float = MAX_VALUE)
@@ -221,21 +221,21 @@ class FloatBoundry
 	}
 	
 	
-	private inline function setValue (v) {
+	private inline function set_value (v) {
 		if (v < min)	v = min;
 		if (v > max)	v = max;
 		return this.value = v;
 	}
 	
 	
-	private inline function setMax (v) {
+	private inline function set_max (v) {
 		if (v < min)	v = min;
 		if (value > v)	value = v;
 		return this.max = v;
 	}
 	
 	
-	private inline function setMin (v) {
+	private inline function set_min (v) {
 		if (v > max)	v = max;
 		if (value < v)	value = v;
 		return this.min = v;
@@ -264,8 +264,8 @@ class CustomIntBoundries
 {
 	private var _width	: IntBoundry;
 	private var _height	: IntBoundry;
-	public var width	(getWidth, setWidth) 	: Int;
-	public var height	(getHeight, setHeight)	: Int;
+	public var width	(get_width, set_width) 	: Int;
+	public var height	(get_height, set_height): Int;
 	
 	
 	public function new () { }
@@ -277,10 +277,10 @@ class CustomIntBoundries
 	}
 	
 	
-	private inline function getWidth ()		{ return _width.value; }
-	private inline function getHeight ()	{ return _height.value; }
-	private inline function setWidth (v)	{ return _width.value = v; }
-	private inline function setHeight (v)	{ return _height.value = v; }
+	private inline function get_width ()	{ return _width.value; }
+	private inline function get_height ()	{ return _height.value; }
+	private inline function set_width (v)	{ return _width.value = v; }
+	private inline function set_height (v)	{ return _height.value = v; }
 }
 
 
@@ -289,9 +289,9 @@ class IntBoundry
 	public static inline var MAX_VALUE:Int	= 2147483647;
 	public static inline var MIN_VALUE:Int	= -2147483647;
 	
-	public var value	(default, setValue)		: Int;
-	public var max		(default, setMax)		: Int;
-	public var min		(default, setMin)		: Int;
+	public var value	(default, set_value)	: Int;
+	public var max		(default, set_max)		: Int;
+	public var min		(default, set_min)		: Int;
 	
 	
 	public function new (value:Int = 0, minValue:Int = MIN_VALUE, maxValue:Int = MAX_VALUE)
@@ -302,21 +302,21 @@ class IntBoundry
 	}
 	
 	
-	private inline function setValue (v) {
+	private inline function set_value (v) {
 		if (v < min)	v = min;
 		if (v > max)	v = max;
 		return this.value = v;
 	}
 	
 	
-	private inline function setMax (v) {
+	private inline function set_max (v) {
 		if (v < min)	v = min;
 		if (value > v)	value = v;
 		return this.max = v;
 	}
 	
 	
-	private inline function setMin (v) {
+	private inline function set_min (v) {
 		if (v > max)	v = max;
 		if (value < v)	value = v;
 		return this.min = v;

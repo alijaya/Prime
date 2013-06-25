@@ -16,17 +16,17 @@ package;
  import prime.core.traits.IEditEnabledValueObject;
 
 
-interface IUserVO implements IValueObject
+interface IUserVO extends IValueObject
 {
 	var name (default,null) : String;
 }
 
-interface IUserEVO implements IEditEnabledValueObject
+interface IUserEVO extends IEditEnabledValueObject
 {
 	public var name (default,default) : String;
 }
 
-class UserVO implements IUserVO, implements IUserEVO, implements IEditableValueObject<IUserEVO>
+class UserVO implements IUserVO implements IUserEVO implements IEditableValueObject<IUserEVO>
 { // normaal gesproken gegenereerd.
 	public var name (default,default) : String;
 	

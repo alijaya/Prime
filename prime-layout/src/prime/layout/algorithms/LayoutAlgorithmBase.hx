@@ -27,12 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout.algorithms;
-#if CSSParser
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICodeGenerator;
- import prime.utils.ID;
-#end
- import prime.core.traits.IDisposable;
  import prime.layout.IAdvancedLayoutClient;
  import prime.layout.ILayoutContainer;
  import prime.layout.LayoutClient;
@@ -50,13 +44,13 @@ package prime.layout.algorithms;
  * @author			Ruben Weijers
  */
 class LayoutAlgorithmBase 
-				implements IDisposable
-#if CSSParser,	implements ICodeFormattable		#end
+				implements prime.core.traits.IDisposable
+#if CSSParser	implements prime.tools.generator.ICodeFormattable		#end
 {
 #if debug public static var created		: Int = 0; #end
 #if debug public static var disposed	: Int = 0; #end
 	public var algorithmChanged 		(default, null)				: Signal0;
-	public var group					(default, setGroup)			: ILayoutContainer;
+	public var group					(default, set_group)		: ILayoutContainer;
 	
 #if CSSParser
 	public var _oid						(default, null)				: Int;
@@ -66,8 +60,8 @@ class LayoutAlgorithmBase
 	
 	public function new()
 	{
-#if debug		created++;						#end
-#if CSSParser	_oid		= ID.getNext();		#end
+#if debug		created++; #end
+#if CSSParser	_oid		= prime.utils.ID.getNext(); #end
 		algorithmChanged	= new Signal0();
 		validatePrepared	= false;
 	}
@@ -110,7 +104,7 @@ class LayoutAlgorithmBase
 	}
 	
 	
-	private function setGroup (v)		{ return group = v; }
+	private function set_group (v)		{ return group = v; }
 	public function prepareValidate ()	{ validatePrepared = true; }
 	
 	
@@ -212,7 +206,7 @@ class LayoutAlgorithmBase
 #end
 	
 #if CSSParser
-	public function cleanUp () : Void					{  }
-	public function toCode (code:ICodeGenerator)		{ code.construct( this ); }
+	public function cleanUp () : Void {}
+	public function toCode (code:prime.tools.generator.ICodeGenerator) code.construct( this );
 #end
 }

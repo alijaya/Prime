@@ -31,6 +31,7 @@ package prime.gui.styling;
  import prime.gui.filters.BitmapFilter;
  import prime.gui.styling.StyleCollectionBase;
  import prime.utils.FastArray;
+  using prime.utils.FastArray;
   using prime.utils.BitUtil;
   using prime.utils.TypeUtil;
 
@@ -56,10 +57,10 @@ class FiltersCollection extends StyleCollectionBase < FiltersStyle >
 	}
 	
 	
-	override public function forwardIterator ()					return new FiltersCollectionForwardIterator( elementStyle, propertyTypeFlag, type)
-	override public function reversedIterator ()				return new FiltersCollectionReversedIterator( elementStyle, propertyTypeFlag, type)
+	override public function forwardIterator ()					return new FiltersCollectionForwardIterator( elementStyle, propertyTypeFlag, type);
+	override public function reversedIterator ()				return new FiltersCollectionReversedIterator( elementStyle, propertyTypeFlag, type);
 #if debug
-	override public function readProperties (props:Int = -1)	return Flags.readProperties( (props == -1) ? filledProperties : props )
+	override public function readProperties (props:Int = -1)	return Flags.readProperties( (props == -1) ? filledProperties : props );
 #end
 	
 	
@@ -95,8 +96,8 @@ class FiltersCollection extends StyleCollectionBase < FiltersStyle >
 			if (filters == null)			filters			= new Array<flash.filters.BitmapFilter>();
 			if (filterPositions == null)	filterPositions	= FastArrayUtil.create();
 			
-#if debug	Assert.that( target.width < 10000 );
-			Assert.that( target.height < 10000 ); #end
+#if debug	Assert.that(target.width < 10000, "width: "+target.width + " >= " + 10000+"; target: "+target);
+			Assert.that(target.height < 10000, "height: "+target.height + " >= " + 10000+"; target: "+target); #end
 			
 			for (styleObj in this)
 			{

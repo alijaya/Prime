@@ -44,7 +44,7 @@ package prime.gui.core;
  */
 class Skin <OwnerClass:IUIComponent> implements ISkin
 {
-	public var owner			(default, setOwner) : OwnerClass;
+	public var owner			(default, set_owner) : OwnerClass;
 //	public var skinState		(default, null)		: SkinStates;
 	public var behaviours		(default, null)		: BehaviourList;
 	
@@ -101,7 +101,7 @@ class Skin <OwnerClass:IUIComponent> implements ISkin
 	// GETTERS / SETTERS
 	//
 	
-	private function setOwner (newOwner:OwnerClass)
+	private function set_owner (newOwner:OwnerClass)
 	{
 		if (owner != null)
 		{

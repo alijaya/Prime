@@ -45,7 +45,7 @@ interface ISystem
 	 * Popup manager. IUIElements that are added to the popupmanager will
 	 * stay on top of the normal content.
 	 */
-	public var popups		(getPopupManager, null)	: IPopupManager;
+	public var popups		(get_popups, null)		: IPopupManager;
 	
 	/**
 	 * Tooltip manager

@@ -28,13 +28,18 @@
  */
 package prime.net;
  import haxe.io.BytesData;
- import haxe.FastList;
+ import haxe.ds.GenericStack;
  import prime.core.events.LoaderEvents;
  import prime.bindable.Bindable;
  import prime.types.Number;
   using prime.utils.Bind;
   using prime.utils.NumberUtil;
 
+//LoaderGroupEvents imports
+ import prime.signals.Signal0;
+ import prime.signals.Signal1;
+ import prime.signals.Signal2;
+ import prime.core.events.CommunicationEvents;
 
 
 /**
@@ -47,18 +52,18 @@ package prime.net;
 class CommunicatorsGroup implements ICommunicator
 {
 	public var events			(default,			null)		: LoaderSignals;
-	public var bytes			(getBytes,			setBytes)	: BytesData;
+	public var bytes			(get_bytes,			set_bytes)	: BytesData;
 	public var type				(default,			null)		: CommunicationType;
 	
 	
 	/**
 	 * Total bytes loaded/send for all processes together
 	 */
-	public var bytesProgress	(#if js default #else getBytesProgress #end,	null)		: Int;
+	public var bytesProgress	(#if js default #else get_bytesProgress #end,	null)		: Int;
 	/**
 	 * Total number of bytes to load/send for all processes together
 	 */
-	public var bytesTotal		(#if js default #else getBytesTotal #end,		null)		: Int;
+	public var bytesTotal		(#if js default #else get_bytesTotal #end,		null)		: Int;
 	
 	/**
 	 * Indicates the number of process going on within the communicator
@@ -67,13 +72,13 @@ class CommunicatorsGroup implements ICommunicator
 	public var isStarted		(default,			null)		: Bool;
 	
 	
-	private var list			: FastList<ICommunicator>;
+	private var list			: GenericStack<ICommunicator>;
 	
 	
 	public function new ()
 	{
 		events	= new LoaderGroupEvents();
-		list	= new FastList<ICommunicator>();
+		list	= new GenericStack<ICommunicator>();
 		length	= new Bindable<Int>(0);
 		
 		bytesProgress = bytesTotal = Number.INT_NOT_SET;
@@ -151,11 +156,11 @@ class CommunicatorsGroup implements ICommunicator
 	// GETTERS / SETTERS
 	//
 	
-	private inline function getBytesProgress ()		{ return bytesProgress; }
-	private inline function getBytesTotal ()		{ return bytesTotal; }
+	private inline function get_bytesProgress ()	{ return bytesProgress; }
+	private inline function get_bytesTotal ()		{ return bytesTotal; }
 	
-	private inline function getBytes ()				{ Assert.abstractMethod(); return null; }
-	private inline function setBytes (v)			{ Assert.abstractMethod(); return null; }
+	private inline function get_bytes ()			{ Assert.abstractMethod(); return null; }
+	private inline function set_bytes (v)			{ Assert.abstractMethod(); return null; }
 	
 	
 	
@@ -217,12 +222,6 @@ class CommunicatorsGroup implements ICommunicator
 	}
 }
 
-
-
- import prime.signals.Signal0;
- import prime.signals.Signal1;
- import prime.signals.Signal2;
- import prime.core.events.CommunicationEvents;
 
 
 /**

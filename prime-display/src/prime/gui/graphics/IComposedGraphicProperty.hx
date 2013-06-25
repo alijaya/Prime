@@ -35,7 +35,7 @@ package prime.gui.graphics;
  * @author Ruben Weijers
  * @creation-date Nov 04, 2010
  */
-interface IComposedGraphicProperty implements IGraphicProperty, implements IIterator < IGraphicProperty >
+interface IComposedGraphicProperty extends IGraphicProperty extends IIterator < IGraphicProperty >
 {
 	private var firstCell	: FastCell < IGraphicProperty >;
 	private var lastCell	: FastCell < IGraphicProperty >;

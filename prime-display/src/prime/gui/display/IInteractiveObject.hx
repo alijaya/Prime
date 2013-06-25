@@ -34,7 +34,7 @@ package prime.gui.display;
  * @author Ruben Weijers
  * @creation-date Jan 26, 2011
  */
-interface IInteractiveObject implements IDisplayObject,	implements IInteractive
+interface IInteractiveObject extends IDisplayObject extends IInteractive
 {
 #if flash9
 	public var contextMenu : flash.ui.ContextMenu;

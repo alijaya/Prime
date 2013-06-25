@@ -29,8 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.behaviours;
- import haxe.FastList;
- import prime.core.traits.IDisposable;
+ import haxe.ds.GenericStack;
 
 
 private typedef BehaviourType = IBehaviour<Dynamic>;
@@ -41,14 +40,14 @@ private typedef BehaviourType = IBehaviour<Dynamic>;
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
-class BehaviourList implements IDisposable
+class BehaviourList implements prime.core.traits.IDisposable
 {
-	public var list				(default, null) : FastList < BehaviourType >;
+	public var list				(default, null) : GenericStack < BehaviourType >;
 	public var isInitialized	(default, null) : Bool;
 	
 	public function new ()
 	{
-		list			= new FastList < BehaviourType > ();
+		list			= new GenericStack < BehaviourType > ();
 		isInitialized	= false;
 	}
 	

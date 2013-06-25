@@ -27,24 +27,13 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.types;
-#if CSSParser
- import prime.core.traits.IDisposable;
- import prime.neko.traits.IHasTypeParameters;
-
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICodeGenerator;
- import prime.tools.generator.ICSSFormattable;
-
- import prime.utils.ID;
-  using prime.utils.TypeUtil;
-  using Std;
-  using Type;
-#end
-
 #if !CSSParser
 typedef Factory<C> = Void -> C;
 typedef Factory1<A, C> = A -> C;
 #else
+using prime.utils.TypeUtil;
+using Std;
+using Type;
 
 typedef Factory1<A,C> = Factory<C>;
 
@@ -55,10 +44,10 @@ typedef Factory1<A,C> = Factory<C>;
  * @creation-date Nov 01, 2010
  */
 class Factory <InstanceType >
-				implements IDisposable		
-#if CSSParser,	implements ICSSFormattable
-			,	implements ICodeFormattable
-			,	implements IHasTypeParameters
+				implements prime.core.traits.IDisposable		
+#if CSSParser	implements prime.tools.generator.ICSSFormattable
+				implements prime.tools.generator.ICodeFormattable
+				implements prime.neko.traits.IHasTypeParameters
 #end
 {
 	public static var EMPTY_ARRAY = [];
@@ -75,7 +64,7 @@ class Factory <InstanceType >
 	public function new ( classRef:String = null, params:Array<Dynamic> = null, args:Array<String> = null, cssValue:String = null )
 	{
 #if (debug || CSSParser)
-		_oid = ID.getNext();
+		_oid = prime.utils.ID.getNext();
 		if (params == null)
 			params = [];
 #end
@@ -123,7 +112,7 @@ class Factory <InstanceType >
 	public function isEmpty ()	{ return classRef == null; }
 	
 	
-	public function toCode (code:ICodeGenerator)
+	public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		code.createFactory( this, classRef, (params == null ? EMPTY_ARRAY : params), arguments );
 	}

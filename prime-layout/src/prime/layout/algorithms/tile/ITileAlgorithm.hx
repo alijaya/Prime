@@ -27,7 +27,6 @@
  *  Ruben Weijers   <ruben @ rubenw.nl>
  */
 package prime.layout.algorithms.tile;
- import prime.layout.algorithms.ILayoutAlgorithm;
 
 /**
  * Interface indictating if a layout-algorithm is a tile-algorithm
@@ -35,4 +34,4 @@ package prime.layout.algorithms.tile;
  * @author Ruben Weijers
  * @creation-date Sep 28, 2011
  */
-interface ITileAlgorithm implements ILayoutAlgorithm {}
+interface ITileAlgorithm extends prime.layout.algorithms.ILayoutAlgorithm {}

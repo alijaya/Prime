@@ -27,30 +27,21 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
- import prime.core.traits.IDisposable;
- import Hash;
-#if (CSSParser || debug)
- import prime.utils.ID;
-#end
 #if CSSParser
- import prime.types.SimpleDictionary;
- import prime.tools.generator.ICodeFormattable;
- import prime.tools.generator.ICodeGenerator;
- import prime.tools.generator.ICSSFormattable;
   using StringTools;
 #end
 
 
-typedef SelectorMapType = #if CSSParser SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
+typedef SelectorMapType = #if CSSParser prime.types.SimpleDictionary<String, StyleBlock> #else Map<String,StyleBlock> #end;
 
 /**
  * @author Ruben Weijers
  * @creation-date Aug 05, 2010
  */
 class StyleChildren 
-				implements IDisposable
-#if CSSParser,	implements ICSSFormattable
-			,	implements ICodeFormattable		#end
+				implements prime.core.traits.IDisposable
+#if CSSParser	implements prime.tools.generator.ICSSFormattable
+				implements prime.tools.generator.ICodeFormattable		#end
 {
 #if (CSSParser || debug)
 	public var _oid					(default, null) : Int;
@@ -68,7 +59,7 @@ class StyleChildren
 		)
 	{
 #if (CSSParser || debug)
-		_oid = ID.getNext();
+		_oid = prime.utils.ID.getNext();
 #end
 		this.elementSelectors	= elementSelectors;
 		this.styleNameSelectors	= styleNameSelectors;
@@ -225,7 +216,7 @@ class StyleChildren
 	}
 	
 	
-	public function toCode (code:ICodeGenerator)
+	public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 			code.construct( this, [ elementSelectors, styleNameSelectors, idSelectors ] );

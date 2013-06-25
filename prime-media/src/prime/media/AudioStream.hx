@@ -27,7 +27,7 @@
  *  Ruben Weijers   <ruben @ prime.vc>
  */
 package prime.media;
-#if flash9
+#if (flash9 || nme)
  import prime.avm2.media.Sound;
  import flash.events.Event;
  import flash.media.SoundChannel;
@@ -53,7 +53,7 @@ package prime.media;
  */
 class AudioStream extends BaseMediaStream
 {
-#if flash9
+#if (flash9 || nme)
     public var source       : Sound;
 
     /**
@@ -91,7 +91,7 @@ class AudioStream extends BaseMediaStream
     private inline function load ()
     {
         Assert.that(!isLoaded());
-#if flash9
+#if (flash9 || nme)
         source = new Sound();
         updateTotalTime.on( source.events.completed, this );
         handleIOError  .on( source.events.error, this );
@@ -103,7 +103,7 @@ class AudioStream extends BaseMediaStream
 
     private inline function unload ()
     {
-#if flash9
+#if (flash9 || nme)
         if (isLoaded()) {
             source.dispose();
             source = null;
@@ -122,7 +122,7 @@ class AudioStream extends BaseMediaStream
     
     private inline function isLoaded ()
     {
-        return #if flash9 source.notNull() #else false #end;
+        return #if (flash9 || nme) source.notNull() #else false #end;
     }
 
     
@@ -188,7 +188,7 @@ class AudioStream extends BaseMediaStream
         newPosition = validatePosition(newPosition);
         if (newPosition == lastPos || (channel.notNull() && newPosition == channel.position))
             return;
-#if flash9
+#if (flash9 || nme)
         lastPos = newPosition;
         if (isPlaying()) {
             applyStop();
@@ -200,7 +200,7 @@ class AudioStream extends BaseMediaStream
 
     private inline function applyPause ()
     {
-#if flash9
+#if (flash9 || nme)
         if (channel.notNull()) {
             lastPos = channel.position;
             applyStop();
@@ -211,7 +211,7 @@ class AudioStream extends BaseMediaStream
 
     private inline function applyResume ()
     {
-#if flash9
+#if (flash9 || nme)
         channel = source.play(lastPos);
         channel.addEventListener(Event.SOUND_COMPLETE, untyped applyRepeat);
 #end    lastPos = 0;
@@ -222,7 +222,7 @@ class AudioStream extends BaseMediaStream
 
     private inline function applyStop ()
     {
-#if flash9
+#if (flash9 || nme)
         stopUpdateTimer();
 
         if (channel.notNull()) {
@@ -234,7 +234,7 @@ class AudioStream extends BaseMediaStream
 #end
     }
 
-#if flash9
+#if (flash9 || nme)
     private function applyRepeat (event:Event)
     {
         repeated++;
@@ -298,13 +298,13 @@ class AudioStream extends BaseMediaStream
     
     private inline function updateCurrentTime ()
     {
-#if flash9  currentTime.value = channel.notNull() ? channel.position * .001 : .0; #end
+#if (flash9 || nme)  currentTime.value = channel.notNull() ? channel.position * .001 : .0; #end
     }
 
 
     private inline function updateTotalTime ()
     {
-#if flash9  totalTime.value = source.length * .001; #end
+#if (flash9 || nme)  totalTime.value = source.length * .001; #end
     }
     
     
@@ -341,7 +341,7 @@ class AudioStream extends BaseMediaStream
 
     private inline function applyVolume ()
     {
-#if flash9
+#if (flash9 || nme)
         Assert.isNotNull(channel);
         if (channel.soundTransform.volume != volume.value)
         {

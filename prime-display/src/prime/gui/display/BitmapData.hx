@@ -34,4 +34,4 @@ package prime.gui.display;
  * @author Ruben Weijers
  * @creation-date Jun 06, 2011
  */
-typedef BitmapData = #if flash9  flash.display.BitmapData; #else Dynamic; #end
+typedef BitmapData = #if (flash9 || nme)  flash.display.BitmapData; #else Dynamic; #end

@@ -45,7 +45,7 @@ package prime.gui.core;
  * @author Ruben Weijers
  * @creation-date Aug 02, 2010
  */
-class UIDataContainer <DataType> extends UIDataComponent <DataType>, implements IUIContainer
+class UIDataContainer <DataType> extends UIDataComponent <DataType> implements IUIContainer
 {
     public function new (id:String = null, data:DataType = null)
     {
@@ -54,12 +54,12 @@ class UIDataContainer <DataType> extends UIDataComponent <DataType>, implements 
     }
     
     
-	public var layoutContainer	(getLayoutContainer, never)		: LayoutContainer;
-	public var scrollableLayout	(getScrollableLayout, never)	: IScrollableLayout;
+	public var layoutContainer	(get_layoutContainer, never)	: LayoutContainer;
+	public var scrollableLayout	(get_scrollableLayout, never)	: IScrollableLayout;
 	public var isScrollable										: Bool;
 	
-	private inline function getLayoutContainer () 										{ return layout.as(LayoutContainer); }
-	private inline function getScrollableLayout ()									 	{ return layout.as(IScrollableLayout); }
+	private inline function get_layoutContainer () 										{ return layout.as(LayoutContainer); }
+	private inline function get_scrollableLayout ()									 	{ return layout.as(IScrollableLayout); }
 	public  inline function attach			(child:IUIElement)			: IUIContainer	{ child.attachTo(this);             return this; }
 	public  inline function changeDepthOf	(child:IUIElement, pos:Int)	: IUIContainer	{ child.changeDepth(pos);           return this; }
 	public  inline function attachDisplay	(child:IUIElement)			: IUIContainer	{ child.attachDisplayTo(this);      return this; }
@@ -87,7 +87,10 @@ class UIDataContainer <DataType> extends UIDataComponent <DataType>, implements 
 
     public function enableClipping ()
     {
-        createScrollRect( rect.width, rect.height);
+        if (scrollRect != null)
+            updateScrollRect( prime.layout.LayoutFlags.SIZE );
+        else
+            createScrollRect( layout.outerBounds.width, layout.outerBounds.height);
         
         var s = layoutContainer.scrollPos;
         updateScrollRect.on( layoutContainer.changed, this );
@@ -98,6 +101,7 @@ class UIDataContainer <DataType> extends UIDataComponent <DataType>, implements 
 
     public function disableClipping ()
     {
+        Assert.isNotNull(scrollRect, id.value);
         var l = layoutContainer;
         l.changed.unbind(this);
         l.scrollPos.xProp.change.unbind( this );
@@ -112,8 +116,8 @@ class UIDataContainer <DataType> extends UIDataComponent <DataType>, implements 
             return;
         
         var r = getScrollRect();
-        r.width  = rect.width;
-        r.height = rect.height;
+        r.width  = layout.outerBounds.width;
+        r.height = layout.outerBounds.height;
         
         if (graphicData.border != null)
         {

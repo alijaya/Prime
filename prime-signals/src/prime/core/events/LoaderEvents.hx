@@ -34,7 +34,7 @@ package prime.core.events;
 
 
 typedef LoaderEvents =
-	#if     flash9 prime.avm2.events.LoaderEvents;
+	#if (flash9 || nme) prime.avm2.events.LoaderEvents;
 	#elseif flash  prime.avm1.events.LoaderEvents;
 	#elseif nodejs Dynamic;
 	#elseif js     prime.js  .events.LoaderEvents;

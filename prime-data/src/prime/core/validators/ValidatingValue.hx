@@ -40,8 +40,8 @@ package prime.core.validators;
 #if flash9 @:generic #end
 class ValidatingValue < DataType > extends QueueingInvalidatable
 {
-	public var validator			(default, setValidator)	: IValueValidator < DataType >;
-	public var value				(default, setValue)		: DataType;
+	public var validator			(default, set_validator)	: IValueValidator < DataType >;
+	public var value				(default, set_value)		: DataType;
 	
 	
 	public function new (newValue:DataType)
@@ -79,7 +79,7 @@ class ValidatingValue < DataType > extends QueueingInvalidatable
 	}
 	
 	
-	private inline function setValidator (v)
+	private inline function set_validator (v)
 	{
 		if (v != validator)
 		{
@@ -98,7 +98,7 @@ class ValidatingValue < DataType > extends QueueingInvalidatable
 	}
 	
 	
-	private inline function setValue (v:DataType)
+	private inline function set_value (v:DataType)
 	{
 		var oldV = value;
 		if (v != value)

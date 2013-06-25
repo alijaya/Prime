@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.display;
+#if (flash9 || nme)
  import flash.display.DisplayObjectContainer;
  import prime.gui.display.IDisplayContainer;
  import prime.gui.display.IDisplayObject;
@@ -47,15 +48,15 @@ package prime.avm2.display;
  * @author Ruben Weijers
  * @creation-date Jul 22, 2010
  */
-class DisplayContainer extends DisplayObjectContainer, implements IDisplayContainer, implements IDisplayObject
+class DisplayContainer extends DisplayObjectContainer implements IDisplayContainer implements IDisplayObject
 {
 	public var children			(default, null)				: DisplayList;
 	public var displayEvents	(default, null)				: DisplayEvents;
 	public var container		(default, default)			: IDisplayContainer;
-	public var window			(default, setWindow)		: Window;
+	public var window			(default, set_window)		: Window;
 	public var rect				(default, null)				: IntRectangle;
 	
-	private function setWindow(w:Window):Window { window = w; return window; }
+	private function set_window(w:Window):Window { window = w; return window; }
 
 	public function new ()
 	{
@@ -79,3 +80,4 @@ class DisplayContainer extends DisplayObjectContainer, implements IDisplayContai
 	public function removeFocus ()	: Void { Assert.abstractMethod(); }
 	public function isFocusOwner ( target: UserEventTarget ) : Bool { Assert.abstractMethod(); return false; }
 }
+#end

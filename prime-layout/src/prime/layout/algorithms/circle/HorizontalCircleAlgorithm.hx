@@ -45,7 +45,7 @@ package prime.layout.algorithms.circle;
  * @creation-date	Jul 7, 2010
  * @author			Ruben Weijers
  */
-class HorizontalCircleAlgorithm extends HorizontalBaseAlgorithm, implements IHorizontalAlgorithm
+class HorizontalCircleAlgorithm extends HorizontalBaseAlgorithm implements IHorizontalAlgorithm
 {
 	/**
 	 * isEllipse defines if the circle that is drawn can be an ellipse or should

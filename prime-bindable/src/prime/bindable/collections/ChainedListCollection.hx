@@ -39,21 +39,21 @@ package prime.bindable.collections;
  * list.
  * 
  */
-#if flash9 @:generic #end
+//#if flash9 @:generic #end
 class ChainedListCollection<T>
 				implements IEditableList<T>
-			,	implements IListCollection<T, ChainedList<T>>
+				implements IListCollection<T, ChainedList<T>>
 {
 	public var change		(default, null)				: Signal1<ListChange<T>>;
 	
 	private var _length		: Int;
-	public var length		(getLength, never)			: Int;
+	public var length		(get_length, never)			: Int;
 	
 	public var lists		(default, null)				: ArrayList<ChainedList<T>>;
 	/**
 	 * Maximum number of items per chained list.
 	 */
-	public var maxPerList	(default, setMaxPerList)	: Int;
+	public var maxPerList	(default, set_maxPerList)	: Int;
 	
 	
 	public function new (max:Int = -1)
@@ -380,7 +380,7 @@ class ChainedListCollection<T>
 	// GETTERS / SETTERS
 	//
 	
-	private inline function setMaxPerList (v) {
+	private inline function set_maxPerList (v) {
 		for (list in lists)
 			list.max = v;
 		
@@ -388,7 +388,7 @@ class ChainedListCollection<T>
 	}
 	
 	
-	private inline function getLength () {
+	private inline function get_length () {
 		return _length;
 	}
 	
@@ -425,11 +425,11 @@ class ChainedListCollection<T>
  * @creation-date	Jun 30, 2010
  * @author			Ruben Weijers
  */
+#if flash9 @:generic #end
 class ChainedListCollectionIterator<T> implements IIterator<T>
-	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
 	private var target			(default, null)					: ChainedListCollection<T>;
-	private var currentList 	(default, setCurrentList)		: ChainedList<T>;
+	private var currentList 	(default, set_currentList)		: ChainedList<T>;
 	private var listIterator	: IIterator<T>;
 	private var current			: Int;
 	
@@ -470,7 +470,7 @@ class ChainedListCollectionIterator<T> implements IIterator<T>
 	}
 	
 	
-	private inline function setCurrentList (v) {
+	private inline function set_currentList (v) {
 		currentList = v;
 		if (v != null)	listIterator = v.forwardIterator();
 		else			listIterator = null;

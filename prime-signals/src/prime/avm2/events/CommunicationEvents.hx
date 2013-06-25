@@ -27,9 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
-private typedef ErrorSignal    = prime.avm2.events.TextSignal;		// override import
-private typedef ProgressSignal = prime.avm2.events.ProgressSignal;	// override import
-
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.IOErrorEvent;
  import flash.events.Event;
@@ -47,9 +45,10 @@ class CommunicationEvents extends CommunicationSignals
 	{
 		super();
 		started		= new FlashSignal0(   target, 	Event.OPEN );
-		progress	= new ProgressSignal( target,	ProgressEvent.PROGRESS );
 		init		= new FlashSignal0(   target,	Event.INIT );
 		completed	= new FlashSignal0(   target,	Event.COMPLETE );
-		error		= new ErrorSignal(   target,	IOErrorEvent.IO_ERROR );
+		progress	= new prime.avm2.events.ProgressSignal( target, ProgressEvent.PROGRESS );
+		error		= new prime.avm2.events.ErrorSignal(    target, IOErrorEvent.IO_ERROR );
 	}
 }
+#end

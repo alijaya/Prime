@@ -14,7 +14,7 @@ interface IThread {
 }
 
 
-interface ITest implements IThread {
+interface ITest extends IThread {
 	function getSummery()	: String;
 }
 
@@ -279,7 +279,7 @@ class Benchmark extends MainThread
 
 
 
-class Comparison extends Thread, implements ITest
+class Comparison extends Thread implements ITest
 {
 	public var name				: String;
 	public var childIterations	: Int;
@@ -403,7 +403,7 @@ class Comparison extends Thread, implements ITest
  * @creation-date	Jun 9, 2010
  * @author			Ruben Weijers
  */
-class Test extends Thread, implements ITest
+class Test extends Thread implements ITest
 {
 	public static inline var REPEAT_TEST : Int = 7;
 	

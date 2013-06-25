@@ -1,11 +1,10 @@
 package prime.js.events;
-
+#if js
 import prime.js.events.DOMSignal1;
-import js.Dom;
+import js.html.Event;
 
-typedef GestureEvent = 
+class GestureEvent extends Event
 {
-	>DOMEvent,
 	public var altKey			(default, null):Bool; // Indicates whether or not the ALT key was pressed when the event was triggered. 
 	public var ctrlKey			(default, null):Bool; // Indicates whether or not the CTRL key was pressed when the event was triggered. 
 	public var metaKey			(default, null):Bool; // Indicates whether or not the META key was pressed when the event was triggered. 
@@ -33,3 +32,4 @@ class GestureSignal extends DOMSignal1<GestureEvent>
 		send(cast e);
 	}
 }
+#end

@@ -29,6 +29,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.components;
+#if prime_media
  import prime.media.VideoStream;
  import prime.fsm.states.MediaStates;
  import prime.bindable.Bindable;
@@ -131,7 +132,7 @@ class VideoControlBar extends UIContainer
 	public var volumeSlider		(default, null)	: Slider;
 	public var fullScreenBtn	(default, null)	: Button;
 	
-	public var stream			(default, setStream)	: VideoStream;
+	public var stream			(default, set_stream)	: VideoStream;
 	
 	
 	override public function dispose ()
@@ -245,7 +246,7 @@ class VideoControlBar extends UIContainer
 	// GETTERS / SETTERS
 	//
 	
-	private inline function setStream (v:VideoStream)
+	private inline function set_stream (v:VideoStream)
 	{
 		if (stream != v)
 		{
@@ -286,7 +287,6 @@ class VideoControlBar extends UIContainer
 		
 		case loading( origState ):
         case frozen( prevState ):
-		default:
 	//	case MediaStates.frozen(realState):
 		//	enabled.value = false;
 			
@@ -352,3 +352,4 @@ class VideoControlBar extends UIContainer
 	//	else			layoutContainer.children.add( child.layout, pos );
 	}
 }
+#end

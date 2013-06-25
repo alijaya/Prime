@@ -140,7 +140,6 @@ class TypedProxyTree<T, F> extends SimpleList< TypedProxyTree<T, F> >
 			case removed( item, oldPos ): if ( item.is(filter) ) removeChildNode( item ) else debug(item);
 			case moved( item, newPos, oldPos ): // dont care, no need to maintain ordering
 			case reset: clear();
-			default:
 		}
 #if debug
 		ok = false;

@@ -1,5 +1,5 @@
 package prime.js.display;
-
+#if js
 import js.Dom;
 import js.Lib;
 
@@ -24,10 +24,10 @@ class Video extends DOMElem
      */
     public static inline var PRELOAD_NONE = "none"; 
     
-	public var src		        (default, setSrc):String;
-    public var preload          (default, setPreload):String;
-	override public var width	(default, setWidth):Int;
-	override public var height	(default, setHeight):Int;
+	public var src		        (default, set_src):String;
+    public var preload          (default, set_preload):String;
+	override public var width	(default, set_width):Int;
+	override public var height	(default, set_height):Int;
 	
 	public function new() {
 		super("video");
@@ -39,7 +39,7 @@ class Video extends DOMElem
         //}
 	}
     
-    override private function setWidth(v:Int):Int {
+    override private function set_width(v:Int):Int {
 		if (width != v) {
 			width = v;
 			elem.width = v;
@@ -47,7 +47,7 @@ class Video extends DOMElem
 		return width;
 	}
 	
-	override private function setHeight(v:Int):Int {
+	override private function set_height(v:Int):Int {
 		if (height != v) {
 			height = v;
 			elem.height = v;
@@ -55,7 +55,7 @@ class Video extends DOMElem
 		return height;
 	}
     
-	private function setSrc(v:String):String
+	private function set_src(v:String):String
 	{
 		if (src != v) {
 			elem.src = v;
@@ -63,7 +63,7 @@ class Video extends DOMElem
 		return src;
 	}
     
-    private function setPreload(v:String):String
+    private function set_preload(v:String):String
 	{
 		if (preload != v) {
 			elem.preload = v;
@@ -78,3 +78,4 @@ class Video extends DOMElem
         //elem.play();
     }
 }
+#end

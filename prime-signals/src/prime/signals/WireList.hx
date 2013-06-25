@@ -27,11 +27,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.signals;
- import prime.core.ListNode;
-
 
 /**
  * @author Ruben Weijers
  * @creation-date Nov 02, 2010
  */
-class WireList < FunctionSignature > extends ListNode<Wire<FunctionSignature>> {}
+@:allow(prime) class WireList < FunctionSignature > {
+	private var n : Wire<FunctionSignature>;
+	private inline function next() return n;
+}

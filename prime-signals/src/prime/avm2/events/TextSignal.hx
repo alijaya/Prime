@@ -27,12 +27,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.avm2.events;
+#if	(flash9 || nme)
  import flash.events.IEventDispatcher;
  import flash.events.TextEvent;
  import prime.signals.IWireWatcher;
  import prime.signals.Signal1;
  import prime.signals.Wire;
- import prime.core.ListNode;
  import prime.gui.events.TextEvents;
 
 
@@ -43,7 +43,7 @@ package prime.avm2.events;
  * @author Ruben Weijers
  * @creation-date Sep 02, 2010
  */
-class TextSignal extends Signal1 <String>, implements IWireWatcher < TextHandler > 
+class TextSignal extends Signal1 <String> implements IWireWatcher < TextHandler > 
 {
 	var eventDispatcher:IEventDispatcher;
 	var event:String;
@@ -58,7 +58,7 @@ class TextSignal extends Signal1 <String>, implements IWireWatcher < TextHandler
 
 	public function wireEnabled (wire:Wire<TextHandler>) : Void {
 		Assert.isNotNull(n);
-		if (ListUtil.next(n) == null) // First wire connected
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 
@@ -71,3 +71,4 @@ class TextSignal extends Signal1 <String>, implements IWireWatcher < TextHandler
 		send(e.text);
 	}
 }
+#end

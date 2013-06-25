@@ -23,18 +23,18 @@ enum ElementType {
 class LangMacro 
 {
 	private static var config:Array<String> = new Array<String>();
-	@:macro public static function addYAML(key:String):Expr
+	macro public static function addYAML(key:String):Expr
 	{
 		config.push(key);
 		return macro true;
 		
 	}
-	@:macro public static function build() : Array<Field> 
+	macro public static function build() : Array<Field> 
     {      
 		var pos = haxe.macro.Context.currentPos();
 		var fields = haxe.macro.Context.getBuildFields();
 		
-		var langsRaw = new Hash<YamlHX>();
+		var langsRaw = new Map<String,YamlHX>();
 		//for ( file in config)
 		//{
 			//var data = YamlHX.read( neko.io.File.getContent(file) );
@@ -61,21 +61,21 @@ class LangMacro
 		//}
 		for (currentDir in Context.getClassPath())
 		{
-      if (Sys.systemName() != "Windows")
-      {
-        try { currentDir = sys.FileSystem.fullPath(currentDir); }
-        catch (e:Dynamic) {} //{ trace("errror "+e); }
-        	if ( Sys.systemName() != "Windows" )
-	        	// this is required on Mac only in order to work, on Win it breaks 
-				if (!sys.FileSystem.exists(currentDir))         continue;
-      }
-      for (file in sys.FileSystem.readDirectory(currentDir))
+			if (Sys.systemName() != "Windows")
+			{
+				try { currentDir = sys.FileSystem.fullPath(currentDir); }
+				catch (e:Dynamic) {} //{ trace("errror "+e); }
+				// this is required on Mac only in order to work, on Win it breaks 
+				if ( Sys.systemName() != "Windows" && !sys.FileSystem.exists(currentDir) )
+					continue;
+			}
+			for (file in sys.FileSystem.readDirectory(currentDir))
 			{
 				if (file.endsWith(".yaml") || file.endsWith(".yml") )
 				{
 				//	trace("Prime::Locale:: Parsing YAML file:: " + currentDir +  file);
 					haxe.macro.Context.registerModuleDependency("prime.locale.LangMacro", currentDir + "/" + file);
-					var yamlStream = YamlHX.read( neko.io.File.getContent( currentDir + "/" + file) );
+					var yamlStream = YamlHX.read( sys.io.File.getContent( currentDir + "/" + file) );
 					var key = yamlStream.x.firstElement().nodeName;
 					if ( langsRaw.exists(key))
 					{
@@ -221,7 +221,7 @@ class LangMacro
 				//TODO: Move this into a  static function
 				var farg1:FunctionArg =  { name:"param1", opt:false, type:TPath( { pack : [], name : "Int", params : [], sub : null } ) };
 				
-				var funcData:String = " { var hash = new Hash<String>();";
+				var funcData:String = " { var hash = new Map<String,String>();";
 				
 				for (val in el.elements) 
 					funcData +=  "hash.set(" + addSlashes(val.name) + "," + addSlashes(val.innerData) + ");";
@@ -255,7 +255,7 @@ class LangMacro
 				var auxResult = [];
 				var varNames:Array<String> = [];
 				var i = -1;
-				var nodeParsedValue = regExp.customReplace(el.innerData, function (e) {
+				var nodeParsedValue = regExp.map(el.innerData, function (e) {
 					var lastVal =  varNames.indexOf(e.matched(1));
 					if (lastVal == -1)
 					{
@@ -297,7 +297,7 @@ class LangMacro
 				//TODO: this should point to 
 				var farg1:FunctionArg =  { name:"param1", opt:false, type:TPath( { pack : [], name : "Int", params : [], sub : null } ) };
 				
-				var funcData:String = " { var hash = new Hash<String>();";
+				var funcData:String = " { var hash = new Map<String,String>();";
 				
 				for (val in el.elements) 
 					funcData +=  "hash.set(" + addSlashes(val.name) + "," + addSlashes(val.innerData) + ");";
@@ -330,7 +330,7 @@ class LangMacro
 				var auxResult = [];
 				var varNames:Array<String> = [];
 				var i = -1;
-				var nodeParsedValue = regExp.customReplace(el.innerData, function (e) {
+				var nodeParsedValue = regExp.map(el.innerData, function (e) {
 					var lastVal =  varNames.indexOf(e.matched(1));
 					if (lastVal == -1)
 					{
@@ -466,7 +466,7 @@ class LangMacro
 					var regExp = new EReg("{([^:}]*):?([^}])*}", "");
 				
 					var varNames:Array<String> = [];
-					regExp.customReplace(el.innerData, function (e) {
+					regExp.map(el.innerData, function (e) {
 						if (varNames.indexOf(e.matched(1)) == -1)
 						{
 							varNames.push( e.matched(1) );

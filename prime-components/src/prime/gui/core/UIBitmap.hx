@@ -1,5 +1,3 @@
-
-
 /*
  * Copyright (c) 2010, The PrimeVC Project Contributors
  * All rights reserved.
@@ -38,7 +36,7 @@ package prime.gui.core;
  import prime.layout.AdvancedLayoutClient;
  import prime.gui.managers.ISystem;
  import prime.gui.states.UIElementStates;
-#if flash9
+#if (prime_css && (flash9 || nme))
  import prime.bindable.collections.SimpleList;
  import prime.gui.styling.UIElementStyle;
 #end
@@ -56,7 +54,7 @@ package prime.gui.core;
  * @author Ruben Weijers
  * @creation-date Jul 08, 2011
  */
-class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
+class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
 {
     public var prevValidatable  : IValidatable;
     public var nextValidatable  : IValidatable;
@@ -64,17 +62,17 @@ class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
     
     
     public var behaviours       (default, null)                 : BehaviourList;
-    public var id               (default, null)                 : Bindable < String >;
+    public var id               (default, null)                 : Bindable<String>;
     public var state            (default, null)                 : UIElementStates;
     public var effects          (default, default)              : prime.gui.effects.UIElementEffects;
     
     public var layout           (default, null)                 : prime.layout.LayoutClient;
-    public var system           (getSystem, never)              : ISystem;
+    public var system           (get_system, never)             : ISystem;
     
-#if flash9
+#if (prime_css && (flash9 || nme))
     public var style            (default, null)                 : UIElementStyle;
-    public var styleClasses     (default, null)                 : SimpleList< String >;
-    public var stylingEnabled   (default, setStylingEnabled)    : Bool;
+    public var styleClasses     (default, null)                 : SimpleList<String>;
+    public var stylingEnabled   (default, set_stylingEnabled)    : Bool;
 #end
     
     
@@ -92,7 +90,7 @@ class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
         
         state           = new UIElementStates();
         behaviours      = new BehaviourList();
-#if flash9
+#if (prime_css && (flash9 || nme))
         styleClasses    = new SimpleList<String>();
         stylingEnabled  = true;
 #end
@@ -137,12 +135,6 @@ class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
             layout = null;
         }
         
-#if flash9
-        style.dispose();
-        styleClasses.dispose();
-        style           = null;
-        styleClasses    = null;
-#end
         id              = null;
         state           = null;
         behaviours      = null;
@@ -151,9 +143,9 @@ class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
     }
 
 
-    public #if !noinline inline #end function isDisposed ()    { return state == null || state.is(state.disposed); }
-    public #if !noinline inline #end function isInitialized () { return state != null && state.is(state.initialized); }
-    public function isResizable ()          { return true; }
+    public #if !noinline inline #end function isDisposed ()    return state == null || state.is(state.disposed);
+    public #if !noinline inline #end function isInitialized () return state != null && state.is(state.initialized);
+    public function isResizable ()                             return true;
     
     
     //
@@ -181,7 +173,7 @@ class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
                 l.maintainAspectRatio = false;
                 l.measuredWidth = l.measuredHeight = Number.INT_NOT_SET;
             } else {
-#if flash9      if (l.explicitWidth.isSet() || l.explicitHeight.isSet())
+#if (flash9||nme) if (l.explicitWidth.isSet() || l.explicitHeight.isSet())
                     scaleX = scaleY = Formulas.scale(data.width, data.height, l.explicitWidth, l.explicitHeight);
 #end            l.maintainAspectRatio = true;
                 l.measuredResize((data.width * scaleX).roundFloat(), (data.height * scaleY).roundFloat());
@@ -263,8 +255,8 @@ class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
     }
 
 
-    public #if !noinline inline #end function isDetaching ()               { return effects != null && effects.isPlayingHide(); }
-    public #if !noinline inline #end function isAttached ()                { return window  != null; }
+    public #if !noinline inline #end function isDetaching ()    return effects != null && effects.isPlayingHide();
+    public #if !noinline inline #end function isAttached ()     return window  != null;
 
 
     
@@ -316,21 +308,21 @@ class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
     // GETTERS / SETTESR
     //
     
-    private inline function getSystem () : ISystem      { return window.as(ISystem); }
-#if flash9
-    public #if !noinline inline #end function isOnStage () : Bool          { return stage != null; }           // <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
+    private inline function get_system () : ISystem                 return window.as(ISystem);
+#if (flash9 || nme)
+    public #if !noinline inline #end function isOnStage () : Bool   return stage != null;           // <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
 #else
-    public #if !noinline inline #end function isOnStage () : Bool          { return window != null; }
+    public #if !noinline inline #end function isOnStage () : Bool   return window != null;
 #end
-    public #if !noinline inline #end function isQueued () : Bool           { return nextValidatable != null || prevValidatable != null; }
+    public #if !noinline inline #end function isQueued () : Bool    return nextValidatable != null || prevValidatable != null;
     
 
-    override private function setData (v:BitmapData) : BitmapData
+    override private function set_data (v:BitmapData) : BitmapData
     {
-        var cur = getData();
+        var cur = get_data();
         if (cur != v)
         {
-#if flash9  bitmapData  = v;
+#if (flash9 || nme)  bitmapData  = v;
 #else       data        = v; #end
             updateScale(prime.layout.LayoutFlags.SIZE);
         }
@@ -338,8 +330,8 @@ class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
     }
 
     
-#if flash9
-    private function setStylingEnabled (v:Bool)
+#if (prime_css && (flash9 || nme))
+    private function set_stylingEnabled (v:Bool)
     {
         if (v != stylingEnabled)
         {
@@ -361,12 +353,12 @@ class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
     // ACTIONS (actual methods performed by UIElementActions util)
     //
 
-    public #if !noinline inline #end function show ()                      { this.doShow(); }
-    public #if !noinline inline #end function hide ()                      { this.doHide(); }
-    public #if !noinline inline #end function move (x:Int, y:Int)          { this.doMove(x, y); }
-    public #if !noinline inline #end function resize (w:Int, h:Int)        { this.doResize(w, h); }
-    public #if !noinline inline #end function rotate (v:Float)             { this.doRotate(v); }
-    public #if !noinline inline #end function scale (sx:Float, sy:Float)   { this.doScale(sx, sy); }
+    public #if !noinline inline #end function show ()                      this.doShow();
+    public #if !noinline inline #end function hide ()                      this.doHide();
+    public #if !noinline inline #end function move (x:Int, y:Int)          this.doMove(x, y);
+    public #if !noinline inline #end function resize (w:Int, h:Int)        this.doResize(w, h);
+    public #if !noinline inline #end function rotate (v:Float)             this.doRotate(v);
+    public #if !noinline inline #end function scale (sx:Float, sy:Float)   this.doScale(sx, sy);
     
     
     
@@ -378,6 +370,6 @@ class UIBitmap extends prime.gui.display.BitmapShape, implements IUIElement
     
     
 #if debug
-    override public function toString() { return id.value; }
+    override public function toString() return id.value;
 #end
 }

@@ -42,5 +42,10 @@ interface IScaleable
 	#if flash10
 	var scaleZ					: Float;
 	#end
+
+#elseif nme
+	public var scaleX(get_scaleX, set_scaleX):Float;
+	public var scaleY(get_scaleY, set_scaleY):Float;
+
 #end
 }

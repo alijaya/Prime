@@ -27,15 +27,12 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.tools.generator;
- import prime.core.traits.IUIdentifiable;
-
-
 #if (CSSParser || debug)
 /**
  * @author Ruben Weijers
  * @creation-date Sep 13, 2010
  */
-interface ICodeFormattable implements IUIdentifiable
+interface ICodeFormattable extends prime.core.traits.IUIdentifiable
 {
 	#if CSSParser
 		/**

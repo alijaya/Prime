@@ -29,10 +29,6 @@
 package prime.gui.display;
  import prime.core.geom.Point;
  import prime.core.geom.Rectangle;
- import prime.gui.traits.IDisplayable;
- import prime.gui.traits.IPositionable;
- import prime.gui.traits.IScaleable;
- import prime.gui.traits.ISizeable;
 
 
 /**
@@ -40,11 +36,12 @@ package prime.gui.display;
  * @creation-date Aug 04, 2010
  */
 interface IDisplayObject 
-				implements IDisplayable
-			,	implements IPositionable
-			,	implements IScaleable
-			,	implements ISizeable
-#if flash9  ,	implements flash.display.IBitmapDrawable #end
+				extends prime.gui.traits.IDisplayable
+				extends prime.gui.traits.IPositionable
+				extends prime.gui.traits.IScaleable
+				extends prime.gui.traits.ISizeable
+#if (flash9 || nme)
+				extends flash.display.IBitmapDrawable #end
 {
 	
 	public function isObjectOn			(otherObj:IDisplayObject)					: Bool;
@@ -65,10 +62,13 @@ interface IDisplayObject
 	
 	public function changeDisplayDepth	(newDepth:Int)								: IDisplayObject;
 #end
-	
+
+	public function globalToLocal 	(point : Point) 					: Point;
+	public function localToGlobal 	(point : Point) 					: Point;
+	public function getBounds 	  	(other:DisplayObject)				: Rectangle;
+
 #if flash9
 	public var alpha				: Float;
-	public var visible				: Bool;
 	
 	public var mouseX				(default, never)		: Float;
 	public var mouseY				(default, never)		: Float;
@@ -76,15 +76,34 @@ interface IDisplayObject
 	public var filters				: Array<flash.filters.BitmapFilter>;
 	public var name					: String;
 	public var scrollRect			: flash.geom.Rectangle;
-	public var parent 				(default, null) 		: flash.display.DisplayObjectContainer;
+	public var parent 				(default, null) 					: flash.display.DisplayObjectContainer;
 	
-	public function globalToLocal 	(point : Point) 					: Point;
-	public function localToGlobal 	(point : Point) 					: Point;
-	public function getBounds 	  	(other:DisplayObject)				: Rectangle;
+#elseif nme
+	public var filters(get_filters, set_filters):Array<Dynamic>; //FIXME: flash.filters.BitmapFilter
+	public var scrollRect(get_scrollRect, set_scrollRect):Rectangle;
+
+  #if html5
+	public var alpha:Float;
+
+	public var mouseX(get_mouseX, never):Float;
+	public var mouseY(get_mouseY, never):Float;
+
+	public var name:String;
+	public var parent(default, set_parent):flash.display.DisplayObjectContainer;
+
+  #elseif cpp
+	public var alpha(get_alpha, set_alpha):Float;
+
+	public var mouseX(get_mouseX, null):Float;
+	public var mouseY(get_mouseY, null):Float;
+
+	public var name(get_name, set_name):String;
+	public var parent(get_parent, null):flash.display.DisplayObjectContainer;
+
+  #end
 #else
-	public var parent 				: IDisplayContainer;
-	public var visible				(getVisibility, setVisibility)		: Bool;
-	public var alpha				(getAlpha,		setAlpha)			: Float;
-	public function getBounds 		(other:IDisplayObject)				: Rectangle;
+	public var parent                             : IDisplayContainer;
+	public var visible (get_visible, set_visible) : Bool;
+	public var alpha   (get_alpha,   set_alpha)   : Float;
 #end
 }

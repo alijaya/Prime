@@ -40,17 +40,17 @@ package prime.gui.effects;
  * @author Ruben Weijers
  * @creation-date Aug 31, 2010
  */
-class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalidatable, implements IEffect
+class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalidatable implements IEffect
 {
 #if (debug || CSSParser)
 	public var _oid				(default, null)	: Int;
 #end
 	
-	public var easing			(default, setEasing)			: Easing;
-	public var delay			(default, setDelay)				: Int;
-	public var duration			(default, setDuration)			: Int;
-	public var autoHideFilters	(default, setAutoHideFilters)	: Bool;
-	public var isReverted		(default, setIsReverted)		: Bool;
+	public var easing			(default, set_easing)			: Easing;
+	public var delay			(default, set_delay)			: Int;
+	public var duration			(default, set_duration)			: Int;
+	public var autoHideFilters	(default, set_autoHideFilters)	: Bool;
+	public var isReverted		(default, set_isReverted)		: Bool;
 	
 	
 	public function new (newDuration:Int = 350, newDelay:Int = 0, newEasing:Easing = null, isReverted:Bool = false) 
@@ -62,7 +62,7 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 		duration		= newDuration.notSet()	? 350 : newDuration;
 		delay			= newDelay <= 0			? prime.types.Number.INT_NOT_SET : newDelay;
 		this.isReverted = isReverted;
-#if flash9
+#if (flash9 || nme)
 		easing			= newEasing == null 	? feffects.easing.Linear.easeNone : newEasing;
 #elseif CSSParser
 		easing 			= newEasing;
@@ -120,7 +120,7 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 	//
 	
 	
-	private inline function setDelay (v:Int) : Int
+	private inline function set_delay (v:Int) : Int
 	{
 		Assert.that(v >= 0 || v.notSet(), "delay should be 0 or larger.. it is: "+v);
 		if (delay != v) {
@@ -131,7 +131,7 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 	}
 	
 	
-	private inline function setEasing (v:Easing) : Easing
+	private inline function set_easing (v:Easing) : Easing
 	{
 		if (easing != v) {
 			easing = v;
@@ -141,7 +141,7 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 	}
 	
 	
-	private inline function setDuration (v:Int) : Int
+	private inline function set_duration (v:Int) : Int
 	{
 		if (duration != v) {
 			duration = v;
@@ -151,7 +151,7 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 	}
 	
 	
-	private inline function setIsReverted (v:Bool)
+	private inline function set_isReverted (v:Bool)
 	{
 		if (isReverted != v) {
 			isReverted = v;
@@ -161,7 +161,7 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 	}
 	
 	
-	private inline function setAutoHideFilters (v:Bool) : Bool
+	private inline function set_autoHideFilters (v:Bool) : Bool
 	{
 		if (autoHideFilters != v) {
 			autoHideFilters = v;
@@ -177,6 +177,6 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 	public function isEmpty () : Bool				{ return duration <= 0; }
 	public function cleanUp ()						{}
 	public function toCode (code:prime.tools.generator.ICodeGenerator)
-		Assert.abstractMethod()
+		Assert.abstractMethod();
 #end
 }

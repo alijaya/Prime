@@ -1,0 +1,22 @@
+{
+  "name": "prime-css",
+  "license": "BSD",
+  "tags": ["prime", "cascading", "style", "css"],
+  "description": "CSS file parsing and style building.",
+  "contributors": ["optimus"],
+
+  "releasenote": "Initial release. Developed since Jul 08, 2010",
+  "version": "1.0.0",
+  "url": "http://prime.vc/",
+  "dependencies": {
+    "prime-bindable": "",
+    "prime-core": "",
+    "prime-data": "",
+    "feffects": "",
+    "prime-components": "",
+    "prime-display": "",
+    "prime-signals": "",
+    "prime-layout": "",
+    "prime-fsm": ""
+  }
+}

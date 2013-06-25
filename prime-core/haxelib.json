@@ -1,0 +1,14 @@
+{
+  "name": "prime-core",
+  "license": "BSD",
+  "tags": ["prime"],
+  "description": "Prime core types, utilities and classes. Used in every subpackage.",
+  "contributors": ["optimus"],
+
+  "releasenote": "Initial release. Developed since Jul 08, 2010",
+  "version": "1.0.0",
+  "url": "http://prime.vc/",
+  "dependencies": {
+
+  }
+}
