@@ -4,7 +4,7 @@ http://prime.vc
 
 A collection of libraries to make data-driven GUI development easier and more fun.
 
-Watch our [Presentation] (http://www.youtube.com/watch?v=UAT9RBb7wcU) presentation at WWX 2013:
+Watch our [Presentation] (http://www.youtube.com/watch?v=UAT9RBb7wcU) presentation (with [slides here](http://wwx-2013.prime.vc)) at WWX 2013:
 
 ***
 
