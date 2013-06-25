@@ -121,7 +121,6 @@ class Scaffolding extends mcli.CommandLine
 	{
 		if (FileSystem.exists(dir))
 		{
-            return;
 			throw 'Output dir "$dir" already exists';
 		}
         else
