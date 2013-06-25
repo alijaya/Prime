@@ -29,6 +29,7 @@ class PrimeCSS #if !macro extends CommandLine #end
     private static inline var ERR_GENERATING_STYLES         = 5;
     private static inline var ERR_MISSING_STYLES_DIR        = 6;
     private static inline var ERR_MISSING_STYLE_CSS_FILE    = 7;
+    private static inline var ERR_HAXELIB_QUERY_PATH        = 8;
 
 #if !macro 
 	static function main() 
@@ -64,26 +65,36 @@ class PrimeCSS #if !macro extends CommandLine #end
         
         p = new Process("haxelib", ["path", "prime-css"]);
         var primeCSSPath = "";
-        if (p.exitCode() == 0)
+        try while (true)
         {
             primeCSSPath = p.stdout.readLine();
+            if (primeCSSPath.indexOf("prime-css") != -1)
+                break;
         }
-        else
+        catch (e:Dynamic)
+        {
+            Sys.println("ERROR: Unable to read prime-css path");
+            p.close();
+            Sys.exit(ERR_HAXELIB_QUERY);
+
+        }
+        
+        if (p.exitCode() != 0)
         {
             Sys.println("ERROR: running haxelib prime-css path query");
             p.close();
             Sys.exit(ERR_HAXELIB_QUERY);
         }
-        p.close();
         
         
         var parserSources = new Array<String>();
-        var buildParser = Path.directory(Path.directory(primeCSSPath)) + '//' + 'build-cssparser.hxml';
-        parserSources.push(buildParser);
-        parserSources.push((Path.directory(primeCSSPath)) + '//' + 'prime//tools//CSSParserMain.hx');
-        parserSources.push((Path.directory(primeCSSPath)) + '//' + 'prime//tools//CSSParser.hx');
+        var buildParser = primeCSSPath + 'build-cssparser.hxml';
         
-        var parserBin = Path.directory(Path.directory(primeCSSPath)) + '//bin//'+ 'parser.js';
+        parserSources.push(buildParser);
+        parserSources.push(primeCSSPath + 'prime//tools//CSSParserMain.hx');
+        parserSources.push(primeCSSPath + 'prime//tools//CSSParser.hx');
+        
+        var parserBin = primeCSSPath + 'parser.js';
         var buildArgs = 'haxe $buildParser -main prime.tools.CSSParserMain -js $parserBin';
         
         if ( compileParser || !FileSystem.exists(parserBin) || !genedFileNewerThan(parserBin, parserSources))
