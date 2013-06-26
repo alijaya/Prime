@@ -34,9 +34,9 @@ Watch our [Presentation] (http://www.youtube.com/watch?v=UAT9RBb7wcU) presentati
 <table>
  <thead><td colspan="2">Library</td> <td>Planned targets</td> <td>Currently tested targets</td></thead>
  <tr>  <td>display</td>    <td>Flash Display-list as a datastructure with signals and change events.</td>
-                            <td>SWF, OpenFL</td>  <td>SWF, last NME</td> </tr>
+                            <td>SWF, NME 4, OpenFL</td>  <td>SWF, NME 3.5.5</td> </tr>
  <tr>  <td>components</td> <td>GUI components seperated into: logic, skinning and styling.</td>
-                            <td>SWF, OpenFL</td>  <td>SWF, last NME (except those using TextFields)</td> </tr>
+                            <td>SWF, NME 4, OpenFL</td>  <td>SWF, NME 3.5.5 (except those using TextFields)</td> </tr>
  <tr>  <td>media</td>      <td>Video and Audio player stream state handling and components.</td>
                             <td>SWF, OpenFL?</td> <td>SWF</td> </tr>
 </table>
