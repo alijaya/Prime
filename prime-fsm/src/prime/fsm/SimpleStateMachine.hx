@@ -102,8 +102,7 @@ class SimpleStateMachine<StateType> implements prime.core.traits.IDisposable
 	
 	public function changeTo (toState:StateType) : Void -> Void
 	{
-		var self = this;
-		return function () { self.set_current( toState ); };
+		return function () { this.set_current( toState ); };
 	}
 	
 	
