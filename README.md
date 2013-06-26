@@ -10,26 +10,47 @@ Watch our [Presentation] (http://www.youtube.com/watch?v=UAT9RBb7wcU) presentati
 
 #### Prime currently consists of these stable high-quality libraries:
 
-* **core**:      Core interfaces and generic utilities.
-* **signals**:   Strictly typed, lightweight, memory and cpu optimized signal (event) library.
-* **bindable**:  Data-binding built on signals.
-* **i18n**:      YAML based compile-time internalization library built on Franco's [thx](http://github.com/fponticelli/thx) localization helpers and Bindable.
-* **mvc**:       Strictly typed Model-View-Controller for stateful GUI applications.
-* **fsm**:       Finite State Machine, with state change events built on signals.
-* **layout**:    2D box-model layouting for anything.
+<table>
+ <thead><td colspan="2">Library</td> <td>Planned targets</td> <td>Currently tested targets</td></thead>
+ <tr>  <td>core</td>      <td>Core interfaces and generic utilities.</td>
+                           <td>all</td>  <td>all</td> </tr>
+ <tr>  <td>signals</td>   <td>Strictly typed, lightweight, memory and cpu optimized signal (event) library.</td>
+                           <td>all</td>  <td>swf: `prime.*`, others: `prime.signal.*`</td> </tr>
+ <tr>  <td>bindable</td>  <td>Data-binding built on signals.</td>
+                           <td>all</td>  <td>all</td> </tr>
+ <tr>  <td>i18n</td>      <td>YAML based compile-time internalization library built on Franco's <a href="http://github.com/fponticelli/thx">thx</a> localization helpers and Bindable.</td>
+                           <td>all</td>  <td>SWF 9+</td> </tr>
+ <tr>  <td>mvc</td>       <td>Strictly typed Model-View-Controller for stateful GUI applications.</td>
+                           <td>all</td>  <td>all</td> </tr>
+ <tr>  <td>fsm</td>       <td>Finite State Machine, with state change events built on signals.</td>
+                           <td>all</td>  <td>all</td> </tr>
+ <tr>  <td>layout</td>    <td>2D box-model layouting for anything.</td>
+                           <td>all</td>  <td>SWF 9+</td> </tr>
+</table>
 
 
 #### Stable libraries, optimized for Flash:
 
-* **display**:    Flash Display-list as a datastructure with signals and change events.
-* **components**: GUI components
-* **media**:      Video and Audio player stream state handling and components.
+<table>
+ <thead><td colspan="2">Library</td> <td>Planned targets</td> <td>Currently tested targets</td></thead>
+ <tr>  <td>display</td>    <td>Flash Display-list as a datastructure with signals and change events.</td>
+                            <td>SWF, OpenFL</td>  <td>SWF, last NME</td> </tr>
+ <tr>  <td>components</td> <td>GUI components seperated into: logic, skinning and styling.</td>
+                            <td>SWF, OpenFL</td>  <td>SWF, last NME (except those using TextFields)</td> </tr>
+ <tr>  <td>media</td>      <td>Video and Audio player stream state handling and components.</td>
+                            <td>SWF, OpenFL?</td> <td>SWF</td> </tr>
+</table>
 
 
 #### Alpha quality libraries:
 
-* **perceptor**: See what's happening inside your Prime application. Firebug-like inspector.
-* **data**:      Generic data handling. ValueObjects, CSV parser and other utils.
+<table>
+ <thead><td colspan="2">Library</td> <td>Planned targets</td> <td>Currently tested targets</td></thead>
+ <tr>  <td>data</td>       <td>Generic data handling. ValueObjects, CSV parser and other utils.</td>
+                            <td>all</td>  <td>SWF, should work on more.</td> </tr>
+ <tr>  <td>perceptor</td>  <td>See what's happening inside your Prime application. Firebug-like inspector.</td>
+                            <td>Standalone app</td>  <td>Embeddable in SWF.</td> </tr>
+</table>
 
 
 # Getting started
