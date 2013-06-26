@@ -51,17 +51,18 @@ class PrimeCSS #if !macro extends CommandLine #end
             projectDir = Path.directory(Sys.getCwd());
         }
         
-        var p:Process = new Process("node", ["-v"]);
-        p.stdout.readAll();
-        
-        if (p.exitCode() != 0)
+        var p:Process;
+        try
         {
-            
-            Sys.println("ERROR: Node is not installed or is not in path");
-            Sys.exit(ERR_NODE_NOT_FOUND);
+            var p:Process = new Process("node", ["-v"]);
+            p.stdout.readAll();
+            p.close();
         }
-        p.close();
-        
+        catch (e:Dynamic)
+        {
+            Sys.println("ERROR: Node is not installed or is not in path");
+            Sys.exit(ERR_NODE_NOT_FOUND);            
+        }
         
         p = new Process("haxelib", ["path", "prime-css"]);
         var primeCSSPath = "";
