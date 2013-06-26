@@ -45,7 +45,7 @@ class Scaffolding extends mcli.CommandLine
     /**
      * Shows available templates
      **/
-    public function templates()
+    public function templates(?haxeLib:String)
     {
         Sys.println("");
         Sys.println("Available Templates:");
