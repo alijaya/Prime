@@ -1,5 +1,10 @@
 package ;
 
+ /**
+ * ...
+ * @author EzeQL
+ */
+
  import haxe.ds.StringMap;
  import haxe.macro.Context;
  import neko.Lib;
@@ -9,13 +14,10 @@ package ;
   using sys.FileSystem;
   using haxe.io.Path;
   using Lambda;
+  
 /**
- * ...
- * @author EzeQL
- */
-
-    
- 
+*	Prime project generator
+**/
 class Scaffolding extends mcli.CommandLine
 {
     
@@ -31,12 +33,31 @@ class Scaffolding extends mcli.CommandLine
     private var STYLES_FOLDER:String = "styles";
     private var map:Map<String, String>;
     
+    /**
+     * Shows help 
+     **/
     public function help()
     {
         Sys.println(this.showUsage());
         Sys.exit(0);
     }
-
+    
+    /**
+     * Shows available templates
+     **/
+    public function templates()
+    {
+        Sys.println("");
+        Sys.println("Available Templates:");
+        Sys.println(this.getTemplates().map(function (a) { return "   " + a; }  ).join("\n"));
+        Sys.exit(0);
+    }
+    
+    
+	/**
+     * Generates a project of the desired type. Example: neko run.n --generate MyCSSTest prime-css-only outputDir
+	**/
+        
     public function generate(name:String, projectType:String, dest:String, ?extra:String)
     {
         //TODO: 
@@ -79,8 +100,7 @@ class Scaffolding extends mcli.CommandLine
         
 
         //check if project type is correct
-        var availableTemplates = FileSystem.readDirectory("templates");
-        availableTemplates = availableTemplates.filter( function(file) return FileSystem.isDirectory("templates".addTrailingSlash() + file) );
+        var availableTemplates = getTemplates();
         
         if (availableTemplates.indexOf(projectType) == -1)
         {
@@ -161,6 +181,11 @@ class Scaffolding extends mcli.CommandLine
 			}
 		}
 	}
+    
+    private function getTemplates()
+    {
+        return FileSystem.readDirectory("templates").filter( function(file) return FileSystem.isDirectory("templates".addTrailingSlash() + file) );
+    }
 	
 }
 
