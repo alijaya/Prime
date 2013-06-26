@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width" />
+	<title>Prime. Haxe-libraries for data-driven GUI applications.</title>
+	<link rel="stylesheet" href="assets/css/foundation.css">
+	<link rel="stylesheet" href="assets/css/icons.css">
+	<link rel="stylesheet" href="assets/css/app.css">
+	<script src="assets/js/modernizr.foundation.js"></script>
+</head>
+<body>
+<div class="container top-bar">
+	
+</div>
+<header id="homepage" class="gray">
+	<div class="row"><div class="twelve columns">
+		<h1>Prime</h1>
+		<h2 class="subheader">Haxe libraries for data-driven GUI applications.</h2>
+		<a href="#getting-started" class=" button">Installation instructions</a>
+		<a href="http://github.com/touch/PrimeVC/tarball/master" class=" button">Download Prime 1.0.0</a>
+		<ul class="inline-list">
+			<li><a id="github" href="https://github.com/touch/Prime">GitHub</a></li>
+			<li><a id="haxe" href="http://lib.haxe.org/t/prime">Haxe Libs</a></li>
+		</ul>
+	</div></div>
+</header>
+<div class="row">
+	<div class="large-8 columns" id="introduction">
+		<h2>Introduction</h2>
+		<h5 class="subheader">Prime is a collection of 12 open-source Haxe libraries that are designed to make building cross-platform, data-driven applications more productive and fun. Each library is focussing on their own problem-solution.</h5>
+		<p>The libraries are designed to be pluggable, meaning that using one library does not mean you have to use the other libraries.</p>
+		<hr>
+	</div>
+	<div class="large-8 columns" id="getting-started"><a name="getting-started"></a>
+		<h2>Getting Started</h2>
+		<ul>
+			<li><a href="">Sample Project</a></li>
+			<li>Watch our <a href="http://www.youtube.com/watch?v=UAT9RBb7wcU">presentation</a> (with <a href="http://wwx-2013.prime.vc/">slides</a> here) at WWX 2013</li>
+		</ul>
+		<h3>Installation</h3>
+		<p>To install all libraries and the scaffolding tool run:</p>
+		<pre><code>haxelib install prime</code></pre>
+		<p>Or install each library seperatly by running:</p>
+		<pre><code>haxelib install prime-{lib-name}</code></pre>
+		<h3>Scaffolding</h3>
+		<p>todo</p>
+		<pre><code>haxelib run prime</code></pre>
+		<hr>
+	</div>
+	<div class="large-8 columns" id="getting-started"><a name="getting-started"></a>
+		<h2>Documentation</h2>
+		<ul>
+			<li><a href="documentation/Signals.html">Signals (event system) documentation</a></li>
+			<li><a href="documentation/mvc.html">MVC documentation</a></li>
+			<li><a href="documentation/layout.html">Layout system documentation</a></li>
+			<li><a href="documentation/layout_algorithms.html">Layout-algorithms documentation</a></li>
+			<li><a href="documentation/css.html">CSS system documentation</a></li>
+	    </ul>
+	</div>
+	<div class="large-12 columns" id="libraries">
+		<h2>Libraries</h2>
+		<ul class="large-block-grid-3">
+			<li id="core"><span class="th">
+				<i class="prime icon-prime-core"></i>
+				<h3>Core</h3>
+				<p>Core interfaces and generic utilities.</p>
+				<div class="row"><span class="label success">Stable</span> <span class="label success">All</span></div>
+			</span></li>
+			<li id="signals"><span class="th">
+				<i class="prime icon-prime-signals"></i>
+				<h3>Signals</h3>
+				<p>Strictly typed, lightweight, memory and cpu optimized signal (event) library.</p>
+				<div class="row"><span class="label success">Stable</span> <span class="label success">All</span></div>
+			</span></li>
+			<li id="bindable"><span class="th">
+				<i class="prime icon-prime-bindable"></i>
+				<h3>Bindable</h3>
+				<p>Data-binding built on signals.</p>
+				<div class="row"><span class="label success">Stable</span> <span class="label success">All</span></div>
+			</span></li>
+			<li id="i18n"><span class="th">
+				<i class="prime icon-prime-i18n"></i>
+				<h3>i18n</h3>
+				<p>Internalization library. Compiles YAML into bindable output.</p>
+				<div class="row"><span class="label success">Stable</span> <span class="label success">All</span></div>
+			</span></li>
+			<li id="mvc"><span class="th">
+				<i class="prime icon-prime-mvc"></i>
+				<h3>MVC</h3>
+				<p>Strictly typed Model-View-Controller for stateful GUI applications.	</p>
+				<div class="row"><span class="label success">Stable</span> <span class="label success">All</span></div>
+			</span></li>
+			<li id="fsm"><span class="th">
+				<i class="prime icon-prime-fsm"></i>
+				<h3>FSM</h3>
+				<p>Finite State Machine, with state change events built on signals.</p>
+				<div class="row"><span class="label success">Stable</span> <span class="label success">All</span></div>
+			</span></li>
+			<li id="layout"><span class="th">
+				<i class="prime icon-prime-layout"></i>
+				<h3>Layout</h3>
+				<p>2D box-model layouting for anything.</p>
+				<div class="row"><span class="label success">Stable</span> <span class="label success">All</span></div>
+			</span></li>
+			<li id="display"><span class="th">
+				<i class="prime icon-prime-display"></i>
+				<h3>Display</h3>
+				<p>Flash Display-list as a datastructure with signals and change events.</p>
+				<div class="row"><span class="label success">Stable</span> <span class="label secondary">SWF</span></div>
+			</span></li>
+			<li id="components"><span class="th">
+				<i class="prime icon-prime-components"></i>
+				<h3>Components</h3>
+				<p>GUI components seperated into: logic, skinning and styling.</p>
+				<div class="row"><span class="label success">Stable</span> <span class="label secondary">SWF</span></div>
+			</span></li>
+			<li id="media"><span class="th">
+				<i class="prime icon-prime-media"></i>
+				<h3>Media</h3>
+				<p>Video and Audio player stream state handling and components.</p>
+				<div class="row"><span class="label success">Stable</span> <span class="label secondary">SWF</span></div>
+			</span></li>
+			<li id="data"><span class="th">
+				<i class="prime icon-prime-data"></i>
+				<h3>Data</h3>
+				<p>Generic data handling. ValueObjects, CSV parser and other utils.</p>
+				<div class="row"><span class="label alert">Alpha</span> <span class="label success">All</span></div>
+			</span></li>
+			<li id="perceptor"><span class="th">
+				<i class="prime icon-prime-perceptor"></i>
+				<h3>Perceptor</h3>
+				<p>Firebug-like inspector.</p>
+				<div class="row"><span class="label alert">Alpha</span> <span class="label secondary">SWF</span></div>
+			</span></li>
+		</ul>
+	</div>
+
+	<div class="large-8 columns" id="contributing">
+		<h2>Contributing</h2>
+		<p>Helping out with documentation (even spelling/grammar) would be greatly appreciated. We've set up automated documentation generation and publishing to make sure (after we accept your pull request) your changes are quickly visible online.</p>
+	</div>
+</div>
+</body>
+</html>
