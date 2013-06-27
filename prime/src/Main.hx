@@ -55,11 +55,13 @@ class Scaffolding extends mcli.CommandLine
     
     
 	/**
-     * Generates a project of the desired type. Example: neko run.n --generate MyCSSTest prime-css-only outputDir
+     * Generates a Project. Example "haxelib run prime --generate name css-only output"
 	**/
-        
-    public function generate(name:String, projectType:String, dest:String, ?extra:String)
+    public function generate(n:String, t:String, d:String, ?e:String)
     {
+        var name = n;
+        var type = t;
+        var dest = d;
         //TODO: 
         //check if name has strange chars
         
@@ -102,9 +104,9 @@ class Scaffolding extends mcli.CommandLine
         //check if project type is correct
         var availableTemplates = getTemplates();
         
-        if (availableTemplates.indexOf(projectType) == -1)
+        if (availableTemplates.indexOf(type) == -1)
         {
-            Sys.println('project type "$projectType" is not available');
+            Sys.println('project type "$type" is not available');
             Sys.println( 'available project types: ' + availableTemplates.join(",") );
             Sys.exit(ERR_PROJECT_TYPE);
         }
@@ -119,10 +121,8 @@ class Scaffolding extends mcli.CommandLine
             Sys.exit(ERR_OUTPUT_DIR);
         }
 		
-		
-		
         try {
-            traverseDirAndCopy(projectType, "templates", dest);
+            traverseDirAndCopy(type, "templates", dest);
         } catch (e:Dynamic)
         {
             Sys.println('ERROR: copying template'); 
@@ -131,7 +131,7 @@ class Scaffolding extends mcli.CommandLine
             Sys.exit(ERR_COPYNG_TEMPLATE);
         }
 		
-        Sys.println('Project "$name" of type "$projectType" generated on "$dest"');
+        Sys.println('Project "$name" of type "$type" generated on "$dest"');
         return OK;
         
     }
