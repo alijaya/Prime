@@ -68,9 +68,20 @@ class Scaffolding extends mcli.CommandLine
         map = new Map();
 		map.set("%AUTHOR%", "prime.vc scanfolding tool");
 		map.set("%APP_NAME%", name);
-		map.set("%PACKAGE%", "");
-		map.set("%PROJECT_DIR%", FileSystem.fullPath(dest + DIR_SEP + name));
-		map.set("%DIR_SEP%", DIR_SEP);
+		//map.set("%PACKAGE%", "");
+		//try 
+        //{
+            //map.set("%PROJECT_DIR%", FileSystem.fullPath( dest.addTrailingSlash() + name ));
+        //}
+        //catch (e:Dynamic)
+        //{
+            //trace(dest);
+            //trace(dest.addTrailingSlash() + name);
+            //trace(e)
+            //Sys.exit(1);
+        //}
+        
+		//map.set("%DIR_SEP%", DIR_SEP);
         
         
         //get haxelib/prime-css path
@@ -151,20 +162,21 @@ class Scaffolding extends mcli.CommandLine
 
 	private function traverseDirAndCopy(dir:String, root:String , dest:String)
 	{
-		var currentdir = root + DIR_SEP + dir;
+		var currentdir = root.addTrailingSlash() + dir;
         var dirs = FileSystem.readDirectory(currentdir);
         
-        dirs.sort( function(f1, f2) return FileSystem.stat(currentdir + DIR_SEP + f1).size 
-                                         - FileSystem.stat(currentdir + DIR_SEP + f2).size );
-		
+        var trueIfDir = function(s) return FileSystem.isDirectory(currentdir.addTrailingSlash() + s) ? 0 : 1;
+        
+        dirs.sort( function(f1, f2) return trueIfDir(f1) - trueIfDir(f2) );
+        
         for ( d in dirs)
 		{
             
-			var nextFile = currentdir + DIR_SEP + d;
+			var nextFile = currentdir.addTrailingSlash() + d;
 			if (FileSystem.isDirectory(nextFile))
 			{
-				mkDir(dest + DIR_SEP +  dir + DIR_SEP + d);
-				traverseDirAndCopy(dir + DIR_SEP  + d, root, dest);
+				mkDir(dest.addTrailingSlash() +  dir.addTrailingSlash() + d);
+				traverseDirAndCopy(dir.addTrailingSlash() + d, root, dest);
 			}
 			else
 			{
@@ -177,7 +189,7 @@ class Scaffolding extends mcli.CommandLine
 					var value = map.get(key);
 					return value;
 				});
-				File.saveContent(dest + DIR_SEP + dir + DIR_SEP + d, out);
+				File.saveContent(dest.addTrailingSlash() + dir.addTrailingSlash() + d, out);
 			}
 		}
 	}
