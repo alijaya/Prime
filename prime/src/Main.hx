@@ -6,10 +6,8 @@ package ;
  */
 
  import haxe.ds.StringMap;
- import haxe.macro.Context;
  import neko.Lib;
  import sys.io.File;
- import sys.io.FileInput;
  import sys.io.Process;
   using sys.FileSystem;
   using haxe.io.Path;
@@ -29,7 +27,7 @@ class Scaffolding extends mcli.CommandLine
     private static inline var CSS_DIR_NOT_FOUND     :Int = 5;
     
     
-	private var DIR_SEP:String = "/";
+    private var DIR_SEP:String;
     private var STYLES_FOLDER:String = "styles";
     private var map:Map<String, String>;
     
@@ -57,9 +55,14 @@ class Scaffolding extends mcli.CommandLine
 	/**
      * Generates a Project. Example "haxelib run prime --generate name css-only output"
 	**/
-    public function generate(n:String, t:String, d:String, ?e:String)
+    public function generate(t:String, d:String, ?e:String)
     {
-        var name = n;
+        DIR_SEP = Sys.systemName() == "Windows" ? "\\" : "/";
+        
+        if (!Tools.isAbsolutePath(d))
+            d = e.addTrailingSlash() + d;
+            
+        var name = d.substring(d.lastIndexOf(DIR_SEP) + 1, d.length );
         var type = t;
         var dest = d;
         //TODO: 
@@ -198,13 +201,35 @@ class Scaffolding extends mcli.CommandLine
     {
         return FileSystem.readDirectory("templates").filter( function(file) return FileSystem.isDirectory("templates".addTrailingSlash() + file) );
     }
-	
+    
+    private function runDefault()
+    {
+        showUsage();
+    }
 }
 
 class Main 
 {
 	static function main() 
 	{
-        new mcli.Dispatch(Sys.args() ).dispatch(new Scaffolding());
+        var input = Sys.args();
+        var len = input.length;
+        if ( ( len < 4 ) && ( Tools.isAbsolutePath(input[len - 1]) ) )
+        {
+            //We assume that last param is haxelib added original Sys.cwd, then we remove it for showing proper error.
+            input.pop();
+        }
+        new mcli.Dispatch(input).dispatch(new Scaffolding());
 	}
+}
+
+class Tools
+{
+    public static inline function isAbsolutePath(path:String):Bool
+    {
+        return  if (Sys.systemName() == "Windows")
+                    ~/[A-Za-z]:[\/\\]/.match(path)
+                else
+                    ["//", "~"].indexOf(path.charAt(0)) != -1;
+    }
 }
