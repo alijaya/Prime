@@ -53,7 +53,7 @@ class Scaffolding extends mcli.CommandLine
     
     
 	/**
-     * Generates a Project. Example "haxelib run prime --generate name css-only output"
+     * Generates a Project. Example "haxelib run prime --generate css-only output"
 	**/
     public function generate(t:String, d:String, ?e:String)
     {
@@ -230,6 +230,6 @@ class Tools
         return  if (Sys.systemName() == "Windows")
                     ~/[A-Za-z]:[\/\\]/.match(path)
                 else
-                    ["//", "~"].indexOf(path.charAt(0)) != -1;
+                    ["/", "~"].has(path.charAt(0));
     }
 }
