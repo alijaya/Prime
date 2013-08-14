@@ -28,6 +28,7 @@
  */
 package prime.media;
  import haxe.Timer;
+ import prime.gui.core.IUIContainer;
 #if (flash9 || nme)
  import prime.avm2.net.stream.NetStreamInfoCode;
  import prime.avm2.net.NetConnection;
@@ -36,6 +37,7 @@ package prime.media;
  import prime.fsm.states.MediaStates;
  import prime.bindable.Bindable;
  import prime.types.URI;
+ import prime.gui.core.UIContainer;
   using prime.utils.Bind;
   using prime.utils.NumberUtil;
   using Std;
@@ -47,17 +49,7 @@ package prime.media;
  */
 class VideoStream extends BaseMediaStream
 {
-#if (flash9 || nme)
-	private var connection	: NetConnection;
-	public var source		(default, null)			: NetStream;
-	
-	public var onMetaData	(default, null)			: Dynamic->Void;
-	public var onCuePoint	(default, null)			: Dynamic->Void;
-	public var onImageData	(default, null)			: Dynamic->Void;
-	public var onPlayStatus (default, null)			: Dynamic->Void;
-	public var onTextData	(default, null)			: Dynamic->Void;
-	public var onXMPData	(default, null)			: Dynamic->Void;
-#end
+
 	
 	/**
 	 * Bindable value with the frame-rate of the videostream.
@@ -82,27 +74,7 @@ class VideoStream extends BaseMediaStream
 		width	  = new Bindable<Int>(0);
 		height	  = new Bindable<Int>(0);
 		super(streamUrl);
-#if (flash9 || nme)
-		connection	= new NetConnection();
-		source		= new NetStream(connection);
-		//dirty client to catch flash player exeptions..
-		//@see http://www.actionscript.org/forums/archive/index.php3/t-142040.html
-		source.client	= this;
-		onMetaData		= handleMetaData;
-		onCuePoint		= handleCuePoint;
-		onImageData		= handleImageData;
-		onPlayStatus	= handlePlayStatus;
-		onTextData		= handleTextData;
-		onXMPData		= handleXMPData;
-		handleSecurityError	.on( connection.events.securityError, 	this );
-		handleASyncError	.on( connection.events.asyncError, 		this );
-		handleIOError		.on( connection.events.ioError, 		this );
-		handleNetStatus		.on( connection.events.netStatus, 		this );
 
-		handleASyncError	.on( source.events.asyncError, 			this );
-		handleIOError		.on( source.events.ioError, 			this );
-		handleNetStatus		.on( source.events.netStatus, 			this );		
-#end
         SoundMixer.add(this);
         applyVolume.on(volume.change, this);
 	}
@@ -110,20 +82,20 @@ class VideoStream extends BaseMediaStream
 	
 	override public function dispose ()
 	{
-		if (source == null)
-			return;					// <-- is already disposed
+		//if (source == null)
+			//return;					// <-- is already disposed
 		
 		stop();
         SoundMixer.remove(this);
 		
-#if (flash9 || nme)
-	//	source.client = null;		//gives error "Invalid parameter flash.net::NetStream/set client()"
-		(untyped state).current = MediaStates.empty;
-		source.dispose2();
-		connection.dispose();
-		connection	= null;
-		source		= null;
-#end
+//#if (flash9 || nme)
+	///*	source.client = null;		//gives error "Invalid parameter flash.net::NetStream/set client()"*/
+		//(untyped state).current = MediaStates.empty;
+		//source.dispose2();
+		//connection.dispose();
+		//connection	= null;
+		//source		= null;
+//#end
 		
 		super.dispose();
 		framerate.dispose();
@@ -133,94 +105,6 @@ class VideoStream extends BaseMediaStream
 	}
 
 
-	//
-	// VIDEO METHODS
-	//
-	
-	
-	override public function play ( ?newUrl:URI )
-	{
-		if (!isStopped())		stop();
-		if (newUrl != null)		url.value = newUrl;
-		
-		Assert.isNotNull( url.value, "There is no video-url to play" );
-		source.play( url.value.toString() );
-	}
-	
-
-	override public function pause ()
-	{
-		source.pause();
-		if (!isEmpty())
-			state.current = MediaStates.paused;
-	}
-	
-	
-	override public function resume ()
-	{
-		if (!isPaused())	return;
-		source.resume();
-		state.current = MediaStates.playing;
-	}
-	
-	
-	override public function stop ()
-	{
-		if (isEmpty())		return;
-		source.close();
-		state.current = MediaStates.stopped;
-	}
-	
-	
-	override public function seek (newPosition:Float)
-	{
-		if (isEmpty())		return;
-		newPosition = validatePosition(newPosition);
-		if (newPosition == source.time)
-			return;
-		
-		source.seek( newPosition );
-	}
-	
-	
-	public function toggleFullScreen ()		//FIXME
-	{
-		trace("toggleFullScreen");
-	}
-	
-	
-	
-	//
-	// IFREEZABLE IMPLEMENTATION
-	//
-	
-	
-	/**
-	 * Method will pause the current movie to optimize animations. It will
-	 * store the old-state to enable restoring the state after the animation
-	 * is done.
-	 */
-	override public function freeze ()
-	{
-		if (isFrozen())		return;
-		source.pause();
-		freezeState();
-	}
-	
-	
-	/**
-	 * Method will restore the state of the video to before it was frozen.
-	 */
-	override public function defrost ()
-	{
-		defrostState();
-		
-		if (state.current == playing)
-			source.resume();
-	}
-	
-	
-	
 	//
 	// GETTERS / SETTERS
 	//
@@ -244,11 +128,14 @@ class VideoStream extends BaseMediaStream
 	//
 	
 	
-	private inline function updateTime () {
-		currentTime.value = source.time;
+	private function updateTime () {
+		//currentTime.value = source.time;
 	}
 	
-	
+	public function addView(container:IUIContainer)
+    {
+
+    }
 	/**
 	 * Method is called when the value of the volume bindable changes. It will
 	 * make sure the value is 0 => value >= 1.
@@ -256,70 +143,23 @@ class VideoStream extends BaseMediaStream
 	 */
 	private function applyVolume ()
 	{
-		Assert.that(volume.value.isWithin(0,1));
-		Assert.isNotNull(source);
-		Assert.isNotNull(source.soundTransform);
-		var sound				= source.soundTransform;
-		sound.volume			= volume.value; // * flash.media.SoundMixer.soundTransform.volume;
-		source.soundTransform	= sound;
+		//Assert.that(volume.value.isWithin(0,1));
+		//Assert.isNotNull(source);
+		//Assert.isNotNull(source.soundTransform);
+		//var sound				= source.soundTransform;
+		//sound.volume			= volume.value; // * flash.media.SoundMixer.soundTransform.volume;
+		//source.soundTransform	= sound;
 	}
+    
+    static public function fromURI(uri:URI):VideoStream
+    {
+        switch( uri.host)
+        {
+            case "www.youtube.com" :    return new YouTubeStream(uri);
+            default            :        return new FLVStream(uri);
+        }
+    }
 	
+    
 	
-#if (flash9 || nme)
-	private function handleNetStatus (event:prime.avm2.net.stream.NetStreamInfo)
-	{
-		switch (event.code)
-		{
-			case NetStreamInfoCode.playStreamNotFound:
-				state.current = MediaStates.stopped;
-				trace("invalid video-url "+url.value);
-			
-			
-			case NetStreamInfoCode.notifySeekEnd, NetStreamInfoCode.notifySeekComplete:
-				if (isPlaying())
-					source.resume();
-			
-			
-			case NetStreamInfoCode.playStop:
-				state.current = MediaStates.stopped;
-				if (updateTimer != null)
-					updateTimer.stop();
-			
-			
-			case NetStreamInfoCode.playStart:
-				state.current = MediaStates.playing;
-				if (updateTimer != null)
-					updateTimer.run = updateTime;
-			
-			
-			default:
-				trace("no-handler for net-code: "+event);
-		}
-	}
-	
-	
-	/**
-	 * "EventHandlers" for the NetStream.client class. If not set, the 
-	 * flashplayer will throw errors.
-	 * 
-	 * @param	?metaData
-	 */
-	private function handleMetaData ( info:Dynamic ) : Void
-	{
-		Assert.isNotNull(info);
-		totalTime.value	= info.duration;
-		framerate.value	= info.framerate;
-		width.value		= info.width;
-		height.value	= info.height;
-	}
-	
-	
-	private function handleSecurityError (error:String)      trace(error);
-	private function handleASyncError    (error:String)      trace(error);
-	public  function handleCuePoint      (metaData:Dynamic)  trace("cuePoint: " + metaData);
-	public  function handlePlayStatus    (metaData:Dynamic)  trace("onPlayStatus: " + metaData);
-	public  function handleXMPData       (metaData:Dynamic)  trace("onXMPData: " + metaData);
-	public  function handleImageData     (metaData:Dynamic)  trace("onImageData: " + metaData);
-	public  function handleTextData      (metaData:Dynamic)  trace("onTextData: " + metaData);
-#end
 }
