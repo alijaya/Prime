@@ -29,14 +29,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.components;
-#if prime_media
  import prime.media.VideoStream;
  import prime.fsm.states.MediaStates;
  import prime.bindable.Bindable;
  import prime.gui.core.IUIElement;
  import prime.gui.core.UIContainer;
  import prime.gui.core.UIDataContainer;
- import prime.gui.core.UIVideo;
  import prime.gui.events.MouseEvents;
  import prime.layout.LayoutFlags;
  import prime.types.URI;
@@ -53,24 +51,31 @@ package prime.gui.components;
 class VideoPlayer extends UIDataContainer <Bindable<URI>>
 {
 	public var ctrlBar		(default, null) : VideoControlBar;
-	private var video		: UIVideo;
+	private var video		: UIContainer;
 	private var bigPlayBtn	: Button;
-	public var stream		(default, default)	: VideoStream;
+	public var stream		(default, set_stream)	: VideoStream;
+    
+    private function set_stream(stream:VideoStream):VideoStream
+    {
+        handleVideoStateChange	.on( stream.state.change, this );
+        stream.addView(video);
+        return this.stream = ctrlBar.stream = stream;
+    }
 	
 	
 	override private function createChildren ()
 	{
-		this.attach( video		= new UIVideo("video") )
-			.attach( ctrlBar	= new VideoControlBar("ctrlBar") )
+		this.attach( video		= new UIContainer("video") )
+			 .attach( ctrlBar 	= new VideoControlBar("ctrlBar") )
 			.attach( bigPlayBtn	= new Button("bigPlayBtn") );
 		
-	//	bigPlayBtn.layout.maintainAspectRatio = true;
+		bigPlayBtn.layout.maintainAspectRatio = true;
 		bigPlayBtn.disable();
 		
-		stream = ctrlBar.stream = video.stream;
+		//stream = ctrlBar.stream = video.stream;
 		
 		togglePlayPauze			.on( userEvents.mouse.click, this );
-		handleVideoStateChange	.on( stream.state.change, this );
+		//handleVideoStateChange	.on( stream.state.change, this );
 	}
 	
 	
@@ -196,7 +201,7 @@ class VideoControlBar extends UIContainer
 		
 		stream.togglePlayPauze	.on( playBtn.userEvents.mouse.click, this );
 		stream.stop				.on( stopBtn.userEvents.mouse.click, this );
-		stream.toggleFullScreen	.on( fullScreenBtn.userEvents.mouse.click, this );
+		//stream.toggleFullScreen	.on( fullScreenBtn.userEvents.mouse.click, this );
 		stream.toggleMute		.on( muteBtn.userEvents.mouse.click, this );
 		
 		progressBar	.data.bind( stream.currentTime );
@@ -352,4 +357,3 @@ class VideoControlBar extends UIContainer
 	//	else			layoutContainer.children.add( child.layout, pos );
 	}
 }
-#end
