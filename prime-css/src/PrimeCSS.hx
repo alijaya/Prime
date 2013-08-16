@@ -3,9 +3,9 @@ package ;
  import haxe.io.Path;
  import sys.FileSystem;
  import sys.io.Process;
-#if !macro
- import mcli.CommandLine;
-#end
+//#if !macro
+ //import mcli.CommandLine;
+//#end
   using Lambda;
   using StringTools;
 
@@ -15,11 +15,8 @@ package ;
  */
 
  
-class PrimeCSS #if !macro extends CommandLine #end
+class PrimeCSS //#if !macro extends CommandLine #end
 {
-    public var compileParser:Bool;
-    
-    public var compileStyles:Bool;
     
     private static inline var OK                            = 0;
     private static inline var ERR_NODE_NOT_FOUND            = 1;
@@ -30,26 +27,29 @@ class PrimeCSS #if !macro extends CommandLine #end
     private static inline var ERR_MISSING_STYLES_DIR        = 6;
     private static inline var ERR_MISSING_STYLE_CSS_FILE    = 7;
     private static inline var ERR_HAXELIB_QUERY_PATH        = 8;
-
-#if !macro 
+//
+//#if !macro 
 	static function main() 
 	{
 
-        new mcli.Dispatch(Sys.args() ).dispatch(new PrimeCSS()); 
+        //new mcli.Dispatch(Sys.args() ).dispatch(new PrimeCSS()); 
 	}
-    public function new ()
-    {
-         super();
-    }
-#end
+    //public function new ()
+    //{
+         //super();
+    //}
+//#end
 
     public static function buildstyles(?projectDir:String,?compileParser:Bool,?compileStyles:Bool,?args:String)
     {
-        //trace(Sys.getCwd());
+        Sys.println(projectDir);
         if (projectDir == null)
         {
-            projectDir = Path.directory(Sys.getCwd());
+            projectDir = Path.directory(Sys.getCwd()) + "/styles"; //try default
         }
+        trace(projectDir);
+        
+        //wont work if build is not called from project root
         
         var p:Process;
         try
@@ -109,13 +109,13 @@ class PrimeCSS #if !macro extends CommandLine #end
         }
         else
         {
-            Sys.println("Prime Style Parser is up to date.");
+            Sys.println("Prime Style Parser isaaaaaaaaa up to date.");
         }
         
         var stylesSources:Array<String> = [];
         try
         {
-            stylesSources = FileSystem.readDirectory('$projectDir//styles').filter( function(f) return f.endsWith(".css") ).map( function (f) return '$projectDir//styles//$f' );
+            stylesSources = FileSystem.readDirectory(projectDir).filter( function(f) return f.endsWith(".css") ).map( function (f) return '$projectDir/$f' );
         }
         catch (e:Dynamic)
         {
@@ -123,24 +123,24 @@ class PrimeCSS #if !macro extends CommandLine #end
             Sys.exit(ERR_READING_INPUT_DIR);
         }
         
-        if ( !FileSystem.exists('$projectDir/styles') )
+        if ( !FileSystem.exists(projectDir) )
         {
             Sys.println("ERROR: Missing Styles dir");
             Sys.exit(ERR_MISSING_STYLES_DIR);
         }
         
-        if ( !FileSystem.exists('$projectDir/styles/style.css') )
+        if ( !FileSystem.exists('$projectDir/style.css') )
         {
             Sys.println("ERROR: Missing style.css file");
             Sys.exit(ERR_MISSING_STYLE_CSS_FILE);
         }
         
-        if (compileStyles || !FileSystem.exists('$projectDir//styles//StyleSheet.hx') || !genedFileNewerThan('$projectDir//styles//StyleSheet.hx', stylesSources))
+        if (compileStyles || !FileSystem.exists('$projectDir/StyleSheet.hx') || !genedFileNewerThan('$projectDir/StyleSheet.hx', stylesSources))
         {
             Sys.println("Building Styles...");
             
             //leave PrimeCSSPATH + "//"
-            p = new Process('node', [parserBin, '$projectDir/styles', primeCSSPath + "//" ] );
+            p = new Process('node', [parserBin, projectDir, primeCSSPath + "//" ] );
             
             try while ( true ) 
             {
