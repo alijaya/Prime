@@ -42,14 +42,10 @@ class PrimeCSS //#if !macro extends CommandLine #end
 
     public static function buildstyles(?projectDir:String,?compileParser:Bool,?compileStyles:Bool,?args:String)
     {
-        Sys.println(projectDir);
         if (projectDir == null)
         {
             projectDir = Path.directory(Sys.getCwd()) + "/styles"; //try default
         }
-        trace(projectDir);
-        
-        //wont work if build is not called from project root
         
         var p:Process;
         try
@@ -109,7 +105,7 @@ class PrimeCSS //#if !macro extends CommandLine #end
         }
         else
         {
-            Sys.println("Prime Style Parser isaaaaaaaaa up to date.");
+            Sys.println("Prime Style Parser is up to date.");
         }
         
         var stylesSources:Array<String> = [];
@@ -126,12 +122,13 @@ class PrimeCSS //#if !macro extends CommandLine #end
         if ( !FileSystem.exists(projectDir) )
         {
             Sys.println("ERROR: Missing Styles dir");
+            Sys.println(projectDir);
             Sys.exit(ERR_MISSING_STYLES_DIR);
         }
         
-        if ( !FileSystem.exists('$projectDir/style.css') )
+        if ( !FileSystem.exists('$projectDir/Style.css') )
         {
-            Sys.println("ERROR: Missing style.css file");
+            Sys.println("ERROR: Missing Style.css file");
             Sys.exit(ERR_MISSING_STYLE_CSS_FILE);
         }
         
