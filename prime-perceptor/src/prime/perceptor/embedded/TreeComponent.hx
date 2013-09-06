@@ -82,8 +82,10 @@ class TreeComponent<T, F> extends UIDataContainer< TypedProxyTree<T, F> >
 						break;
 					}
 				}
-				if ( subtree != null )
-					subtree.dataOrphaned();
+				if ( subtree != null ) {
+					subtree.detach();
+					//subtree.dataOrphaned();
+				}
 
 			case moved( item, newPos, oldPos ):
 			case reset:

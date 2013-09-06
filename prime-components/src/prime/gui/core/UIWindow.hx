@@ -259,6 +259,12 @@ class UIWindow extends prime.gui.display.Window
 		var i = new prime.perceptor.embedded.Inspector(this);
 		i.attachLayoutTo( perceptorLayout );
 		i.attachToDisplayList( this );
+
+		this.userEvents.mouse.overChild.bind(this, function(s) if (s.related != null) {
+			var d = s.related;
+			while (d != null) if (d == i || d.parent == i) return; else d = d.parent;
+			if (Std.is(s.related, prime.gui.display.IDisplayContainer)) i.listDisplayContainer(cast s.related);
+		});
 #end
 	}
 	

@@ -99,8 +99,6 @@ class Inspector extends UIContainer
 	
 	private function treeViewSelected( treeView:TreeComponent<IDisplayContainer, IDisplayContainer> )
 	{
-		selectedData.removeAll();
-		
 		var treeData : TypedProxyTree < IDisplayContainer, IDisplayContainer > = treeView.data;
 		var data : IDisplayContainer = treeData.source;
 		
@@ -119,8 +117,10 @@ class Inspector extends UIContainer
 		return container;
 	}
 	
-	private function listDisplayContainer( d:IDisplayContainer )
+	public function listDisplayContainer( d:IDisplayContainer )
 	{
+		selectedData.removeAll();
+		
 		/*if ( d.is(DisplayContainer) )
 		{
 			var dc : DisplayContainer = d.as(DisplayContainer);
