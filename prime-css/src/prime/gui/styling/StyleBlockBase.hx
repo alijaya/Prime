@@ -124,16 +124,21 @@ class StyleBlockBase extends prime.core.traits.Invalidatable implements IStyleBl
 	#end
 #end
 	
-	
+#if (CSSParser || debug)
+		public var cssName : String;
+#end
 #if CSSParser
 	#if	debug
-		public var cssName : String;
 		public function toString ()						{ return cssName; }
 	#else
 		public function toString ()						{ return toCSS(); }
 	#end
 	
+#end
+#if (CSSParser || debug)
 	public function toCSS (prefix:String = "") 								{ Assert.abstractMethod(); return ""; }
+#end
+#if CSSParser
 	public function cleanUp ()												{ Assert.abstractMethod(); }
 	public function toCode (code:prime.tools.generator.ICodeGenerator)	{ Assert.abstractMethod(); }
 #end

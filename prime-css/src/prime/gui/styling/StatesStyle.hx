@@ -212,7 +212,7 @@ class StatesStyle extends StyleSubBlock
 	//
 	
 	
-#if CSSParser
+#if (CSSParser || debug)
 	public function keys () : Iterator < Int >				{ return states != null ? states.keys() : null; }
 	public function iterator () : Iterator < StyleBlock >	{ return states != null ? states.iterator() : null; }
 
@@ -239,6 +239,8 @@ class StatesStyle extends StyleSubBlock
 			return "";
 	}
 	
+#end
+#if CSSParser
 	
 	override public function cleanUp ()
 	{

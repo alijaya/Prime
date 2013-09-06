@@ -478,31 +478,28 @@ class GraphicsStyle extends StyleSubBlock
 		return v;
 	}
 	
-	
-	
-	
-#if CSSParser
+#if (CSSParser || debug)
 	override public function toCSS (prefix:String = "")
 	{
 		var css = [];
-		if (_skin != null)			css.push("skin: " + _skin.toCSS() );
-		if (_shape != null)			css.push("shape: " + _shape.toCSS() );
-		if (_background != null)	css.push("background: " + _background.toCSS() );
-		if (_border != null)		css.push("border: "+ _border.toCSS() );
-		if (_visible != null)		css.push("visability: "+ _visible );
-		if (_opacity.isSet())		css.push("opacity: "+ _opacity );
-		if (_icon != null)			css.push("icon: "+ _icon );
-		if (_iconFill != null)		css.push("icon-fill: "+ _iconFill );
-		if (_overflow != null)		css.push("overflow: "+ _overflow.toCSS() );
-		if (_borderRadius != null)	css.push("border-radius: "+ _borderRadius );
+		if (_skin != null)          css.push("skin: " + _skin #if CSSParser .toCSS() #end );
+		if (_shape != null)         css.push("shape: " + _shape #if CSSParser .toCSS() #end );
+		if (_background != null)    css.push("background: " + _background #if CSSParser .toCSS() #end );
+		if (_border != null)        css.push("border: "+ _border #if CSSParser .toCSS() #end );
+		if (_visible != null)       css.push("visability: "+ _visible );
+		if (_opacity.isSet())       css.push("opacity: "+ _opacity );
+		if (_icon != null)          css.push("icon: "+ _icon );
+		if (_iconFill != null)      css.push("icon-fill: "+ _iconFill );
+		if (_overflow != null)      css.push("overflow: "+ _overflow #if CSSParser .toCSS() #end );
+		if (_borderRadius != null)  css.push("border-radius: "+ _borderRadius );
 		
 		if (css.length > 0)
 			return "\n\t" + css.join(";\n\t") + ";";
 		else
 			return "";
 	}
-	
-	
+#end
+#if CSSParser
 	override public function toCode (code:ICodeGenerator)
 	{
 		if (!isEmpty())

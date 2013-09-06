@@ -95,8 +95,7 @@ class AnchorScaleEffect extends #if !CSSParser Effect<prime.gui.display.IDisplay
 	
 	override public function setValues (v:EffectProperties) {}
 	
-	
-#if CSSParser
+#if (CSSParser || debug)
 	private function posToCSS () : String
 	{
 		return switch (zoomPosition) {
@@ -120,7 +119,7 @@ class AnchorScaleEffect extends #if !CSSParser Effect<prime.gui.display.IDisplay
 		
 		if (duration.isSet())		props.push( duration + "ms" );
 		if (delay.isSet())			props.push( delay + "ms" );
-		if (easing != null)			props.push( easing.toCSS() );
+		if (easing != null)			props.push(Std.string( easing #if CSSParser .toCSS() #end ));
 		if (zoomPosition != null)	props.push( posToCSS() );
 		if (startValue.isSet())		props.push( (startValue * 100) + "%" );
 		if (endValue.isSet())		props.push( (endValue * 100) + "%" );
@@ -130,7 +129,8 @@ class AnchorScaleEffect extends #if !CSSParser Effect<prime.gui.display.IDisplay
 		return "anchor-scale " + props.join(" ");
 	}
 	
-	
+#end
+#if CSSParser
 	override public function toCode (code:prime.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())

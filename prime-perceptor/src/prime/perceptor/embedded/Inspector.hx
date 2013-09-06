@@ -36,7 +36,10 @@ package prime.perceptor.embedded;
  import prime.gui.components.Label;
  import prime.gui.components.ListView;
 // import prime.gui.components.SelectableListView;
-// import prime.gui.core.IUIComponent;
+#if prime_css
+ import prime.gui.traits.IStylable;
+#end
+ import prime.gui.core.IUIComponent;
  import prime.gui.core.IUIDataElement;
 // import prime.gui.core.IUIElement;
 // import prime.gui.core.UIComponent;
@@ -108,7 +111,10 @@ class Inspector extends UIContainer
 	{
 		var container : UIDataContainer<String> = new UIDataContainer<String>( "InspectorDataContainer", item );
 		
-		new Label("InspectorDataLabel", new Bindable<String>(item) ).attachTo( container );
+		var label = new Label("InspectorDataLabel", new Bindable<String>(item) );
+		label.multiline = true;
+		label.wordWrap  = true;
+		label.attachTo( container );
 		
 		return container;
 	}
@@ -130,17 +136,30 @@ class Inspector extends UIContainer
 			//todo add more properties
 			selectedData.add( w+"" );
 		}
-		else if ( d.is( UIComponent ) )
+		else*/
+		#if prime_css
+		if ( d.is( IStylable ) )
 		{
-			var u : UIComponent = d.as( UIComponent );
+			var u = d.as( IStylable );
 			
-			var fields:Array<String> = Reflect.fields( u );
-			for ( field in fields )
+			selectedData.add( u.style.toString() );
+			selectedData.add("CSS classes");
+			selectedData.add( u.styleClasses.toString() );
+			selectedData.add("Applied style blocks:");
+			for ( s in u.style )
 			{
-				selectedData.add( field + ":" + Reflect.field( u, field ) );
+				selectedData.add( s.toCSS( (switch(s.type) {
+					case element:        '<class>';
+					case styleName:      '.';
+					case id:             '#';
+					case specific:       '<self>';
+					case elementState:   '<class>:';
+					case styleNameState: '.:';
+					case idState:        '#:';
+				}) + s.cssName) );
 			}
 		}
-		else*/
+		else #end
 		{
 			selectedData.add("DEFAULT HANDLING");
 			var fields:Array<String> = Type.getInstanceFields( Type.getClass( d ) );

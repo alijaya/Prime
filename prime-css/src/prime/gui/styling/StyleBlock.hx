@@ -180,6 +180,7 @@ class StyleBlock extends StyleBlockBase implements IStyleBlock implements prime.
 	
 	
 	public function new (
+		cssName             : String,
 		filledProps			: Int = 0,
 		type				: StyleBlockType = null,	//FIXME: parameter should be required but in generated code there's sometimes a style-block without parameters..
 		graphics			: GraphicsStyle = null,
@@ -201,6 +202,9 @@ class StyleBlock extends StyleBlockBase implements IStyleBlock implements prime.
 	{
 		super(filledProps);
 		this.type = type;
+	#if (CSSParser || debug)
+		this.cssName = cssName;
+	#end
 		
 		//NOTE: can't use this._graphics on each property below (like in the style-sub-blocks) since every style-sub-block requires an owner which is set in the setter
 		this.graphics			= graphics;
@@ -888,7 +892,7 @@ class StyleBlock extends StyleBlockBase implements IStyleBlock implements prime.
 	}
 	
 	
-#if CSSParser
+#if (CSSParser || debug)
 	override public function toCSS (namePrefix:String = "")
 	{
 		var css = "";
@@ -928,8 +932,9 @@ class StyleBlock extends StyleBlockBase implements IStyleBlock implements prime.
 		}
 		return css;
 	}
-	
-	
+#end
+
+#if CSSParser
 	override public function cleanUp ()
 	{
 		if (_boxFilters != null)
@@ -1066,9 +1071,9 @@ class StyleBlock extends StyleBlockBase implements IStyleBlock implements prime.
 		if (!isEmpty())
 		{
 			if (filledProperties.has( Flags.ALL_PROPERTIES ))
-				code.construct(this, [ filledProperties, type, _graphics, _layout, _font, _effects, _boxFilters, _bgFilters ]); //, parentStyle, superStyle, nestingInherited, extendedStyle ]);
+				code.construct(this, [ cssName, filledProperties, type, _graphics, _layout, _font, _effects, _boxFilters, _bgFilters ]); //, parentStyle, superStyle, nestingInherited, extendedStyle ]);
 			else
-				code.construct(this, [ filledProperties, type ]);
+				code.construct(this, [ cssName, filledProperties, type ]);
 			
 			if (filledProperties.has( Flags.INHERETING_STYLES ))
 				code.setAction( this, "set_inheritedStyles", [ nestingInherited, superStyle, extendedStyle, parentStyle ], true );

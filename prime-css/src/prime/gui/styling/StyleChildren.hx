@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.gui.styling;
-#if CSSParser
+#if (CSSParser || debug)
   using StringTools;
 #end
 
@@ -141,16 +141,16 @@ class StyleChildren
 	}
 	
 	
-#if CSSParser
+#if (CSSParser || debug)
 	public function toString ()	{ return toCSS(); }
 	
 	
 	public function isEmpty ()
 	{
 	//	return idSelectors == null || styleNameSelectors == null || elementSelectors == null;
-		return (idSelectors == null || idSelectors.isEmpty())
-			&& (styleNameSelectors == null || styleNameSelectors.isEmpty()) 
-			&& (elementSelectors == null || elementSelectors.isEmpty());
+		return (idSelectors == null || !idSelectors.iterator().hasNext())
+			&& (styleNameSelectors == null || !styleNameSelectors.iterator().hasNext()) 
+			&& (elementSelectors == null || !elementSelectors.iterator().hasNext());
 	}
 
 	public function toCSS (namePrefix:String = "")
@@ -184,6 +184,8 @@ class StyleChildren
 		return css;
 	}
 	
+#end
+#if CSSParser
 	
 	public function cleanUp ()
 	{

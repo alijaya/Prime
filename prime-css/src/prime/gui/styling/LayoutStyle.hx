@@ -753,7 +753,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-#if CSSParser
+#if (CSSParser || debug)
 	override public function toCSS (prefix:String = "") : String
 	{
 		var css = [];
@@ -798,7 +798,9 @@ class LayoutStyle extends StyleSubBlock
 			return "";
 	}
 	
-	
+#end
+#if CSSParser
+
 	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())

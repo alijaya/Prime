@@ -171,10 +171,12 @@ class Effect <TargetType, EffectClass:IEffect> extends prime.core.traits.Invalid
 	}
 	
 	
-#if CSSParser
+#if (CSSParser || debug)
 	public function toString ()						{ return toCSS(); }
-	public function toCSS (prefix:String = "")		{ Assert.abstractMethod(); return null; }
+	public function toCSS (prefix:String = "")		{ throw this; Assert.abstractMethod(); return null; }
 	public function isEmpty () : Bool				{ return duration <= 0; }
+#end
+#if CSSParser
 	public function cleanUp ()						{}
 	public function toCode (code:prime.tools.generator.ICodeGenerator)
 		Assert.abstractMethod();

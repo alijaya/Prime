@@ -102,15 +102,16 @@ class ScrollEffect extends Effect<prime.gui.traits.IScrollable, ScrollEffect>
 #if !CSSParser
     override public function createEffectInstance (target) // : prime.gui.effects.effectInstances.IEffectInstance<prime.gui.traits.IScrollable,ScrollEffect> remove if it doesnt break anything
         return new prime.gui.effects.effectInstances.ScrollEffectInstance(target, this);
-#else
+#end
 
+#if (CSSParser || debug)
     override public function toCSS (prefix:String = "") : String
     {
         var props = [];
         
         if (duration.isSet())       props.push( duration + "ms" );
         if (delay.isSet())          props.push( delay + "ms" );
-        if (easing != null)         props.push( easing.toCSS() );
+        if (easing != null)         props.push(Std.string( easing #if CSSParser .toCSS() #end ));
         if (startX.isSet())         props.push( startX + "px" );
         if (startY.isSet())         props.push( startY + "px" );
         if (endX.isSet())           props.push( endX + "px" );
@@ -120,8 +121,8 @@ class ScrollEffect extends Effect<prime.gui.traits.IScrollable, ScrollEffect>
         
         return "scroll " + props.join(" ");
     }
-    
-    
+#end
+#if CSSParser
     override public function toCode (code:prime.tools.generator.ICodeGenerator) : Void
     {
         if (!isEmpty())

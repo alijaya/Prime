@@ -36,8 +36,8 @@ package prime.gui.styling;
 interface IStyleBlock
 				extends prime.core.traits.IInvalidatable
 				extends prime.core.traits.IFlagOwner
-#if CSSParser	extends prime.tools.generator.ICSSFormattable
-				extends prime.tools.generator.ICodeFormattable		#end
+#if (CSSParser || debug)	extends prime.tools.generator.ICSSFormattable		#end
+#if CSSParser				extends prime.tools.generator.ICodeFormattable		#end
 {
 	/**
 	 * Variable defining which properties in the style-declaration have been

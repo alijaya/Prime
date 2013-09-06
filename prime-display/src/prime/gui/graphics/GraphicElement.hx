@@ -62,7 +62,7 @@ class GraphicElement extends prime.core.traits.Invalidatable implements IGraphic
 
 #if (CSSParser || debug)
 	public function toString () : String				{ return toCSS(); }
-	public function toCSS (prefix:String = "") : String	{ /*Assert.abstractMethod();*/ return "GraphicElement"; }
+	public function toCSS (prefix:String = "") : String	{ /*Assert.abstractMethod();*/ return Std.string(Type.getClass(this)); }
 	public function isEmpty () : Bool					{ return false; }
 	public function cleanUp () : Void					{}
 #end

@@ -1127,11 +1127,9 @@ class CSSParser
 	private function addStyleBlock (childName:String, childType:StyleBlockType, parentStyle:StyleBlock) : StyleBlock
 	{	
 		var children	= parentStyle.getChildrenOfType( childType );
-		var childBlock	= new StyleBlock(childType);
+		var childBlock	= new StyleBlock(childName, childType);
 		childBlock.parentStyle = parentStyle;
-#if (debug && CSSParser)
 		childBlock.cssName = childName;
-#end
 		children.set( childName, childBlock );
 		return childBlock;
 	}
@@ -1160,7 +1158,7 @@ class CSSParser
 		
 		if (stateBlock == null)
 		{
-			stateBlock = new StyleBlock( stateType );
+			stateBlock = new StyleBlock( StyleStateFlags.stateToString(stateName), stateType );
 			currentBlock.states.set( stateName, stateBlock );
 			stateBlock.parentStyle = currentBlock;
 		//	trace("create states style block for "+StyleStateFlags.stateToString( stateName )+"; "+stateBlock._oid);

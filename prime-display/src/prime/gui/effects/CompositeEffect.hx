@@ -109,14 +109,14 @@ class CompositeEffect extends Effect<Dynamic, CompositeEffect>
 	}
 
 
-#if CSSParser
+#if (CSSParser || debug)
 	override public function toCSS (prefix:String = "") : String
 	{
 		var props = [];
 
 		if (duration.isSet())		props.push( duration + "ms" );
 		if (delay.isSet())			props.push( delay + "ms" );
-		if (easing != null)			props.push( easing.toCSS() );
+		if (easing != null)			props.push(Std.string( easing #if CSSParser .toCSS() #end ));
 		if (isReverted)				props.push( "reverted" );
 		
 		if (effects.length > 0) {
@@ -136,7 +136,8 @@ class CompositeEffect extends Effect<Dynamic, CompositeEffect>
 		return get_compositeDuration() <= 0 || effects.length <= 0;
 	}
 	
-	
+#end
+#if CSSParser
 	override public function toCode (code:prime.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty()) {

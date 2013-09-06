@@ -74,9 +74,8 @@ class Box
 	private inline function set_bottom (v)	{ return this.bottom = v; }
 	
 	
-#if (debug && (flash9 || nme))
-	public function toString () { return "Box ( "+top+"px "+right+"px "+bottom+"px "+left+"px )"; }
-#elseif CSSParser
+#if (CSSParser || debug)
+
 	public function toString () { return toCSS(); }
 
 
@@ -96,6 +95,8 @@ class Box
 	
 	
 	private inline function getCSSValue (v:Int) { return v == 0 ? "0" : v + "px"; }
+#end
+#if CSSParser
 	public function cleanUp () : Void			{}
 
 	#if prime_css

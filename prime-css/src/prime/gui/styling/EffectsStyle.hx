@@ -334,7 +334,8 @@ class EffectsStyle extends StyleSubBlock
 	
 	
 	
-#if CSSParser
+#if (CSSParser || debug)
+
 	override public function toCSS (prefix:String = "")
 	{
 		var css = [];
@@ -351,6 +352,8 @@ class EffectsStyle extends StyleSubBlock
 			return "";
 	}
 	
+#end
+#if CSSParser
 	
 	override public function cleanUp ()
 	{

@@ -59,8 +59,8 @@ class SetAction extends #if CSSParser Effect<Dynamic, Dynamic> #else Effect<prim
 	override public function clone ()						{ return new SetAction( duration, delay, easing, isReverted, prop ); }
 #if !CSSParser
 	override public function createEffectInstance (target)	{ return new prime.gui.effects.effectInstances.SetActionInstance(target, this); }
-#else
-
+#end
+#if (CSSParser || debug)
 	override public function toCSS (prefix:String = "") : String
 	{
 		var props = [];
@@ -107,7 +107,8 @@ class SetAction extends #if CSSParser Effect<Dynamic, Dynamic> #else Effect<prim
 		return false;
 	}
 
-
+#end
+#if CSSParser
 	override public function toCode (code:prime.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())

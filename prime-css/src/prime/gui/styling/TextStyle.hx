@@ -654,7 +654,8 @@ class TextStyle extends StyleSubBlock
 	
 	
 
-#if CSSParser
+#if (CSSParser || debug)
+
 	override public function toCSS (prefix:String = "")
 	{
 		var css = [];
@@ -680,7 +681,9 @@ class TextStyle extends StyleSubBlock
 			return "";
 	}
 	
-	
+#end
+#if CSSParser
+
 	override public function toCode (code:prime.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
