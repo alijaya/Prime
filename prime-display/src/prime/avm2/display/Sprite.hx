@@ -80,7 +80,7 @@ class Sprite extends flash.display.Sprite implements ISprite
 		children		= new DisplayList( this );
 		userEvents		= new UserEvents( this );
 		displayEvents	= new DisplayEvents( this );
-		rect			= new IntRectangle( x.roundFloat(), y.roundFloat(), width.roundFloat(), height.roundFloat() );
+		rect			= new IntRectangle( 0, 0, 0, 0 );
 	}
 	
 	

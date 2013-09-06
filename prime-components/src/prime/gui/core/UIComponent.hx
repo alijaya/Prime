@@ -110,6 +110,9 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
   #end
 #end
 	
+	@:getter(width)  function returnGetWidth()  : Float return layout.outerBounds.width;
+	@:getter(height) function returnGetHeight() : Float return layout.outerBounds.height;
+
 	public var enabled			(default, null)					: Bindable<Bool>;
 	
 	
