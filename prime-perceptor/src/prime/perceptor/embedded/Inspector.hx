@@ -116,9 +116,14 @@ class Inspector extends UIContainer
 		
 		return container;
 	}
+
+	var inspectingItem : IDisplayContainer;
 	
 	public function listDisplayContainer( d:IDisplayContainer )
 	{
+		if (inspectingItem == d) return;
+		inspectingItem = d;
+
 		selectedData.removeAll();
 		
 		/*if ( d.is(DisplayContainer) )
@@ -138,11 +143,12 @@ class Inspector extends UIContainer
 		}
 		else*/
 		#if prime_css
-		if ( d.is( IStylable ) )
+		if ( d.is( IStylable ) && d.as( IStylable ).style != null )
 		{
 			var u = d.as( IStylable );
 			
-			selectedData.add( u.style.toString() );
+			selectedData.add( u.toString() );
+			selectedData.add( u.style.toString() + "\n  Properties: " + u.style.readProperties() + "\n  States: " + u.style.readStates() );
 			selectedData.add("CSS classes");
 			selectedData.add( u.styleClasses.toString() );
 			selectedData.add("Applied style blocks:");
