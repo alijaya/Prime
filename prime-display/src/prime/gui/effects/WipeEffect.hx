@@ -76,7 +76,9 @@ class WipeEffect extends #if !CSSParser Effect<prime.gui.display.IDisplayObject,
 #if !CSSParser
 	override public function createEffectInstance (target)	{ return new prime.gui.effects.effectInstances.WipeEffectInstance(target, this); }
 
-#else
+#end
+
+#if (CSSParser || debug)
 
 	override public function toCSS (prefix:String = "") : String
 	{
@@ -84,7 +86,7 @@ class WipeEffect extends #if !CSSParser Effect<prime.gui.display.IDisplayObject,
 		
 		if (duration.isSet())		props.push( duration + "ms" );
 		if (delay.isSet())			props.push( delay + "ms" );
-		if (easing != null)			props.push( easing.toCSS() );
+		if (easing != null)         props.push(Std.string( easing #if CSSParser .toCSS() #end ));
 		if (direction != null)		props.push( directionToCSS() );
 		if (startValue.isSet())		props.push( startValue + "px" );
 		if (endValue.isSet())		props.push( endValue + "px" );
@@ -104,7 +106,8 @@ class WipeEffect extends #if !CSSParser Effect<prime.gui.display.IDisplayObject,
 		}
 	}
 	
-	
+#end
+#if CSSParser	
 	override public function toCode (code:prime.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
