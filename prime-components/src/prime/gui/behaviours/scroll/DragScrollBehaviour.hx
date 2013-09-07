@@ -93,7 +93,9 @@ class DragScrollBehaviour extends BehaviourBase<IScrollable> implements IScrollB
 	{
 		dragHelper.dispose();
 		moveBinding.dispose();
-		
+		target.userEvents.unbind(this);
+		scrollLayout.changed.unbind(this);
+
 		scrollLayout	= null;
 		lastMousePos	= null;
 		dragHelper		= null;
