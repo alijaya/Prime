@@ -35,14 +35,14 @@ class StyleReloader {
 		var stylePath = args[0] != null? args[0] : "";
 		if (!sys.FileSystem.exists(stylePath)) {
 			printUsage();
-			Sys.println('Style folder:  “${stylePath}” not found.\n');
+			Sys.println('Style folder:  "${stylePath}" not found.\n');
 			Sys.exit(-1);
 		}
 		
 		var hxml = args[1] != null? args[1] : "";
 		if (!sys.FileSystem.exists(hxml)) {
 			printUsage();
-			Sys.println('HXML file:  “${hxml}” not found.\n');
+			Sys.println('HXML file:  "${hxml}" not found.\n');
 			Sys.exit(-2);
 		}
 
@@ -57,7 +57,7 @@ class StyleReloader {
 		var out  = args[3] != null? args[3] : "";
 		if (!sys.FileSystem.exists(out)) {
 			printUsage();
-			Sys.println('Output folder:  “${out}” not found.\n');
+			Sys.println('Output folder:  "${out}" not found.\n');
 			Sys.exit(-2);
 		}
 
@@ -70,6 +70,7 @@ class StyleReloader {
 
 		var version = 0;
 		var parser  = new PrimeCSS(stylePath);
+		Sys.println('Watching for changes in ${stylePath}');
 		while (true)
 		{
 			Sys.sleep(0.2);
@@ -105,7 +106,7 @@ class StyleReloader {
 	            } catch (e : haxe.io.Eof) { }
 	            
 	            if (p.exitCode() != 0) {
-	                Sys.print("[!] Error compiling Style reload SWF with command: " + buildArgs + "\n");
+	                Sys.print("[!] Error compiling Style reload SWF with command: haxe '" + buildArgs.join("' '") + "'\n");
 	                continue;
 		        }
 
