@@ -119,6 +119,9 @@ class CSSParserMain
 		if (styles.has( StyleFlags.ID_CHILDREN ))				generateSelectorCode( styles.idChildren, "idChildren" );
 		
 		//write to template
+		var verbuf = new StringBuf();
+		verbuf.add(Std.string(haxe.Timer.stamp()));
+		setTemplateVar( "version",   verbuf );
 		setTemplateVar( "imports",   generator.imports.writeImports() );
 		setTemplateVar( "selectors", generator.values.writeValues() );
 		

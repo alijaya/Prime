@@ -40,6 +40,8 @@ package ;
  */
 class StyleSheet extends StyleBlock
 {
+	public static var version = //version;
+
 	public function new ()
 	{
 		super("", 0, StyleBlockType.specific);

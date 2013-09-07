@@ -41,11 +41,53 @@ class ApplicationStyle extends UIElementStyle
 #if (flash9 || nme)
 	override private function init ()
 	{
+		trace("StyleSheet version: " + StyleSheet.version);
 		var sheet			= new StyleSheet();
 		filledProperties	= filledProperties.set( sheet.allFilledProperties );
 		parentStyle			= this;
 		styles.add(sheet);
 		enableStyleListeners();
+
+	#if (flash9 && debug)
+		// Connect to stylesheet watcher
+		var context = haxe.remoting.Context.share("reload", this);
+		
+		var s = new flash.net.XMLSocket();
+		s.timeout = 1000;
+		s.addEventListener(flash.events.Event.CONNECT, function(e){trace(e); scnx.api.hi.call([]); });
+		s.addEventListener(flash.events.IOErrorEvent.IO_ERROR, function(e){ s.connect("localhost", 8888); });
+		s.addEventListener(flash.events.SecurityErrorEvent.SECURITY_ERROR, function(e){ s.connect("localhost", 8888); });
+		flash.system.Security.allowDomain('*');
+		
+		scnx = haxe.remoting.SocketConnection.create(s,context);
+		scnx.setErrorHandler(function(e) { trace("Client error: " + e); });
+		trace("Connecting to StyleSheet watcher");
+		s.connect("localhost", 8888);
+	#end
 	}
+
+  #if (flash9 && debug)
+  	var scnx : haxe.remoting.SocketConnection;
+
+  	public function reload (uri : String, className : String)
+  	{
+  		trace("Reloading StyleSheet from file: " + uri + " named " + className);
+  		var ldr = prime.gui.display.Loader.get();
+  		ldr.events.load.completed.observe(this, function()
+  		{
+  			var styleClass = ldr.info.applicationDomain.getDefinition(className);
+  			trace("New Stylesheet version: " + styleClass.version);
+  			var sheet : prime.gui.styling.StyleBlock = Type.createInstance(styleClass, []);
+  			trace(sheet);
+			filledProperties	= filledProperties.set( sheet.allFilledProperties );
+			parentStyle			= this;
+  			for (s in styles) removeStyle(s);
+  			addStyle(sheet);
+  			updateStyles();
+  		});
+  		ldr.load(new prime.types.URI(uri), new flash.system.LoaderContext(flash.system.ApplicationDomain.currentDomain));
+  	}
+
+  #end
 #end
 }

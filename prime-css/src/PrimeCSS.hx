@@ -17,8 +17,8 @@ package ;
  
 class PrimeCSS //#if !macro extends CommandLine #end
 {
-    
     private static inline var OK                            = 0;
+    public  static inline var OK_NEW_STYLE                  = 10;
     private static inline var ERR_NODE_NOT_FOUND            = 1;
     private static inline var ERR_HAXELIB_QUERY             = 2;
     private static inline var ERR_READING_INPUT_DIR         = 3;
@@ -40,8 +40,27 @@ class PrimeCSS //#if !macro extends CommandLine #end
     //}
 //#end
 
-    public static function buildstyles(?projectDir:String,?compileParser:Bool,?compileStyles:Bool,?args:String)
+    public static function buildstyles(?projectDir:String,?forceCompileParser:Bool = false,?forceCompileStyles:Bool = false,?args:String) {
+        var p = new PrimeCSS(projectDir);
+
+        var status = p.buildParser(forceCompileParser);
+        if (status == OK)
+            return p.buildStyles(forceCompileStyles);
+        else
+            return status;
+    }
+
+
+    var projectDir   : String;
+    var primeCSSPath : String;
+    var parserBin    : String;
+
+
+    public function new(projectDir)
     {
+        this.projectDir = projectDir;
+        primeCSSPath = "";
+
         if (projectDir == null)
         {
             projectDir = Path.directory(Sys.getCwd()) + "/styles"; //try default
@@ -57,11 +76,10 @@ class PrimeCSS //#if !macro extends CommandLine #end
         catch (e:Dynamic)
         {
             Sys.println("ERROR: Node is not installed or is not in path");
-            Sys.exit(ERR_NODE_NOT_FOUND);            
+            Sys.exit(ERR_NODE_NOT_FOUND);
         }
         
         p = new Process("haxelib", ["path", "prime-css"]);
-        var primeCSSPath = "";
         try while (true)
         {
             primeCSSPath = p.stdout.readLine();
@@ -73,7 +91,6 @@ class PrimeCSS //#if !macro extends CommandLine #end
             Sys.println("ERROR: Unable to read prime-css path");
             p.close();
             Sys.exit(ERR_HAXELIB_QUERY);
-
         }
         
         if (p.exitCode() != 0)
@@ -84,6 +101,11 @@ class PrimeCSS //#if !macro extends CommandLine #end
         }
         
         
+        this.parserBin = primeCSSPath + 'parser.js';
+    }
+
+    public function buildParser(forceCompileParser:Bool = true)
+    {
         var parserSources = new Array<String>();
         var buildParser = primeCSSPath + 'build-cssparser.hxml';
         
@@ -91,23 +113,29 @@ class PrimeCSS //#if !macro extends CommandLine #end
         parserSources.push(primeCSSPath + 'prime//tools//CSSParserMain.hx');
         parserSources.push(primeCSSPath + 'prime//tools//CSSParser.hx');
         
-        var parserBin = primeCSSPath + 'parser.js';
         var buildArgs = 'haxe "$buildParser" -main prime.tools.CSSParserMain -js "$parserBin"';
         
-        if ( compileParser || !FileSystem.exists(parserBin) || !genedFileNewerThan(parserBin, parserSources))
+        if ( forceCompileParser || !FileSystem.exists(parserBin) || !genedFileNewerThan(parserBin, parserSources))
         {
             Sys.println("Building Prime Style Parser...");
             if (Sys.command(buildArgs) != 0)
             {
                 Sys.print("error building style parser");
-                Sys.exit(ERR_BUILDING_STYLES_PARSER);
+                return ERR_BUILDING_STYLES_PARSER;
             }
         }
         else
         {
+            #if verbose
             Sys.println("Prime Style Parser is up to date.");
+            #end
         }
-        
+
+        return OK;
+    }
+
+    public function buildStyles(?forceCompileStyles:Bool = false)
+    {
         var stylesSources:Array<String> = [];
         try
         {
@@ -116,37 +144,39 @@ class PrimeCSS //#if !macro extends CommandLine #end
         catch (e:Dynamic)
         {
             Sys.println("ERROR: reading input dir");
-            Sys.exit(ERR_READING_INPUT_DIR);
+            return ERR_READING_INPUT_DIR;
         }
         
         if ( !FileSystem.exists(projectDir) )
         {
             Sys.println("ERROR: Missing Styles dir");
             Sys.println(projectDir);
-            Sys.exit(ERR_MISSING_STYLES_DIR);
+            return ERR_MISSING_STYLES_DIR;
         }
         
         if ( !FileSystem.exists('$projectDir/Style.css') )
         {
             Sys.println("ERROR: Missing Style.css file");
-            Sys.exit(ERR_MISSING_STYLE_CSS_FILE);
+            return ERR_MISSING_STYLE_CSS_FILE;
         }
         
-        if (compileStyles || !FileSystem.exists('$projectDir/StyleSheet.hx') || !genedFileNewerThan('$projectDir/StyleSheet.hx', stylesSources))
+        if (forceCompileStyles || !FileSystem.exists('$projectDir/StyleSheet.hx') || !genedFileNewerThan('$projectDir/StyleSheet.hx', stylesSources))
         {
             Sys.println("Building Styles...");
             
             //leave PrimeCSSPATH + "//"
-            p = new Process('node', [parserBin, projectDir, primeCSSPath + "//" ] );
+            var p = new Process('node', [parserBin, projectDir, primeCSSPath + "//" ] );
             
             try while ( true ) 
             {
-                Sys.println(p.stdout.readLine());
+                var line = p.stdout.readLine();
+                #if verbose Sys.println(line); #end
             } catch (e : haxe.io.Eof) { }
             
             try while ( true ) 
             {
-                Sys.println(p.stderr.readLine());
+                var line = p.stderr.readLine();
+                #if verbose Sys.println(line); #end
             } catch (e : haxe.io.Eof) { }
 
             
@@ -154,13 +184,17 @@ class PrimeCSS //#if !macro extends CommandLine #end
             {
                 p.close();
                 Sys.println("Error: building Styles.");
-                Sys.exit(ERR_GENERATING_STYLES);
+                return ERR_GENERATING_STYLES;
             }
             p.close();
+
+            return OK_NEW_STYLE;
         }
         else
         {
+            #if verbose
             Sys.println("Styles are up to date.");
+            #end
         }
         
         return  OK;
