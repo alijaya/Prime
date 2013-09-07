@@ -62,24 +62,22 @@ class PrimeCSS //#if !macro extends CommandLine #end
         primeCSSPath = "";
 
         if (projectDir == null)
-        {
             projectDir = Path.directory(Sys.getCwd()) + "/styles"; //try default
-        }
         
-        var p:Process;
+        var p = new Process("node", ["-v"]);
         try
         {
-            var p:Process = new Process("node", ["-v"]);
             p.stdout.readAll();
             p.close();
         }
         catch (e:Dynamic)
         {
             Sys.println("ERROR: Node is not installed or is not in path");
+            p.close();
             Sys.exit(ERR_NODE_NOT_FOUND);
         }
         
-        p = new Process("haxelib", ["path", "prime-css"]);
+        var p = new Process("haxelib", ["path", "prime-css"]);
         try while (true)
         {
             primeCSSPath = p.stdout.readLine();
@@ -96,10 +94,9 @@ class PrimeCSS //#if !macro extends CommandLine #end
         if (p.exitCode() != 0)
         {
             Sys.println("ERROR: running haxelib prime-css path query");
-            p.close();
             Sys.exit(ERR_HAXELIB_QUERY);
         }
-        
+        p.close();
         
         this.parserBin = primeCSSPath + 'parser.js';
     }
