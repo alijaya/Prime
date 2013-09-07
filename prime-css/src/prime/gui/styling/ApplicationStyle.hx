@@ -81,12 +81,13 @@ class ApplicationStyle extends UIElementStyle
   			trace(sheet);
 			filledProperties	= filledProperties.set( sheet.allFilledProperties );
 			parentStyle			= this;
-  			for (s in styles) removeStyle(s);
-  			addStyle(sheet);
-  			updateStyles();
-  		});
-  		ldr.load(new prime.types.URI(uri), new flash.system.LoaderContext(flash.system.ApplicationDomain.currentDomain));
-  	}
+			styles.removeAll();
+			styles.add(sheet);
+			updateStyles();
+			scnx.api.loaded.call([className]);
+		});
+		ldr.load(new prime.types.URI(uri), new flash.system.LoaderContext(flash.system.ApplicationDomain.currentDomain));
+	}
 
   #end
 #end
