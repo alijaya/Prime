@@ -33,7 +33,9 @@ package prime.mvc;
  * @author Ruben Weijers
  * @creation-date May 25, 2011
  */
+#if !display
 @:autoBuild(prime.utils.MacroUtils.autoDisable())
 @:autoBuild(prime.utils.MacroUtils.autoEnable())
 @:autoBuild(prime.utils.MacroUtils.autoDispose())
+#end
 interface IMVCCore extends IMVCNotifier {}

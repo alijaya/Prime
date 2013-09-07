@@ -35,8 +35,10 @@ package prime.fsm;
  * @author Ruben Weijers
  * @creation-date Jun 08, 2010
  */
+#if !display
 @:autoBuild(prime.utils.MacroUtils.autoInstantiate("IState", "prime.fsm.State", true))
 @:autoBuild(prime.utils.MacroUtils.autoDispose())
+#end
 class FiniteStateMachine implements IFiniteStateMachine
 {
 	@manual public var current		(default, set_current)		: IState;

@@ -47,7 +47,7 @@ package prime.signals;
  * @author Danny Wilson
  * @creation-date jun 10, 2010
  */
-#if !macro
+#if (!macro && !display)
 @:autoBuild(prime.utils.MacroUtils.autoEnable())
 @:autoBuild(prime.utils.MacroUtils.autoDisable())
 @:autoBuild(prime.utils.MacroUtils.autoUnbind())

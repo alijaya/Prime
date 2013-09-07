@@ -37,6 +37,21 @@ import haxe.macro.Context;
  * A class of basic assertions macros that only generate code when the -debug
  * flag is used on the haxe compiler command line.
  **/
+#if display extern class Assert {
+	static public function isEqual( expected : Dynamic, actual : Dynamic, ?message:Dynamic ) : Void;
+	static public function notEqual( expected : Dynamic, actual : Dynamic, ?message:Dynamic ) : Void;
+	static public function that( expr:Bool, ?message:Dynamic ) : Void;
+	static public function isTrue( expr:Bool, ?message:Dynamic ) : Void;
+	static public function isTrue_impl( expr:Bool, ?message:Dynamic ) : Void;
+	static public function not( expr:Bool ) : Void;
+	static public function isFalse( expr:Bool ) : Void;
+	static public function isNull   ( expr:Dynamic, ?message:Dynamic ) : Void;
+	static public function isNotNull( expr:Dynamic, ?message:Dynamic ) : Void;
+	static public function isType(var1:Dynamic, type:Class<Dynamic>, ?pos:haxe.PosInfos) : Void;
+	static public function abstractMethod(msg:String = "", ?pos:haxe.PosInfos) : Void;
+}
+#else
+
 #if !macro extern #end class Assert {
 	#if macro static private var emptyExpr = macro null; #end
 	/**
@@ -239,3 +254,5 @@ import haxe.macro.Context;
 #end
 	}
 }
+
+#end

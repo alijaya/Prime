@@ -33,6 +33,8 @@ package prime.mvc;
  * @author Ruben Weijers
  * @creation-date May 25, 2011
  */
+#if !display
 @:autoBuild(prime.utils.MacroUtils.autoStartListening())
 @:autoBuild(prime.utils.MacroUtils.autoStopListening())
+#end
 interface IMVCCoreActor extends IMVCCore extends IMVCActor {}
