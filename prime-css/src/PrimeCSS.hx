@@ -200,7 +200,11 @@ class PrimeCSS //#if !macro extends CommandLine #end
     static private function genedFileNewerThan(generatedFile:String, sourceFiles:Array<String>)
     {
         var mtime = FileSystem.stat(generatedFile).mtime.getTime();
-        return sourceFiles.foreach( function(f) return mtime > FileSystem.stat(f).mtime.getTime() );
+        /*
+            If generation of StyleSheet.hx is completed in the same second as the Style.css was saved
+               gennedFile.mtime will be equal to Style.css.mtime, not greater than.
+        */
+        return sourceFiles.foreach( function(f) return mtime >= FileSystem.stat(f).mtime.getTime() );
     }
 
     
