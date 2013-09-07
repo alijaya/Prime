@@ -1,3 +1,5 @@
+import sys.FileSystem;
+
 /**
 	Small Neko program looking for style folder changes acting as remoting server.
 	Flash connects with xml socket and is notified when change is detected.
@@ -73,7 +75,7 @@ class StyleReloader {
 		Sys.println('Watching for changes in ${stylePath}');
 		while (true)
 		{
-			Sys.sleep(0.2);
+			Sys.sleep(0.1);
 			if (parser.buildStyles() == PrimeCSS.OK_NEW_STYLE)
 			{
 				var oldFile = out + "/S" + version + ext;
@@ -112,7 +114,8 @@ class StyleReloader {
 	            p.close();
 
 		        for( c in clients ) c.reload(newName + ".swf", newName);
-		        Sys.sleep(1);
+		        // Sleep until the next second, as file timestamps have per second accuracy anyway
+		        Sys.sleep(Math.max(0.1, Sys.time() - FileSystem.stat(newFile).mtime.getTime()/1000));
 			}
 		}
 	}
