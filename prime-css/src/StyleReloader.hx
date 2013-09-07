@@ -85,11 +85,10 @@ class StyleReloader {
 				// Build a new SWF with just the StyleSheet
 		        version++;
 				var newName = "S" + version;
-				var renameCall = 'haxe.macro.Compiler.addMetadata("@:native(\''+ newName +'\')", "StyleSheet", null, true)';
+				var renameCall = "haxe.macro.Compiler.addMetadata('@:native(\\'"+ newName +"\\')', 'StyleSheet', null, true)";
 				var buildArgs = [
 					hxml,
-					 target,
-					'bin-debug/'+ newName + ext,
+					target, 'bin-debug/'+ newName + ext,
 					'--macro', renameCall
 				];
 
@@ -106,9 +105,11 @@ class StyleReloader {
 	            } catch (e : haxe.io.Eof) { }
 	            
 	            if (p.exitCode() != 0) {
-	                Sys.print("[!] Error compiling Style reload SWF with command: haxe '" + buildArgs.join("' '") + "'\n");
+	            	p.close();
+	                Sys.print('[!] Error compiling Style reload SWF with command: haxe "' + buildArgs.join('" "') + '"\n');
 	                continue;
 		        }
+	            p.close();
 
 		        for( c in clients ) c.reload(newName + ".swf", newName);
 		        Sys.sleep(1);
