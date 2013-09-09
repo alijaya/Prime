@@ -251,7 +251,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 		}
 	}
 	
-	public function dispose()
+	@manual public function dispose()
 	{
 		if (signal == null) return; // already disposed;
 		

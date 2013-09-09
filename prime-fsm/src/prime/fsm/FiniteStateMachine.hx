@@ -37,7 +37,6 @@ package prime.fsm;
  */
 #if !display
 @:autoBuild(prime.utils.MacroUtils.autoInstantiate("IState", "prime.fsm.State", true))
-@:autoBuild(prime.utils.MacroUtils.autoDispose())
 #end
 class FiniteStateMachine implements IFiniteStateMachine
 {

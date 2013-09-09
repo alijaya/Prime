@@ -71,20 +71,6 @@ class DataButton <DataType> extends Button implements IItemRenderer <DataType>
 	}
 	
 	
-	override public function dispose ()
-	{
-		if (updateLabelBinding != null) {
-			updateLabelBinding.dispose();
-			updateLabelBinding = null;
-		}
-		
-		vo.value = null;
-		super.dispose();
-		vo.dispose();
-		vo = null;
-	}
-	
-	
 	override private function init ()
 	{
 		super.init();

@@ -52,7 +52,6 @@ package prime.signals;
 @:autoBuild(prime.utils.MacroUtils.autoDisable())
 @:autoBuild(prime.utils.MacroUtils.autoUnbind())
 @:autoBuild(prime.utils.MacroUtils.autoUnbindAll())
-@:autoBuild(prime.utils.MacroUtils.autoDispose())
 #end
 @:publicFields class Signals implements IUnbindable<Dynamic> implements prime.core.traits.IDisposable implements prime.core.traits.IDisablable
 {

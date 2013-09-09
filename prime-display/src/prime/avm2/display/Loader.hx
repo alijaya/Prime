@@ -208,7 +208,7 @@ class Loader implements ICommunicator
 	/**
 	 * Reference to the next free loader (if there is any)
 	 */
-	private var nextFree		: Loader;
+	@manual private var nextFree : Loader;
 
 
 
@@ -224,6 +224,7 @@ class Loader implements ICommunicator
 	public static var defaultContext	= new LoaderContext(false, defaultDomain);
   #end
 	
+	@manual
 	public  var events			(default,			null)		: LoaderSignals;
 	
 	public  var bytes			(get_bytes,			set_bytes)	: ByteArray;
@@ -268,8 +269,11 @@ class Loader implements ICommunicator
 	 * if the MAX_LOADERS isn't reached. Otherwise the loader will be
 	 * disposed.
 	 */
-	public function dispose ()
+	@manual public function dispose ()
 	{
+		if (nextFree != null || events == null || Loader.free == this)
+			return; // already disposed
+
 		close();
 		unload();
 

@@ -49,7 +49,7 @@ class DirectToolTipBehaviour extends BehaviourBase<UIComponent>
 	/**
 	 * Label to display on roll-over
 	 */
-	private var label		: Bindable<String>;
+	@borrowed private var label : Bindable<String>;
 	
 	
 	public function new (target:UIComponent, label:Bindable<String>)

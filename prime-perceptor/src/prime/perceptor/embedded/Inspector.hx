@@ -71,7 +71,8 @@ class Inspector extends UIContainer
 
 	private var lastSelected : Bindable< TypedProxyTree< IDisplayContainer, IDisplayContainer> >;
 	private var currentSelected : Bindable< TypedProxyTree< IDisplayContainer, IDisplayContainer> >;
-	
+	@borrowed var inspectingItem : IDisplayContainer;
+
 	public function new( w:UIWindow )
 	{
 		super("Inspector");
@@ -117,8 +118,6 @@ class Inspector extends UIContainer
 		return container;
 	}
 
-	var inspectingItem : IDisplayContainer;
-	
 	public function listDisplayContainer( d:IDisplayContainer )
 	{
 		if (inspectingItem == d) return;

@@ -73,6 +73,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 //	public var filledProperties		(default, null)						: Int;
 	public var includeInLayout		(default, set_includeInLayout)		: Bool;
 	
+	@borrowed
 	public var parent				(default, set_parent)				: ILayoutContainer;
 	public var changed				(default, null)						: Signal1<Int>;
 	
@@ -91,7 +92,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	/**
 	 * rules for sizing / positioning the layout with relation to the parent
 	 */
-	public var relative				(default, set_relative)				: RelativeLayout;
+	@borrowed public var relative	(default, set_relative)				: RelativeLayout;
 	
 	/**
 	 * @default	false
@@ -128,7 +129,9 @@ class LayoutClient extends prime.core.traits.Invalidatable
 		private var _width			: Int;
 		private var _height			: Int;
 	
+	@borrowed
 	public var widthValidator		(default, set_widthValidator)		: IntRangeValidator;
+	@borrowed
 	public var heightValidator		(default, set_heightValidator)		: IntRangeValidator;
 	
 	public var percentWidth			(default, set_percentWidth)			: Float;
@@ -191,24 +194,7 @@ class LayoutClient extends prime.core.traits.Invalidatable
 		if (parent != null && parent.children != null && parent.children.has(this))
 			parent.children.remove(this);
 		
-		innerBounds	.dispose();
-		outerBounds	.dispose();
-		state		.dispose();
-		changed		.dispose();
-		
-		//don't trigger the setters for the properties below
-		(untyped this).relative			= null;		//do not dispose relative, can be used by other clients as well
-		(untyped this).widthValidator	= null;		//do not dispose widthValidator, can be used by other clients as well
-		(untyped this).heightValidator	= null;		//do not dispose heightValidator, can be used by other clients as well
-		(untyped this).padding			= (untyped this).margin	= null;
-		
 		percentWidth	= percentHeight	= Number.FLOAT_NOT_SET;
-		innerBounds		= outerBounds	= null;
-		state			= null;
-	//	events			= null;
-		parent			= null;
-		changed			= null;
-		
 		super.dispose();
 	}
 	

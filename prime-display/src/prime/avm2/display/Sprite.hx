@@ -61,7 +61,9 @@ class Sprite extends flash.display.Sprite implements ISprite
 	 */
 	public var children			(default, null)			: DisplayList;
 	
+	@borrowed
 	public var window			(default, set_window)	: Window;
+	@borrowed
 	public var container		(default, default)		: IDisplayContainer;
 	
 	public var userEvents		(default, null)			: UserEvents;

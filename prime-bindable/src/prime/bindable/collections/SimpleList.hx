@@ -92,8 +92,7 @@ class SimpleList<T> implements IEditableList<T>
 			return;
 		
 		removeAll();
-		change.dispose();
-		change = null;
+		// ...rest gets auto-disposed
 	}
 	
 	
