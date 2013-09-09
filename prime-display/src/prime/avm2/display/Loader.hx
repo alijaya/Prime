@@ -223,8 +223,7 @@ class Loader implements ICommunicator
 	public static var defaultDomain		= new ApplicationDomain();
 	public static var defaultContext	= new LoaderContext(false, defaultDomain);
   #end
-	
-	@manual
+
 	public  var events			(default,			null)		: LoaderSignals;
 	
 	public  var bytes			(get_bytes,			set_bytes)	: ByteArray;

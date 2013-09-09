@@ -65,6 +65,10 @@ package prime.avm2.display;
  */
 class TextField extends flash.text.TextField implements ITextField 
 {	
+	@borrowed public var container (default, default)    : IDisplayContainer;
+	@borrowed public var window    (default, set_window) : Window;
+	@borrowed public var data      (default, set_data)   : Bindable<String>;
+
 	/**
 	 * The padding to be added to textWidth to get the width
 	 * of a TextField that can display the text without clipping.
@@ -76,11 +80,7 @@ class TextField extends flash.text.TextField implements ITextField
 	 * of a TextField that can display the text without clipping.
 	 */ 
 	public static inline var TEXT_HEIGHT_PADDING:Int = 4;
-	
-	
-	public var container		(default, default)			: IDisplayContainer;
-	public var window			(default, set_window)		: Window;
-	
+
 	public var displayEvents	(default, null)				: DisplayEvents;
 	public var textEvents		(default, null)				: TextEvents;
 	public var userEvents		(default, null)				: UserEvents;
@@ -95,9 +95,6 @@ class TextField extends flash.text.TextField implements ITextField
 	 * Returns the textHeight + TEXT_HEIGHT_PADDING
 	 */
 	public var realTextHeight	(get_realTextHeight, never)	: Float;
-	
-	public var data				(default, set_data)			: Bindable < String >;
-	
 	/**
 	 * getter / setter to update the text/htmlText property of the textfield,
 	 * depending on wether displayHTML is true or false.
@@ -162,32 +159,11 @@ class TextField extends flash.text.TextField implements ITextField
 	
 	public function dispose ()
 	{
-		if (displayEvents == null)
-			return;		// already disposed
-		
 		if (container != null)
 			container.children.remove(this);
 		
-		var d = data;
-		data  = null;
-		
 		stopRespondingToOtherFocus();
-		
-		displayEvents.dispose();
-		textEvents.dispose();
-		userEvents.dispose();
-		rect.dispose();
-		
-		displayEvents	= null;
-		textEvents		= null;
-		userEvents		= null;
-		textStyle		= null;
-		container		= null;
-		window			= null;
-		rect			= null;
-		
-	//	if (d != null)
-	//		d.dispose();
+		//...rest gets auto-disposed
 	}
 
 
@@ -385,7 +361,7 @@ class TextField extends flash.text.TextField implements ITextField
 	 * Reference to a target with focusevents to which the textfield should
 	 * respond.
 	 */
-	private var focusTarget : IInteractiveObject;
+	@borrowed private var focusTarget : IInteractiveObject;
 	private var redispatchBinding : Wire<Dynamic>;
 	
 	

@@ -58,15 +58,15 @@ class DisplayList implements IEditableList <ChildType>
 	 * Target display-object. This display-object will be controlled by the
 	 * DisplayList instance.
 	 */
-	public var target		(default, null)				: DisplayObjectContainer;
+	@borrowed public var target (default, null) : DisplayObjectContainer;
 	/**
 	 * Owner contains a reference to the object that created this displaylist
 	 * instance. Normally this reference is the same as the target property
 	 * but the DisplayObject will in some cases be a different object than
 	 * the owner.
 	 */
-	public var owner		(default, null)				: IDisplayContainer;
-	
+	@borrowed public var owner (default, null) : IDisplayContainer;
+
 	public var change		(default, null)				: ListChangeSignal<ChildType>;
 //	public var beforeChange	(default, null)				: ListChangeSignal<ChildType>;		// FIXME: not implemented
 	public var length		(get_length, never)			: Int;
@@ -102,10 +102,7 @@ class DisplayList implements IEditableList <ChildType>
 	public function dispose ()
 	{
 		removeAll();
-		change.dispose();
-		change	= null;
-		target	= null;
-		owner	= null;
+		//...rest gets auto-disposed
 	}
 	
 	
@@ -269,10 +266,10 @@ class DisplayList implements IEditableList <ChildType>
  */
 class DisplayListForwardIterator implements IIterator <ChildType>
 {
-	private var list 	: DisplayList;
+	@borrowed private var list : DisplayList;
 	public var current	: Int;
 	
-	public function new (list:DisplayList)								{  this.list = list; rewind(); }
+	public function new (list:DisplayList)								{ this.list = list; rewind(); }
 	public #if !noinline inline #end function setCurrent (val:Dynamic)	{ current = val; }
 	public #if !noinline inline #end function rewind ()					{ current = 0; }
 	public #if !noinline inline #end function hasNext ()				{ return current < list.length; }
@@ -290,7 +287,7 @@ class DisplayListForwardIterator implements IIterator <ChildType>
  */
 class DisplayListReversedIterator implements IIterator <ChildType>
 {
-	private var list 	: DisplayList;
+	@borrowed private var list : DisplayList;
 	public var current	: Int;
 
 	public function new (list:DisplayList)								{ this.list = list; rewind(); }
