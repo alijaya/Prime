@@ -74,7 +74,7 @@ class ShowScrollbarsBehaviour extends BehaviourBase<IScrollable> implements IScr
 	{
 		layout.changed.unbind(this);
 		
-		if (scrollbarVer != null)	{ removeScrollBar( scrollbarHor ); scrollbarHor.dispose(); }
+		if (scrollbarHor != null)	{ removeScrollBar( scrollbarHor ); scrollbarHor.dispose(); }
 		if (scrollbarVer != null)	{ removeScrollBar( scrollbarVer ); scrollbarVer.dispose(); }
 		
 		scrollbarHor = scrollbarVer = null;
