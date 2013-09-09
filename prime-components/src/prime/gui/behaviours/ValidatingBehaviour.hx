@@ -40,10 +40,15 @@ package prime.gui.behaviours;
  */
 class ValidatingBehaviour < TargetType:prime.gui.traits.IDisplayable > extends BehaviourBase < TargetType > implements IValidatable
 {
-	public var prevValidatable		: IValidatable;
-	public var nextValidatable		: IValidatable;
-	
-	
+	@borrowed public var prevValidatable : IValidatable;
+	@borrowed public var nextValidatable : IValidatable;
+
+	@manual override public function dispose()
+	{
+		removeFromQueue(); // unchain ourselves from the validation queue first
+		super.dispose();
+	}
+
 	private function getValidationManager () : QueueManager
 	{
 		Assert.abstractMethod();

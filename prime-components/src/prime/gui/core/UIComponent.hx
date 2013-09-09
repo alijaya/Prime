@@ -83,15 +83,16 @@ package prime.gui.core;
  */
 class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 {
-	public var prevValidatable	: IValidatable;
-	public var nextValidatable	: IValidatable;
+    @borrowed public var prevValidatable  : IValidatable;
+    @borrowed public var nextValidatable  : IValidatable;
+    @borrowed public var effects          : UIElementEffects;
+
 	private var changes			: Int;
 	
 //	private var _behaviours     : BehaviourList;
 //	public var behaviours		(getBehaviours, never)			: BehaviourList;
-    public var behaviours		(default, null)			        : BehaviourList;
+	public var behaviours		(default, null)			        : BehaviourList;
 	public var state			(default, null)					: UIElementStates;
-	public var effects			(default, default)				: UIElementEffects;
 	
 #if (nme || !js)
 	public var id				(default, null)					: Bindable<String>;
@@ -137,7 +138,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 	#if prime_css
 		styleClasses	= new SimpleList<String>();
 		stylingEnabled	= true;		// <- will create UIElementStyle instance
-	#end	
+	#end
 		//add default behaviours
 		behaviours = new BehaviourList();
 		behaviours.add( new ValidateLayoutBehaviour(this) );
@@ -200,25 +201,14 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 	}*/
 	
 	
-	override public function dispose ()
+	@manual override public function dispose ()
 	{
 		if (isDisposed())
 			return;
 		
-	//	if (container != null)
 		if (isOnStage())
 			detachDisplay();
 	//	if (layout.parent != null)		detachLayout();		//will be done in LayoutClient.dispose or LayoutContainer.dispose
-		
-		if (effects != null) {
-			effects.dispose();
-			effects = null;
-		}
-
-		if (skin != null) {
-		    skin.dispose();
-		    skin = null;
-		}
 
 		if (isInitialized())
 			disposeChildren();
@@ -231,43 +221,11 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 		state.current = state.disposed;
 		Assert.that(isDisposed());
 		removeValidation();
-		
-	/*	if (_behaviours != null) {
-		    _behaviours.dispose();
-		    _behaviours = null;
-	    }*/
-	    behaviours  .dispose();
-		state		.dispose();
-		graphicData	.dispose();
-		
-		if (layout != null) {
-			layout.dispose();
-			layout = null;
-		}
 
-		if (validateWire != null) {
-			validateWire.dispose();
-			validateWire = null;
-		}
-		
-		id.dispose();
-		enabled.dispose();
-		
-#if (prime_css && (flash9 || nme))
-		// will be null if styling is disabled
-		if( style != null )
-			style.dispose();
-		styleClasses.dispose();
-		styleClasses	= null;
-		style			= null;
-#end
-		state			= null;
-		id				= null;
-		enabled			= null;
-		graphicData		= null;
-		behaviours      = null;
-		
-		super.dispose();
+		// Behaviour reset() method and others may expect the target (this) to be somewhat intact.
+        //   so dispose our fields before calling super.dispose()
+        prime.utils.MacroUtils.disposeFields();
+        super.dispose();
 	}
 	
 	
