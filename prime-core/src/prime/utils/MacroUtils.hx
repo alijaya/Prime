@@ -118,9 +118,27 @@ class MacroUtils
 	}
 	
 	
+	/**
+	 * Implements dispose() if the class has no existing `@manual function dispose()`
+	 *
+	 * Method will create a block that calls the .dispose() method on all the
+	 * fields that implement IDisposable. After disposing, all fields are set
+	 * to null.
+	 *
+	 * In summary:
+	 *  - skip any action on @manual fields
+	 *	- null all reference fields, which are not marked @manual or @borrowed
+	 *	- call dispose() on IDisposable fields, which are not marked @borrowed
+	 */
 	macro public static function autoDispose () : Array<Field>
 	{
-		return Context.getBuildFields().addMethod( "dispose", "Void", [], createMacroCall("dispose", disposeFieldsImpl.bind()) );
+		var buildFields = Context.getBuildFields();
+		var existingDispose = buildFields.getField("dispose");
+		return if (existingDispose != null && existingDispose.meta.filter(function(m) return "manual" == m.name).length > 0) {
+			buildFields;
+		}
+		else
+			buildFields.addMethod( "dispose", "Void", [], createMacroCall("dispose", disposeFieldsImpl.bind()), false );
 	}
 	
 	
@@ -233,9 +251,7 @@ class MacroUtils
 	
 
 	/**
-	 * Method will create a block that calls the .dispose() method on all the
-	 * fields that implement IDisposable. After disposing, all fields are set
-	 * to null.
+	 * See: autoDispose()
 	 * 
 	 * To allow calling this method from another macro, the implementation can't
 	 * be a macro. If it would be, we lose information about the class that
@@ -253,20 +269,40 @@ class MacroUtils
 				continue;
 			
 			var c = field.getClassType();
-			if ( c.hasInterface("IDisposable") || c.isClass("IDisposable") )
-			{
+			var fieldGetExpr = switch(field) {
+				case {kind: FVar(VarAccess.AccNormal, _) | FVar(VarAccess.AccNo, _)}: "this."  + field.name;
+				default:                                                     "(untyped this)." + field.name;
+	  		}
+			var fieldSetExpr = switch(field) {
+				case {kind: FVar(_, VarAccess.AccNormal) | FVar(_, VarAccess.AccNo)}: "this."  + field.name;
+				default:                                                     "(untyped this)." + field.name;
+	  		}
+
+			// Dispose non-getter-only IDisposables fields
+			if ( (c.hasInterface("IDisposable") || c.isClass("IDisposable"))  &&  switch(field) {
+				case {kind: FVar(_, VarAccess.AccNormal) | FVar(_, VarAccess.AccNo)}: true;
+				default: false;
+			  }){
 				// @manual is blanket skip of build/autoBuild macros, @borrowed skips only dispose() calls
 				if ( !field.meta.has("manual") && !field.meta.has("borrowed") )
 				{
-					var expr = "if ((untyped this)." + field.name + " != null) { (untyped this)."+field.name+".dispose(); }";
+					var expr = "{ "+
+						#if disposeDebug "trace('maybe dispose: "+ Context.getLocalClass().get().name + "."+ field.name +"'); " + #end
+						"var d = "+ fieldGetExpr +"; if (d != null) { "+
+							#if disposeDebug "trace(' - yes, disposing "+ Context.getLocalClass().get().name + "."+ field.name +"'); " + #end
+							" d.dispose(); "+fieldSetExpr+" = null; }"+
+						"}";
 					blocks.push( Context.parse(expr, pos) );
 				}
 			}
 			
-			if ( !field.meta.has("manual") && switch(field.kind) { case FVar( VarAccess.AccNormal, VarAccess.AccNormal): true; default: false; } )
-				blocks.push( Context.parse("this." + field.name + " = null", pos) );
+			if ( !field.meta.has("manual") && field.isNullableType() )
+				blocks.push( Context.parse(fieldSetExpr + " = null", pos) );
 		}
-			
+		#if disposeDebug
+			if (blocks.length > 0)
+				blocks.unshift( Context.parse("trace(" + Context.getLocalClass().get().name + ")", pos) );
+		#end
 		return blocks.toExpr();
 	}
 	
@@ -526,18 +562,18 @@ class BlocksUtil
 		if (methodContent == null)
 			return userFields;
 		
-		var local			= Context.getLocalClass().get();
-		var pos				= Context.currentPos();
+		var local = Context.getLocalClass().get();
+		var pos   = Context.currentPos();
 		
 		if (local.isInterface)
 			return userFields;
 		
-		// check if the method is already declared in the current class ore one of the super classes
+		// check if the method is already declared in the current class, or one of the super classes
 		var curDef		= userFields.getField( methodName );
-		var hasSuper	= curDef != null ? false : local.hasSuper( methodName );
-		
+		var superField	= curDef != null ? null : local.findSuperClassField( methodName );
+
 	//	trace("============");
-	//	trace(local.name+".addMethod "+methodName+"("+arguments.join(", ")+"); curDef: "+(curDef != null)+"; hasSuper: "+hasSuper #if debug + " " + ++addCounter #end );
+	//	trace(local.name+".addMethod "+methodName+"("+arguments.join(", ")+"); curDef: "+(curDef != null)+"; superField: "+superField #if debug + " " + ++addCounter #end );
 		
 	//	var traceExpr = Context.parse("trace('"+local.name+"."+methodName+"')", pos);
 		// if it's already declared in the current class, add method implementation to the existing method
@@ -558,13 +594,17 @@ class BlocksUtil
 			else				block.push( methodContent );
 	//		block.unshift(traceExpr);
 		}
-		
-		
-		// if the method is declared in a super class, override that implementation and call super
-		else
+		else // not declared in class, add new method
 		{
+			if (superField.isInline()) {
+				Context.warning('Not generating override for inline method: ${local.name}.${methodName}', pos);
+				return userFields; // Can't override inline super-class method
+			}
+
 			var access = [APublic];
-			if (hasSuper)
+			// if the method is declared in a super class, but not inlined:
+			//    override that implementation and call super
+			if (superField != null)
 			{
 				var argsStr		= arguments.toParameters();
 				var superExpr	= methodName == "new" ? "super("+argsStr+")" : "super."+methodName+"("+argsStr+")";
@@ -585,7 +625,7 @@ class BlocksUtil
 				methodContent = block.toExpr();
 			}
 			
-			// add the method to the class-definition
+			// add the new method to the class-definition
 			userFields.push( {
 				name:		methodName,
 				doc:		null,
@@ -719,17 +759,42 @@ class MacroTypeUtil
 	}
 	
 	
+	/**
+	 * Macro helper to tell if the given class-field is public
+	 */
+	public static function isInline (field:ClassField) : Bool return field != null && switch (field.kind) {
+		case FVar(_, AccInline) | FVar(AccInline, _) | FMethod(MethInline): true;
+		case _ : false;
+	}
+
+	/**
+	 * Macro helper to tell if the given class-field is public
+	 */
 	public static inline function isPublic (field:Field) : Bool
+		return hasAccess(field, APublic);
+
+	/**
+	 * Macro helper to tell if the given class-field has a certain access
+	 */
+	public static inline function hasAccess (field:Field, access : Access) : Bool
 	{
-		var pub = false;
-		for (access in field.access)
-			if (access == APublic) {
-				pub = true;
+		var answer = false;
+		for (a in field.access)
+			if (access == a) {
+				answer = true;
 				break;
 			}
-		return pub;
+		return answer;
 	}
-	
+
+	public static inline function isNullableType (field:ClassField) : Bool return switch(field.type)
+	{
+		case TAbstract(t,_):
+			var n = t.get().name;
+			n != "Int" && n != "Float" && n != "Bool";
+
+		default: true;
+	}
 
 	/**
 	 * Macro helper to retrieve the class definition of the given field. If the
@@ -788,18 +853,18 @@ class MacroTypeUtil
 	}
 	
 	
-	public static function hasSuper (classDef:ClassType, fieldName:String) : Bool
+	public static function findSuperClassField (classDef:ClassType, fieldName:String) : Null<ClassField>
 	{
 		var s = classDef.superClass;
-		if (s == null)					return false;
-		else if (fieldName == "new")	return true;
+		if (s == null)               return null;
+		else if (fieldName == "new") return s.t.get().fields.get().getField("new");
 		
 		var def = s.t.get();
 		for (field in def.fields.get())
 			if (field.name == fieldName)
-				return true;
+				return field;
 		
-		return hasSuper( def, fieldName );
+		return findSuperClassField( def, fieldName );
 	}
 	
 	

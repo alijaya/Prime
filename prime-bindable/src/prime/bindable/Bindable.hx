@@ -99,7 +99,7 @@ class Bindable<T> implements IBindable<T> implements IClonable<Bindable<T>>
 	}
 	
 	
-	public function dispose ()
+	@manual public function dispose ()
 	{
 		if (change == null) return; // already disposed
 		
