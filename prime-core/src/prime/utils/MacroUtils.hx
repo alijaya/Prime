@@ -81,18 +81,17 @@ class MacroUtils
 	/**
 	 * Macro which will execute a stored function reference. If the output of the 
 	 * reference doesn't contain any expressions, the method with name 'methodName'
-	 * will be removed.
+	 * will be removed, but only when the class has a super-class.
 	 */
-	macro public static function removeEmptyMethod (methodName:String, callbackID:Int) : Expr
+	macro public static function removeEmptyMethod (className:String, methodName:String, callbackID:Int) : Expr
 	{
-		return macroCallbacks[callbackID]();
-	/*	var expr	= macroCallbacks[callbackID]();
+		var expr	= macroCallbacks[callbackID]();
 		var block	= expr.toBlocks();
 		
-	//	if (block.length == 0)
-	//		fields().removeMethod(methodName);
+		if (block.length == 0 && Context.getLocalClass().get().superClass != null)
+			fields().removeMethod(methodName);
 		
-		return expr;*/
+		return expr;
 	}
 	
 /*	macro public static function autoEmpty () : Array<Field>
@@ -216,17 +215,14 @@ class MacroUtils
 
 	public static function createMacroCall( methodName:String, exprGenerator : Void->Expr, autoRemoveMethod:Bool = true ) : Expr
 	{
-	//*	
 		var pos = Context.currentPos();
 		var id	= ++macroCallbackID;
 		macroCallbacks[id] = exprGenerator;	
-	//	macroCallback(0);
 			
-		/*	var macroCall = autoRemoveMethod
-				?	"prime.utils.MacroUtils.removeEmptyMethod('"+methodName+"', "+ id +")"
-				:	"prime.utils.MacroUtils.macroCallback("+id+")";*/
-			var macroCall = "prime.utils.MacroUtils.macroCallback("+id+")";
-	//*/
+		var macroCall = autoRemoveMethod
+				?	"prime.utils.MacroUtils.removeEmptyMethod('"+Context.getLocalClass().get().module+"/"+Context.getLocalClass().get().name+"', '"+methodName+"', "+ id +")"
+				:	"prime.utils.MacroUtils.macroCallback("+id+")";
+
 		return Context.parse(macroCall, pos);
 	}
 	
@@ -534,6 +530,7 @@ class BlocksUtil
 	private static var removeCounter = 0;
 #end
 	
+	private static var methodsAlreadyAdded = new Map<String, Bool>();
 	
 	/**
 	 * Method will create a method definition for the given values and add the
@@ -563,11 +560,13 @@ class BlocksUtil
 			return userFields;
 		
 		var local = Context.getLocalClass().get();
-		var pos   = Context.currentPos();
-		
 		if (local.isInterface)
 			return userFields;
 		
+		var methodKey = local.module+"$"+local.name+"$"+methodName;
+		if (methodsAlreadyAdded.exists(methodKey))
+			return userFields;
+
 		// check if the method is already declared in the current class, or one of the super classes
 		var curDef		= userFields.getField( methodName );
 		var superField	= curDef != null ? null : local.findSuperClassField( methodName );
@@ -642,15 +641,15 @@ class BlocksUtil
 			} );
 		}
 	//	trace("");
+
+		methodsAlreadyAdded.set(methodKey, true);
 		return userFields;
 	}
 	
 	
 	/**
-	 * NOT USED...
-	 * Method will try to remove the given methodname, but splice or Compiler.removeField
-	 * won't remove the actual method.. so removing empty methods will be left
-	 * for dead-code-elimination.
+	 * Method will  remove the given methodname using Compiler.removeField
+	 * which won't remove the actual method.. until dead-code-elimination.
 	 */
 	public static function removeMethod (fields:Array<ClassField>, methodName:String) : Array<ClassField>
 	{
@@ -662,8 +661,9 @@ class BlocksUtil
 		if (!field.meta.has("__auto"))
 			return fields;
 		
-		var className = Context.getLocalClass().get().name;
-		haxe.macro.Compiler.removeField(className, methodName);
+		var cls = Context.getLocalClass().get();
+		var fullName = (cls.pack.length > 0? cls.pack.join(".")+"." : "") + cls.name;
+		haxe.macro.Compiler.removeField(fullName, methodName);
 		
 		var l = fields.length;
 		fields.splice( fieldPos, 1 );
@@ -858,7 +858,7 @@ class MacroTypeUtil
 	{
 		var s = classDef.superClass;
 		if (s == null)               return null;
-		else if (fieldName == "new") return s.t.get().fields.get().getField("new");
+		else if (fieldName == "new") return s.t.get().constructor.get();
 		
 		var def = s.t.get();
 		for (field in def.fields.get())
