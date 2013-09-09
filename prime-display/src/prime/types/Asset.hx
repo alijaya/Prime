@@ -150,10 +150,9 @@ class Asset		implements prime.core.traits.IDisposable
 	public function dispose ()
 	{
 		unsetData();
-		state.dispose();
-		state	= null;
 #if CSSParser				source	= null; #end
 #if (CSSParser || debug)	_oid	= 0; #end
+		//...rest is auto-disposed
 	}
 	
 	
@@ -279,7 +278,7 @@ class Asset		implements prime.core.traits.IDisposable
  */
 class BitmapAsset extends Asset
 {
-	public var data	(default, set_data) : BitmapData;
+	@manual public var data (default, set_data) : BitmapData;
 	
 	
 	public function new (source:BitmapData = null)
@@ -289,15 +288,15 @@ class BitmapAsset extends Asset
 		if (source != null)
 			data	= source;
 	}
-	
-	
-	override public function dispose ()
+
+
+	override private function unsetData ()
 	{
-		data = null;
-		super.dispose();
+		super.unsetData();
+		(untyped this).data = null;
 	}
-	
-	
+
+
 	private function set_data (v:BitmapData)
 	{
 		if (v != data)
@@ -341,7 +340,7 @@ class BitmapAsset extends Asset
  */
 class DisplayAsset extends Asset
 {
-	public var data	(default, set_data) : DisplayObject;
+	@manual public var data (default, set_data) : DisplayObject;
 	private var factory : Factory;
 	
 	
@@ -352,8 +351,15 @@ class DisplayAsset extends Asset
 		this.data		= source;
 		this.factory	= factory;
 	}
-	
-	
+
+
+	override private function unsetData ()
+	{
+		super.unsetData();
+		(untyped this).data = null;
+	}
+
+
 	private function set_data (v:DisplayObject)
 	{
 		if (v != data)
@@ -405,7 +411,7 @@ class DisplayAsset extends Asset
 class BytesAssetBase extends Asset
 {
 #if (flash9 || nme)
-	private var loader	: Loader;
+	@manual private var loader : Loader;
 #end
 	
 	
@@ -496,7 +502,7 @@ class BytesAssetBase extends Asset
  */
 class BytesAsset extends BytesAssetBase
 {
-	public var data	(default, set_data) : BytesData;
+	@manual public var data (default, set_data) : BytesData;
 	
 	
 	public function new (source:BytesData)					{ super(); data = source; }
@@ -505,8 +511,15 @@ class BytesAsset extends BytesAssetBase
 #if debug
 	override public  function toString ()					{ return "BytesAsset("+data+")" + super.toString(); }
 #end
-	
-	
+
+
+	override private function unsetData ()
+	{
+		super.unsetData();
+		(untyped this).data = null;
+	}
+
+
 	private function set_data (v:BytesData)
 	{
 		if (v != data)
@@ -533,26 +546,25 @@ class BytesAsset extends BytesAssetBase
  */
 class ExternalAsset extends BytesAssetBase
 {
-	public var externalLoader	(default, set_externalLoader)	: ICommunicator;
-	public var data				(default, set_data)				: URI;
+	@manual public var externalLoader (default, set_externalLoader) : ICommunicator;
+	@manual public var data           (default, set_data)           : URI;
 
-	
+
 	public function new (source:URI, ?loader:ICommunicator)
 	{
 		super();
 		externalLoader = loader == null ? new URLLoader() : loader;
 		data = source;
 	}
-	
-	
-	override public  function dispose ()
+
+
+	override private function unsetData ()
 	{
-		super.dispose();
-		externalLoader		= null;
-		(untyped this).data	= null;
+		super.unsetData();
+		(untyped this).data = null;
 	}
-	
-	
+
+
 	override public  function isEmpty ()					{ return data == null; }
 #if debug
 	override public  function toString ()					{ return "ExternalAsset("+data + (externalLoader != null ? " ( "+externalLoader.bytesProgress+" / "+externalLoader.bytesTotal+" )" : "")+")" + super.toString(); }
