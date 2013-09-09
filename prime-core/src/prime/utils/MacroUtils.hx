@@ -284,7 +284,7 @@ class MacroUtils
 				{
 					var expr = "{ "+
 						#if disposeDebug "trace('maybe dispose: "+ Context.getLocalClass().get().name + "."+ field.name +"'); " + #end
-						"var d = "+ fieldGetExpr +"; if (d != null) { "+
+						"var d:prime.core.traits.IDisposable = "+ fieldGetExpr +"; if (d != null) { "+
 							#if disposeDebug "trace(' - yes, disposing "+ Context.getLocalClass().get().name + "."+ field.name +"'); " + #end
 							" d.dispose(); "+fieldSetExpr+" = null; }"+
 						"}";
@@ -299,7 +299,7 @@ class MacroUtils
 			if (blocks.length > 0)
 				blocks.unshift( Context.parse("trace(" + Context.getLocalClass().get().name + ")", pos) );
 		#end
-		return blocks.toExpr();
+		return blocks.toExpr(pos);
 	}
 	
 	private static inline function startListeningFieldsImpl () : Expr
