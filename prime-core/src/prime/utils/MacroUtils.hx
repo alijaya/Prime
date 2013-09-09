@@ -597,7 +597,8 @@ class BlocksUtil
 		else // not declared in class, add new method
 		{
 			if (superField.isInline()) {
-				Context.warning('Not generating override for inline method: ${local.name}.${methodName}', pos);
+				if (!superField.meta.has("manual"))
+					Context.warning('Not generating override in subclass "${local.name}", superclass has inline method: ${methodName}()', pos);
 				return userFields; // Can't override inline super-class method
 			}
 
