@@ -58,8 +58,8 @@ private typedef Overflow	= #if CSSParser Factory1<Dynamic, Dynamic> #else Factor
  */
 class GraphicsStyle extends StyleSubBlock
 {
-	private var extendedStyle	: GraphicsStyle;
-	private var superStyle		: GraphicsStyle;
+	@borrowed private var extendedStyle : GraphicsStyle;
+	@borrowed private var superStyle    : GraphicsStyle;
 	
 	private var _shape			: Shape;
 	private var _skin			: Skin;

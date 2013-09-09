@@ -38,7 +38,7 @@ package prime.gui.styling;
  */
 class StyleSubBlock extends StyleBlockBase
 {
-	public var owner (default, set_owner)	: StyleBlock;
+	@borrowed public var owner (default, set_owner) : StyleBlock;
 	
 	
 	override public function dispose ()

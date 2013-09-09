@@ -72,9 +72,6 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	public var changes 				(default, null)						: Int;
 //	public var filledProperties		(default, null)						: Int;
 	public var includeInLayout		(default, set_includeInLayout)		: Bool;
-	
-	@borrowed
-	public var parent				(default, set_parent)				: ILayoutContainer;
 	public var changed				(default, null)						: Signal1<Int>;
 	
 	
@@ -87,7 +84,9 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	 * Size of the layouclient including the padding and margin
 	 */
 	public var outerBounds			(default, null)						: IntRectangle;
-	
+
+
+	@borrowed public var parent     (default, set_parent)				: ILayoutContainer;
 	
 	/**
 	 * rules for sizing / positioning the layout with relation to the parent
@@ -137,8 +136,8 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	public var percentWidth			(default, set_percentWidth)			: Float;
 	public var percentHeight		(default, set_percentHeight)		: Float;
 	
-	public var padding				(default, set_padding)				: Box;
-	public var margin				(default, set_margin)				: Box;
+	@borrowed public var padding    (default, set_padding)				: Box;
+	@borrowed public var margin     (default, set_margin)				: Box;
 	
 #if debug
 	public var _oid					(default, null)						: Int;
