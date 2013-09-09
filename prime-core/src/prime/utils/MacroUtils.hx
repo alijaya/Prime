@@ -578,23 +578,25 @@ class BlocksUtil
 		// if it's already declared in the current class, add method implementation to the existing method
 		if (curDef != null)
 		{
-			var current	= curDef.getContent();
-			var pos		= current.pos;
-			var block	= current.getBlock();
-		//	trace(block);
+			var current = curDef.getContent();
+			var block   = current.getBlock();
+			var pos     = if (insertBefore || block == null || block.length == 0) current.pos else block[block.length-1].pos;
+
 			if (block == null)
 			{
 				block = new Array<Expr>();
 				block.push( current );
 				curDef.setContent(block.toExpr(pos));
 			}
-			
+
 			if (insertBefore)	block.unshift( methodContent );
 			else				block.push( methodContent );
 	//		block.unshift(traceExpr);
 		}
 		else // not declared in class, add new method
 		{
+			var pos = Context.currentPos();
+
 			if (superField.isInline()) {
 				if (!superField.meta.has("manual"))
 					Context.warning('Not generating override in subclass "${local.name}", superclass has inline method: ${methodName}()', pos);
