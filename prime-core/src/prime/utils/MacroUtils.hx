@@ -45,7 +45,7 @@ package prime.utils;
 class MacroUtils
 {
 	macro public static function enableFields ()						return enableFieldsImpl();
-	macro public static function disableFields ()						return disposeFieldsImpl();
+	macro public static function disableFields ()						return disableFieldsImpl();
 	macro public static function startListeningFields ()				return startListeningFieldsImpl();
 	macro public static function stopListeningFields ()					return stopListeningFieldsImpl();
 	macro public static function unbindFields (l:Dynamic, h:Dynamic)	return unbindFieldsImpl(l, h);
