@@ -48,7 +48,7 @@ package prime.gui.behaviours.components;
  */
 class ButtonSelectedOpenPopup extends BehaviourBase < ISelectable >
 {
-	private var popup		: IUIContainer;
+	@borrowed private var popup : IUIContainer;
 //	private var keyDownWire	: Wire<Dynamic>;
 	
 	

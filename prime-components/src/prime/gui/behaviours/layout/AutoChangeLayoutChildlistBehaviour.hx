@@ -59,7 +59,7 @@ package prime.gui.behaviours.layout;
  */
 class AutoChangeLayoutChildlistBehaviour extends BehaviourBase < IDisplayContainer >
 {
-	private var layoutGroup		: LayoutContainer;
+	@borrowed private var layoutGroup : LayoutContainer;
 	
 	/**
 	 * Number indicating the difference between the number of children the

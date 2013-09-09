@@ -39,7 +39,7 @@ package prime.gui.behaviours;
  */
 class BehaviourBase < TargetType > implements IBehaviour < TargetType >
 {
-	public var target			(default, set_target)	: TargetType;
+	@borrowed public var target (default, set_target)	: TargetType;
 	public var initialized		(default, null)			: Bool;
 	
 	public  function new( newTarget:TargetType )		{ initialized = false; target = newTarget; }

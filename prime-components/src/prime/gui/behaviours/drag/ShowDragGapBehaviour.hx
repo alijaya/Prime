@@ -50,8 +50,8 @@ package prime.gui.behaviours.drag;
  */
 class ShowDragGapBehaviour extends BehaviourBase <IDropTarget>
 {
-	private var draggedItem				: DragInfo;
-	private var layoutGroup				: LayoutContainer;
+	@borrowed private var draggedItem   : DragInfo;
+	@borrowed private var layoutGroup   : LayoutContainer;
 	private var oldMouseChildrenValue	: Bool;
 	private var mouseMoveBinding		: Wire < Dynamic >;
 	
