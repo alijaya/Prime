@@ -73,7 +73,7 @@ class BehaviourList implements prime.core.traits.IDisposable
 	}
 	
 	
-	public #if !noinline inline #end function dispose ()
+	@manual public #if !noinline inline #end function dispose () if (list != null)
 	{
 		removeAll();
 		list = null;

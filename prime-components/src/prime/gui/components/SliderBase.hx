@@ -88,25 +88,12 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 	
 	override public function dispose ()
 	{
-		if (data != null)					data.dispose();
-		if (mouseMoveBinding != null)		mouseMoveBinding.dispose();
-		if (mouseUpBinding != null)			mouseUpBinding.dispose();
-		if (mouseBgDownBinding != null)		mouseBgDownBinding.dispose();
-		if (mouseBtnDownBinding != null)	mouseBtnDownBinding.dispose();
-		
-		mouseBgDownBinding	= mouseBtnDownBinding = mouseUpBinding = mouseMoveBinding = null;
-		(untyped this).data = null;
-		sliding.dispose();
-		
-		if (isInitialized())
-		{
-			dragBtn.dispose();
-			dragBtn = null;
+		if (data != null) {
+			data.dispose();
+			(untyped this).data = null;
 		}
-		
-		sliding	= null;
-		direction = null;
 		super.dispose();
+		//...rest is auto-disposed
 	}
 	
 	

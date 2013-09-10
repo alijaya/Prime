@@ -46,15 +46,8 @@ class BindablePoint extends IntPoint implements prime.core.traits.IDisposable
 		yProp = new Bindable<Int>(y);
 		super(x, y);
 	}
-	
-	
-	public function dispose () {
-		xProp.dispose();
-		yProp.dispose();
-		xProp = yProp = null;
-	}
-	
-	
+
+
 	override public function clone () : IntPoint {
 		return new BindablePoint( x, y );
 	}

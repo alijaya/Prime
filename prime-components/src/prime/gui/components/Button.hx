@@ -88,19 +88,8 @@ class Button extends UIDataContainer <Bindable<String>> #if prime_css implements
 		selected	= new Bindable<Bool>(false);
 		#if prime_css styleClasses.add("formElement"); #end
 	}
-	
-	
-	override public function dispose ()
-	{
-		super.dispose();
-		if (selected != null) {
-			selected.dispose();
-			selected = null;
-		}
-		icon = null;
-	}
-	
-	
+
+
 	private inline function set_icon (v:Asset)
 	{
 		if (v != icon) {

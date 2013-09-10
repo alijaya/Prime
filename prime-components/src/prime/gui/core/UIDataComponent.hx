@@ -52,7 +52,7 @@ package prime.gui.core;
  */
 class UIDataComponent <DataType> extends UIComponent implements IUIDataElement <DataType>
 {
-	public var data (default, set_data)	: DataType;
+	@borrowed public var data (default, set_data) : DataType;
 	
 	
 	public function new (id:String = null, data:DataType = null)
