@@ -44,6 +44,11 @@ echo build.hxml \
 	${NOTRACES} \
 	${RESOURCE} \
 	-cp "'$STYLEDIR'" \
-	${Debug:---no-traces --dead-code-elimination --macro Undead.keepAlive()} \
+	${Debug:--dce full} \
 		| xargs -t haxe &&
-open test.swf
+
+if [[ "$MSYSTEM"=="MING32" ]] ; then
+	start test.swf
+else
+	open test.swf
+fi;

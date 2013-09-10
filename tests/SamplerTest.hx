@@ -70,12 +70,15 @@ class SamplerTest
 		return arr;
 	}
 	
-	private static inline var sizes = ["B", "KB", "MB", "GB"];
+	private static inline function sizes()
+	{
+		return ["B", "KB", "MB", "GB"];
+	} 
 	public static function makeReadable (mem:Float):String
 	{
 		var output:String = "";
 		
-		for (size in sizes) {
+		for (size in sizes()) {
 			if (mem >= 1024) {
 				mem /= 1024; //>>= 10;	//divide by 1024 (2^10)
 			} else {

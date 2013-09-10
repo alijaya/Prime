@@ -4,7 +4,7 @@
 -exclude ../build/release-exclude.txt
 --no-traces
 
--swf9 test.swf
+-swf test.swf
 -swf-version 10
 -swf-header 1000:750:25
 
