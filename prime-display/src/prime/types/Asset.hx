@@ -405,7 +405,7 @@ class DisplayAsset extends Asset
 class BytesAssetBase extends Asset
 {
 #if (flash9 || nme)
-	private var loader	: Loader;
+	public var loader	(default, null) : Loader;
 #end
 	
 	
