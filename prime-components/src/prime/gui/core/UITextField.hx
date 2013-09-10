@@ -91,14 +91,15 @@ class UITextField extends TextField implements IUIElement
 	}
 
 
-	public var prevValidatable	: IValidatable;
-	public var nextValidatable	: IValidatable;
+	@borrowed public var prevValidatable                 : IValidatable;
+	@borrowed public var nextValidatable                 : IValidatable;
+    @borrowed public var effects                         : UIElementEffects;
+	@borrowed public var layout          (default, null) : LayoutClient;
+
 	private var changes			: Int;
 	
 	public var id				(default, null)					: Bindable < String >;
 	public var behaviours		(default, null)					: BehaviourList;
-	public var effects			(default, default)				: UIElementEffects;
-	public var layout			(default, null)					: LayoutClient;
 	public var system			(get_system, never)				: ISystem;
 	public var state			(default, null)					: UIElementStates;
 
@@ -154,7 +155,7 @@ class UITextField extends TextField implements IUIElement
 	}
 
 
-	override public function dispose ()
+	@manual override public function dispose ()
 	{
 		if (isDisposed())
 			return;
@@ -169,29 +170,17 @@ class UITextField extends TextField implements IUIElement
 		//state.
 		state.current = state.disposed;
 		removeValidation();
-		behaviours.dispose();
-		id.dispose();
-		state.dispose();
 		
 		if (!hasInjectedLayout && layout != null) {
 			layout.dispose();
 			layout = null;
 		}
 
-#if (prime_css && (flash9 || nme))
-		if (style != null && style.target == this)
-			style.dispose();
-		
-		styleClasses.dispose();
-		styleClasses	= null;
-		style			= null;
-#end
-		
-		id				= null;
-		state			= null;
-		behaviours		= null;
-		super.dispose();
-	}
+        // Behaviour reset() method and others may expect the target (this) to be somewhat intact.
+        //   so dispose our fields before calling super.dispose()
+        prime.utils.MacroUtils.disposeFields();
+        super.dispose();
+ 	}
 	
 	
 	public #if !noinline inline #end function isDisposed ()	{ return state == null || state.is(state.disposed); }

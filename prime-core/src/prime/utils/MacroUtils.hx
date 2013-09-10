@@ -45,7 +45,7 @@ package prime.utils;
 class MacroUtils
 {
 	macro public static function enableFields ()						return enableFieldsImpl();
-	macro public static function disableFields ()						return disposeFieldsImpl();
+	macro public static function disableFields ()						return disableFieldsImpl();
 	macro public static function startListeningFields ()				return startListeningFieldsImpl();
 	macro public static function stopListeningFields ()					return stopListeningFieldsImpl();
 	macro public static function unbindFields (l:Dynamic, h:Dynamic)	return unbindFieldsImpl(l, h);
@@ -81,18 +81,17 @@ class MacroUtils
 	/**
 	 * Macro which will execute a stored function reference. If the output of the 
 	 * reference doesn't contain any expressions, the method with name 'methodName'
-	 * will be removed.
+	 * will be removed, but only when the class has a super-class.
 	 */
-	macro public static function removeEmptyMethod (methodName:String, callbackID:Int) : Expr
+	macro public static function removeEmptyMethod (className:String, methodName:String, callbackID:Int) : Expr
 	{
-		return macroCallbacks[callbackID]();
-	/*	var expr	= macroCallbacks[callbackID]();
+		var expr	= macroCallbacks[callbackID]();
 		var block	= expr.toBlocks();
 		
-	//	if (block.length == 0)
-	//		fields().removeMethod(methodName);
+		if (block.length == 0 && Context.getLocalClass().get().superClass != null)
+			fields().removeMethod(methodName);
 		
-		return expr;*/
+		return expr;
 	}
 	
 /*	macro public static function autoEmpty () : Array<Field>
@@ -118,9 +117,27 @@ class MacroUtils
 	}
 	
 	
+	/**
+	 * Implements dispose() if the class has no existing `@manual function dispose()`
+	 *
+	 * Method will create a block that calls the .dispose() method on all the
+	 * fields that implement IDisposable. After disposing, all fields are set
+	 * to null.
+	 *
+	 * In summary:
+	 *  - skip any action on @manual fields
+	 *	- null all reference fields, which are not marked @manual or @borrowed
+	 *	- call dispose() on IDisposable fields, which are not marked @borrowed
+	 */
 	macro public static function autoDispose () : Array<Field>
 	{
-		return Context.getBuildFields().addMethod( "dispose", "Void", [], createMacroCall("dispose", disposeFieldsImpl.bind()) );
+		var buildFields = Context.getBuildFields();
+		var existingDispose = buildFields.getField("dispose");
+		return if (existingDispose != null && existingDispose.meta.filter(function(m) return "manual" == m.name).length > 0) {
+			buildFields;
+		}
+		else
+			buildFields.addMethod( "dispose", "Void", [], createMacroCall("dispose", disposeFieldsImpl.bind()), false );
 	}
 	
 	
@@ -198,17 +215,14 @@ class MacroUtils
 
 	public static function createMacroCall( methodName:String, exprGenerator : Void->Expr, autoRemoveMethod:Bool = true ) : Expr
 	{
-	//*	
 		var pos = Context.currentPos();
 		var id	= ++macroCallbackID;
 		macroCallbacks[id] = exprGenerator;	
-	//	macroCallback(0);
 			
-		/*	var macroCall = autoRemoveMethod
-				?	"prime.utils.MacroUtils.removeEmptyMethod('"+methodName+"', "+ id +")"
-				:	"prime.utils.MacroUtils.macroCallback("+id+")";*/
-			var macroCall = "prime.utils.MacroUtils.macroCallback("+id+")";
-	//*/
+		var macroCall = autoRemoveMethod
+				?	"prime.utils.MacroUtils.removeEmptyMethod('"+Context.getLocalClass().get().module+"/"+Context.getLocalClass().get().name+"', '"+methodName+"', "+ id +")"
+				:	"prime.utils.MacroUtils.macroCallback("+id+")";
+
 		return Context.parse(macroCall, pos);
 	}
 	
@@ -233,9 +247,7 @@ class MacroUtils
 	
 
 	/**
-	 * Method will create a block that calls the .dispose() method on all the
-	 * fields that implement IDisposable. After disposing, all fields are set
-	 * to null.
+	 * See: autoDispose()
 	 * 
 	 * To allow calling this method from another macro, the implementation can't
 	 * be a macro. If it would be, we lose information about the class that
@@ -253,21 +265,41 @@ class MacroUtils
 				continue;
 			
 			var c = field.getClassType();
-			if ( c.hasInterface("IDisposable") || c.isClass("IDisposable") )
-			{
+			var fieldGetExpr = switch(field) {
+				case {kind: FVar(VarAccess.AccNormal, _) | FVar(VarAccess.AccNo, _)}: "this."  + field.name;
+				default:                                                     "(untyped this)." + field.name;
+	  		}
+			var fieldSetExpr = switch(field) {
+				case {kind: FVar(_, VarAccess.AccNormal) | FVar(_, VarAccess.AccNo)}: "this."  + field.name;
+				default:                                                     "(untyped this)." + field.name;
+	  		}
+
+			// Dispose non-getter-only IDisposables fields
+			if ( (c.hasInterface("IDisposable") || c.isClass("IDisposable"))  &&  switch(field) {
+				case {kind: FVar(_, VarAccess.AccNormal) | FVar(_, VarAccess.AccNo)}: true;
+				default: false;
+			  }){
 				// @manual is blanket skip of build/autoBuild macros, @borrowed skips only dispose() calls
 				if ( !field.meta.has("manual") && !field.meta.has("borrowed") )
 				{
-					var expr = "if ((untyped this)." + field.name + " != null) { (untyped this)."+field.name+".dispose(); }";
+					var expr = "{ "+
+						#if disposeDebug "trace('maybe dispose: "+ Context.getLocalClass().get().name + "."+ field.name +"'); " + #end
+						"var d:prime.core.traits.IDisposable = "+ fieldGetExpr +"; if (d != null) { "+
+							#if disposeDebug "trace(' - yes, disposing "+ Context.getLocalClass().get().name + "."+ field.name +"'); " + #end
+							" d.dispose(); "+fieldSetExpr+" = null; }"+
+						"}";
 					blocks.push( Context.parse(expr, pos) );
 				}
 			}
 			
-			if ( !field.meta.has("manual") && switch(field.kind) { case FVar( VarAccess.AccNormal, VarAccess.AccNormal): true; default: false; } )
-				blocks.push( Context.parse("this." + field.name + " = null", pos) );
+			if ( !field.meta.has("manual") && field.isNullableType() )
+				blocks.push( Context.parse(fieldSetExpr + " = null", pos) );
 		}
-			
-		return blocks.toExpr();
+		#if disposeDebug
+			if (blocks.length > 0)
+				blocks.unshift( Context.parse("trace(" + Context.getLocalClass().get().name + ")", pos) );
+		#end
+		return blocks.toExpr(pos);
 	}
 	
 	private static inline function startListeningFieldsImpl () : Expr
@@ -498,6 +530,7 @@ class BlocksUtil
 	private static var removeCounter = 0;
 #end
 	
+	private static var methodsAlreadyAdded = new Map<String, Bool>();
 	
 	/**
 	 * Method will create a method definition for the given values and add the
@@ -526,45 +559,54 @@ class BlocksUtil
 		if (methodContent == null)
 			return userFields;
 		
-		var local			= Context.getLocalClass().get();
-		var pos				= Context.currentPos();
-		
+		var local = Context.getLocalClass().get();
 		if (local.isInterface)
 			return userFields;
 		
-		// check if the method is already declared in the current class ore one of the super classes
+		var methodKey = local.module+"$"+local.name+"$"+methodName;
+		if (methodsAlreadyAdded.exists(methodKey))
+			return userFields;
+
+		// check if the method is already declared in the current class, or one of the super classes
 		var curDef		= userFields.getField( methodName );
-		var hasSuper	= curDef != null ? false : local.hasSuper( methodName );
-		
+		var superField	= curDef != null ? null : local.findSuperClassField( methodName );
+
 	//	trace("============");
-	//	trace(local.name+".addMethod "+methodName+"("+arguments.join(", ")+"); curDef: "+(curDef != null)+"; hasSuper: "+hasSuper #if debug + " " + ++addCounter #end );
+	//	trace(local.name+".addMethod "+methodName+"("+arguments.join(", ")+"); curDef: "+(curDef != null)+"; superField: "+superField #if debug + " " + ++addCounter #end );
 		
 	//	var traceExpr = Context.parse("trace('"+local.name+"."+methodName+"')", pos);
 		// if it's already declared in the current class, add method implementation to the existing method
 		if (curDef != null)
 		{
-			var current	= curDef.getContent();
-			var pos		= current.pos;
-			var block	= current.getBlock();
-		//	trace(block);
+			var current = curDef.getContent();
+			var block   = current.getBlock();
+			var pos     = if (insertBefore || block == null || block.length == 0) current.pos else block[block.length-1].pos;
+
 			if (block == null)
 			{
 				block = new Array<Expr>();
 				block.push( current );
 				curDef.setContent(block.toExpr(pos));
 			}
-			
+
 			if (insertBefore)	block.unshift( methodContent );
 			else				block.push( methodContent );
 	//		block.unshift(traceExpr);
 		}
-		
-		
-		// if the method is declared in a super class, override that implementation and call super
-		else
+		else // not declared in class, add new method
 		{
+			var pos = Context.currentPos();
+
+			if (superField.isInline()) {
+				if (!superField.meta.has("manual"))
+					Context.warning('Not generating override in subclass "${local.name}", superclass has inline method: ${methodName}()', pos);
+				return userFields; // Can't override inline super-class method
+			}
+
 			var access = [APublic];
-			if (hasSuper)
+			// if the method is declared in a super class, but not inlined:
+			//    override that implementation and call super
+			if (superField != null)
 			{
 				var argsStr		= arguments.toParameters();
 				var superExpr	= methodName == "new" ? "super("+argsStr+")" : "super."+methodName+"("+argsStr+")";
@@ -585,7 +627,7 @@ class BlocksUtil
 				methodContent = block.toExpr();
 			}
 			
-			// add the method to the class-definition
+			// add the new method to the class-definition
 			userFields.push( {
 				name:		methodName,
 				doc:		null,
@@ -601,15 +643,15 @@ class BlocksUtil
 			} );
 		}
 	//	trace("");
+
+		methodsAlreadyAdded.set(methodKey, true);
 		return userFields;
 	}
 	
 	
 	/**
-	 * NOT USED...
-	 * Method will try to remove the given methodname, but splice or Compiler.removeField
-	 * won't remove the actual method.. so removing empty methods will be left
-	 * for dead-code-elimination.
+	 * Method will  remove the given methodname using Compiler.removeField
+	 * which won't remove the actual method.. until dead-code-elimination.
 	 */
 	public static function removeMethod (fields:Array<ClassField>, methodName:String) : Array<ClassField>
 	{
@@ -621,8 +663,9 @@ class BlocksUtil
 		if (!field.meta.has("__auto"))
 			return fields;
 		
-		var className = Context.getLocalClass().get().name;
-		haxe.macro.Compiler.removeField(className, methodName);
+		var cls = Context.getLocalClass().get();
+		var fullName = (cls.pack.length > 0? cls.pack.join(".")+"." : "") + cls.name;
+		haxe.macro.Compiler.removeField(fullName, methodName);
 		
 		var l = fields.length;
 		fields.splice( fieldPos, 1 );
@@ -719,17 +762,42 @@ class MacroTypeUtil
 	}
 	
 	
+	/**
+	 * Macro helper to tell if the given class-field is public
+	 */
+	public static function isInline (field:ClassField) : Bool return field != null && switch (field.kind) {
+		case FVar(_, AccInline) | FVar(AccInline, _) | FMethod(MethInline): true;
+		case _ : false;
+	}
+
+	/**
+	 * Macro helper to tell if the given class-field is public
+	 */
 	public static inline function isPublic (field:Field) : Bool
+		return hasAccess(field, APublic);
+
+	/**
+	 * Macro helper to tell if the given class-field has a certain access
+	 */
+	public static inline function hasAccess (field:Field, access : Access) : Bool
 	{
-		var pub = false;
-		for (access in field.access)
-			if (access == APublic) {
-				pub = true;
+		var answer = false;
+		for (a in field.access)
+			if (access == a) {
+				answer = true;
 				break;
 			}
-		return pub;
+		return answer;
 	}
-	
+
+	public static inline function isNullableType (field:ClassField) : Bool return switch(field.type)
+	{
+		case TAbstract(t,_):
+			var n = t.get().name;
+			n != "Int" && n != "Float" && n != "Bool";
+
+		default: true;
+	}
 
 	/**
 	 * Macro helper to retrieve the class definition of the given field. If the
@@ -788,18 +856,18 @@ class MacroTypeUtil
 	}
 	
 	
-	public static function hasSuper (classDef:ClassType, fieldName:String) : Bool
+	public static function findSuperClassField (classDef:ClassType, fieldName:String) : Null<ClassField>
 	{
 		var s = classDef.superClass;
-		if (s == null)					return false;
-		else if (fieldName == "new")	return true;
+		if (s == null)               return null;
+		else if (fieldName == "new") return s.t.get().constructor.get();
 		
 		var def = s.t.get();
 		for (field in def.fields.get())
 			if (field.name == fieldName)
-				return true;
+				return field;
 		
-		return hasSuper( def, fieldName );
+		return findSuperClassField( def, fieldName );
 	}
 	
 	

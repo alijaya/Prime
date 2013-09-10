@@ -64,12 +64,12 @@ class DragBehaviourBase extends BehaviourBase <ISprite>
 
 class DragBehaviourBase extends BehaviourBase <ISprite>
 {
-	private var dragInfo			: DragInfo;
-	private var dragBounds			: IntRectangle;
-	private var mouseTarget			: ISprite;
-	private var mouseEnabledValue	: Bool;
-	
-	public var dragHelper			(default, null) : DragHelper;
+	@borrowed private var dragBounds  : IntRectangle;
+	@borrowed private var mouseTarget : ISprite;
+	private var dragInfo              : DragInfo;
+	private var mouseEnabledValue     : Bool;
+
+	public var dragHelper (default, null) : DragHelper;
 	
 	
 	

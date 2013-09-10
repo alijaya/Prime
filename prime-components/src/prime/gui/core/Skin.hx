@@ -44,6 +44,7 @@ package prime.gui.core;
  */
 class Skin <OwnerClass:IUIComponent> implements ISkin
 {
+	@borrowed
 	public var owner			(default, set_owner) : OwnerClass;
 //	public var skinState		(default, null)		: SkinStates;
 	public var behaviours		(default, null)		: BehaviourList;
@@ -62,9 +63,7 @@ class Skin <OwnerClass:IUIComponent> implements ISkin
 		if (isDisposed())
 			return;
 		
-		owner		= null;	// <-- should trigger removeBehaviours and removeChildren
-		behaviours	= null;
-	//	skinState	= null;
+		owner = null; // <-- should trigger removeBehaviours and removeChildren
 	}
 	
 	

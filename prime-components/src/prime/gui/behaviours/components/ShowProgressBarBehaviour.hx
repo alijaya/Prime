@@ -53,7 +53,7 @@ package prime.gui.behaviours.components;
  */
 class ShowProgressBarBehaviour extends BehaviourBase<IUIContainer>
 {
-	private var loader		: ICommunicator;
+	@borrowed private var loader : ICommunicator;
 	private var bar			: ProgressBar;
 	
 	/**

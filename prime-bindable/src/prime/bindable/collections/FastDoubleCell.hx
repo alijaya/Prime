@@ -38,7 +38,7 @@ package prime.bindable.collections;
 #if (flash9 || cpp) @:generic #end
 class FastDoubleCell <T>
 {
-	public var data : T;
+	@borrowed public var data : T;
 	public var prev : FastDoubleCell<T>;
 	public var next : FastDoubleCell<T>;
 	

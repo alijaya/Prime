@@ -56,14 +56,14 @@ package prime.avm2.display;
  */
 class Sprite extends flash.display.Sprite implements ISprite
 {
+	@borrowed public var container (default, default)    : IDisplayContainer;
+	@borrowed public var window    (default, set_window) : Window;
+
 	/**
 	 * List with all the children of the sprite
 	 */
 	public var children			(default, null)			: DisplayList;
-	
-	public var window			(default, set_window)	: Window;
-	public var container		(default, default)		: IDisplayContainer;
-	
+
 	public var userEvents		(default, null)			: UserEvents;
 	public var displayEvents	(default, null)			: DisplayEvents;
 	
@@ -86,22 +86,9 @@ class Sprite extends flash.display.Sprite implements ISprite
 	
 	public function dispose ()
 	{
-		if (userEvents.isNull())
-			return;		// already disposed
-		
-		if (container.notNull())
-			detachDisplay();
-		
-		window 			= null;
-		children 	 .dispose();
-		userEvents 	 .dispose();
-		displayEvents.dispose();
-		rect 		 .dispose();
-		
-		children		= null;
-		userEvents		= null;
-		displayEvents	= null;
-		rect			= null;
+		if (container.notNull()) detachDisplay();
+		if (children .notNull()) children.disposeAll();
+		//...rest gets auto-disposed
 	}
 	
 	

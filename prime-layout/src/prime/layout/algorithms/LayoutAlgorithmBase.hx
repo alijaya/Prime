@@ -50,7 +50,7 @@ class LayoutAlgorithmBase
 #if debug public static var created		: Int = 0; #end
 #if debug public static var disposed	: Int = 0; #end
 	public var algorithmChanged 		(default, null)				: Signal0;
-	public var group					(default, set_group)		: ILayoutContainer;
+	@borrowed public var group			(default, set_group)		: ILayoutContainer;
 	
 #if CSSParser
 	public var _oid						(default, null)				: Int;
@@ -70,8 +70,6 @@ class LayoutAlgorithmBase
 	public function dispose ()
 	{
 #if debug	disposed++;							#end
-		algorithmChanged.dispose();
-		algorithmChanged	= null;
 	}
 	
 	

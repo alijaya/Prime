@@ -35,6 +35,7 @@ package prime.gui.core;
  import prime.layout.ILayoutContainer;
  import prime.layout.AdvancedLayoutClient;
  import prime.gui.managers.ISystem;
+ import prime.gui.effects.UIElementEffects;
  import prime.gui.states.UIElementStates;
 #if (prime_css && (flash9 || nme))
  import prime.bindable.collections.SimpleList;
@@ -56,15 +57,16 @@ package prime.gui.core;
  */
 class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
 {
-    public var prevValidatable  : IValidatable;
-    public var nextValidatable  : IValidatable;
+    @borrowed public var prevValidatable  : IValidatable;
+    @borrowed public var nextValidatable  : IValidatable;
+    @borrowed public var effects          : UIElementEffects;
+
     private var changes         : Int;
     
     
     public var behaviours       (default, null)                 : BehaviourList;
     public var id               (default, null)                 : Bindable<String>;
     public var state            (default, null)                 : UIElementStates;
-    public var effects          (default, default)              : prime.gui.effects.UIElementEffects;
     
     public var layout           (default, null)                 : prime.layout.LayoutClient;
     public var system           (get_system, never)             : ISystem;
@@ -113,32 +115,18 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
         
         if (parent != null)     // <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component gets disposed on removedFromStage, we won't know that it isn't on it.
             detachDisplay();
-        
-        if (effects != null) {
-            effects.dispose();
-            effects = null;
-        }
 
         data = null;
         //Change the state to disposed before the behaviours are removed.
         //This way a behaviour is still able to respond to the disposed
         //state.
         state.current = state.disposed;
+        Assert.that(isDisposed());
         removeValidation();
-        
-        behaviours.dispose();
-        state     .dispose();
-        id        .dispose();
-        
-        if (layout != null) {
-            layout.dispose();
-            layout = null;
-        }
-        
-        id              = null;
-        state           = null;
-        behaviours      = null;
 
+        // Behaviour reset() method and others may expect the target (this) to be somewhat intact.
+        //   so dispose our fields before calling super.dispose()
+        prime.utils.MacroUtils.disposeFields();
         super.dispose();
     }
 
@@ -295,7 +283,7 @@ class UIBitmap extends prime.gui.display.BitmapShape implements IUIElement
      */
     private function removeValidation () : Void
     {
-        if (isQueued() &&isOnStage())
+        if (isQueued() && isOnStage())
             system.invalidation.remove(this);
 
         if (!isDisposed() && changes > 0)

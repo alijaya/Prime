@@ -1,3 +1,5 @@
+import sys.FileSystem;
+
 /**
 	Small Neko program looking for style folder changes acting as remoting server.
 	Flash connects with xml socket and is notified when change is detected.
@@ -29,18 +31,22 @@ class StyleReloader {
 		Sys.println('Usage: ${Sys.executablePath()} <style folder> <style-build.hxml> [-swf|-js] <output folder>');
 	}
 
+	static public var stylePath : String;
+	static public var out       : String;
+	static public var ext       : String;
+
 	static function main()
 	{
 		var args = Sys.args();
-		var stylePath = args[0] != null? args[0] : "";
-		if (!sys.FileSystem.exists(stylePath)) {
+		stylePath = args[0] != null? args[0] : "";
+		if (!FileSystem.exists(stylePath)) {
 			printUsage();
 			Sys.println('Style folder:  "${stylePath}" not found.\n');
 			Sys.exit(-1);
 		}
 		
 		var hxml = args[1] != null? args[1] : "";
-		if (!sys.FileSystem.exists(hxml)) {
+		if (!FileSystem.exists(hxml)) {
 			printUsage();
 			Sys.println('HXML file:  "${hxml}" not found.\n');
 			Sys.exit(-2);
@@ -52,10 +58,10 @@ class StyleReloader {
 			Sys.println('Compiler target should be -swf or -js.\n');
 			Sys.exit(-3);
 		}
-		var ext = target == "-swf"? ".swf" : ".js";
+		ext = target == "-swf"? ".swf" : ".js";
 
-		var out  = args[3] != null? args[3] : "";
-		if (!sys.FileSystem.exists(out)) {
+		out  = args[3] != null? args[3] : "";
+		if (!FileSystem.exists(out)) {
 			printUsage();
 			Sys.println('Output folder:  "${out}" not found.\n');
 			Sys.exit(-2);
@@ -73,23 +79,23 @@ class StyleReloader {
 		Sys.println('Watching for changes in ${stylePath}');
 		while (true)
 		{
-			Sys.sleep(0.2);
+			Sys.sleep(0.1);
 			if (parser.buildStyles() == PrimeCSS.OK_NEW_STYLE)
 			{
 				var oldFile = out + "/S" + version + ext;
-				if (sys.FileSystem.exists(oldFile)) {
+				if (FileSystem.exists(oldFile)) {
 					Sys.println('Deleting file: ${oldFile}');
-					sys.FileSystem.deleteFile(oldFile);
+					FileSystem.deleteFile(oldFile);
 				}
 
 				// Build a new SWF with just the StyleSheet
 		        version++;
 				var newName = "S" + version;
-				var renameCall = 'haxe.macro.Compiler.addMetadata("@:native(\''+ newName +'\')", "StyleSheet", null, true)';
+				var newFile = 'bin-debug/'+ newName + ext;
+				var renameCall = "haxe.macro.Compiler.addMetadata('@:native(\\'"+ newName +"\\')', 'StyleSheet', null, true)";
 				var buildArgs = [
 					hxml,
-					 target,
-					'bin-debug/'+ newName + ext,
+					target, newFile,
 					'--macro', renameCall
 				];
 
@@ -106,12 +112,15 @@ class StyleReloader {
 	            } catch (e : haxe.io.Eof) { }
 	            
 	            if (p.exitCode() != 0) {
-	                Sys.print("[!] Error compiling Style reload SWF with command: haxe '" + buildArgs.join("' '") + "'\n");
+	            	p.close();
+	                Sys.print('[!] Error compiling Style reload SWF with command: haxe "' + buildArgs.join('" "') + '"\n');
 	                continue;
 		        }
+	            p.close();
 
 		        for( c in clients ) c.reload(newName + ".swf", newName);
-		        Sys.sleep(1);
+		        // Sleep until the next second, as file timestamps have per second accuracy anyway
+		        Sys.sleep(Math.max(0.1, Sys.time() - FileSystem.stat(newFile).mtime.getTime()/1000));
 			}
 		}
 	}
@@ -130,6 +139,16 @@ class ClientData {
 
 	public function hi() {
 		trace("Client says hi!");
+	}
+
+	public function loaded( className : String ) {
+		trace("Client loaded ${className}");
+		Sys.sleep(1);
+		var oldFile = StyleReloader.out + "/" + className + StyleReloader.ext;
+		if (FileSystem.exists(oldFile)) {
+			Sys.println('Deleting file: ${oldFile}');
+			FileSystem.deleteFile(oldFile);
+		}
 	}
 
 	public function reload( file : String, newName : String ) {

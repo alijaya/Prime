@@ -74,7 +74,7 @@ package prime.bindable;
  */
 class Bindable<T> implements IBindable<T> implements IClonable<Bindable<T>>
 {
-	public var value	(default, set_value) : T;
+	@borrowed public var value (default, set_value) : T;
 	
 	/** 
 	 * Dispatched just before "value" is set to a new value.
@@ -99,7 +99,7 @@ class Bindable<T> implements IBindable<T> implements IClonable<Bindable<T>>
 	}
 	
 	
-	public function dispose ()
+	@manual public function dispose ()
 	{
 		if (change == null) return; // already disposed
 		

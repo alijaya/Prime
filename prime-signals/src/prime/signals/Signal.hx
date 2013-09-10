@@ -101,7 +101,7 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature> implements 
 	/**
 	 *  Unbind all handlers.
 	 */
-	public #if !noinline inline #end function dispose()
+	@manual public #if !noinline inline #end function dispose()
 	{
 		unbindAll();
 	}

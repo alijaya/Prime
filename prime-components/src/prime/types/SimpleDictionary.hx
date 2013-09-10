@@ -66,8 +66,11 @@ class SimpleDictionary <KType, VType>
 	}
 	
 	
-	public function dispose ()
+	@manual public function dispose ()
 	{
+		if (_keys == null)
+			return; // already disposed
+
 		removeAll();
 		_keys	= null;
 		_values	= null;

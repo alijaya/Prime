@@ -240,10 +240,10 @@ class StyleCollectionBase <StyleGroupType:StyleSubBlock> implements prime.core.t
  * @author Ruben Weijers
  * @creation-date Oct 22, 2010
  */
-class StyleCollectionIteratorBase implements prime.core.traits.IDisposable
+class StyleCollectionIteratorBase #if !flash9 implements prime.core.traits.IDisposable #end //FIXME: Compiler bug: Constructor of subclasses get generated as 0-arg function :-S
 {
-	private var elementStyle	: UIElementStyle;
-	public var currentCell		: FastDoubleCell<StyleBlock>;
+	@borrowed private var elementStyle : UIElementStyle;
+	@borrowed public  var currentCell  : FastDoubleCell<StyleBlock>;
 	/**
 	 * Flag to search for in target styles to see if the style contains the group
 	 */
@@ -258,11 +258,11 @@ class StyleCollectionIteratorBase implements prime.core.traits.IDisposable
 	}
 	
 	
-	public function dispose ()
+	@manual public function dispose ()
 	{
-		elementStyle	= null;
-		flag			= 0;
-		currentCell		= null;
+		flag         = 0;
+		elementStyle = null;
+		currentCell  = null;
 	}
 	
 	

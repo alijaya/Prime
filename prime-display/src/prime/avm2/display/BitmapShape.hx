@@ -47,14 +47,14 @@ package prime.avm2.display;
  */
 class BitmapShape extends flash.display.Bitmap implements IDisplayObject
 {
-	public var container		(default, default)		: IDisplayContainer;
-	public var window			(default, set_window)	: Window;
+	@borrowed public var container(default, default)    : IDisplayContainer;
+	@borrowed public var window   (default, set_window) : Window;
+	@borrowed public var data     (get_data,  set_data) : BitmapData;
+
 	public var displayEvents	(default, null)			: DisplayEvents;
 	public var rect				(default, null)			: IntRectangle;
 
-	public var data 			(get_data, set_data)	: BitmapData;
-	
-	
+
 	public function new (?data:BitmapData) 
 	{
 		super(data);
@@ -65,19 +65,9 @@ class BitmapShape extends flash.display.Bitmap implements IDisplayObject
 	
 	public function dispose ()
 	{
-		if (displayEvents == null)
-			return;		// already disposed
-		
 		if (container != null)
 			container.children.remove(this);
-		
-		rect.dispose();
-		displayEvents.dispose();
-		
-		displayEvents	= null;
-		container		= null;
-		window			= null;
-		rect			= null;
+		//...rest gets auto-disposed
 	}
 
 

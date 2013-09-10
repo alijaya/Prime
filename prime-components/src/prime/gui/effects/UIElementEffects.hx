@@ -51,7 +51,8 @@ private typedef Flags 				= prime.gui.effects.EffectFlags;
  */
 class UIElementEffects implements prime.core.traits.IDisposable
 {
-	public  var target		(default, null)			: IUIElement;
+	@borrowed public var target (default, null) : IUIElement;
+
 	/**
 	 * Flags of all effects that are set
 	 */

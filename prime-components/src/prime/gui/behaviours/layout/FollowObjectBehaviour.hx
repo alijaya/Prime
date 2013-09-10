@@ -58,7 +58,7 @@ package prime.gui.behaviours.layout;
  */
 class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 {
-	public  var followedElement 		(default, set_followedElement) : IUIElement;
+	@borrowed public var followedElement (default, set_followedElement) : IUIElement;
 	
 	private var followedLayoutBinding	: Wire<Dynamic>;
 	private var containerLayoutBinding	: Wire<Dynamic>;

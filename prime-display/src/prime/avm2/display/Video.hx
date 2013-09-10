@@ -49,8 +49,9 @@ package prime.avm2.display;
  */
 class Video extends flash.media.Video implements IVideo 
 {
-	public var container		(default, default)		: IDisplayContainer;
-	public var window			(default, set_window)	: Window;
+	@borrowed public var container(default, default)    : IDisplayContainer;
+	@borrowed public var window   (default, set_window) : Window;
+
 	public var displayEvents	(default, null)			: DisplayEvents;
 	public var rect				(default, null)			: IntRectangle;
 	
@@ -61,23 +62,13 @@ class Video extends flash.media.Video implements IVideo
 		displayEvents	= new DisplayEvents( this );
 		rect			= new IntRectangle( x.roundFloat(), y.roundFloat(), width.roundFloat(), height.roundFloat() );
 	}
-	
-	
+
+
 	public function dispose ()
 	{
-		if (displayEvents == null)
-			return;		// already disposed
-		
 		if (container != null)
 			container.children.remove(this);
-		
-		rect.dispose();
-		displayEvents.dispose();
-		
-		displayEvents	= null;
-		container		= null;
-		window			= null;
-		rect			= null;
+		//...rest gets auto-disposed
 	}
 
 

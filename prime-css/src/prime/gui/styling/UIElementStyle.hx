@@ -77,14 +77,18 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener implements
 	/**
 	 * object on which the style applies
 	 */
-	public var target					(default, null)			: IStylable;
+	@borrowed public var target			(default, null)			: IStylable;
 	/**
 	 * displayobject to which the target belongs (can be the target itself when
 	 * it's also IDisplayable)
 	 */
-	public var owner					(default, null)			: IDisplayable;
-	
-	
+	@borrowed public var owner			(default, null)			: IDisplayable;
+	/**
+	 * Reference to the style of whom the current-style got its properties
+	 */
+	@borrowed public var parentStyle	(default, null)			: UIElementStyle;
+
+
 	/**
 	 * cached classname (incl package) of target since target won't change.
 	 */
@@ -130,11 +134,6 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener implements
 	public var states					(get_states, null)		: StatesCollection;
 	
 	/**
-	 * Reference to the style of whom the current-style got its properties
-	 */
-	public var parentStyle				(default, null)			: UIElementStyle;
-	
-	/**
 	 * Signal is fired when the children-property of the element-style is
 	 * changed
 	 */
@@ -174,7 +173,6 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener implements
 		else						removedBinding.disable();
 	}
 	
-	
 	public function dispose ()	if (target.notNull())
 	{
 		addedBinding.dispose();
@@ -188,28 +186,14 @@ class UIElementStyle implements prime.core.traits.IInvalidateListener implements
 		while (styles.length > 0)
 			removeStyleCell( styles.last );
 		
-		if ((untyped this).boxFilters != null)	{ boxFilters.dispose(); boxFilters = null; }
-		if ((untyped this).effects != null)		{ effects.dispose();    effects    = null; }
-		if ((untyped this).font != null)		{ font.dispose();       font       = null; }
-		if ((untyped this).graphics != null)	{ graphics.dispose();   graphics   = null; }
-		if ((untyped this).layout != null)		{ layout.dispose();     layout     = null; }
-		if ((untyped this).states != null)		{ states.dispose();     states     = null; }
-		
 		if (parentStyle.notNull() && parentStyle.childrenChanged.notNull())
 			parentStyle.childrenChanged.unbind( this );
 		
-		childrenChanged.dispose();
 		currentStates.removeAll();
-		
-		parentStyle		= null;
-		currentStates	= null;
-		styles			= null;
-		targetClassName	= null;
-		target			= null;
-		childrenChanged	= null;
 #if debug
 		_oid			= -1;
 #end
+		//...rest gets auto-disposed
 	}
 	
 	

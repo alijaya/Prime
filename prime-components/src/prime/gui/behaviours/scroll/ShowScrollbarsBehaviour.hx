@@ -60,7 +60,7 @@ class ShowScrollbarsBehaviour extends BehaviourBase<IScrollable> implements IScr
 	private var scrollbarHor	: ScrollBar;
 	private var scrollbarVer	: ScrollBar;
 	
-	private var layout : IScrollableLayout;
+	@borrowed private var layout : IScrollableLayout;
 	
 	
 	override private function init ()
@@ -74,7 +74,7 @@ class ShowScrollbarsBehaviour extends BehaviourBase<IScrollable> implements IScr
 	{
 		layout.changed.unbind(this);
 		
-		if (scrollbarVer != null)	{ removeScrollBar( scrollbarHor ); scrollbarHor.dispose(); }
+		if (scrollbarHor != null)	{ removeScrollBar( scrollbarHor ); scrollbarHor.dispose(); }
 		if (scrollbarVer != null)	{ removeScrollBar( scrollbarVer ); scrollbarVer.dispose(); }
 		
 		scrollbarHor = scrollbarVer = null;

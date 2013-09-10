@@ -42,7 +42,7 @@ package prime.perceptor.embedded;
  */
 class TypedProxyTree<T, F> extends SimpleList< TypedProxyTree<T, F> >
 {
-	public var source : T;
+	@borrowed public var source : T;
 	public var sourceId : String;
 	
 	private var sourceChildren : IReadOnlyList<T>;

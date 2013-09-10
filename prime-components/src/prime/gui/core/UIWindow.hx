@@ -350,6 +350,7 @@ class UIWindow extends prime.gui.display.Window
 #if (prime_css && (flash9 || nme))
 	private function set_stylingEnabled (v:Bool)
 	{
+  #if !display
 		if (v != stylingEnabled)
 		{
 			if (stylingEnabled) {
@@ -363,6 +364,7 @@ class UIWindow extends prime.gui.display.Window
 				style.updateStyles();
 			}
 		}
+  #end
 		return v;
 	}
 #end

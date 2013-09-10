@@ -49,7 +49,7 @@ package prime.gui.events;
 	/**
 	 * Target of the event
 	 */  
-	var target	(default,null)		: UserEventTarget;
+	@borrowed var target (default,null) : UserEventTarget;
 	
 	
 	
