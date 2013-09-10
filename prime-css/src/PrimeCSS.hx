@@ -159,7 +159,7 @@ class PrimeCSS //#if !macro extends CommandLine #end
         
         if (forceCompileStyles || !FileSystem.exists('$projectDir/StyleSheet.hx') || !genedFileNewerThan('$projectDir/StyleSheet.hx', stylesSources))
         {
-            Sys.println("Building Styles...");
+            Sys.print("Building Styles... ");
             
             //leave PrimeCSSPATH + "//"
             var p = new Process('node', [parserBin, projectDir, primeCSSPath + "//" ] );
@@ -185,6 +185,7 @@ class PrimeCSS //#if !macro extends CommandLine #end
             }
             p.close();
 
+            Sys.println("done!");
             return OK_NEW_STYLE;
         }
         else
