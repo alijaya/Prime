@@ -49,7 +49,7 @@ class AsVsCast
 
 
 interface IA {}
-class A { public function new (); }
+class A { public function new (){}; }
 class B extends A implements IA { }
 class C extends B { }
 

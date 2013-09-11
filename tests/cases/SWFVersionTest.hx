@@ -19,7 +19,7 @@ class SWFVersionTest
 	{
 		loader = new Loader();
 		loader.contentLoaderInfo.addEventListener( Event.COMPLETE, handleLoadedSwf );
-		loader.load( new URLRequest( "/Users/ruben/Documents/Projecten/Freelance/OnlineTouch/viewer/bin-debug/otv.swf" ) );
+		loader.load( new URLRequest( "../../assets/debug-assets.swf" ) );
 	}
 	
 	

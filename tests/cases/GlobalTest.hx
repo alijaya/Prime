@@ -23,8 +23,8 @@ package cases;
  import prime.gui.display.Window;
  import prime.gui.events.DragEvents;
  import prime.gui.events.DropTargetEvents;
- import prime.layout.algorithms.float.HorizontalFloatAlgorithm;
- import prime.layout.algorithms.float.VerticalFloatAlgorithm;
+ import prime.layout.algorithms.floating.HorizontalFloatAlgorithm;
+ import prime.layout.algorithms.floating.VerticalFloatAlgorithm;
  import prime.layout.algorithms.RelativeAlgorithm;
  import prime.layout.LayoutFlags;
  import prime.layout.RelativeLayout;
@@ -179,7 +179,6 @@ class Tile extends DataButton < DataVOType >
 
 class TileList extends ListView < DataVOType > implements IDataDropTarget < DataVOType >
 {
-	public var dragEvents	(default, null)		: DropTargetEvents;
 	public var list			(get_list, never)	: IEditableList < DataVOType >;
 	
 	
@@ -189,6 +188,7 @@ class TileList extends ListView < DataVOType > implements IDataDropTarget < Data
 		dragEvents			= new DropTargetEvents();
 		super(id, list);
 		createItemRenderer	= createRenderer;
+		isDisplayDropAllowed = myIsDisplayDropAllowed;
 	}
 	
 	
@@ -206,7 +206,7 @@ class TileList extends ListView < DataVOType > implements IDataDropTarget < Data
 	}
 	
 	
-	public function isDisplayDropAllowed (displayCursor:DisplayDataCursor ) : Bool
+	private function myIsDisplayDropAllowed (displayCursor:DisplayDataCursor ) : Bool
 	{
 		var allowed = false;
 		if (displayCursor.target.is(Tile))

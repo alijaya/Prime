@@ -15,7 +15,7 @@ class OverrideTest
 
 class A
 {
-	public function new ();
+	public function new (){};
 	public dynamic function getSelf () : A	{ return this; }
 }
 

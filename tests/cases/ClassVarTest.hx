@@ -1,5 +1,5 @@
-package;
-  using ClassVarTest;
+package cases;
+  using cases.ClassVarTest;
 
 
 class ClassVarTest

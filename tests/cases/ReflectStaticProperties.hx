@@ -43,6 +43,6 @@ class StaticTestClass
 		testProperty1 = 1.0;
 		testProperty2 = 2.9;
 	}
-	public function testMethod (testParam:Int);
+	public function testMethod (testParam:Int){};
 	
 }

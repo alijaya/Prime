@@ -18,7 +18,7 @@ class GenericSuperClassConstructorTest
 
 class BasicClass {
 	public var val : String;
-	public function new ()	val = "test"
+	public function new ()	val = "test";
 }
 
 

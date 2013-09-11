@@ -1,6 +1,6 @@
 package cases;
  import prime.core.traits.IUIdentifiable;
- import prime.tools.generator.HaxeCodeGenerator;
+ import prime.tools.generator.CodeGenerator;
  import prime.tools.generator.ICodeFormattable;
  import prime.tools.generator.ICodeGenerator;
  import prime.utils.StringUtil;
@@ -14,7 +14,7 @@ class CodeGenTest
 {
 	public static function main ()
 	{
-		var generator	= new HaxeCodeGenerator();
+		var generator	= new CodeGenerator();
 		var holder		= new Holder( new A("aap"), new B(5), new C(false), new B(9050) );
 		holder.b.secret	= "The quick brown fox jumps over the lazy dog";
 		var holder2		= new Holder( holder.a, null, holder.c, null );
@@ -25,15 +25,15 @@ class CodeGenTest
 		holders.children.add(holder);
 		holders.children.add(holder3);
 		generator.generate(holders);
-		trace(generator.flush());
+		generator.flush();
 	}
 }
 
 
 class Base implements IUIdentifiable
 {
-	public var uuid (default, null) : String;
-	public function new () { uuid = StringUtil.createUUID(); }
+	public var _oid (default, null)		: Int;
+	public function new () { _oid = Std.random(prime.types.Number.Number.INT_MAX); }
 }
 
 
@@ -44,7 +44,7 @@ class HolderList extends Base implements ICodeFormattable
 	public function new ()
 	{
 		super();
-		children = new haxe.ds.GenericStack();
+		children = new haxe.ds.GenericStack<Holder>();
 	}
 	
 	
@@ -53,6 +53,23 @@ class HolderList extends Base implements ICodeFormattable
 		code.construct(this);
 		for (child in children)
 			code.setAction(this, "children.add", [child]);
+	}
+
+	/*
+	 * Returns true when some values within the object are set, otherwise false
+	 */
+	public function isEmpty () : Bool
+	{
+		return false;
+	}
+	
+	/**
+	 * Method to remove empty properties from the object. This way, unused
+	 * code will be removed.
+	 */
+	public function cleanUp () : Void
+	{
+
 	}
 }
 
@@ -79,6 +96,23 @@ class Holder extends Base implements ICodeFormattable
 	{
 		code.construct( this, [ a, b, c, d ] );
 	}
+
+	/*
+	 * Returns true when some values within the object are set, otherwise false
+	 */
+	public function isEmpty () : Bool
+	{
+		return false;
+	}
+	
+	/**
+	 * Method to remove empty properties from the object. This way, unused
+	 * code will be removed.
+	 */
+	public function cleanUp () : Void
+	{
+
+	}
 }
 
 
@@ -99,6 +133,23 @@ class A extends Base implements ICodeFormattable
 	public function toCode (c:ICodeGenerator) : Void
 	{
 		c.construct( this, [ value ] );
+	}
+
+	/*
+	 * Returns true when some values within the object are set, otherwise false
+	 */
+	public function isEmpty () : Bool
+	{
+		return false;
+	}
+	
+	/**
+	 * Method to remove empty properties from the object. This way, unused
+	 * code will be removed.
+	 */
+	public function cleanUp () : Void
+	{
+
 	}
 }
 
@@ -123,6 +174,23 @@ class B extends Base implements ICodeFormattable
 		c.construct( this, [ value ] );
 		c.setProp(this, "secret", secret);
 	}
+
+	/*
+	 * Returns true when some values within the object are set, otherwise false
+	 */
+	public function isEmpty () : Bool
+	{
+		return false;
+	}
+	
+	/**
+	 * Method to remove empty properties from the object. This way, unused
+	 * code will be removed.
+	 */
+	public function cleanUp () : Void
+	{
+
+	}
 }
 
 
@@ -145,6 +213,23 @@ class C extends Base implements ICodeFormattable
 	public function toCode (c:ICodeGenerator) : Void
 	{
 		c.construct( this, [ value, direction ] );
+	}
+
+	/*
+	 * Returns true when some values within the object are set, otherwise false
+	 */
+	public function isEmpty () : Bool
+	{
+		return false;
+	}
+	
+	/**
+	 * Method to remove empty properties from the object. This way, unused
+	 * code will be removed.
+	 */
+	public function cleanUp () : Void
+	{
+
 	}
 }
 

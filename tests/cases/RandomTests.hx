@@ -49,7 +49,7 @@ class RandomTests
 		test.testBitModulos();
 	}
 	
-	public function new();
+	public function new(){};
 	
 	
 	public function testModulos () {

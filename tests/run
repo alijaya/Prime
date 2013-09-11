@@ -44,7 +44,7 @@ echo build.hxml \
 	${NOTRACES} \
 	${RESOURCE} \
 	-cp "'$STYLEDIR'" \
-	${Debug:--dce full} \
+	${Debug:--dce no} \
 		| xargs -t haxe &&
 
 if [[ "$MSYSTEM"=="MING32" ]] ; then

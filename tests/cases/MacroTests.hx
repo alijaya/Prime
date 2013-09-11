@@ -35,7 +35,7 @@ interface IDisposable
 	public function dispose() : Void;
 }
 
-interface IClient<T> implements IDisposable {
+interface IClient<T> extends IDisposable {
 	public var list : Vector<T>;
 }
 interface IClient2 {}

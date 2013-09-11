@@ -63,7 +63,7 @@ class LoaderTestBase
     }
 
 
-    private inline function stamp ()    { times.push( TimerUtil.stamp() ); }
+    private inline function stamp ()    { times.push( Std.int(TimerUtil.stamp()) ); }
     public function toString ()         { return "total: "+(times[2] - times[0])+" ms; loading: "+(times[1] - times[0])+" ms; drawing: "+(times[2] - times[1])+" ms"; }
 }
 
@@ -162,7 +162,7 @@ class JPEGURLLoaderManual extends LoaderTestBase
     public function load ()
     {
         stamp();
-        urlLoader.load(new prime.types.URI(url));
+        urlLoader.request(new prime.types.URI(url));
     }
 
 

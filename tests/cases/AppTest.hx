@@ -52,7 +52,7 @@ package cases;
  */
 class AppTest extends UIWindow
 {
-	public static function main () { Window.startup( AppTest ); }
+	public static function main () {  Window.startup( function (s) return new AppTest(s) ); }
 	
 	override private function createChildren ()
 	{
@@ -121,11 +121,13 @@ class FramesToolBar extends ListView < FrameTypesSectionVO >
 		list.add( new FrameTypesSectionVO( "mediaFrames", "media", media ) );
 		list.add( new FrameTypesSectionVO( "elementFrames", "elementen", elements ) );
 		super(id, list);
+
+		createItemRenderer = myCreateItemRenderer;
 		
 	}
 	
 	
-	private function createItemRenderer (dataItem:FrameTypesSectionVO, pos:Int)
+	private function myCreateItemRenderer (dataItem:FrameTypesSectionVO, pos:Int)
 	{
 		return cast new FrameTypesBar( dataItem.name+"Bar", dataItem );
 	}
@@ -155,8 +157,8 @@ class FrameTypesBar extends UIDataContainer < FrameTypesSectionVO >
 	
 	override private function initData ()
 	{
-		titleField.data.bind( value.label );
-		framesList.value = cast value.frames;
+		titleField.data.bind( data.label );
+		framesList.data = cast data.frames;
 	}
 }
 
@@ -164,11 +166,17 @@ class FrameTypesBar extends UIDataContainer < FrameTypesSectionVO >
 
 class FrameTypesBarList extends ListView < FrameTypeVO >
 {
-	override private function createItemRenderer (dataItem:FrameTypeVO, pos:Int)
+	public function new (id:String)
+	{
+		super(id);	
+		createItemRenderer = myCreateItemRenderer;
+	}
+	
+	private function myCreateItemRenderer (dataItem:FrameTypeVO, pos:Int)
 	{
 		var button = new FrameButton( dataItem );
 		if (pos == 0)					button.styleClasses.add("first");
-		if (pos == (value.length - 1))	button.styleClasses.add("last");
+		if (pos == (data.length - 1))	button.styleClasses.add("last");
 		return cast button;
 	}
 }
@@ -215,7 +223,7 @@ class SpreadEditor extends UIContainer
 	
 	private function updatePageZoom ()
 	{
-		spreadStage.spread.scale( toolBar.zoomSlider.value, toolBar.zoomSlider.value );
+		spreadStage.spread.scale( toolBar.zoomSlider.data.percentage, toolBar.zoomSlider.data.percentage );
 	}
 }
 

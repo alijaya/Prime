@@ -13,8 +13,10 @@ class MouseEventsTest
 {
 	public static function main ()
 	{
-		var test = {delta: -123, buttonDown:true, altKey:true, ctrlKey:true, shiftKey:true, localX:1, localY:2, stageX:3, stageY:4, target:null};
-		
+		//var test = {delta: -123, buttonDown:true, altKey:true, ctrlKey:true, shiftKey:true, localX:1, localY:2, stageX:3, stageY:4, target:null};
+
+		var test = new flash.events.MouseEvent( flash.events.MouseEvent.CLICK, true, false, 1, 2, null, true, true, true, true, -123 );
+
 		testState(test, 2);
 		test.delta = 0;
 		testState(test, 1);
@@ -41,7 +43,7 @@ class MouseEventsTest
 		b.start();
 	}
 	
-	static function testState(test, clickCount)
+	static function testState(test:Dynamic, clickCount)
 	{
 		var m = prime.avm2.events.MouseSignal.stateFromFlashEvent(test, clickCount);
 		

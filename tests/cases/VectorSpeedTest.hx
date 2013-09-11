@@ -86,5 +86,5 @@ class VectorSpeedTest
 class TestVO
 {
 	private var num : Int;
-	public function new (i)	num = i
+	public function new (i)	num = i;
 }

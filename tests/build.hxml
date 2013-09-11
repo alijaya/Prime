@@ -19,10 +19,19 @@
 
  -D dragEnabled
  -D network-sandbox
-#-D stats
  -D unitTesting
-#-D Monster2Trace
  -D Monster3Trace
-#-D AlconTrace
-#--no-inline
-#——flash—strict
+
+-lib prime-bindable
+-lib prime-components
+-lib prime-core
+-lib prime-css
+-lib prime-data
+-lib prime-display
+-lib prime-fsm
+-lib prime-layout
+-lib prime-locale
+-lib prime-media
+-lib prime-mvc
+-lib prime-perceptor
+-lib prime-signals

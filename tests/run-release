@@ -32,4 +32,9 @@ haxe build-release.hxml ${EXTRA} -main $TestClass -swf-header $WIDTH:$HEIGHT:$FP
 echo "release build"
 bash ../build/optimize-build ../tests/test.swf &&
 echo "build optimized"
-open test.swf
+
+if [[ "$MSYSTEM"=="MING32" ]] ; then
+	start test.swf
+else
+	open test.swf
+fi;

@@ -1,7 +1,6 @@
 package cases;
- import prime.bindable.BindableFlags;
+ import prime.bindable.RevertableBindableFlags;
  import prime.bindable.RevertableBindable;
- import prime.bindable.BindableFlags;
   using prime.utils.BitUtil;
 
 /**
@@ -180,8 +179,8 @@ class RevertableBindableTests extends haxe.unit.TestCase
 		#end
 	}
 
-	function shouldSignal 			(flags:Int)		return RevertableBindableFlags.shouldSignal(flags)				// couldn't be called directly since it's inline
-	function shouldUpdateBindings 	(flags:Int)		return RevertableBindableFlags.shouldUpdateBindings(flags)		// couldn't be called directly since it's inline
+	function shouldSignal 			(flags:Int)		return RevertableBindableFlags.shouldSignal(flags);				// couldn't be called directly since it's inline
+	function shouldUpdateBindings 	(flags:Int)		return RevertableBindableFlags.shouldUpdateBindings(flags);		// couldn't be called directly since it's inline
 	
 	static function checkFunction(fn)
 	 	return function(flags:Int, expected:Bool)

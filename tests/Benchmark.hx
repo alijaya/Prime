@@ -336,14 +336,14 @@ class Comparison extends Thread implements ITest
 		var fastests:FastArray<Test>	= FastArrayUtil.create();		//make a vector with fastests test in case there are more then one tests with the same time
 		
 		var currentTest				= firstTest;
-		var fastestTime				= Number.INT_MAX; //StopWatch.MAX_VALUE; //currentTest.timer.fastest;
+		var fastestTime:Int			= Number.INT_MAX; //StopWatch.MAX_VALUE; //currentTest.timer.fastest;
 		var i:Int					= 0;
 		var tabs:Int;
 		var maxTabs:Int				= 8;
 		
 		while (currentTest != null) {
 			if (currentTest.timer.fastest < fastestTime) {
-				fastestTime = currentTest.timer.fastest;
+				fastestTime = Std.int(currentTest.timer.fastest);
 				fastests	= FastArrayUtil.create();
 				fastests.push( currentTest );
 			}
@@ -516,13 +516,16 @@ class MemorySampler
 	}
 	
 	
-	private static inline var sizes = ["B", "KB", "MB", "GB"];
+	private static inline function sizes()
+	{
+		return ["B", "KB", "MB", "GB"];
+	}
 	
 	public static function makeReadable (mem:Int):String
 	{
 		var output:String = "";
 		
-		for (size in sizes) {
+		for (size in sizes()) {
 			if (mem >= 1024) {
 				mem >>= 10;	//divide by 1024 (2^10)
 			} else {
