@@ -28,12 +28,17 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.utils;
+#if macro
+ import prime.utils.MacroUtils;
+ import haxe.macro.Expr;
+ import haxe.macro.Context;
+#end
   using Type;
 
 private typedef Is_both_A_and_B<A, B, C : (A,B)> = C;
 typedef Both<A, B> = Is_both_A_and_B<A,B,Dynamic>;
 
-extern class TypeUtil
+#if !macro extern #end class TypeUtil
 {
 	/**
 	 * Optimized simple instanceof check. Compiles to bytecode or Useful to quickly check if an object implements some interface.
@@ -57,9 +62,115 @@ extern class TypeUtil
 	}
 	
 	
+	#if macro
+	static public function withTypeParameters(type : haxe.macro.Type) : haxe.macro.Type return switch(type)
+	{
+		case TMono (t): withTypeParameters(t.get());
+		case TLazy (f): TLazy(function() return withTypeParameters( f() ));
+	//	case TAbstract (t:Ref<AbstractType>, params:Array<Type>):
+	//	case TEnum (t:Ref<EnumType>, params): withTypeParameters(t.get(), params);
+		case TInst (t, knownParams):
+			var klass  = t.get();
+
+			switch (klass.kind)
+			{
+				case KTypeParameter(constraints):
+					if (knownParams.length > 0) throw "Huh?!";
+					switch(constraints.length) {
+						case 0: TDynamic(null);
+						case 1: constraints[0];
+						case n: throw "multiple constraints not yet implemented";
+					}
+				case _:
+					var params = klass.params;
+				//	trace(klass);
+					if (params.length == 0) type; else {
+						//trace("params: " + params);
+						var p0 = params[0];
+						if (p0 != null) switch(p0.t) {
+							case TInst(tp,p): //trace('tp = ${tp.get()}, p = ${p}');
+
+							case _:
+						}
+
+						TInst(t, params.map(function(p) return withTypeParameters(p.t)));
+					}
+			}
+
+		//case TType (t:Ref<DefType>, params:Array<Type>):
+		//case TFun (args:Array<{t:Type, opt:Bool, name:String}>, ret:Type):
+		//case TAnonymous (a:Ref<AnonType>):
+		//case TDynamic (t:Null<Type>):
+		case _: type;
+	}
+	#end
+
 	/**
-	 * Optimized simple instanceof check. Compiles to bytecode or Useful to quickly cast an object.
+	 * Simple cast to a type without the need (or ability) to supply type parameters.
+	 *
+	 *	Example:
+	 *		```
+	 *		interface A {}
+	 *		class B<T : A>{ var inner : T; }
+	 *		something.as(B).inner
+	 *		```
+	 *	gets typed exactly as `A`, as the type parameter is inferred from the constraint.
+	 *
+	 *		```
+	 *		class C<T>{ var inner : T; }
+	 *			something.as(C).inner
+	 *		```
+	 *	gets typed as Dynamic.
 	 */
+	static public macro function as<T>(o:ExprOf<Dynamic>, targetClass:ExprOf<Class<T>>) : ExprOf<T>
+	{
+		//trace(targetClass);
+		var type = Context.typeof(targetClass);
+		//trace("type: " + type + ", complex: " + Context.toComplexType(type));
+
+		var elemType = switch(Context.toComplexType(type)) {
+			// This gets the T out of Class<T> – seems using ComplexType is the only way to do it
+			case TPath({params: [TPType(t = TPath(p))]}):
+				// now t is T
+				var realType = Context.getType(MacroTypeUtil.fullName(p));
+				var constrainedType = withTypeParameters(realType);
+				if (constrainedType != null && constrainedType != realType) {
+					var comp = Context.toComplexType(constrainedType);
+					//trace(type + "constrainedType: "+comp);
+					comp;
+				}
+				else{
+					//trace(type +"not constrained: "+t);
+					t;
+				}
+
+
+			case _: throw "impossible";
+		}
+		var e = macro { var tmp : $elemType = untyped $o;
+						tmp; };
+		e.pos = Context.currentPos();
+		return e;
+	}
+	/*
+		Haxe 3.0 unfortunately loses some type information
+		 that Haxe 2.11 didn't.
+
+		```
+		interface A {}
+		class B<T : A>{ var inner : T; }
+		```
+		In Haxe 2.11:
+			something.as(B).inner
+		would be at least type `A`
+
+		In haxe 3.0:
+			something.as(B).inner
+		gets typed as Unknown<0>.
+
+		This results in AVM2 not finding methods, as it is
+		treated by haxe as Dynamic/untyped.
+	// * /
 	static public inline function as<T>(o:Dynamic, t:Class<T>) : T
 	{
 	  #if cpp
@@ -69,7 +180,8 @@ extern class TypeUtil
 		return cast o;
 	  #end
 	}
-	
+	// */
+
 	
 	static public inline function className (o:Dynamic) : String
 	{
