@@ -134,7 +134,7 @@ class MacroUtils
 		var buildFields = Context.getBuildFields();
 		var existingDispose = buildFields.getField("dispose");
 		return if (existingDispose != null && existingDispose.meta.filter(function(m) return "manual" == m.name).length > 0) {
-			buildFields;
+			null;
 		}
 		else
 			buildFields.addMethod( "dispose", "Void", [], createMacroCall("dispose", disposeFieldsImpl.bind()), false );
@@ -219,11 +219,9 @@ class MacroUtils
 		var id	= ++macroCallbackID;
 		macroCallbacks[id] = exprGenerator;	
 			
-		var macroCall = autoRemoveMethod
-				?	"prime.utils.MacroUtils.removeEmptyMethod('"+Context.getLocalClass().get().module+"/"+Context.getLocalClass().get().name+"', '"+methodName+"', "+ id +")"
-				:	"prime.utils.MacroUtils.macroCallback("+id+")";
-
-		return Context.parse(macroCall, pos);
+		return autoRemoveMethod
+			? macro prime.utils.MacroUtils.removeEmptyMethod($a{[$v{Context.getLocalClass().get().module+"/"+Context.getLocalClass().get().name}, $v{methodName}, $v{id}]})
+			: macro prime.utils.MacroUtils.macroCallback($a{[$v{id}]});
 	}
 	
 //	private static inline function autoTraceMeImpl (fields:Array<ClassField> = null, v:String = "v")					: Expr { return callMethodOnFieldsOf([], "traceMe("+v+")",		"Client",		true,  fields); }
@@ -266,12 +264,16 @@ class MacroUtils
 			
 			var c = field.getClassType();
 			var fieldGetExpr = switch(field) {
-				case {kind: FVar(VarAccess.AccNormal, _) | FVar(VarAccess.AccNo, _)}: "this."  + field.name;
-				default:                                                     "(untyped this)." + field.name;
+				case {kind: FVar(VarAccess.AccNormal, _) | FVar(VarAccess.AccNo, _)}:
+					var n = field.name;  macro           this.$n;
+				default:
+					var n = field.name;  macro (untyped this).$n;
 	  		}
 			var fieldSetExpr = switch(field) {
-				case {kind: FVar(_, VarAccess.AccNormal) | FVar(_, VarAccess.AccNo)}: "this."  + field.name;
-				default:                                                     "(untyped this)." + field.name;
+				case {kind: FVar(_, VarAccess.AccNormal) | FVar(_, VarAccess.AccNo)}:
+					var n = field.name;  macro           this.$n;
+				default:
+					var n = field.name;  macro (untyped this).$n;
 	  		}
 
 			// Dispose non-getter-only IDisposables fields
@@ -282,22 +284,25 @@ class MacroUtils
 				// @manual is blanket skip of build/autoBuild macros, @borrowed skips only dispose() calls
 				if ( !field.meta.has("manual") && !field.meta.has("borrowed") )
 				{
-					var expr = "{ "+
-						#if disposeDebug "trace('maybe dispose: "+ Context.getLocalClass().get().name + "."+ field.name +"'); " + #end
-						"var d:prime.core.traits.IDisposable = "+ fieldGetExpr +"; if (d != null) { "+
-							#if disposeDebug "trace(' - yes, disposing "+ Context.getLocalClass().get().name + "."+ field.name +"'); " + #end
-							" d.dispose(); "+fieldSetExpr+" = null; }"+
-						"}";
-					blocks.push( Context.parse(expr, pos) );
+					var expr = macro {
+						#if disposeDebug trace($v{'maybe dispose: '+ Context.getLocalClass().get().name + '.'+ field.name}); #end
+						var d:prime.core.traits.IDisposable = $fieldGetExpr;
+						if (d != null) {
+							#if disposeDebug trace($v{' - yes, disposing '+ Context.getLocalClass().get().name + "."+ field.name)}); #end
+							d.dispose();
+							$fieldSetExpr = null;
+						}
+					};
+					blocks.push(expr);
 				}
 			}
 			
 			if ( !field.meta.has("manual") && field.isNullableType() )
-				blocks.push( Context.parse(fieldSetExpr + " = null", pos) );
+				blocks.push(macro $fieldSetExpr = null);
 		}
 		#if disposeDebug
 			if (blocks.length > 0)
-				blocks.unshift( Context.parse("trace(" + Context.getLocalClass().get().name + ")", pos) );
+				blocks.unshift(macro trace($v{Context.getLocalClass().get().name}));
 		#end
 		return blocks.toExpr(pos);
 	}
@@ -664,8 +669,7 @@ class BlocksUtil
 			return fields;
 		
 		var cls = Context.getLocalClass().get();
-		var fullName = (cls.pack.length > 0? cls.pack.join(".")+"." : "") + cls.name;
-		haxe.macro.Compiler.removeField(fullName, methodName);
+		haxe.macro.Compiler.removeField(cls.fullName(), methodName);
 		
 		var l = fields.length;
 		fields.splice( fieldPos, 1 );
@@ -869,9 +873,12 @@ class MacroTypeUtil
 		
 		return findSuperClassField( def, fieldName );
 	}
-	
-	
-	
+
+
+	public static function fullName (classDef:{pack : Array<String>, name : String}) : String
+	{
+		return (classDef.pack.length > 0? classDef.pack.join(".")+"." : "") + classDef.name;
+	}
 }
 
 
@@ -885,7 +892,7 @@ class MacroExprUtil
 	{
 		Assert.isNotNull(field);
 		return switch (field.kind) {
-			case FFun(f):	return f.expr;
+			case FFun(f):	f.expr;
 			default:		throw "wrong field.kind.. Should be FieldType.FFun instead of "+field.kind;
 		}
 	}
@@ -895,7 +902,7 @@ class MacroExprUtil
 	{
 		Assert.isNotNull(field);
 		return switch (field.kind) {
-			case FFun(f):	return f.expr = content;
+			case FFun(f):	f.expr = content;
 			default:		throw "wrong field.kind.. Should be FieldType.FFun instead of "+field.kind;
 		}
 	}
