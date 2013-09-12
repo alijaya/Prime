@@ -78,7 +78,7 @@ class TreeComponent<T, F> extends UIDataContainer< TypedProxyTree<T, F> >
 				{
 					if ( s.is(TreeComponent) && s.as(TreeComponent).data == item )
 					{
-						subtree = s.as(TreeComponent);
+						subtree = cast s;
 						break;
 					}
 				}
