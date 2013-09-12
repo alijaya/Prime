@@ -30,6 +30,8 @@
 package prime.utils;
   using Type;
 
+private typedef Is_both_A_and_B<A, B, C : (A,B)> = C;
+typedef Both<A, B> = Is_both_A_and_B<A,B,Dynamic>;
 
 extern class TypeUtil
 {
