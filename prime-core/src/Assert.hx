@@ -36,192 +36,69 @@ import haxe.macro.Context;
 /**
  * A class of basic assertions macros that only generate code when the -debug
  * flag is used on the haxe compiler command line.
+ *
+ * If you get strange compiler errors like `Bool should be haxe.macro.Expr`,
+ *  it means our "anti macro-in-macro" code got triggered, preventing you from accidentally destroying the compiler cache.
  **/
-#if display extern class Assert {
-	static public function isEqual( expected : Dynamic, actual : Dynamic, ?message:Dynamic ) : Void;
-	static public function notEqual( expected : Dynamic, actual : Dynamic, ?message:Dynamic ) : Void;
-	static public function that( expr:Bool, ?message:Dynamic ) : Void;
-	static public function isTrue( expr:Bool, ?message:Dynamic ) : Void;
-	static public function isTrue_impl( expr:Bool, ?message:Dynamic ) : Void;
-	static public function not( expr:Bool ) : Void;
-	static public function isFalse( expr:Bool ) : Void;
-	static public function isNull   ( expr:Dynamic, ?message:Dynamic ) : Void;
-	static public function isNotNull( expr:Dynamic, ?message:Dynamic ) : Void;
-	static public function isType(var1:Dynamic, type:Class<Dynamic>, ?pos:haxe.PosInfos) : Void;
-	static public function abstractMethod(msg:String = "", ?pos:haxe.PosInfos) : Void;
-}
-#else
-
-#if !macro extern #end class Assert {
-	#if macro static private var emptyExpr = macro null; #end
+@:publicFields #if !macro extern #end class Assert
+{
 	/**
-	* Asserts that expected is equal to actual
-	* @param expected Any expression that can test against actual
-	* @param actual Any expression that can test againt expected
+	* Asserts that first is equal to second
+	* @param first Any expression that can test against second
+	* @param second Any expression that can test against first
 	**/
-	macro public static function  isEqual( expected : Expr, actual : Expr, ?message:ExprOf<String> ) : Expr return buildCompareAssert(expected, OpNotEq, actual, message);
-	macro public static function notEqual( expected : Expr, actual : Expr, ?message:ExprOf<String> ) : Expr return buildCompareAssert(expected, OpEq, actual, message);
+	#if !macro macro #end static function isEqual<T>( first:ExprOf<T>, second:ExprOf<T>, ?message:Expr ) : Expr
+		return #if !display throwIf(first, OpNotEq, second, message) #else null #end;
 
-	#if macro private static function buildCompareAssert( expected:Expr, assertCompareOp:Binop, actual:Expr, ?message:ExprOf<String> ) : Expr {
-		if(!Context.defined("debug"))
-			return emptyExpr;
-		var pos = Context.currentPos();
-		return
-		{ expr : EIf(
-			{ expr : EBinop(
-				assertCompareOp,
-				expected,
-				actual),
-			pos : pos},
-			{ expr : EThrow(
-				{ expr : ENew(
-					{
-						sub : null,
-						name : "FatalException",
-						pack : ["chx", "lang"],
-						params : []
-					},
-					[
-						{ expr : EBinop(OpAdd,
-							{ expr : EConst(CString("Assertion failed. Expected " + (switch(assertCompareOp){
-								case OpEq:	"not ";
-								case OpGt:	"< ";
-								case OpGte:	"<= ";
-								case OpLt:	"> ";
-								case OpLte:	">= ";
-								default: ""; }))), pos : pos },
-							{ expr : (macro Std.string($expected) + ". Got " + Std.string($actual)).expr,
-							   pos : pos
-							}),
-						pos : pos
-						},
-						message != null ? message : { expr : EConst(CString("")), pos : pos }
-					]),
-				pos : pos }),
-			pos : pos },
-			null),
-		pos : pos };
-	}
-	#end
+	/**
+	* Asserts that first is _not_ equal to second
+	* @param first Any expression that can test against second
+	* @param second Any expression that can test against first
+	**/
+	#if !macro macro #end static function notEqual<T>( first:ExprOf<T>, second:ExprOf<T>, ?message:Expr ) : Expr
+		return #if !display throwIf(first, OpEq, second, message) #else null #end;
+
+	/**
+	* Asserts that expr evaluates not false
+	* @param expr An expression that evaluates to a Bool
+	**/
+	#if !macro macro #end static function that  ( expr:Expr, ?message:Expr ) : Expr
+		return #if !display throwIf(expr, OpNotEq, macro false, message) #else null #end;
 
 	/**
 	* Asserts that expr evaluates to true
 	* @param expr An expression that evaluates to a Bool
 	**/
-	macro public static function that( expr:Expr, ?message:ExprOf<String> ) : Expr   return isTrue_impl(expr, message);
+	#if !macro macro #end static function isTrue( expr:ExprOf<Bool>, ?message:Expr ) : Expr
+		return #if !display throwIf(expr, OpEq, macro true, message) #else null #end;
 
 	/**
-	* Asserts that expr evaluates to true
+	* Asserts that expr evaluates not true
 	* @param expr An expression that evaluates to a Bool
 	**/
-	macro public static function isTrue( expr:Expr, ?message:ExprOf<String> ) : Expr return isTrue_impl(expr);
-
-	#if macro public static function isTrue_impl( expr:Expr, ?message:ExprOf<String> ) : Expr {
-		if(!Context.defined("debug"))
-			return emptyExpr;
-		var pos = Context.currentPos();
-		return
-		{ expr : EIf(
-			{ expr : EBinop(
-				OpNotEq,
-				{ expr : EConst(CIdent("true")), pos : pos },
-				expr),
-			pos : pos},
-			{ expr : EThrow(
-				{ expr : ENew(
-					{
-						sub : null,
-						name : "FatalException",
-						pack : ["chx", "lang"],
-						params : []
-					},
-					[
-						message != null? message : { expr : EConst(CString("Assertion failed. Expected ... but was false")), pos : pos }
-                        //FIXME: new haxe.macro.Printer().printExpr(expr) will be available once we get pattern matching working for prime.
-					]),
-				pos : pos }),
-			pos : pos },
-			null),
-		pos : pos };
-	}
-	#end
+	#if !macro macro #end static function not    ( expr:ExprOf<Bool>, ?message:Expr ) : Expr
+		return #if !display throwIf(expr, OpNotEq, macro true, message) #else null #end;
 
 	/**
 	* Asserts that expr evaluates to false
 	* @param expr An expression that evaluates to a Bool
 	**/
-	macro public static function not( expr:Expr ) : Expr     return isFalse_impl(expr);
+	#if !macro macro #end static function isFalse( expr:ExprOf<Bool>, ?message:Expr ) : Expr
+		return #if !display throwIf(expr, OpEq, macro false, message) #else null #end;
 
 	/**
-	* Asserts that expr evaluates to false
-	* @param expr An expression that evaluates to a Bool
+	* Checks that the passed expression is null.
+	* @param expr A string, class or anything that can be tested for null
 	**/
-	macro public static function isFalse( expr:Expr ) : Expr return isFalse_impl(expr);
-
-	#if macro private static function isFalse_impl( expr:Expr ) : Expr {
-		if(!Context.defined("debug"))
-			return emptyExpr;
-		var pos = Context.currentPos();
-		return
-		{ expr : EIf(
-			{ expr : EBinop(
-				OpNotEq,
-				{ expr : EConst(CIdent("false")), pos : pos },
-				expr),
-			pos : pos},
-			{ expr : EThrow(
-				{ expr : ENew(
-					{
-						sub : null,
-						name : "FatalException",
-						pack : ["chx", "lang"],
-						params : []
-					},
-					[
-						{ expr : EConst(CString("Assertion failed. Expected false but was true")), pos : pos }
-					]),
-				pos : pos }),
-			pos : pos },
-			null),
-		pos : pos };
-	}
-	#end
+	#if !macro macro #end static function isNull   ( expr:Expr, ?message:Expr ) : Expr
+		return #if !display throwIf(expr, OpNotEq, macro null, message) #else null #end;
 
 	/**
 	* Checks that the passed expression is not null.
 	* @param expr A string, class or anything that can be tested for null
 	**/
-	macro public static function isNull   ( expr:Expr, ?message:ExprOf<String> ) : Expr return compareNull(expr, OpNotEq, message);
-	macro public static function isNotNull( expr:Expr, ?message:ExprOf<String> ) : Expr return compareNull(expr, OpEq,    message);
-
-	#if macro private static function compareNull( expr:Expr, assertCompareOp:Binop, message:Expr ) : Expr {
-		if(!Context.defined("debug"))
-			return emptyExpr;
-		var pos = Context.currentPos();
-		return
-		{ expr : EIf(
-			{ expr : EBinop(
-				assertCompareOp,
-				{ expr : EConst(CIdent("null")), pos : pos },
-				expr),
-			pos : pos},
-			{ expr : EThrow(
-				{ expr : ENew(
-					{
-						sub : null,
-						name : "FatalException",
-						pack : ["chx", "lang"],
-						params : []
-					},
-					[
-						message != null? message : { expr : EConst(CString("Assertion failed. Expected "+ (assertCompareOp == OpEq? "non " : "") +"null value")), pos : pos }
-					]),
-				pos : pos }),
-			pos : pos },
-			null),
-		pos : pos };
-	}
-	#end
+	#if !macro macro #end static function isNotNull( expr:Expr, ?message:Expr ) : Expr
+		return #if !display throwIf(expr, OpEq, macro null, message) #else null #end;
 
 	//
 	// Prime additions
@@ -229,11 +106,15 @@ import haxe.macro.Context;
 
 	static inline public function isType(var1:Dynamic, type:Class<Dynamic>, ?pos:haxe.PosInfos) : Void
 	{
-#if debug
+	#if (debug && !display)
+	  #if !macro
 		Assert.isNotNull( var1, "To check the type of a variable it can't be null." );
 		Assert.isNotNull( type, "The type of a variable can't be null." );
-		Assert.that( Std.is(var1, type), "var of type '" + Type.getClass(var1).getClassName() + "' should be of type '" + type.getClassName() + "'" );
-#end
+	  #end
+
+		if (!Std.is(var1, type))
+			throw "var of type '" + Type.getClass(var1).getClassName() + "' should be of type '" + type.getClassName() + "'";
+	#end
 	}
 
 	static inline public function abstractMethod(msg:String = "", ?pos:haxe.PosInfos) : Void {
@@ -253,6 +134,59 @@ import haxe.macro.Context;
 	//#end
 #end
 	}
-}
 
+#if (macro && !display)
+	//
+	// Macro implementations
+	//
+
+	static private var emptyExpr = macro null;
+
+	private static function throwIf( first:Expr, assertCompareOp:Binop, second:Expr, ?message:ExprOf<String> ) : Expr
+	{
+		//var out = Assert.notMacro();
+		var pos = Context.currentPos();
+
+		if (Context.defined("macro")) throw "Don't use Assert from macro code, it will kill the compiler cache!";
+		if (Context.defined("display") || !Context.defined("debug")) return emptyExpr;
+
+		var firstComp = macro
+			$v{ new haxe.macro.Printer().printExpr(first) } + " = `" + Std.string($i{"first"}) +
+			$v{ (switch(assertCompareOp) {
+					case OpEq:	"` to not be ";
+					case OpGt:	"` < ";
+					case OpGte:	"` <= ";
+					case OpLt:	"` > ";
+					case OpLte:	"` >= ";
+					default: "";
+				}) + new haxe.macro.Printer().printExpr(second)
+			};
+
+		var secondIsConstant = false;
+		var expectedValue = switch (second.expr) {
+			case EConst(_):
+				secondIsConstant = true;
+				firstComp;
+			default:
+				macro $firstComp + " = `" + Std.string($i{"second"});
+		}
+
+		var test   = { expr : EBinop(assertCompareOp, first, second), pos : pos };
+		var ifExpr = macro {
+			//$out;
+			var first  = $first;
+			var second = $second;
+			if ($test)
+				throw new chx.lang.FatalException(${ message != null? macro $message + " \n Expected " : macro "Expected " } + $expectedValue);
+		}
+		switch (ifExpr.expr) {
+			case EBlock(exprs):
+				exprs[0].pos = pos;
+				if (secondIsConstant) ifExpr.expr = EBlock(exprs.splice(1,1)); // remove `var second` declaration.
+			default: throw "impossible";
+		}
+		ifExpr.pos = pos;
+		return ifExpr;
+	}
 #end
+}
