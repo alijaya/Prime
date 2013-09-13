@@ -890,7 +890,6 @@ class MacroExprUtil
 {
 	public static inline function getContent (field:Field) : Expr
 	{
-		Assert.isNotNull(field);
 		return switch (field.kind) {
 			case FFun(f):	f.expr;
 			default:		throw "wrong field.kind.. Should be FieldType.FFun instead of "+field.kind;
@@ -900,7 +899,6 @@ class MacroExprUtil
 	
 	public static inline function setContent (field:Field, content:Expr) : Expr
 	{
-		Assert.isNotNull(field);
 		return switch (field.kind) {
 			case FFun(f):	f.expr = content;
 			default:		throw "wrong field.kind.. Should be FieldType.FFun instead of "+field.kind;
