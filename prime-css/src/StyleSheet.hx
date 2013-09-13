@@ -37,9 +37,10 @@ package ;
  */
 class StyleSheet extends StyleBlock
 {
+    public static var version:String = "empty";
 	public function new ()
 	{
-		super( 0, StyleBlockType.specific );
+		super(version, 0, StyleBlockType.specific );
 		trace("empty style");
 	}
 }
