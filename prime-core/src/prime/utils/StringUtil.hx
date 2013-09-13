@@ -66,7 +66,9 @@ class StringUtil
 	 */
 	public static function randomString(l:Int) : String
 	{
+		#if !macro
 		Assert.that(l > 0);
+		#end
 		var s = "";
 		for (i in 0...l)
 			s += (25.random() + 65).fromCharCode();
