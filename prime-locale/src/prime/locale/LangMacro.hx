@@ -1,10 +1,9 @@
 package prime.locale;
 
-
+#if macro
 import haxe.macro.Context;
 import haxe.macro.Expr;
 import haxe.xml.Fast;
-import prime.utils.FastArray;
 import prime.utils.MacroUtils;
 
 
@@ -22,16 +21,12 @@ enum ElementType {
 
 class LangMacro 
 {
-	private static var config:Array<String> = new Array<String>();
-	macro public static function addYAML(key:String):Expr
-	{
-		config.push(key);
-		return macro true;
-		
-	}
+	// This code is fully ready to be cached by the compiler,
+	//  as soon as Haxe has this patch in a stable build:
+	//	- https://github.com/HaxeFoundation/haxe/commit/98072806a150b251743983347c9dc922ef736b8f
 	macro public static function build() : Array<Field> 
-    {      
-		var pos = haxe.macro.Context.currentPos();
+    {
+    	var pos = haxe.macro.Context.currentPos();
 		var fields = haxe.macro.Context.getBuildFields();
 		
 		var langsRaw = new Map<String,YamlHX>();
@@ -592,3 +587,4 @@ class LangMacro
 
 	#end
 }
+#end

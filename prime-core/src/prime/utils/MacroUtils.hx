@@ -27,10 +27,10 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.utils;
+#if macro
  import haxe.macro.Context;
  import haxe.macro.Expr;
  import haxe.macro.Type;
-#if macro
   using prime.utils.MacroUtils;
 #end
 
@@ -44,12 +44,12 @@ package prime.utils;
  */
 class MacroUtils
 {
-	macro public static function enableFields ()						return enableFieldsImpl();
-	macro public static function disableFields ()						return disableFieldsImpl();
-	macro public static function startListeningFields ()				return startListeningFieldsImpl();
-	macro public static function stopListeningFields ()					return stopListeningFieldsImpl();
-	macro public static function unbindFields (l:Dynamic, h:Dynamic)	return unbindFieldsImpl(l, h);
-	macro public static function disposeFields ()						return disposeFieldsImpl();
+	#if !macro macro #end public static function enableFields         ()     return enableFieldsImpl();
+	#if !macro macro #end public static function disableFields        ()     return disableFieldsImpl();
+	#if !macro macro #end public static function startListeningFields ()     return startListeningFieldsImpl();
+	#if !macro macro #end public static function stopListeningFields  ()     return stopListeningFieldsImpl();
+	#if !macro macro #end public static function unbindFields         (l, h) return unbindFieldsImpl(l, h);
+	#if !macro macro #end public static function disposeFields        ()     return disposeFieldsImpl();
 
 #if debug	
 	macro public static function traceFields ()						 	return traceFieldsImpl();
@@ -553,10 +553,6 @@ class BlocksUtil
 	 * 								it defines if the methodContent should be placed 
 	 * 								before or after the super-call.
 	 * 								@default is after super-call
-	 * @param	validateContent		flag to indicate that the content of the method should be checked before the content of the method is executed.
-	 * 								This comes in handy when the methodContent is another macro-call. By validating the content after the new macro
-	 * 								is executed we can remove the method if the second macro-call didn't output any code.
-	 * 								@default true
 	 * @return 		fields in the current class
 	 */
 	public static /*inline*/ function addMethod (userFields:Array<Field>, methodName:String, returnType:String, arguments:Array<String>, methodContent:Expr, insertBefore:Bool = true) : Array<Field>
