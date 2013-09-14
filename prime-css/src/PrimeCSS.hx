@@ -19,6 +19,7 @@ class PrimeCSS //#if !macro extends CommandLine #end
 {
     private static inline var OK                            = 0;
     public  static inline var OK_NEW_STYLE                  = 10;
+    public  static inline var OK_NEW_PARSER                 = 20;
     private static inline var ERR_NODE_NOT_FOUND            = 1;
     private static inline var ERR_HAXELIB_QUERY             = 2;
     private static inline var ERR_READING_INPUT_DIR         = 3;
@@ -46,6 +47,8 @@ class PrimeCSS //#if !macro extends CommandLine #end
         var status = p.buildParser(forceCompileParser);
         if (status == OK)
             return p.buildStyles(forceCompileStyles);
+        else if (status == OK_NEW_PARSER)
+            return p.buildStyles(true);
         else
             return status;
     }
@@ -114,12 +117,14 @@ class PrimeCSS //#if !macro extends CommandLine #end
         
         if ( forceCompileParser || !FileSystem.exists(parserBin) || !genedFileNewerThan(parserBin, parserSources))
         {
-            Sys.println("Building Prime Style Parser...");
+            Sys.print("Building Prime Style Parser... ");
             if (Sys.command(buildArgs) != 0)
             {
                 Sys.print("error building style parser");
                 return ERR_BUILDING_STYLES_PARSER;
             }
+            Sys.println("done!");
+            return OK_NEW_PARSER;
         }
         else
         {
