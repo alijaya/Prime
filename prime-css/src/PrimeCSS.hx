@@ -65,7 +65,7 @@ class PrimeCSS //#if !macro extends CommandLine #end
         primeCSSPath = "";
 
         if (projectDir == null)
-            projectDir = Path.directory(Sys.getCwd()) + "/styles"; //try default
+            this.projectDir = Path.directory(Sys.getCwd()) + "/styles"; //try default
         
         var p = new Process("node", ["-v"]);
         try
