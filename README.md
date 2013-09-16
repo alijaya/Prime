@@ -56,7 +56,10 @@ Watch our [Presentation] (http://www.youtube.com/watch?v=UAT9RBb7wcU) presentati
 # Getting started
 
 Each library has it's own README which gives you more detail what they are about.
-We've built a [sample TODO-list application](http://github.com/touch/Prime-Todo) to see most of our libraries in action.
+
+Checkout the example project here: https://github.com/touch/Prime-examples.
+We've also built a [sample TODO-list application](http://github.com/touch/Prime-Todo) to see most of our libraries in action.
+
 
 
 # Contributors
