@@ -2152,7 +2152,7 @@ class CSSParser
 			//By setting the classname as string, the bitmapObject will try to create a class-reference to the asset.
 	//		bmp = new Asset(parseClassReference(v));
 			factory = parseClassReference(v);
-			factory = new Factory( "prime.types.URI", [ "asset://" + factory.classRef ] );
+			
 		/*	if (c != null)
 				bmp.setClass( c );
 			else
