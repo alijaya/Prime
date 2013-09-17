@@ -41,6 +41,7 @@ package prime.gui.components;
   using prime.utils.BitUtil;
   using prime.utils.NumberUtil;
   using Std;
+  using prime.fsm.SimpleStateMachine;
 
 
 /**
@@ -183,6 +184,11 @@ class ScrollBar extends SliderBase
 			dragBtn.layout.percentWidth	= scrollable ? FloatMath.min( l.width / l.measuredWidth, 1 ) : 0;
 			updateChildren();	// forces the button to jump to the right position
 			
+			// if the dragBtn just invalidated from changing percentWidth above (not always the case if the value is unchanged), 
+			// update again when it is validated, so dragBtn.x will be placed correctly in updateChildren
+			if (dragBtn.layout.changes.has(UIElementFlags.PERCENTAGE))
+				updateChildren.onEntering( dragBtn.layout.state, prime.fsm.states.ValidateStates.validated, this );
+			
 			if (scrollable)
 				data.validator.setValues( l.minScrollXPos, l.minScrollXPos + l.scrollableWidth );
 		}
@@ -204,6 +210,12 @@ class ScrollBar extends SliderBase
 			var scrollable	= l.verScrollable();
 			dragBtn.visible	= dragBtn.layout.includeInLayout = scrollable;
 			dragBtn.layout.percentHeight = scrollable ? FloatMath.min( l.height / l.measuredHeight, 1 ) : 0;
+
+			// if the dragBtn just invalidated from changing percentHeight above (not always the case if the value is unchanged), 
+			// update again when it is validated, so dragBtn.y will be placed correctly in updateChildren
+			if (dragBtn.layout.changes.has(UIElementFlags.PERCENTAGE))
+				updateChildren.onEntering( dragBtn.layout.state, prime.fsm.states.ValidateStates.validated, this );
+			
 			updateChildren();	// forces the button to jump to the right position
 
 			if (scrollable)
