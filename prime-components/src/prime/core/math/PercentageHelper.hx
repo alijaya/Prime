@@ -197,6 +197,12 @@ class PercentageHelper extends Bindable<Float> implements prime.core.traits.IDis
 		Assert.that( validator.min.isSet() );
 		Assert.that( validator.max.isSet() );
 		value = validator.validate( value );
+		
+		// When the range changes from 0..1 with a percentage and value of 0.1 for instance,
+		// to a range of -100..100, update the percentage while retaining the value.
+		// In this case a range of -100..100 with a value of 0.1 will have a percentage of
+		// 0.5005
+		calculatePercentage();
 	}
 	
 	
