@@ -141,6 +141,23 @@ class Inspector extends UIContainer
 			selectedData.add( w+"" );
 		}
 		else*/
+		
+		if ( d.is( prime.gui.traits.ILayoutable ) )
+		{
+			var u = d.as( prime.gui.traits.ILayoutable ).layout;
+			
+			selectedData.add( "Layout.padding: " + u.padding.toString() );
+			selectedData.add( "Layout.margin: " + u.margin.toString() );
+			selectedData.add( "Layout.outerBounds: " + u.outerBounds.toString() );
+			selectedData.add( "Layout.innerBounds: " + u.outerBounds.toString() );
+		}
+		if ( d.is( prime.gui.traits.ILayoutable ) && d.as( prime.gui.traits.ILayoutable ).layout.is( prime.layout.IAdvancedLayoutClient ) )
+		{
+			var u = d.as( prime.gui.traits.ILayoutable ).layout.as( prime.layout.IAdvancedLayoutClient );
+			selectedData.add( "Explicit width, height: " + u.explicitWidth + ", " + u.explicitHeight );
+			selectedData.add( "Measured width, height: " + u.measuredWidth + ", " + u.measuredHeight );
+		}
+		
 		#if prime_css
 		if ( d.is( IStylable ) && d.as( IStylable ).style != null )
 		{
