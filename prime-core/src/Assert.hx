@@ -63,28 +63,28 @@ import haxe.macro.Context;
 	* @param expr An expression that evaluates to a Bool
 	**/
 	#if !macro macro #end static function that  ( expr:Expr, ?message:Expr ) : Expr
-		return #if !display throwIf(expr, OpNotEq, macro false, message) #else null #end;
+		return #if !display throwIf(expr, null, macro !$expr, message) #else null #end;
 
 	/**
 	* Asserts that expr evaluates to true
 	* @param expr An expression that evaluates to a Bool
 	**/
 	#if !macro macro #end static function isTrue( expr:ExprOf<Bool>, ?message:Expr ) : Expr
-		return #if !display throwIf(expr, OpEq, macro true, message) #else null #end;
+		return #if !display throwIf(expr, OpNotEq, macro true, message) #else null #end;
 
 	/**
 	* Asserts that expr evaluates not true
 	* @param expr An expression that evaluates to a Bool
 	**/
 	#if !macro macro #end static function not    ( expr:ExprOf<Bool>, ?message:Expr ) : Expr
-		return #if !display throwIf(expr, OpNotEq, macro true, message) #else null #end;
+		return #if !display throwIf(macro !$expr, null, macro $expr, message) #else null #end;
 
 	/**
 	* Asserts that expr evaluates to false
 	* @param expr An expression that evaluates to a Bool
 	**/
 	#if !macro macro #end static function isFalse( expr:ExprOf<Bool>, ?message:Expr ) : Expr
-		return #if !display throwIf(expr, OpEq, macro false, message) #else null #end;
+		return #if !display throwIf(expr, OpNotEq, macro false, message) #else null #end;
 
 	/**
 	* Checks that the passed expression is null.
@@ -142,47 +142,47 @@ import haxe.macro.Context;
 
 	static private var emptyExpr = macro null;
 
-	private static function throwIf( first:Expr, assertCompareOp:Binop, second:Expr, ?message:ExprOf<String> ) : Expr
+	private static function throwIf( first:Expr, assertCompareOp:Binop, second:Expr, message:ExprOf<String> ) : Expr
 	{
 		//var out = Assert.notMacro();
 		var pos = Context.currentPos();
 
 		if (Context.defined("macro")) throw "Don't use Assert from macro code, it will kill the compiler cache!";
-		if (Context.defined("display") || !Context.defined("debug")) return emptyExpr;
+		//if (Context.defined("display") || !Context.defined("debug")) return emptyExpr;
 
 		var firstComp = macro
-			$v{ new haxe.macro.Printer().printExpr(first) } + " = `" + Std.string($i{"first"}) +
-			$v{ (switch(assertCompareOp) {
-					case OpEq:	"` to not be ";
-					case OpGt:	"` < ";
-					case OpGte:	"` <= ";
-					case OpLt:	"` > ";
-					case OpLte:	"` >= ";
-					default: "";
-				}) + new haxe.macro.Printer().printExpr(second)
+			$v{ new haxe.macro.Printer().printExpr(first) } + " (which is: `" + Std.string($i{"first"}) + "`)" +
+			$v{ assertCompareOp == null
+					? ""
+					: ((switch(assertCompareOp) {
+						case OpEq:	" to not be `";
+						case OpGt:	" < `";
+						case OpGte:	" <= `";
+						case OpLt:	" > `";
+						case OpLte:	" >= `";
+						default:    " to be `";
+					}) + new haxe.macro.Printer().printExpr(second) + "`")
 			};
 
-		var secondIsConstant = false;
-		var expectedValue = switch (second.expr) {
+		var secondIsConstant = assertCompareOp == null;
+		var expectedValue = switch (secondIsConstant? EConst(null) : second.expr) {
 			case EConst(_):
 				secondIsConstant = true;
-				firstComp;
+				macro Std.string($firstComp);
 			default:
-				macro $firstComp + " = `" + Std.string($i{"second"});
+				macro Std.string($firstComp) + " (which is: `" + Std.string($i{"second"}) + "`)";
 		}
 
-		var test   = { expr : EBinop(assertCompareOp, first, second), pos : pos };
 		var ifExpr = macro {
-			//$out;
-			var first  = $first;
-			var second = $second;
-			if ($test)
-				throw new chx.lang.FatalException(${ message != null? macro $message + " \n Expected " : macro "Expected " } + $expectedValue);
+		/*[0]*/var first  = $first;
+		/*[1]*/var second = $second;
+		/*[2]*/if (${assertCompareOp == null? second : { expr : EBinop(assertCompareOp, first, second), pos : pos }})
+				throw new chx.lang.FatalException( ((untyped $message) != null? Std.string($message) : "") + " \n Expected:  " + $expectedValue + "\n" );
 		}
 		switch (ifExpr.expr) {
 			case EBlock(exprs):
 				exprs[0].pos = pos;
-				if (secondIsConstant) ifExpr.expr = EBlock(exprs.splice(1,1)); // remove `var second` declaration.
+				if (secondIsConstant) ifExpr.expr = EBlock([ exprs[0], exprs[2] ]); // remove `var second` declaration.
 			default: throw "impossible";
 		}
 		ifExpr.pos = pos;
