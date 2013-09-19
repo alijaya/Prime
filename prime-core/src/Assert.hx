@@ -148,7 +148,7 @@ import haxe.macro.Context;
 		var pos = Context.currentPos();
 
 		if (Context.defined("macro")) throw "Don't use Assert from macro code, it will kill the compiler cache!";
-		//if (Context.defined("display") || !Context.defined("debug")) return emptyExpr;
+		if (Context.defined("display") || !Context.defined("debug")) return emptyExpr;
 
 		var firstComp = macro
 			$v{ new haxe.macro.Printer().printExpr(first) } + " (which is: `" + Std.string($i{"first"}) + "`)" +
