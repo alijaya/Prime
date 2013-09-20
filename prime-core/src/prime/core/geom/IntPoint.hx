@@ -101,7 +101,7 @@ class IntPoint	implements prime.core.traits.IClonable<IntPoint>
 	}
 	
 	
-#if CSSParser
+#if (CSSParser || debug)
 	public #if !noinline inline #end function toString () { return "IntPoint( "+x+", "+y+" )"; }
 #end
 #if (CSSParser || debug)

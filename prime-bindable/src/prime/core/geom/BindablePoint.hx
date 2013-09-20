@@ -54,7 +54,7 @@ class BindablePoint extends IntPoint implements prime.core.traits.IDisposable
 	
 	
 #if (debug && !CSSParser)
-	public function toString ()
+	override public function toString ()
 	{
 		return "BPoint( " + x + ", " + y + " )";
 	}
