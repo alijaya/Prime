@@ -28,9 +28,7 @@
  */
 package prime.core.traits;
 
-#if !display
 @:autoBuild(prime.utils.MacroUtils.autoDispose())
-#end
 interface IDisposable
 {
 	public function dispose() : Void;

@@ -48,7 +48,7 @@ import haxe.macro.Context;
 	* @param second Any expression that can test against first
 	**/
 	#if !macro macro #end static function isEqual<T>( first:ExprOf<T>, second:ExprOf<T>, ?message:Expr ) : Expr
-		return #if !display throwIf(first, OpNotEq, second, message) #else null #end;
+		return #if !display throwIf(first, OpNotEq, second, message) #else macro null #end;
 
 	/**
 	* Asserts that first is _not_ equal to second
@@ -56,49 +56,49 @@ import haxe.macro.Context;
 	* @param second Any expression that can test against first
 	**/
 	#if !macro macro #end static function notEqual<T>( first:ExprOf<T>, second:ExprOf<T>, ?message:Expr ) : Expr
-		return #if !display throwIf(first, OpEq, second, message) #else null #end;
+		return #if !display throwIf(first, OpEq, second, message) #else macro null #end;
 
 	/**
 	* Asserts that expr evaluates not false
 	* @param expr An expression that evaluates to a Bool
 	**/
 	#if !macro macro #end static function that  ( expr:Expr, ?message:Expr ) : Expr
-		return #if !display throwIf(expr, null, macro !$expr, message) #else null #end;
+		return #if !display throwIf(expr, null, macro !$expr, message) #else macro null #end;
 
 	/**
 	* Asserts that expr evaluates to true
 	* @param expr An expression that evaluates to a Bool
 	**/
 	#if !macro macro #end static function isTrue( expr:ExprOf<Bool>, ?message:Expr ) : Expr
-		return #if !display throwIf(expr, OpNotEq, macro true, message) #else null #end;
+		return #if !display throwIf(expr, OpNotEq, macro true, message) #else macro null #end;
 
 	/**
 	* Asserts that expr evaluates not true
 	* @param expr An expression that evaluates to a Bool
 	**/
 	#if !macro macro #end static function not    ( expr:ExprOf<Bool>, ?message:Expr ) : Expr
-		return #if !display throwIf(macro !$expr, null, macro $expr, message) #else null #end;
+		return #if !display throwIf(macro !$expr, null, macro $expr, message) #else macro null #end;
 
 	/**
 	* Asserts that expr evaluates to false
 	* @param expr An expression that evaluates to a Bool
 	**/
 	#if !macro macro #end static function isFalse( expr:ExprOf<Bool>, ?message:Expr ) : Expr
-		return #if !display throwIf(expr, OpNotEq, macro false, message) #else null #end;
+		return #if !display throwIf(expr, OpNotEq, macro false, message) #else macro null #end;
 
 	/**
 	* Checks that the passed expression is null.
 	* @param expr A string, class or anything that can be tested for null
 	**/
 	#if !macro macro #end static function isNull   ( expr:Expr, ?message:Expr ) : Expr
-		return #if !display throwIf(expr, OpNotEq, macro null, message) #else null #end;
+		return #if !display throwIf(expr, OpNotEq, macro null, message) #else macro null #end;
 
 	/**
 	* Checks that the passed expression is not null.
 	* @param expr A string, class or anything that can be tested for null
 	**/
 	#if !macro macro #end static function isNotNull( expr:Expr, ?message:Expr ) : Expr
-		return #if !display throwIf(expr, OpEq, macro null, message) #else null #end;
+		return #if !display throwIf(expr, OpEq, macro null, message) #else macro null #end;
 
 	//
 	// Prime additions
