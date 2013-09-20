@@ -57,14 +57,14 @@ class UIContainer extends UIComponent implements IUIContainer
     public var layoutContainer  (get_layoutContainer, never)    : LayoutContainer;
     public var scrollableLayout (get_scrollableLayout, never)   : IScrollableLayout;
     public var isScrollable                                     : Bool;
-	
-	private inline function get_layoutContainer ()     									{ return layout.as(LayoutContainer); }
-	private inline function get_scrollableLayout () 									{ return layout.as(IScrollableLayout); }
-	public  inline function attach			(child:IUIElement)			: IUIContainer	{ child.attachTo(this);             return this; }
-	public  inline function changeDepthOf	(child:IUIElement, pos:Int)	: IUIContainer	{ child.changeDepth(pos);           return this; }
-    public  inline function attachDisplay   (child:IUIElement)          : IUIContainer  { child.attachDisplayTo(this);      return this; }
-	public  inline function attachLayout	(layout:LayoutClient)		: IUIContainer	{ layoutContainer.attach(layout);   return this; }
-    
+
+	private #if !noinline inline #end function get_layoutContainer   ()                                         { return layout.as(LayoutContainer);             }
+	private #if !noinline inline #end function get_scrollableLayout  ()                                         { return layout.as(IScrollableLayout);           }
+	public  #if !noinline inline #end function attach                (child:IUIElement)          : IUIContainer { child.attachTo(this);             return this; }
+	public  #if !noinline inline #end function changeDepthOf         (child:IUIElement, pos:Int) : IUIContainer { child.changeDepth(pos);           return this; }
+    public  #if !noinline inline #end function attachDisplay         (child:IUIElement)          : IUIContainer { child.attachDisplayTo(this);      return this; }
+	public  #if !noinline inline #end function attachLayout          (layout:LayoutClient)       : IUIContainer { layoutContainer.attach(layout);   return this; }
+
 
 
     //

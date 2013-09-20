@@ -55,6 +55,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 	static function __init__()
 	{
 		var W = Wire;
+		#if debug instanceCount = 0; #end // For dynamic platforms like Neko
 		freeCount = 0;
 	  #if js
 		var dummyOwner   = new Signal0();

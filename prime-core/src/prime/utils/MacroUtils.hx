@@ -535,7 +535,10 @@ class BlocksUtil
 	private static var removeCounter = 0;
 #end
 	
-	private static var methodsAlreadyAdded = new Map<String, Bool>();
+	private static var methodsAlreadyAdded : Map<String, Bool> = {
+		Context.onMacroContextReused(function(){ methodsAlreadyAdded = new Map(); return true; });
+		new Map();
+	}
 	
 	/**
 	 * Method will create a method definition for the given values and add the

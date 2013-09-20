@@ -96,10 +96,10 @@ class Loader implements ICommunicator
 		}
 	}
 
-	private static inline function loadSlotAvailable () 		: Bool	{ return !isPaused && CONNECTIONS < MAX_CONNECTIONS; }
-	private static inline function queueIsEmpty ()				: Bool	{ return QUEUE_LENGTH == 0; }
-	private static inline function addConnection ()				: Void	{ CONNECTIONS++; }
-	private static inline function removeConnection ()			: Void	{ Assert.that(CONNECTIONS > 0, CONNECTIONS); CONNECTIONS--; openNextConnection(); }
+	private static #if !noinline inline #end function loadSlotAvailable () : Bool { return !isPaused && CONNECTIONS < MAX_CONNECTIONS; }
+	private static #if !noinline inline #end function queueIsEmpty ()      : Bool { return QUEUE_LENGTH == 0; }
+	private static #if !noinline inline #end function addConnection ()     : Void { CONNECTIONS++; }
+	private static #if !noinline inline #end function removeConnection ()  : Void { Assert.that(CONNECTIONS > 0, CONNECTIONS); CONNECTIONS--; openNextConnection(); }
 
 
 	private static inline function openNextConnection ()
@@ -491,9 +491,9 @@ class Loader implements ICommunicator
 	// EVENTHANDLERS
 	//
 	
-	private inline function setStarted ()	{ isStarted = true; }
-	private inline function setFinished ()	{ isFinished = true; unsetStarted(); }
-	private inline function unsetStarted ()	{ if (isStarted) { isStarted = false; removeConnection(); } }
+	private #if !noinline inline #end function setStarted   () { isStarted  = true; }
+	private #if !noinline inline #end function setFinished  () { isFinished = true; unsetStarted(); }
+	private #if !noinline inline #end function unsetStarted () { if (isStarted) { isStarted = false; removeConnection(); } }
 
 #if debug
 	public function toString ()
