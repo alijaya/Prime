@@ -168,22 +168,23 @@ class PrimeCSS //#if !macro extends CommandLine #end
             
             //leave PrimeCSSPATH + "//"
             var p = new Process('node', [parserBin, projectDir, primeCSSPath + "//" ] );
-            
+            var strBuffer = new StringBuf();
             var hasErrors = false;
+            
             try while ( true ) 
             {
-                var line = p.stderr.readLine();
-                Sys.println(line);
+                strBuffer.add(p.stdout.readLine());
+            } catch (e : haxe.io.Eof) { }
+
+            try while ( true ) 
+            {
+                strBuffer.add(p.stderr.readLine());
                 hasErrors = true;
             } catch (e : haxe.io.Eof) { }
-
-            try while ( true ) 
-            {
-                var line = p.stdout.readLine();
-                if (#if verbose true #else hasErrors #end) Sys.println(line);
-            } catch (e : haxe.io.Eof) { }
-
             
+            if (#if verbose true #else hasErrors #end) 
+                Sys.println(strBuffer.toString());
+
             if (p.exitCode() != 0)
             {
                 p.close();
