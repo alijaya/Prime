@@ -171,6 +171,7 @@ class PrimeCSS //#if !macro extends CommandLine #end
             var strBuffer = new StringBuf();
             var hasErrors = false;
             
+            //We read stdout and then stderr else it will freeze on Windows.
             try while ( true ) 
             {
                 strBuffer.add(p.stdout.readLine());
