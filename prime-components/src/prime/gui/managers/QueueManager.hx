@@ -134,7 +134,7 @@ class QueueManager implements prime.core.traits.IDisposable implements IValidata
 			add( finalInvalidatable );
 		}
 
-		checkList();
+		//checkList();
 	}
 	
 	private function checkList()
