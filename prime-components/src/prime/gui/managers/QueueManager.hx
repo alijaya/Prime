@@ -50,6 +50,8 @@ class QueueManager implements prime.core.traits.IDisposable implements IValidata
 	private var first				: IValidatable;
 	private var last				: IValidatable;
 	private var isValidating		: Bool;
+
+	private var finalInvalidatable 	: FinalInvalidatable;
 	
 	
 	public function new (owner:Window)
@@ -57,6 +59,8 @@ class QueueManager implements prime.core.traits.IDisposable implements IValidata
 		validateQueue.on( owner.displayEvents.render, this );
 		this.owner		= owner;
 		isValidating	= false;
+
+		finalInvalidatable = new FinalInvalidatable(this);
 	}
 	
 	
@@ -124,8 +128,40 @@ class QueueManager implements prime.core.traits.IDisposable implements IValidata
 		}
 		
 		last = obj;
+
+		if ( !finalInvalidatable.isQueued() && obj != finalInvalidatable )
+		{
+			add( finalInvalidatable );
+		}
+
+		checkList();
 	}
 	
+	private function checkList()
+	{
+		var curCell = first;
+		while (curCell != null)
+		{
+			if ( curCell == first && curCell != last )
+			{
+				Assert.that( curCell.prevValidatable == this || curCell.prevValidatable == null );
+				Assert.that( curCell.nextValidatable != null );
+			}
+			if ( curCell != first && curCell == last )
+			{
+				Assert.that( last.prevValidatable != this );
+				Assert.that( last.prevValidatable != null );
+				Assert.that( last.nextValidatable == null );
+			}
+
+			if ( curCell != first && curCell != last )
+			{
+				Assert.that( curCell.prevValidatable != null );
+				Assert.that( curCell.nextValidatable != null );
+			}
+			curCell	= curCell.nextValidatable;
+		}
+	}
 	
 	/**
 	 * Removed an object from the queue with objects
@@ -174,6 +210,7 @@ class QueueManager implements prime.core.traits.IDisposable implements IValidata
 		while (curCell != null)
 		{
 			s += "\n\t\t\t\t\t\t\t[ "+i+" ] = "+curCell;
+			s += "\n\t\t\t\t\t\t\t\t\t\t[ "+i+" ].prevValidatable = "+curCell.prevValidatable;
 			curCell	= curCell.nextValidatable;
 			i++;
 		}
@@ -184,4 +221,59 @@ class QueueManager implements prime.core.traits.IDisposable implements IValidata
 	
 	public function toString () { return "QueueManager"; }
 #end
+}
+
+
+/**
+ * This class fixes a bug when an IValidatable object is last in the queue and invalidates again (IValidatable will point to themselves) 
+ * and they cause something else to invalidate (now the current IValidatable will point to the new final), overwritting their spot in the queue.
+ * 
+ * See the tests\cases\InvalidationTest
+ *
+ * NOTE: This bug is only fixed for prime.gui.managersRenderManager and prime.gui.managers.InvalidationManager, currently the only
+ * classes to extend QueueManager
+ *
+ * @author Andrew Pahuru
+ * @creation-date Sep 29, 2013
+ */
+private class FinalInvalidatable implements prime.gui.traits.IGraphicsValidator implements prime.gui.traits.IPropertyValidator
+{
+	public var prevValidatable		: IValidatable;
+	public var nextValidatable		: IValidatable;
+	
+	private var  manager 			: QueueManager;
+
+	public function new( manager : QueueManager ) { this.manager = manager; }
+
+	public function isOnStage () : Bool { return false; };
+	public function isQueued () : Bool 
+	{ 
+		return nextValidatable != null || prevValidatable != null; 
+	};
+	
+	public function invalidateGraphics () : Void {}
+
+	/**
+	 * If nothing else is queued do nothing. Else keep invalidating until this object is the only thing queued.
+	 */
+	public function validateGraphics ()	: Void
+	{
+		if ( nextValidatable != null )
+		{
+			manager.add( this );
+		}
+	}
+
+	/**
+	 * If nothing else is queued do nothing. Else keep invalidating until this object is the only thing queued.
+	 */
+	public function validate ()	: Void
+	{	
+		//trace("FINAL");
+		if ( nextValidatable != null )
+		{
+			//trace("READDING");
+			manager.add( this );
+		}
+	}
 }

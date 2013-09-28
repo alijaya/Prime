@@ -80,20 +80,15 @@ class InvalidationManager extends QueueManager
 
 #if debug	if (traceQueues)	trace("\n\t\t"+i+". validate "+obj+"; next: "+obj.nextValidatable+"; first: "+first+"; isFirst? "+(obj == first)+"; isNext? "+(obj == obj.nextValidatable)); #end
 			
-			// During validation the queue can change (adding/removing items).
-			// The 'first' property will be the correct value if the current 
-			// validating object was removed from the queue during its own 
-			// validation (that means its nextValidatable is already 'null').
-			if (obj.nextValidatable != null)
+			// if this object is still first, then it did not re-add itself for invalidation and holds the current
+			// next, otherwise first value has already been updated to next validateable
+			if ( obj == first )
+			{
 				first = obj.nextValidatable;
-			
-			// Exit the loop if the current validating item is the last item 
-			// and the nextValidatable is 'null' and the 'first' value isn't 
-			// changed during validation.
-			else if (obj == first)
-			 	first = null;
-			
-			obj.nextValidatable = obj.prevValidatable = null;
+				if (first != null )
+					first.prevValidatable = null;
+				obj.nextValidatable = obj.prevValidatable = null;
+			}
 		}
 		
 #if debug if (traceQueues)	trace("\n\tfinished validating layout; first: "+first+"; last: "+last+"; loops: "+i); #end

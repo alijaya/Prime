@@ -33,8 +33,8 @@ TestClass=${TestClass%.hx}
 #echo $TestClass
 
 
-bash ../build/build-assets ".." || exit 1;
-bash ../build/build-styles -s "${STYLEDIR}" || exit 1;
+#bash ../build/build-assets ".." || exit 1;
+#bash ../build/build-styles -s "${STYLEDIR}" || exit 1;
 
 echo build.hxml \
 	$EXTRA \
