@@ -175,6 +175,9 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 	{
 		attach( dragBtn = new Button( id.value + "Btn" ) );
 	//	dragBtn.layout.includeInLayout = false;
+        //Ensure that each Slider.dragBtn uses an unique RelativeLayout instance, else relative is shared between DragBtns and changes are applied to all of them.   
+        dragBtn.layout.relative = cast dragBtn.layout.relative.clone(); 
+        
 	}
 	
 	
