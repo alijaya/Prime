@@ -158,6 +158,12 @@ class Inspector extends UIContainer
 			selectedData.add( "Measured width, height: " + u.measuredWidth + ", " + u.measuredHeight );
 		}
 		
+		// Skip the top node CSS info, sometimes there is too much data
+		// and the height of selectedView can be too large and cause
+		// asserts and crashes.
+		if ( this.treeView == treeView )
+			return;
+		
 		#if prime_css
 		if ( d.is( IStylable ) && d.as( IStylable ).style != null )
 		{
@@ -170,7 +176,7 @@ class Inspector extends UIContainer
 			selectedData.add("Applied style blocks:");
 			for ( s in u.style )
 			{
-				selectedData.add( s.toCSS( (switch(s.type) {
+				var str : String =  s.toCSS( (switch(s.type) {
 					case element:        '<class>';
 					case styleName:      '.';
 					case id:             '#';
@@ -178,7 +184,9 @@ class Inspector extends UIContainer
 					case elementState:   '<class>:';
 					case styleNameState: '.:';
 					case idState:        '#:';
-				}) + s.cssName) );
+				}) + s.cssName);
+
+				selectedData.add( str );
 			}
 		}
 		else #end
