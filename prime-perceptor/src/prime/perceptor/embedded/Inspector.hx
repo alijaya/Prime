@@ -103,7 +103,7 @@ class Inspector extends UIContainer
 		var treeData : TypedProxyTree < IDisplayContainer, IDisplayContainer > = treeView.data;
 		var data : IDisplayContainer = treeData.source;
 		
-		listDisplayContainer( data );
+		listDisplayContainer( data, this.treeView == treeView );
 	}
 	
 	private function selectedViewRenderer( item:String, depth:Int ) : IUIDataElement<String>
@@ -118,7 +118,7 @@ class Inspector extends UIContainer
 		return container;
 	}
 
-	public function listDisplayContainer( d:IDisplayContainer )
+	public function listDisplayContainer( d:IDisplayContainer, isRoot:Bool = false )
 	{
 		if (inspectingItem == d) return;
 		inspectingItem = d;
@@ -158,12 +158,11 @@ class Inspector extends UIContainer
 			selectedData.add( "Measured width, height: " + u.measuredWidth + ", " + u.measuredHeight );
 		}
 		
-		// Skip the top node CSS info, sometimes there is too much data
-		// and the height of selectedView can be too large and cause
-		// asserts and crashes.
-		if ( this.treeView == treeView )
+		// Going any further on the root node of the tree can create too
+		// much data that crashes the app from invalid flash heights.
+		if ( isRoot )
 			return;
-		
+
 		#if prime_css
 		if ( d.is( IStylable ) && d.as( IStylable ).style != null )
 		{
