@@ -100,7 +100,8 @@ class ResizeEffect extends Effect<prime.gui.traits.ISizeable,ResizeEffect>
 #if !CSSParser
 	override public function createEffectInstance (target)
 		return new prime.gui.effects.effectInstances.ResizeEffectInstance(target, this);
-#else
+#end
+#if (CSSParser || debug)
 
 	override public function toCSS (prefix:String = "") : String
 	{
@@ -108,15 +109,15 @@ class ResizeEffect extends Effect<prime.gui.traits.ISizeable,ResizeEffect>
 		
 		if (duration.isSet())		props.push( duration + "ms" );
 		if (delay.isSet())			props.push( delay + "ms" );
-		if (easing != null)			props.push( easing.toCSS() );
+		if (easing != null)			props.push( Std.string( easing #if CSSParser .toCSS() #end ) );
 		if (startW.isSet())			props.push( startW + "px, " + startH + "px" );
 		if (endW.isSet())			props.push( endW + "px, " + endH + "px" );
 		if (isReverted)				props.push( "reverted" );
 		
 		return "resize " + props.join(" ");
 	}
-	
-	
+#end
+#if CSSParser	
 	override public function toCode (code:prime.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
