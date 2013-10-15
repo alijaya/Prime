@@ -89,6 +89,7 @@ class Inspector extends UIContainer
 		super.createChildren();
 			
 		treeView = new TreeComponent< IDisplayContainer, IDisplayContainer >( treeData, treeViewSelected, true );
+		treeView.debugHandler = listDisplayContainer;
 		treeView.attachTo( this );
 		
 		selectedData = new SimpleList<String>();
@@ -122,8 +123,10 @@ class Inspector extends UIContainer
 	{
 		if (inspectingItem == d) return;
 		inspectingItem = d;
-
+		
 		selectedData.removeAll();
+		
+		selectedData.add( "Full class name: " + Type.getClassName(Type.getClass(d)) );
 		
 		/*if ( d.is(DisplayContainer) )
 		{
@@ -141,7 +144,12 @@ class Inspector extends UIContainer
 			selectedData.add( w+"" );
 		}
 		else*/
-		
+		if ( d.is( prime.gui.traits.ILayoutable ) && d.as( prime.gui.traits.ILayoutable ).layout.is( prime.layout.ILayoutContainer ) )
+		{
+			var u = d.as( prime.gui.traits.ILayoutable ).layout.as( prime.layout.ILayoutContainer );
+			selectedData.add( "Algoritm: " + u.algorithm );
+			selectedData.add( "Relative Property: " + u.relative );
+		}
 		if ( d.is( prime.gui.traits.ILayoutable ) )
 		{
 			var u = d.as( prime.gui.traits.ILayoutable ).layout;
@@ -154,8 +162,9 @@ class Inspector extends UIContainer
 		if ( d.is( prime.gui.traits.ILayoutable ) && d.as( prime.gui.traits.ILayoutable ).layout.is( prime.layout.IAdvancedLayoutClient ) )
 		{
 			var u = d.as( prime.gui.traits.ILayoutable ).layout.as( prime.layout.IAdvancedLayoutClient );
-			selectedData.add( "Explicit width, height: " + u.explicitWidth + ", " + u.explicitHeight );
-			selectedData.add( "Measured width, height: " + u.measuredWidth + ", " + u.measuredHeight );
+			
+			selectedData.add( "Explicit w, h: " + u.explicitWidth + ", " + u.explicitHeight );
+			selectedData.add( "Measured w, h: " + u.measuredWidth + ", " + u.measuredHeight );
 		}
 		
 		// Going any further on the root node of the tree can create too

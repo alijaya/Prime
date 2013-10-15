@@ -77,9 +77,9 @@ class TypedProxyTree<T, F> extends SimpleList< TypedProxyTree<T, F> >
 
 #if debug
 		ok = false;
-		sourceId = "" + source;
-		if ( sourceId == "toolTip" )
-			sourceId = "toolTip";
+		var classStr:String = Type.getClassName(Type.getClass(source));
+		classStr = classStr.substr( classStr.lastIndexOf(".")+1 );
+		sourceId = "" + source + " : " + classStr;
 #end
 	}
 	
@@ -186,8 +186,8 @@ class TypedProxyTree<T, F> extends SimpleList< TypedProxyTree<T, F> >
 	{
 		var indentation:String = "["+indent+"]["+length+"]";
 		for ( i in 0...indent )
-			indentation += " ";
-		trace( indentation + source );
+			indentation += "  ";
+		trace( indentation + sourceId );// + ":" + Type.getClassName(Type.getClass(source)) );
 		for ( node in this )
 			node.debugg( indent + 1 );
 	}

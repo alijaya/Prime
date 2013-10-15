@@ -35,6 +35,7 @@ package prime.perceptor.embedded;
  import prime.gui.core.UIDataContainer;
   using prime.utils.Bind;
   using prime.utils.TypeUtil;
+  using prime.fsm.SimpleStateMachine;
 	
 /**
  * GUI data component designed to work with and visualise a TypedProxyTree,
@@ -51,17 +52,20 @@ class TreeComponent<T, F> extends UIDataContainer< TypedProxyTree<T, F> >
 	// all at once
 	private var subtrees : UIContainer;
 	private var selectHandler : TreeComponent < T, F >->Void;
+	public var debugHandler : Dynamic -> Dynamic -> Void;
 	private var label : Label;
-
+	private var labelStr : String;
+	
 	public function new ( data:TypedProxyTree<T, F>, selectHandler:TreeComponent<T, F>->Void, isRoot:Bool = false )
 	{
-		super( isRoot ? "InspectorTreeComponentRoot" : "InspectorTreeComponent", data);
+		super( data + " - TreeNode", data);
+		styleClasses.add( isRoot ? "InspectorTreeComponentRoot" : "InspectorTreeComponent" );
 		this.selectHandler = selectHandler;
 	}
 	
 	private function dataOrphaned()
 	{
-		label.data.value = label.data.value + "(orphaned)";
+		name = labelStr = label.data.value = label.data.value + "(orphaned)";
 		label.userEvents.mouse.click.unbind( this );
 	}
 	
@@ -71,6 +75,7 @@ class TreeComponent<T, F> extends UIDataContainer< TypedProxyTree<T, F> >
 		{
 			case added( item, newPos ):
 				var subtree : TreeComponent<T, F> = new TreeComponent<T, F>( item, selectHandler );
+				subtree.debugHandler = debugHandler;
 				subtree.attachTo( subtrees );
 			case removed( item, oldPos ): 
 				var subtree : TreeComponent<T, F> = null;
@@ -91,20 +96,34 @@ class TreeComponent<T, F> extends UIDataContainer< TypedProxyTree<T, F> >
 			case reset:
 		}
 		
-		label.data.value = data + "";
+		name = data + " - TreeNode";
+		layout.name = name + " - Layout";
+		
+		label.name = label.data.value = data + " - Label";
+		label.layout.name = label.name + " - Layout";
+		
+		subtrees.name = label.data.value = data + " - Sub";
+		subtrees.layout.name = subtrees.name + " - Layout";
+		
+		label.data.value = name;
+		//name = label.data.value = data + " - TreeNode";
+		//layout.name = name + " - Layout";
 	}
  
 	public override function createChildren()
 	{
 		super.createChildren();	
 		
-		label = new Label("InspectorTreeLabel", new Bindable<String>( data+"" ) );
+		label = new Label( "testlabel", new Bindable<String>( labelStr = data+"" ) );
+		label.styleClasses.add( "InspectorTreeLabel" );
 		label.attachTo( this );
 		
-		subtrees = new UIContainer( "InspectorTreeContainer" );
+		subtrees = new UIContainer( "testTree" );
+		subtrees.styleClasses.add( "InspectorTreeContainer" );
 		for ( subtreeData in data )
 		{
 			var subtree : TreeComponent<T, F> = new TreeComponent<T, F>( subtreeData, selectHandler );
+			subtree.debugHandler = debugHandler;
 			subtree.attachTo( subtrees );
 		}
 		subtrees.attachTo( this );
@@ -122,4 +141,18 @@ class TreeComponent<T, F> extends UIDataContainer< TypedProxyTree<T, F> >
 			subtrees.attachTo( this );
 		selectHandler(this);
 	}
+	
+	public function debug(indent:Int=0)
+	{
+		//if ( label.data.value == "[6]:spreads : SpreadOverview" && debugHandler != null )
+		//	debugHandler(label, false);
+		var indentation:String = "["+indent+"]";
+		for ( i in 0...indent )
+			indentation += "  ";
+		trace( indentation + label.data.value + " " + subtrees.y + " " + subtrees.layout.outerBounds.top );
+		if ( subtrees.isOnStage() )
+			for ( subtree in subtrees.children )
+				untyped subtree.debug( indent + 1 );
+	}
+	
 }
