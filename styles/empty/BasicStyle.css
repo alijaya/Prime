@@ -176,18 +176,16 @@ Panel #closeBtn {
 	height: 50%;
 	max-width: 20%;
 	v-center: 2px;
-}*/
+}
+*/
 .slideToggleButton UITextField {
 	font: "Lucida Grande" 8px #fff;
 	text-transform: uppercase;
-	v-center: 0px;
+    margin-top:3px;
+    /*v-center: 0px;*/ /* FIXME: breaks layout !! */
 	text-align: center;
-	width: 100%;
+    width: 100%;
 }
-.slideToggleButton #onLabel {
-	color: #fff;
-}
-
 
 .slideToggleButton #slide {
 	move-transition: move 180ms ease-out;
