@@ -777,7 +777,7 @@ class LayoutStyle extends StyleSubBlock
 		if (_height.isSet())					css.push("height: " + _height + "px");
 		if (_percentHeight.isSet()) {
 			if (_percentHeight == Flags.FILL)	css.push("height: auto");
-			else								css.push("hieght: " + (_percentHeight * 100) + "%");
+			else								css.push("height: " + (_percentHeight * 100) + "%");
 		}
 		if (_minHeight.isSet())					css.push("min-height: " + _minHeight + "px");
 		if (_maxHeight.isSet())					css.push("max-height: " + _maxHeight + "px");
