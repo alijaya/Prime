@@ -136,6 +136,21 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature> implements 
 		return found;
 	}
 	
+#if debug
+	public function printWires()
+	{
+		var b = this.n;
+		
+		while (b.notNull()) {
+			trace( b.isEnabled() + " " + b.bindPos );
+			b = b.next();
+		}
+	}
+#else
+	public function printWires()
+	{
+	}
+#end
 	
 	/** Identify where the event is called (nice for debugging) ** /
 	public #if !noinline inline #end function source(?pos:haxe.PosInfos)
