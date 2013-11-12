@@ -51,8 +51,6 @@ class MouseMoveScrollBehaviour extends MouseScrollBehaviourBase
 		var scrollHor = layout.horScrollable();
 		var scrollVer = layout.verScrollable();
 		
-		trace( untyped target.name + " " + layout.scrollableHeight );
-		
 		if (!scrollHor && !scrollVer)
 			return;
 		
