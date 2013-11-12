@@ -90,6 +90,8 @@ class CornerScrollBehaviour extends MouseScrollBehaviourBase
 	
 	override private function calculateScroll (mouseObj:MouseState)
 	{
+		lastMouseObj = mouseObj.clone();
+		
 		var scrollLayout = target.scrollableLayout;
 		var scrollHor	 = scrollLayout.horScrollable();
 		var scrollVer	 = scrollLayout.verScrollable();

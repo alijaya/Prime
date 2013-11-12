@@ -32,8 +32,10 @@ package prime.gui.behaviours.scroll;
 #if !CSSParser
  import prime.signals.Wire;
  import prime.gui.events.MouseEvents;
+ import prime.layout.LayoutFlags;
   using prime.utils.Bind;
   using prime.utils.TypeUtil;
+  using prime.utils.BitUtil;
   using Std;
 #end
 
@@ -50,6 +52,13 @@ class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.
 	private var activateBinding		: Wire < Dynamic >;
 	private var deactivateBinding	: Wire < Dynamic >;
 	private var calcScrollBinding	: Wire < Dynamic >;
+	
+	// Scrolling is based on AdvancedLayoutClient::measuredWidth and AdvancedLayoutClient::width (plus their height dimension counterparts).
+	// These things can change but scrolling will not update until the mouse is moved which can result in large jumps. So listen to those changes
+	// and recalculate scroll position in response. Also listen to target position changes, which can also move content under a stationary mouse.
+	private var layoutScrollBinding	: Wire < Int >;
+	private var lastMouseObj:MouseState;
+	
 	/**
 	 * Flag indicating if the target already was clipped before the behaviour was applied. Needed for resetting
 	 */
@@ -71,11 +80,14 @@ class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.
 		hadClipping = target.getScrollRect() != null;
 		if (!hadClipping)
 			target.enableClipping();
+
 		var mouseEvt 		= target.container.userEvents.mouse;
 		activateBinding		= mouseEvt.rollOver.bind(this, activateScrolling);
 		deactivateBinding	= mouseEvt.rollOut.observeDisabled(this, deactivateScrolling);
 		calcScrollBinding	= mouseEvt.move.bindDisabled(this, calculateScroll);
 
+		layoutScrollBinding = untyped target.layout.changed.bindDisabled(this, layoutValidated);
+		
 		var mouse = target.container.globalToLocal(target.window.mouse.pos);
 		if (target.rect.containsPoint(mouse.x.int(), mouse.y.int()))
 			activateScrolling.bind(new MouseState(0, cast target, mouse, target.window.mouse.pos, cast target)).onceOn(target.displayEvents.enterFrame, this);
@@ -88,29 +100,38 @@ class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.
 		calcScrollBinding.dispose();
 		activateBinding.dispose();
 		deactivateBinding.dispose();
+		layoutScrollBinding.dispose();
 		activateBinding		= null;
 		deactivateBinding	= null;
 		calcScrollBinding	= null;
+		layoutScrollBinding = null;
 		if (!hadClipping)
 			target.disableClipping();
 	}
 
-
+	private function layoutValidated( changes:Int )
+	{
+		if ( changes.has( LayoutFlags.SIZE_PROPERTIES | LayoutFlags.POSITION ) )
+			calculateScroll( lastMouseObj );
+	}
+	
 	private function activateScrolling (mouseObj:MouseState) if (target.isScrollable)
 	{
+		lastMouseObj = mouseObj.clone();
+		
 		activateBinding.disable();
 		deactivateBinding.enable();
 		calcScrollBinding.enable();
+		layoutScrollBinding.enable();
 		calculateScroll( mouseObj );
 	}
-
 
 	private function deactivateScrolling () {
 		calcScrollBinding.disable();
 		deactivateBinding.disable();
+		layoutScrollBinding.disable();
 		activateBinding.enable();
 	}
-	
 	
 	private function calculateScroll (mouseObj:MouseState) {
 	#if debug
