@@ -139,7 +139,8 @@ package prime.tools;
 	public static inline var HEX_VALUE				= "0-9a-f";
 	public static inline var HEX_EXPR				= "(0x|#)(["+HEX_VALUE+"]{8}|["+HEX_VALUE+"]{6}|["+HEX_VALUE+"]{3})";
 	public static inline var RGBA_EXPR				= "(rgba)" + WS + "[(]((" + WS + DEC_OCTET + WS + "," + WS + "){3})((0[.][0-9]+)|0|1)" + WS + "[)]";
-	public static inline var COLOR_EXPR				= "("+HEX_EXPR+")|("+RGBA_EXPR+")";
+	public static inline var RANDOM_COLOR			= "random-color";
+	public static inline var COLOR_EXPR				= '($HEX_EXPR)|($RGBA_EXPR)|($RANDOM_COLOR)';
 	
 	public static inline var RELATIVE_UNITS			= "px|ex|em";
 	public static inline var ABSOLUTE_UNITS			= "in|cm|mm|pt|pc";
@@ -1639,6 +1640,10 @@ class CSSParser
 				var alpha = getFloat( colorValExpr.matched(9) ).uint();
 				
 				clr = Color.create(getInt( colors[0] ), getInt( colors[1] ), getInt( colors[2] ), alpha);
+			}
+			else if ( v == "random-color")
+			{
+				clr = Color.create( Std.random(0xFF), Std.random(0xFF), Std.random(0xFF));
 			}
 		}
 		
