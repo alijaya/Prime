@@ -34,6 +34,17 @@ package prime.bindable.collections;
   using prime.utils.IfUtil;
   using prime.utils.Bind;
 
+/*
+abstract ReadOnlyArrayListTools<T>(ReadOnlyArrayList<T>) from ReadOnlyArrayList<T> to ReadOnlyArrayList<T> {
+
+	inline function new(a:ReadOnlyArrayList<T>)
+		this = a;
+
+    @:arrayAccess public inline function arrayAccess(key:Int) : T {
+        return this.getItemAt(key);
+    }
+}
+*/
 
 /**
  * IReadOnlyList implementation with vector in flash10 and otherwise an array.
@@ -41,6 +52,7 @@ package prime.bindable.collections;
  * @author Ruben Weijers
  * @creation-date Nov 19, 2010
  */
+//@:generic
 class ReadOnlyArrayList<T> implements IReadOnlyList<T>
 {
 	public var beforeChange	(default, null)		: ListChangeSignal<T>;
@@ -49,8 +61,11 @@ class ReadOnlyArrayList<T> implements IReadOnlyList<T>
 	public var length		(get_length, never)	: Int;
 	
 	public var array		(get_array,null)	: FastArray<T>;
- 		inline function get_array() : FastArray<T> return #if flash10 flash.Vector.convert(list) #else list #end;
+ 		inline function get_array() : FastArray<T> return #if x_flash10 flash.Vector.convert(list) #else list #end;
 	
+    @:arrayAccess public inline function arrayAccess(key:Int) : T {
+        return this.getItemAt(key);
+    }
 
 	public function new( wrapAroundList:FastArray<T> = null )
 	{

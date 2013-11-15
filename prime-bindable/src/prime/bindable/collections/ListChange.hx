@@ -37,7 +37,7 @@ private typedef NewPos = Int;
  * @author			Ruben Weijers
  * @creation-date	Oct 26, 2010
  */
-enum ListChange <T>
+@:generic enum ListChange <T>
 {
 	added ( item:T, newPos:NewPos );
 	removed ( item:T, oldPos:OldPos );

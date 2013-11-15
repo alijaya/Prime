@@ -36,7 +36,7 @@ package prime.bindable.collections.iterators;
  * @creation-date	Jul 23, 2010
  * @author			Ruben Weijers
  */
-#if flash9 @:generic #end
+//#if flash9 @:generic #end
 class FastArrayReversedIterator <T> implements IIterator <T>
 {
 	private var target	(default, null)	: FastArray<T>;

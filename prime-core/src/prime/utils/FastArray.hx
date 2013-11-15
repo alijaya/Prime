@@ -35,7 +35,7 @@ package prime.utils;
   using Std;
 
 typedef FastArray<T> =
-	#if flash10		flash.Vector<T>
+	#if x_flash10		flash.Vector<T>
 	#else			Array<T>;
 	#end
 
@@ -46,12 +46,12 @@ typedef FastArray<T> =
  * @author			Ruben Weijers
  * @author			Danny Wilson
  */
-#if flash10 extern #end class FastArrayUtil
+#if x_flash10 extern #end class FastArrayUtil
 {
-	#if (flash10 && no_inline) "[!] ERROR Flash 10 Vectors require inlining!" #end
+	#if (x_flash10 && no_inline) "[!] ERROR Flash 10 Vectors require inlining!" #end
 	static public inline function create<T>(?size:UInt = 0, ?fixed:Bool = false) : FastArray<T>
 	{
-#if flash10
+#if x_flash10
 		return new flash.Vector<T>(size, fixed);
 #elseif flash
 		return untyped __new__(Array, size);
@@ -68,14 +68,14 @@ typedef FastArray<T> =
 	static public inline function toVector<T> ( array:Array<T> ) : FastArray<T> return ofArray(array); 		//alias for ofArray
 	static public inline function ofArray<T>  ( array:Array<T> ) : FastArray<T>
 	{
-	#if flash10
+	#if x_flash10
 		return flash.Vector.ofArray(array);
 	#else
 		return array;
 	#end
 	}
 	
-#if !flash10
+#if !x_flash10
 	static public inline function indexOf<T> ( list:FastArray<T>, item:T, ?startPos:Int = 0 ) : Int
 	{
 		var pos:Int = -1;
@@ -91,7 +91,7 @@ typedef FastArray<T> =
 #end
 	
 	
-	static public #if flash10 inline #end function insertAt<T>( list:FastArray<T>, item:T, pos:Int ) : Int
+	static public #if x_flash10 inline #end function insertAt<T>( list:FastArray<T>, item:T, pos:Int ) : Int
 	{
 		var newPos:Int	= 0;
 		var len			= list.length.int();
@@ -118,7 +118,7 @@ typedef FastArray<T> =
 	}
 
 
-	static public #if flash10 inline #end function validateNewIndex<T>( list:FastArray<T>, pos:Int ) : Int
+	static public #if x_flash10 inline #end function validateNewIndex<T>( list:FastArray<T>, pos:Int ) : Int
 		return pos < 0 || pos > list.length.int() ? list.length : pos;
 
 
@@ -129,7 +129,7 @@ typedef FastArray<T> =
 	}
 	
 	
-	static public #if flash10 inline #end function move<T>( list:FastArray<T>, item:T, newPos:Int, curPos:Int = -1 ) : Bool
+	static public #if x_flash10 inline #end function move<T>( list:FastArray<T>, item:T, newPos:Int, curPos:Int = -1 ) : Bool
 	{
 		if (curPos == -1)
 			curPos = list.indexOf(item);
@@ -192,7 +192,7 @@ typedef FastArray<T> =
 #if (php || cpp)
 		list.splice(0, list.length);
 #else
-	#if flash10	Assert.not(list.fixed); #end
+	#if x_flash10	Assert.not(list.fixed); #end
 		(untyped list).length = 0;
 #end
 		/*var l = list.length;
@@ -220,7 +220,7 @@ typedef FastArray<T> =
 	static public inline function first<T> ( list:FastArray<T> ) : T 			{ return list.length == 0 ? null : list[0]; }
 
 
-#if flash10
+#if x_flash10
 	/** Alias for arr.clone() */
 	static public inline function copy<T> ( arr:FastArray<T> ) : FastArray<T>
 	{
@@ -234,7 +234,7 @@ typedef FastArray<T> =
 	 */
 	static public inline function clone<T> ( arr:FastArray<T> ) : FastArray<T>
 	{
-		return #if flash10 arr.concat(); #else arr.copy(); #end
+		return #if x_flash10 arr.concat(); #else arr.copy(); #end
 	}
 	
 	
@@ -259,7 +259,7 @@ typedef FastArray<T> =
 	
 	static public inline function asArrayOf<A,B> ( arr:FastArray<A>, type:Class<B> ) : FastArray<B>
 	{
-		return #if flash10 flash.Vector.convert(arr) #else untyped arr #end;
+		return #if x_flash10 flash.Vector.convert(arr) #else untyped arr #end;
 	}
 	
 	

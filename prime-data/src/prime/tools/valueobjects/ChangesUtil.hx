@@ -44,7 +44,7 @@ package prime.tools.valueobjects;
  */
 class ChangesUtil
 {
-	public static function undo (changes:ChangeSet) : Void
+	public static function undo<T> (changes:ChangeSet) : Void
 	{
 	//	trace("undo changes "+Date.fromTime(changes.timestamp) + ", " + changes);
 
@@ -56,7 +56,7 @@ class ChangesUtil
 			var change = changes.next;
 			while (change != null)
 			{
-				if (change.is(ListChangeVO))	undoListChanges( 	change.as(ListChangeVO), 			vo);
+				if (change.is(ListChangeVO))	undoListChanges( 	change.as(ListChangeVO), 		vo);
 				else							undoPropertyChange( change.as(PropertyValueChangeVO), 	vo);
 				
 				change = change.next;
@@ -76,7 +76,7 @@ class ChangesUtil
 	}
 	
 	
-	public static function redo (changes:ChangeSet) : Void
+	public static function redo<T> (changes:ChangeSet) : Void
 	{
 	//	trace("redo changes "+Date.fromTime(changes.timestamp) + ", " + changes);
 		if (changes.is(ObjectChangeSet))
@@ -87,7 +87,7 @@ class ChangesUtil
 			var change = changes.next;
 			while (change != null)
 			{
-				if (change.is(ListChangeVO))	redoListChanges( 	change.as(ListChangeVO), 			vo);
+				if (change.is(ListChangeVO))	redoListChanges( 	change.as(ListChangeVO), 		vo);
 				else							redoPropertyChange( change.as(PropertyValueChangeVO), 	vo);
 				
 				change = change.next;
@@ -108,7 +108,7 @@ class ChangesUtil
 	
 	
 	
-	private static inline function undoListChanges (changesVO:ListChangeVO, owner:ValueObjectBase) : Void
+	private static inline function undoListChanges<T> (changesVO:ListChangeVO<T>, owner:ValueObjectBase) : Void
 	{
 		var list		= owner.getPropertyById( changesVO.propertyID ).as(IEditableList);
 		var changes 	= changesVO.changes;
@@ -118,7 +118,7 @@ class ChangesUtil
 	}
 	
 	
-	private static function redoListChanges (changesVO:ListChangeVO, owner:ValueObjectBase) : Void
+	private static function redoListChanges<T> (changesVO:ListChangeVO<T>, owner:ValueObjectBase) : Void
 	{
 		var list	= owner.getPropertyById( changesVO.propertyID ).as(IEditableList);
 		var changes = changesVO.changes;
