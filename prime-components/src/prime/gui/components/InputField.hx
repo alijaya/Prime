@@ -33,6 +33,7 @@ package prime.gui.components;
  import prime.bindable.Bindable;
  import prime.bindable.RevertableBindable;
  import prime.gui.core.UITextField;
+ import prime.gui.events.FocusState;
   using prime.utils.Bind;
   using prime.utils.TypeUtil;
 
@@ -193,9 +194,9 @@ class InputField <VOType> extends DataButton <VOType>
 	}
 	
 	
-	private function handleBlur ()
+	private function handleBlur ( e : FocusState )
 	{
-		if (!hasFocus)
+		if (!hasFocus || e.related == field )
 			return;
 		
 	//	Assert.isNotNull( vo.value );
