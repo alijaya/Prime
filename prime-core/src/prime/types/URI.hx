@@ -194,7 +194,7 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 	private function get_string()
 	{
 		if (this.string.notNull())	return this.string;
-		if (isEmpty())				return null;
+		if (isEmpty())				return "";
 		var s:StringBuf = new StringBuf();
 		
 		if (scheme.notNull()) switch (scheme)
