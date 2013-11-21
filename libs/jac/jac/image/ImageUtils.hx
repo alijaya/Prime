@@ -123,11 +123,11 @@ class ImageUtils
 
         bitmapData.unlock();
 #if debug
-        trace("duration: "+(haxe.Timer.stamp() - start).round(7)+" - pixels: "+(bitmapData.width * bitmapData.height)
+        /*trace("duration: "+(haxe.Timer.stamp() - start).round(7)+" - pixels: "+(bitmapData.width * bitmapData.height)
             +";\tcreated? "+hasToCreate+";\tdisposed? "+hasToDispose+";\tscale? "+hasToScale
             +";\tfps: "+fps+" / "+flash.Lib.current.stage.frameRate
         //  +";\tgpu: "+flash.Lib.current.stage.wmodeGPU
-        );
+        );*/
 #end
         return bitmapData;
     }
