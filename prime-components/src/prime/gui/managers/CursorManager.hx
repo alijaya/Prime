@@ -26,49 +26,65 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ezequiel Moreno
  */
 package prime.gui.managers;
-
-
-/**
- * Collection of manager classes.
- * 
- * @author Ruben Weijers
- * @creation-date Jan 17, 2011
- */
-interface ISystem
-{
-#if !CSSParser
-	
-	/**
-	 * Popup manager. IUIElements that are added to the popupmanager will
-	 * stay on top of the normal content.
-	 */
-	public var popups		(get_popups, null)		: IPopupManager;
-	
-	/**
-	 * Tooltip manager
-	 */
-    public var toolTip		(default, null)			: ToolTipManager;
-	
-	
-	/**
-	 * Render manager. Invalidated rendering objects will be validated when
-	 * the FlashPlayer fires a RenderEvent.
-	 */
-	public var rendering	(default, null)			: RenderManager;
-	
-	/**
-	 * Invalidation manager. Invalidated objects will be validated on the next
-	 * 'enterFrame' event.
-	 */
-    public var invalidation	(default, null)			: InvalidationManager;
-  
-  /**
-   * Cursor manager
-   */
-    public var cursor       (default, null)     : CursorManager;
-
+ 
+ import prime.gui.core.UIWindow;
+#if flash
+ import flash.ui.Mouse;
+ typedef Cursor = { name:String, cursorData:flash.ui.MouseCursorData }
+ #else
+ #error "tbd"
 #end
+
+class CursorManager implements prime.core.traits.IDisposable
+{
+  private var window:UIWindow;
+  
+  public var cursorMap (default, null) : Map < String, Cursor >;
+  
+  public function new (window:UIWindow)
+	{
+		this.window	= window;
+    cursorMap = new Map<String,Cursor>();
+  }
+  
+  public function addCursor( cursor:Cursor )
+  {
+    if ( cursorMap.exists( cursor.name ))
+    {
+      //error or replace?
+    }
+    else
+    {
+      cursorMap.set(cursor.name, cursor);
+#if flash
+      Mouse.registerCursor(cursor.name, cursor.cursorData);
+#end
+    }
+  }
+  
+  public function showCursor( name:String )
+  {
+    if ( cursorMap.exists( name ))
+    {
+#if flash
+      Mouse.cursor = name;
+#end
+    }
+    else
+    {
+    }
+
+  }
+  
+  public function showDefault()
+  {
+#if flash
+      Mouse.cursor = flash.ui.MouseCursor.AUTO;
+#end
+  }
+	
 }
+

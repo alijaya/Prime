@@ -42,6 +42,7 @@ package prime.gui.core;
  import prime.gui.managers.InvalidationManager;
  import prime.gui.managers.RenderManager;
  import prime.gui.managers.ToolTipManager;
+ import prime.gui.managers.CursorManager;
   using prime.utils.Bind;
   using prime.utils.BitUtil;
   using prime.utils.TypeUtil;
@@ -128,6 +129,7 @@ class UIWindow extends prime.gui.display.Window
 	public var rendering			(default, null)					: RenderManager;
 	public var popups				(get_popups, null)				: prime.gui.managers.IPopupManager;
 	public var toolTip				(default, null)					: ToolTipManager;
+	public var cursor				(default, null)					: CursorManager;
 	
 	
 	public function new (target:prime.gui.display.Stage, id:String = null)
@@ -139,6 +141,7 @@ class UIWindow extends prime.gui.display.Window
 		rendering		= new RenderManager(this);
 		invalidation	= new InvalidationManager(this);
 		toolTip			= new ToolTipManager(this);
+		cursor			= new CursorManager(this);
 		behaviours		= new BehaviourList();
 #if (flash9 || nme)
 		graphicData		= new GraphicProperties(rect);
