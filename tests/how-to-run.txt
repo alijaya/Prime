@@ -1,0 +1,11 @@
+Run A Single Test
+==================
+
+./run cases/InvalidationTest.hx
+
+
+Run A Single Test With Arguments
+- note arguments must be used for every parameter, including the main class
+==================
+
+./run -m cases/InvalidationTest.hx -h 500 -w 700

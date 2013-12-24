@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<componentPackage>
+	
+	<component id="Main"					superClass="UIWindow"			fullname="Main" />
+	<component id="CustomContainer"			superClass="UIContainer"		fullname="CustomContainer" />
+	
+<!--<component id=""	superClass=""	fullname="" />-->
+</componentPackage>

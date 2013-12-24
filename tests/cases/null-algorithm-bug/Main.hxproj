@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
+  <!-- Output SWF options -->
+  <output>
+    <movie outputType="Application" />
+    <movie input="" />
+    <movie path="bin/Main.swf" />
+    <movie fps="30" />
+    <movie width="800" />
+    <movie height="600" />
+    <movie version="10" />
+    <movie minorVersion="3" />
+    <movie platform="Flash Player" />
+    <movie background="#FFFFFF" />
+    <movie preferredSDK="Haxe 3.0.0;3.0.0;" />
+  </output>
+  <!-- Other classes to be compiled into your SWF -->
+  <classpaths>
+    <class path="../../..\prime-core\src" />
+    <class path="../../..\prime-signals\src" />
+    <class path="../../..\prime-bindable\src" />
+    <class path="../../..\prime-data\src" />
+    <class path="../../..\prime-locale\src" />
+    <class path="../../..\prime-fsm\src" />
+    <class path="../../..\prime-mvc\src" />
+    <class path="../../..\prime-display\src" />
+    <class path="../../..\prime-layout\src" />
+    <class path="../../..\prime-media\src" />
+    <class path="../../..\prime-components\src" />
+    <class path="../../..\prime-css\src" />
+    <class path="../../..\prime-perceptor\src" />
+    <class path="\src"/>
+  </classpaths>
+  <!-- Build options -->
+  <build>
+    <option directives="Monster3Trace" />
+    <option flashStrict="True" />
+    <option noInlineOnDebug="False" />
+    <option mainClass="" />
+    <option enabledebug="True" />
+    <option additional="Main.hxml&#xA;" />
+  </build>
+  <!-- haxelib libraries -->
+  <haxelib>
+    <library name="prime" />
+    <library name="feffects" />
+    <library name="prime-core" />
+    <library name="prime-signals" />
+    <library name="prime-bindable" />
+    <library name="prime-data" />
+    <library name="prime-locale" />
+    <library name="prime-fsm" />
+    <library name="prime-mvc" />
+    <library name="prime-display" />
+    <library name="prime-layout" />
+    <library name="prime-media" />
+    <library name="prime-components" />
+    <library name="prime-css" />
+    <library name="prime-perceptor" />
+  </haxelib>
+  <!-- Class files to compile (other referenced classes will automatically be included) -->
+  <compileTargets>
+    <compile path="" />
+  </compileTargets>
+  <!-- Assets to embed into the output SWF -->
+  <library>
+    <!-- example: <asset path="..." id="..." update="..." glyphs="..." mode="..." place="..." sharepoint="..." /> -->
+  </library>
+  <!-- Paths to exclude from the Project Explorer tree -->
+  <hiddenPaths>
+    <!-- example: <hidden path="..." /> -->
+  </hiddenPaths>
+  <!-- Executed before build -->
+  <preBuildCommand />
+  <!-- Executed after build -->
+  <postBuildCommand alwaysRun="False" />
+  <!-- Other project options -->
+  <options>
+    <option showHiddenPaths="False" />
+    <option testMovie="Default" />
+  </options>
+  <!-- Plugin storage -->
+  <storage />
+</project>
