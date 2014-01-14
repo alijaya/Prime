@@ -20,6 +20,7 @@ class PrimeLibsDevSet
         
         for ( d in primeDirs)
             var p = new Process( 'haxelib', ['dev', d, d.addTrailingSlash() + 'src']);
+        var p = new Process( 'haxelib', ['dev', 'prime', 'prime'.addTrailingSlash() + 'src']);
 	}
 	
 }

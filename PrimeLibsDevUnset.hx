@@ -20,6 +20,7 @@ class PrimeLibsDevUnset
         
         for ( d in primeDirs)
             var p = new Process( 'haxelib', ['remove', d]);
+        var p = new Process( 'haxelib', ['remove', 'prime']);
 	}
 	
 }
