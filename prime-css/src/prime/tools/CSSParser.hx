@@ -2148,7 +2148,7 @@ class CSSParser
 		if (imageURIExpr.match(v))
 		{
 	//		bmp = new Asset( (getBasePath() + "/" + imageURIExpr.matched(2)).replace("//", "/") );
-			factory = new Factory( "prime.types.URI", [ (getBasePath() + "/" + imageURIExpr.matched(2)).replace("//", "/") ] );
+			factory = new Factory( "prime.types.URI", [ (getBasePath() + "/" + imageURIExpr.matched(2)).replace("//", "/").replace("\\", "/") ] );
 			lastParsedString = imageURIExpr.removeMatch(v);
 		}
 		else if (isClassReference(v))
