@@ -163,7 +163,7 @@ package prime.tools;
 	public static inline var GRADIENT_COLOR			= "(" + COLOR_EXPR + ")(" + SPACE_MUST + "(" + FLOAT_UNIT_VALUE + "|" + PERC_VALUE + ")|0)?";
 	public static inline var GRADIENT_SPREAD		= "pad|reflect|repeat";
 	
-	public static inline var DOMAIN_LABEL			= "[a-z]([a-z0-9-]*[a-z0-9])?";
+	public static inline var DOMAIN_LABEL			= "[a-z]([a-z0-9-_]*[a-z0-9])?";
 	public static inline var CLASS_EXPR				= "(" + DOMAIN_LABEL + ")([.]" + DOMAIN_LABEL + ")*";
 	
 	public static inline var CUSTOM_SHAPE_EXPR		= "class" + SPACE + "[(]" + SPACE + "(" + CLASS_EXPR + ")"+SPACE+"[)]";
