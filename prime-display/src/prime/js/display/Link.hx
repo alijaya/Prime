@@ -1,6 +1,5 @@
 package prime.js.display;
 #if js
-import js.Dom;
 import js.Lib;
 import prime.js.events.TouchEvents;
 import prime.js.events.TouchSignal;
@@ -37,7 +36,7 @@ class Link extends DOMElem
 		return href;
 	}
 	
-	private function applyAction(e:TouchEvent)
+	private function applyAction(e)
 	{
 		action();
 	}

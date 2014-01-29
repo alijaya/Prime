@@ -32,8 +32,6 @@ package prime.gui.events;
  import prime.core.traits.IClonable;
  import prime.gui.events.KeyModState;
 
-#if (flash9 || nme)
-
 typedef TouchEvents =
     #if (flash9 || nme) Dynamic; //TODO
     #elseif flash   prime.avm1.events.TouchEvents;
@@ -41,8 +39,6 @@ typedef TouchEvents =
     #elseif js      prime.js  .events.TouchEvents;
 //  #elseif neko    prime.neko.events.TouchEvents;
     #else           #error; #end
-
-#end
 
 typedef TouchHandler    = TouchState -> Void;
 typedef TouchSignal     = prime.signals.Signal1<TouchState>;

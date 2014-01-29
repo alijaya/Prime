@@ -17,7 +17,7 @@ class DOMElem
 	public var matrix		(default, null):Dynamic;//WebKitCSSMatrix;
 	public var parent		:DOMElem;
 	public var scale		(default, set_scale):Float;
-	public var style		(get_style, null):Style;
+	public var style		(get_style, null):js.html.CSSStyleDeclaration;
 	public var type			(default, null):String;
 	public var visible		(default, set_visible):Bool;
 	public var width		(default, set_width):Int;
@@ -26,7 +26,7 @@ class DOMElem
 	
 	public function new(type:String)
 	{
-		elem = Lib.document.createElement(type);
+		elem = js.Browser.document.createElement(type);
 		
 		children = new DisplayList(this);
 #if onlinetouch
@@ -101,7 +101,7 @@ class DOMElem
 		return id;
 	}
 	
-	inline private function get_style():Style
+	inline private function get_style()
 	{
 		return elem.style;
 	}

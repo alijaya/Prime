@@ -3,6 +3,7 @@ package prime.js.net;
  import prime.core.events.LoaderEvents;
  import prime.net.ICommunicator;
  import prime.net.CommunicationType;
+ import prime.net.RequestMethod;
  import prime.bindable.Bindable;
  import prime.types.URI;
  import haxe.io.BytesData;
@@ -133,6 +134,12 @@ class URLLoader implements ICommunicator
 		request	= null;
 	}
 	
+	public function requestBinary (uri:URI, method:RequestMethod) return switch (method) {
+		case get:  binaryGET (uri);
+		case post: sendBinary(uri);
+		default:   throw "unsupported: " + method;
+	}
+
 	public function binaryGET(uri:URI)
 	{
 		this.type = CommunicationType.loading;
@@ -146,7 +153,7 @@ class URLLoader implements ICommunicator
 		this.isStarted = true;
 	}
 	
-	public function binaryPOST(uri:URI, mimetype:String = "application/octet-stream")
+	public function sendBinary(uri:URI, mimetype:String = "application/octet-stream")
 	{
 		this.type = CommunicationType.sending;
 		
