@@ -17,7 +17,7 @@ class DisplayList
 	
 	public #if !noinline inline #end function add(object:DOMElem)
 	{
-		if (object.elem.parentNode != target.elem)
+		if (object.parent != target)
 		{
 			if (object.elem.parentNode != null) object.elem.parentNode.removeChild(object.elem);
 			object.style.display = "block";
@@ -28,7 +28,7 @@ class DisplayList
 	
 	public #if !noinline inline #end function remove(object:DOMElem)
 	{
-		if (object.elem.parentNode == target.elem)
+		if (object.parent == target)
 		{
 			// --- Reduce reflows by hiding from DOM, instead of removing an element immediately:
 			//target.elem.removeChild(object.elem);
