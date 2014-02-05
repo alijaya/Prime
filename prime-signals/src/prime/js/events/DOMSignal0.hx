@@ -27,7 +27,7 @@ class DOMSignal0 extends Signal0 implements IWireWatcher<Void->Void>
 		
 		if (n.next() == null) // First wire connected
 		{
-			untyped eventDispatcher.addEventListener(event, dispatch, false);
+			untyped eventDispatcher.addEventListener(event, send, false);
 		}
 	}
 	
@@ -35,13 +35,8 @@ class DOMSignal0 extends Signal0 implements IWireWatcher<Void->Void>
 	{	
 		if (n == null) // No more wires connected
 		{
-			untyped eventDispatcher.removeEventListener(event, dispatch, false);
+			untyped eventDispatcher.removeEventListener(event, send, false);
 		}
-	}
-	
-	private function dispatch(e:Event) 
-	{
-		Assert.abstractMethod();
 	}
 }
 #end
