@@ -30,10 +30,9 @@ class Link extends DOMElem
 	
 	private function set_href(v:String):String
 	{
-		href = v;
-		elem.href = href;
+		elem.href = v;
 		elem.target = "_blank";
-		return href;
+		return href = v;
 	}
 	
 	private function applyAction(e)

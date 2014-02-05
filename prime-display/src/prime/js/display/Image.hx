@@ -25,8 +25,8 @@ class Image extends DOMElem {
 	private function initEvents() {
 		events = new DisplayEvents(elem);
 		
-		events.insertedIntoDoc.bind(this, onInsertedIntoDoc);
-		events.removedFromDoc.bind(this, onRemovedFromDoc);
+		events.addedToStage.bind(this, onInsertedIntoDoc);
+		events.removedFromStage.bind(this, onRemovedFromDoc);
 		
 		loaded = new Signal1();
 		untyped elem.addEventListener("load", onLoad, false);
@@ -58,12 +58,12 @@ class Image extends DOMElem {
 		return src;
 	}
 	
-	private function onInsertedIntoDoc(event:DisplayEvent) {
+	private function onInsertedIntoDoc() {
 		isDisplayed = true;
 		load();
 	}
 	
-	private function onRemovedFromDoc(event:DisplayEvent) {
+	private function onRemovedFromDoc() {
 		isDisplayed = false;
 		elem.src = "";
 	}
