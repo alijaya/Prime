@@ -19,8 +19,10 @@ class DisplayList
 	{
 		if (object.elem.parentNode != target.elem)
 		{
-			target.elem.appendChild(object.elem);
+			if (object.elem.parentNode != null) object.elem.parentNode.removeChild(object.elem);
+			object.style.display = "block";
 			object.parent = target;
+			target.elem.appendChild(object.elem);
 		}
 	}
 	
@@ -28,7 +30,10 @@ class DisplayList
 	{
 		if (object.elem.parentNode == target.elem)
 		{
-			target.elem.removeChild(object.elem);
+			// --- Reduce reflows by hiding from DOM, instead of removing an element immediately:
+			//target.elem.removeChild(object.elem);
+			// ---
+			object.style.display = "none";
 			object.parent = null;
 		}
 	}
