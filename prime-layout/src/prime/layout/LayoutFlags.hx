@@ -38,7 +38,7 @@ package prime.layout;
  */
 #if !debug extern #end class LayoutFlags
 {
-	public static inline var ALL_PROPERTIES			= SIZE | POSITION | INCLUDE | RELATIVE | ALGORITHM | PERCENT_WIDTH | PERCENT_HEIGHT | PADDING | MARGIN | MAINTAIN_ASPECT | ROTATION | CHILD_WIDTH | CHILD_HEIGHT | WIDTH_CONSTRAINTS | HEIGHT_CONSTRAINTS;
+	public static inline var ALL_PROPERTIES			= SIZE | POSITION | INCLUDE | RELATIVE | FLEXBOX | ALGORITHM | PERCENT_WIDTH | PERCENT_HEIGHT | PADDING | MARGIN | MAINTAIN_ASPECT | ROTATION | CHILD_WIDTH | CHILD_HEIGHT | WIDTH_CONSTRAINTS | HEIGHT_CONSTRAINTS;
 	
 	public static inline var WIDTH_CONSTRAINTS		= MIN_WIDTH | MAX_WIDTH;
 	public static inline var HEIGHT_CONSTRAINTS		= MIN_HEIGHT | MAX_HEIGHT;
@@ -65,6 +65,9 @@ package prime.layout;
 	 * The relative property or properties of the relative object are changed.
 	 */
 	public static inline var RELATIVE				= 1 << 5;
+	
+	public static inline var FLEXBOX				= 1 << 30;
+	
 	/**
 	 * Flag indicating that a property of the layout algorithm is changed and
 	 * the layout needs to be validated again.
@@ -116,12 +119,7 @@ package prime.layout;
 	 */
 	public static inline var CHILDREN_INVALIDATED	= 1 << 29;
 	
-	/**
-	 * Flag indicating that the child-length property of a LayoutContainer is 
-	 * fixed and should not be updated when the list of children is changed.
-	 */
-//	public static inline var FIXED_CHILD_LENGTH		= 1 << 30;
-	
+
 	
 	
 	/**
@@ -165,6 +163,7 @@ package prime.layout;
 		if (flags.has( CHILDREN_INVALIDATED ))	output.push("children_invalidated");
 		if (flags.has( EXPLICIT_HEIGHT ))		output.push("explicit-height");
 		if (flags.has( EXPLICIT_WIDTH))			output.push("explicit-width");
+		if (flags.has( FLEXBOX))				output.push("flexbox");
 		if (flags.has( HEIGHT ))				output.push("height");
 		if (flags.has( INCLUDE ))				output.push("include");
 		if (flags.has( LIST ))					output.push("list");

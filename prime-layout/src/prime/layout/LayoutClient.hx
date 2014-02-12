@@ -93,6 +93,8 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	 */
 	@borrowed public var relative	(default, set_relative)				: RelativeLayout;
 	
+	@borrowed public var flexbox	(default, set_flexbox)				: FlexBoxLayout;
+	
 	/**
 	 * @default	false
 	 */
@@ -971,6 +973,19 @@ class LayoutClient extends prime.core.traits.Invalidatable
 		}
 		return v;
 	}
+
+	private  function set_flexbox (v:FlexBoxLayout)
+	{
+		if (flexbox != v)
+		{
+			if (flexbox != null && flexbox.change != null)	flexbox.change.unbind( this );
+			if (v != null)									handleFlexboxChange.on( v.change, this );
+			
+			flexbox = v;
+			handleFlexboxChange();
+		}
+		return v;
+	}
 	
 	
 	private  function set_widthValidator (v:IntRangeValidator)
@@ -1030,6 +1045,8 @@ class LayoutClient extends prime.core.traits.Invalidatable
 	//
 	
 	private inline function handleRelativeChange ()	{ invalidate(Flags.RELATIVE); }
+	private inline function handleFlexboxChange ()	{ invalidate(Flags.FLEXBOX); }
+	
 	private function handleWidthValidatorChange ()	{ updateAllWidths ( validateWidth ( _width, Flags.VALIDATE_ALL ) ); }
 	private function handleHeightValidatorChange ()	{ updateAllHeights( validateHeight( _height, Flags.VALIDATE_ALL ) ); }
 	
