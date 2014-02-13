@@ -26,7 +26,7 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-#if !js
+#if (!js || CSSParser)
 package prime.types;
  import prime.core.geom.Matrix2D;
  import prime.net.ICommunicator;
