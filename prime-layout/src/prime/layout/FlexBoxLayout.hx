@@ -16,7 +16,7 @@ class FlexBoxLayout implements prime.core.traits.IDisposable
 	public var _oid					(default, null)	: Int;
 #end
 
-	@:isVar public var order(default, set_order):Int = Number.INT_NOT_SET;
+	@:isVar public var order(default, set_order):Int = 0;
 
 	@:isVar public var flexGrow(default, set_flexGrow):Float = 0;
 	
