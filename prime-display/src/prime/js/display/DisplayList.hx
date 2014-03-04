@@ -15,14 +15,15 @@ class DisplayList
 		target = object;
 	}
 	
-	public #if !noinline inline #end function add(object:DOMElem)
+	public #if !noinline inline #end function add(object:DOMElem, ?before:Dynamic)
 	{
 		if (object.parent != target)
 		{
 			if (object.elem.parentNode != null) object.elem.parentNode.removeChild(object.elem);
-			object.style.display = "block";
+			object.style.display = null;//"block";
 			object.parent = target;
-			target.elem.appendChild(object.elem);
+			if (before == null) target.elem.appendChild(object.elem);
+			else target.elem.insertBefore(object.elem, before);
 		}
 	}
 	
