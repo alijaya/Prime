@@ -189,16 +189,12 @@ class GradientFill extends prime.gui.graphics.GraphicElement implements prime.gu
 
 #if (flash9 || nme)
 	public #if !noinline inline #end function getFlashType () : FlashGradientType
-	{
-		return (type == GradientType.linear) ? FlashGradientType.LINEAR : FlashGradientType.RADIAL;
-	}
+		return if (type == linear) LINEAR else RADIAL;
 	
-	public function getSpreadMethod () : flash.display.SpreadMethod {
-		return switch (spread) {
-			case SpreadMethod.normal:	flash.display.SpreadMethod.PAD;
-			case SpreadMethod.reflect:	flash.display.SpreadMethod.REFLECT;
-			case SpreadMethod.repeat:	flash.display.SpreadMethod.REPEAT;
-		}
+	public function getSpreadMethod () : flash.display.SpreadMethod return switch (spread) {
+		case normal:  PAD;
+		case reflect: REFLECT;
+		case repeat:  REPEAT;
 	}
 #end
 	

@@ -124,7 +124,7 @@ typedef Both<A, B> = Is_both_A_and_B<A,B,Dynamic>;
 	 */
 	static public macro function as<T>(o:ExprOf<Dynamic>, targetClass:ExprOf<Class<T>>) : ExprOf<T>
 	{
-		//trace(targetClass);
+		#if (haxe_ver == 3)
 		var type = Context.typeof(targetClass);
 		//trace("type: " + type + ", complex: " + Context.toComplexType(type));
 
@@ -151,6 +151,36 @@ typedef Both<A, B> = Is_both_A_and_B<A,B,Dynamic>;
 						tmp; };
 		e.pos = Context.currentPos();
 		return e;
+
+	#else
+
+		switch (Context.typeof(targetClass))
+		{
+			case TType (tref, params):
+
+				switch (Context.toComplexType(tref.get().type))
+				{
+					case TPath({ params: [TPType(t = TPath(p))] }):
+						var realType = Context.getType(MacroTypeUtil.fullName(p));
+						var constrainedType = withTypeParameters(realType);
+						if (constrainedType != null && constrainedType != realType) {
+							var comp = Context.toComplexType(constrainedType);
+							//trace(type + "constrainedType: "+comp);
+							comp;
+						}
+						else{
+							//trace(type +"not constrained: "+t);
+							realType;
+						}
+						return { expr: ECast(o, Context.toComplexType(constrainedType)), pos: Context.currentPos() };
+
+					case _: throw "can't cast: "+ o +" to: "+ targetClass;
+				}
+				case _: throw "can't cast: "+ o +" to: "+ targetClass;
+		}
+		throw "can't cast: "+ o +" to: "+ targetClass;
+
+		#end
 	}
 	/*
 		Haxe 3.0 unfortunately loses some type information

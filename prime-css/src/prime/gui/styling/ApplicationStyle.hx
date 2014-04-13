@@ -86,7 +86,7 @@ class ApplicationStyle extends UIElementStyle
 			updateStyles();
 			scnx.api.loaded.call([className]);
 		});
-		ldr.load(new prime.types.URI(uri), new flash.system.LoaderContext(flash.system.ApplicationDomain.currentDomain));
+		ldr.load(new prime.types.URI(uri), new flash.system.LoaderContext(false, flash.system.ApplicationDomain.currentDomain));
 	}
 
   #end
