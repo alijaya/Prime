@@ -166,6 +166,20 @@ class Inspector extends UIContainer
 			selectedData.add( "Explicit w, h: " + u.explicitWidth + ", " + u.explicitHeight );
 			selectedData.add( "Measured w, h: " + u.measuredWidth + ", " + u.measuredHeight );
 		}
+		if ( d.is( prime.gui.traits.IScrollable ) )
+		{
+			var u = d.as( prime.gui.traits.IScrollable );
+			
+			selectedData.add( "isScrollable : " + u.isScrollable );
+			selectedData.add( "scrollRect : " + u.getScrollRect() );
+		}
+		if ( d.is( prime.gui.traits.IBehaving) )
+		{
+			var u = d.as( prime.gui.traits.IBehaving );
+			
+			for( b in u.behaviours.list )
+				selectedData.add( "behaviour : " + b );
+		}
 		
 		// Going any further on the root node of the tree can create too
 		// much data that crashes the app from invalid flash heights.
