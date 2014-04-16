@@ -1,6 +1,5 @@
 package prime.js.display;
 #if js
- import js.Dom;
  import prime.signals.Signal1;
  import prime.js.events.DisplayEvents;
  import prime.js.events.DisplaySignal;
@@ -16,8 +15,6 @@ class Image extends DOMElem {
 	public var events			(default, null):DisplayEvents;
 	public var isDisplayed		(default, null):Bool;
 	public var loaded			(default, null):Signal1<Image>;
-	override public var width	(default, set_width):Int;
-	override public var height	(default, set_height):Int;
 	
 	public function new() {
 		super("img");
@@ -28,8 +25,8 @@ class Image extends DOMElem {
 	private function initEvents() {
 		events = new DisplayEvents(elem);
 		
-		events.insertedIntoDoc.bind(this, onInsertedIntoDoc);
-		events.removedFromDoc.bind(this, onRemovedFromDoc);
+		events.addedToStage.bind(this, onInsertedIntoDoc);
+		events.removedFromStage.bind(this, onRemovedFromDoc);
 		
 		loaded = new Signal1();
 		untyped elem.addEventListener("load", onLoad, false);
@@ -61,17 +58,17 @@ class Image extends DOMElem {
 		return src;
 	}
 	
-	private function onInsertedIntoDoc(event:DisplayEvent) {
+	private function onInsertedIntoDoc() {
 		isDisplayed = true;
 		load();
 	}
 	
-	private function onRemovedFromDoc(event:DisplayEvent) {
+	private function onRemovedFromDoc() {
 		isDisplayed = false;
 		elem.src = "";
 	}
 	
-	private function onLoad(event:Event) {
+	private function onLoad(event) {
 		loaded.send(this);
 	}
 	
@@ -80,5 +77,9 @@ class Image extends DOMElem {
             elem.src = src;
         }
 	}
+
+    inline public function unload() {
+        elem.src = "";
+    }
 }
 #end

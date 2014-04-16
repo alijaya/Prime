@@ -1,6 +1,5 @@
 package prime.js.display;
 #if js
-import js.Dom;
 import js.Lib;
 
 /**

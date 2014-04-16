@@ -1,6 +1,5 @@
 package prime.js.display;
 #if js
-import js.Dom;
 import js.Lib;
 
 /**
@@ -26,8 +25,6 @@ class Video extends DOMElem
     
 	public var src		        (default, set_src):String;
     public var preload          (default, set_preload):String;
-	override public var width	(default, set_width):Int;
-	override public var height	(default, set_height):Int;
 	
 	public function new() {
 		super("video");
@@ -76,6 +73,17 @@ class Video extends DOMElem
         //elem.controls = "controls";
         //elem.load();
         //elem.play();
+    }
+
+	public function load() {
+		//if (src != null && elem.src != src) {
+            elem.src = src;
+        //}
+	}
+
+    public function unload() {
+        elem.pause();
+        elem.src = "";
     }
 }
 #end

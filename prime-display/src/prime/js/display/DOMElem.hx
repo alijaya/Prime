@@ -16,25 +16,21 @@ class DOMElem
 	public var id			(default, set_id):String;
 	public var matrix		(default, null):Dynamic;//WebKitCSSMatrix;
 	public var parent		:DOMElem;
-	public var scale		(default, set_scale):Float;
-	public var style		(get_style, null):Style;
+	public var scale		(default, set_scale):Float = 1;
+	public var style		(get_style, null):js.html.CSSStyleDeclaration;
 	public var type			(default, null):String;
 	public var visible		(default, set_visible):Bool;
 	public var width		(default, set_width):Int;
-	public var x			(default, set_x):Int;
-	public var y			(default, set_y):Int;
+	public var x			(default, set_x):Int = 0;
+	public var y			(default, set_y):Int = 0;
 	
 	public function new(type:String)
 	{
-		elem = Lib.document.createElement(type);
+		elem = js.Browser.document.createElement(type);
 		
 		children = new DisplayList(this);
-#if onlinetouch
-		matrix = nl.onlinetouch.viewer.view.managers.js.Transform.getMatrix(elem);	//<-- WTF Stan?!@%
-#end
-		(untyped this).x = 0;
-		(untyped this).y = 0;
-		(untyped this).scale = 1;
+		var style = js.Browser.window.getComputedStyle(elem, null);
+		this.matrix = untyped __js__("new WebKitCSSMatrix(style.webkitTransform)");
 	}
 	
 	private function set_width(v:Int):Int
@@ -101,7 +97,7 @@ class DOMElem
 		return id;
 	}
 	
-	inline private function get_style():Style
+	inline private function get_style()
 	{
 		return elem.style;
 	}
@@ -125,14 +121,11 @@ class DOMElem
 	
 	inline private function applyTransforms()
 	{
-		//elem.style.webkitTransform = "translate3d(" + x + "px," + y + "px,0) scale3d(" + scale + "," + scale + ",1)";
-		elem.style.webkitTransform = "translate(" + x + "px," + y + "px) scale(" + scale + ")";
-	/*	var m = matrix;
+		var m = matrix;
 		m.a = m.d = scale;
 		m.e = x;
 		m.f = y;
 		elem.style.webkitTransform = m;
-	*/
 	}
 }
 #end

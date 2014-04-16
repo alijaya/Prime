@@ -15,20 +15,26 @@ class DisplayList
 		target = object;
 	}
 	
-	public #if !noinline inline #end function add(object:DOMElem)
+	public #if !noinline inline #end function add(object:DOMElem, ?before:Dynamic)
 	{
-		if (object.elem.parentNode != target.elem)
+		if (object.parent != target)
 		{
-			target.elem.appendChild(object.elem);
+			if (object.elem.parentNode != null) object.elem.parentNode.removeChild(object.elem);
+			object.style.display = null;//"block";
 			object.parent = target;
+			if (before == null) target.elem.appendChild(object.elem);
+			else target.elem.insertBefore(object.elem, before);
 		}
 	}
 	
 	public #if !noinline inline #end function remove(object:DOMElem)
 	{
-		if (object.elem.parentNode == target.elem)
+		if (object.parent == target)
 		{
-			target.elem.removeChild(object.elem);
+			// --- Reduce reflows by hiding from DOM, instead of removing an element immediately:
+			//target.elem.removeChild(object.elem);
+			// ---
+			object.style.display = "none";
 			object.parent = null;
 		}
 	}

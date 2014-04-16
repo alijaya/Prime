@@ -1,6 +1,5 @@
 package prime.js.display;
 #if js
-import js.Dom;
 import js.Lib;
 import prime.js.events.TouchEvents;
 import prime.js.events.TouchSignal;
@@ -31,13 +30,12 @@ class Link extends DOMElem
 	
 	private function set_href(v:String):String
 	{
-		href = v;
-		elem.href = href;
+		elem.href = v;
 		elem.target = "_blank";
-		return href;
+		return href = v;
 	}
 	
-	private function applyAction(e:TouchEvent)
+	private function applyAction(e)
 	{
 		action();
 	}

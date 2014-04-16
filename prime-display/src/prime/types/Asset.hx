@@ -26,6 +26,7 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
+#if (!js || CSSParser)
 package prime.types;
  import prime.core.geom.Matrix2D;
  import prime.net.ICommunicator;
@@ -681,3 +682,4 @@ enum AssetType {
 	bitmapData;
 	displayObject;
 }
+#end

@@ -109,7 +109,7 @@ class TypedProxyTree<T, F> extends SimpleList< TypedProxyTree<T, F> >
 		{
 			if ( i != null && i.is(filter) )
 			{
-				var child : T = i.as(type);
+				var child : T = i;
 				var node : TypedProxyTree<T, F> = new TypedProxyTree<T, F>( child, getChildList, type, filter );
 				childNodeMap.set( child, node );
 				add( node );

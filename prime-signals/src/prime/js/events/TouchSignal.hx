@@ -25,7 +25,6 @@ class TouchSignal extends DOMSignal1<TouchState>
 
 
 
-//import js.Dom;
 
 /**
  * @author Stanislav Sopov
@@ -33,7 +32,6 @@ class TouchSignal extends DOMSignal1<TouchState>
  */
 /*class TouchSignal extends DOMSignal1<Type>
 import prime.js.events.DOMSignal1;
-import js.Dom;
 
 typedef TouchEvent = 
 {
