@@ -68,7 +68,7 @@ class ScrollEffect extends Effect<prime.gui.traits.IScrollable, ScrollEffect>
     public var endY     : Float;
     
     
-    public function new (duration:Int = 350, delay:Int = 0, easing:Easing = null, isReverted:Bool = false, startX:Float = Number.INT_NOT_SET, startY:Float = Number.INT_NOT_SET, endX:Float = Number.INT_NOT_SET, endY:Float = Number.INT_NOT_SET)
+    public function new (duration:Int = 350, delay:Int = 0, easing:Easing = null, ?isReverted:Bool = false, startX:Float = Number.INT_NOT_SET, startY:Float = Number.INT_NOT_SET, endX:Float = Number.INT_NOT_SET, endY:Float = Number.INT_NOT_SET)
     {
         super(duration, delay, easing, isReverted);
         

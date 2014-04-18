@@ -163,16 +163,20 @@ typedef Both<A, B> = Is_both_A_and_B<A,B,Dynamic>;
 					case TPath({ params: [TPType(t = TPath(p))] }):
 						var realType = Context.getType(MacroTypeUtil.fullName(p));
 						var constrainedType = withTypeParameters(realType);
-						if (constrainedType != null && constrainedType != realType) {
-							var comp = Context.toComplexType(constrainedType);
-							//trace(type + "constrainedType: "+comp);
+						var type = if (constrainedType != null && constrainedType != realType) {
+							var comp = constrainedType;
+							//trace(realType + "constrainedType: "+comp);
 							comp;
 						}
 						else{
 							//trace(type +"not constrained: "+t);
 							realType;
 						}
-						return { expr: ECast(o, Context.toComplexType(constrainedType)), pos: Context.currentPos() };
+						var ctype = Context.toComplexType(type);
+						var e = macro { var tmp : $ctype = untyped $o;
+										tmp; };
+						e.pos = Context.currentPos();
+						return e;
 
 					case _: throw "can't cast: "+ o +" to: "+ targetClass;
 				}
