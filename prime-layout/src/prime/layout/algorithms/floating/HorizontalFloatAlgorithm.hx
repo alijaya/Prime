@@ -381,7 +381,7 @@ class HorizontalFloatAlgorithm extends HorizontalBaseAlgorithm implements IHoriz
 	    
 	    switch (direction)
 	    {
-			case Horizontal.left:
+			case Horizontal.left, Horizontal.center:
 			    if (childW.isSet()) {
 			        scrollX = getLeftStartValue() + (depth * childW);
 		        } else {
@@ -390,12 +390,7 @@ class HorizontalFloatAlgorithm extends HorizontalBaseAlgorithm implements IHoriz
 			        
 			        scrollX = children.getItemAt( depth - group.fixedChildStart ).outerBounds.left;
 			    }
-			    
-			
-			case Horizontal.center:
-			    Assert.abstractMethod();
-			
-			
+
 			case Horizontal.right:
 			    if (childW.isSet()) {
 			        scrollX = getRightStartValue() + ((depth + 1) * childW);

@@ -382,7 +382,7 @@ class VerticalFloatAlgorithm extends prime.layout.algorithms.VerticalBaseAlgorit
 	    
 	    switch (direction)
 	    {
-			case top:
+			case top, center:
 			    var childPos = 0;
 			    if (childH.isSet()) 
 			    {
@@ -397,10 +397,6 @@ class VerticalFloatAlgorithm extends prime.layout.algorithms.VerticalBaseAlgorit
 			        childPos    = child.outerBounds.top;
 			        scroll      = childPos > curScroll ? child.outerBounds.bottom - group.height : childPos;
 			    }
-			
-			case center:
-			    Assert.abstractMethod();
-			
 			
 			case bottom:
 			    if (childH.isSet()) {
