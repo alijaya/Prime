@@ -67,7 +67,7 @@ class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.
 	override private function init ()
 	{
 		Assert.isNotNull( target.scrollableLayout, "target.layout of "+target+" must be a IScrollableLayout" );
-		target.enableClipping();
+
 		if (target.container == null)
 			addListeners.onceOn(target.displayEvents.addedToStage, this);
 		else
