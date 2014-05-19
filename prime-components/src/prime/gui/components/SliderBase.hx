@@ -73,8 +73,18 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 	private var mouseBtnDownBinding		: Wire < MouseState -> Void >;
 	private var mouseUpBinding			: Wire < MouseState -> Void >;
 	
+	public var snapPercentage : Float;
+	public var snapThreshold : Float;
 	
+	public function cancelSlide()
+	{
+		userEvents.mouse.up.send(null);
+	}
 	
+	public function resumeSlide()
+	{
+		
+	}
 	
 	public function new (id:String = null, value:Float = 0.0, minValue:Float = 0.0, maxValue:Float = 1.0, direction:Direction = null)
 	{
@@ -83,6 +93,8 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 	//	(untyped this).showButtons	= false;
 		this.direction				= direction == null ? horizontal : direction;
 		sliding						= new ActionEvent();
+		
+		snapPercentage = snapThreshold = 0;
 	}
 	
 	
@@ -296,8 +308,14 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 		if (!curMouse.x.isWithin( min, maxMouse ))
 			return;
 		
-		var newX		= (originalPos.x + curMouse.x - mouseStartPos.x).within( min, max );
-		data.percentage	= ((newX - min) / (max - min)).within(0, 1);
+		var newX			= (originalPos.x + curMouse.x - mouseStartPos.x).within( min, max );
+		var newPercentage	= ((newX - min) / (max - min)).within(0, 1);
+		
+		var difference = Math.abs( newPercentage - snapPercentage );
+		if ( difference < snapThreshold )
+			newPercentage = snapPercentage;
+		
+		data.percentage	= newPercentage;
 	}
 	
 	
