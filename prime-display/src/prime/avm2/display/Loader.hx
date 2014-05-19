@@ -349,7 +349,11 @@ class Loader implements ICommunicator
 		if (c == null)
 			c = new LoaderContext(true, new ApplicationDomain(defaultDomain));
 #end
-		
+
+#if flash11
+		try (untyped c).imageDecodingPolicy = "onLoad" catch ( e : Dynamic ) { }
+#end
+
 #if debug	
 		Assert.isNotNull(v, this);
 		Assert.that(!isQueued(), this);
@@ -377,6 +381,10 @@ class Loader implements ICommunicator
 		if (c == null)
 			c = new LoaderContext(false, new ApplicationDomain(defaultDomain));
 		#end
+		
+#if flash11
+		try (untyped c).imageDecodingPolicy = "onLoad" catch ( e : Dynamic ) { }
+#end
 		
 		addConnection();
 		loader.loadBytes(v #if flash9, c #end);
