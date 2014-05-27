@@ -14,9 +14,7 @@ extern enum HammerDirection
 extern class Hammer {
   public function on(gesture:String, callback:GestureEvent->Void):Element;
   static public inline function time(element:Element, ?options : HammerOptions):Hammer {
-    var e = element;
-    var o = options;
-    return untyped __js__("Hammer(e, o)");
+    return untyped __js__("Hammer")(element, options);
   }
   public function off(gesture:String, callback:GestureEvent->Void):Element;
   public function enable(toggle:Bool):Element;
