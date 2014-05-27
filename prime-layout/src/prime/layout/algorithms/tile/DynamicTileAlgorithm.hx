@@ -451,7 +451,7 @@ class DynamicTileAlgorithm extends TileAlgorithmBase implements ILayoutAlgorithm
 /**
  * Layout-algorithm which is only used for rows. It measures them and if there
  */
-private class DynamicRowAlgorithm extends HorizontalFloatAlgorithm
+class DynamicRowAlgorithm extends HorizontalFloatAlgorithm
 {
 	override public function validateHorizontal ()
 	{
@@ -520,7 +520,7 @@ private class DynamicRowAlgorithm extends HorizontalFloatAlgorithm
 
 
 
-private class DynamicColumnAlgorithm extends VerticalFloatAlgorithm
+class DynamicColumnAlgorithm extends VerticalFloatAlgorithm
 {
 	override public function validateVertical ()
 	{

@@ -17,7 +17,7 @@ libs.hxml
 ## Flash 10
 -main TestMain
 libs.hxml
--swf-version 10
+-swf-version 10.2
 -swf build/as3_test.swf
 
 --next
@@ -25,10 +25,7 @@ libs.hxml
 -main TestMain
 libs.hxml
 -debug
--swf-version 10
+-swf-version 10.2
 -swf build/as3_test.swf
-
---next
-
 
 

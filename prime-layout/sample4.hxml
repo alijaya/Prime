@@ -1,0 +1,5 @@
+prime.hxml
+-swf-version 10.2
+-D prime_css
+-main examples/layout/LayoutExample4.hx
+-swf sample4.swf

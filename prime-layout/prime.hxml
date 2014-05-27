@@ -3,6 +3,7 @@
 
 -lib feffects
 -D prime_net
+-D prime_layout
 -cp ../libs/apparat
 
 -cp ../prime-signals/src
