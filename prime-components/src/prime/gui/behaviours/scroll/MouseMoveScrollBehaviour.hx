@@ -30,9 +30,15 @@
  */
 package prime.gui.behaviours.scroll;	
 #if !CSSParser
+ import feffects.Tween;
  import prime.core.geom.IntPoint;
+ import prime.core.geom.Point;
  import prime.gui.events.MouseEvents;
+ import prime.signals.Signal.Signal;
+ import prime.signals.Signal0;
+ import prime.signals.Wire.Wire;
   using prime.utils.NumberUtil;
+  using prime.utils.Bind;
 
 
 /**
@@ -43,8 +49,18 @@ package prime.gui.behaviours.scroll;
  */
 class MouseMoveScrollBehaviour extends MouseScrollBehaviourBase
 {
+	private var targetScrollPos : IntPoint;
+
+#if release_hack
+	private var xTween : feffects.Tween;
+	private var yTween : feffects.Tween;
+#end
+
 	override private function calculateScroll (mouseObj:MouseState)
 	{
+		if ( targetScrollPos == null )
+			targetScrollPos	= new IntPoint();
+		
 		lastMouseObj = mouseObj.clone();
 		
 		var layout    = target.scrollableLayout;
@@ -55,28 +71,90 @@ class MouseMoveScrollBehaviour extends MouseScrollBehaviourBase
 			return;
 		
 		var mousePos	= ScrollHelper.getLocalMouse(target, mouseObj);
-	//	var percentX:Float = 0, percentY:Float = 0;
-		var scrollPos	= new IntPoint();
-		
+		var percentX:Float = 0, percentY:Float = 0;
+
 		//horScroll
 		if (scrollHor) {
-			var percentX	 = ( mousePos.x / layout.width ).max(0).min(1);
-			scrollPos.x		 = ( layout.scrollableWidth * percentX ).roundFloat();
+			  percentX	 = ( mousePos.x / layout.width ).max(0).min(1);
+			targetScrollPos.x		 = ( layout.scrollableWidth * percentX ).roundFloat();
 		//	untyped trace(scrollPos.x + "; scrollX: "+layout.scrollPos.x+"; sW: "+layout.scrollableWidth+"; w: "+layout.width+"; eW: "+layout.explicitWidth+"; mW: "+layout.measuredWidth+"; mX: "+mousePos.x+"; pX "+percentX+"; horP: "+layout.getHorPosition()+"; x: "+target.x);
 		}
 		
 		//verScroll
 		if (scrollVer) {
-			var percentY	 = ( mousePos.y / layout.height ).min(1).max(0);
-			scrollPos.y		 = ( layout.scrollableHeight * percentY ).roundFloat();
+			  percentY	 = ( mousePos.y / layout.height ).min(1).max(0);
+			targetScrollPos.y		 = ( layout.scrollableHeight * percentY ).roundFloat();
 		//	untyped trace(scrollPos.y + "; scrollY: "+layout.scrollPos.y+"; sH: "+layout.scrollableHeight+"; h: "+layout.height+"; eH: "+layout.explicitHeight+"; mH: "+layout.measuredHeight+"; mY: "+mousePos.y+"; pY: "+percentY+"; verP: "+layout.getVerPosition()+"; y: "+target.y);
 		}
 		
-		scrollPos = layout.validateScrollPosition( scrollPos );
-	//	trace(target+" - "+scrollHor+" / "+scrollVer+"; scrollPos "+scrollPos.x+", "+scrollPos.y+"; perc: "+percentX+", "+percentY+"; mouse: "+mousePos.x+", "+mousePos.y+"; size: "+layout.width+", "+layout.height+"; scrollable "+layout.scrollableWidth+", "+layout.scrollableHeight+"; measured "+layout.measuredWidth+", "+layout.measuredHeight);
+		targetScrollPos = layout.validateScrollPosition( targetScrollPos );
+		//trace(target+" - "+scrollHor+" / "+scrollVer+"; scrollPos "+scrollPos.x+", "+scrollPos.y+"; perc: "+percentX+", "+percentY+"; mouse: "+mousePos.x+", "+mousePos.y+"; size: "+layout.width+", "+layout.height+"; scrollable "+layout.scrollableWidth+", "+layout.scrollableHeight+"; measured "+layout.measuredWidth+", "+layout.measuredHeight);
+		trace( " scrollPos " + targetScrollPos.x + ", " + targetScrollPos.y );
+		//scrollPos.x = 0;
+		//scrollPos.y = -100;
 		
-		if (!scrollPos.isEqualTo( layout.scrollPos ))
-			layout.scrollPos.setTo( scrollPos );
+		//var 
+		
+
+#if release_hack
+		var maxTweenLength : Int = 100; // milliseconds
+		var duration : Int = 350;
+		var easing = feffects.easing.Quad.easeInOut;
+		if ( layout.scrollPos.x != targetScrollPos.x )
+		{
+			// cancel existing tween
+			if ( xTween != null )
+			{
+				xTween.onUpdate(null).onFinish(null);
+				xTween.stop();
+				xTween = null;
+			}
+			
+			//
+			var diff : Int = Std.int( Math.abs( targetScrollPos.x - layout.scrollPos.x ) );
+			//var duration : Int = Std.int( Math.min( diff, maxTweenLength ) );
+			
+			xTween = new Tween( layout.scrollPos.x, targetScrollPos.x, duration, easing );
+			xTween.onUpdate(
+				function( newV : Float )
+				{
+					layout.scrollPos.x = Std.int( newV );// setTo( newV, layout.scrollPos.y );
+				}
+			);
+			xTween.start();
+			
+		}
+		
+		if ( layout.scrollPos.y != targetScrollPos.y )
+		{
+			// cancel existing tween
+			if ( yTween != null )
+			{
+				yTween.onUpdate(null).onFinish(null);
+				yTween.stop();
+				yTween = null;
+			}
+			
+			//
+			var diff : Int = Std.int( Math.abs( targetScrollPos.y - layout.scrollPos.y ) );
+			//var duration : Int = Std.int( Math.min( diff, maxTweenLength ) );
+			
+			yTween = new Tween( layout.scrollPos.y, targetScrollPos.y, duration, easing );
+			yTween.onUpdate(
+				function( newV : Float )
+				{
+					layout.scrollPos.y = Std.int( newV );
+				}
+			);
+			yTween.start();
+			
+		}
+#else
+		if (!targetScrollPos.isEqualTo( layout.scrollPos ))
+			layout.scrollPos.setTo( targetScrollPos );
+		
+#end
+
 	}
 }
 
