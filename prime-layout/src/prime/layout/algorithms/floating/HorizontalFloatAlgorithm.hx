@@ -349,8 +349,8 @@ class HorizontalFloatAlgorithm extends HorizontalBaseAlgorithm implements IHoriz
 		var childW	= group.childWidth;
 		
 		var depth	= switch (direction) {
-			case Horizontal.left:	(group.scrollPos.x / childW).floorFloat();
-			case Horizontal.center:	0;
+			case Horizontal.left,
+				 Horizontal.center: (group.scrollPos.x / childW).floorFloat();
 			case Horizontal.right:	(group.scrollableWidth / childW).floorFloat();
 		};
 		return (depth - group.invisibleBefore).within(0, group.childrenLength);
