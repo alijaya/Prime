@@ -70,7 +70,7 @@ class UITextField extends TextField implements IUIElement
 {
 	public static #if !noinline inline #end function createLabelField (id:String = null, data:Bindable<String> = null, owner:ITextStylable = null, injectedLayout:AdvancedLayoutClient = null) : UITextField
 	{
-		var f = new UITextField( #if debug id #else null #end, injectedLayout == null, data, injectedLayout );	//FIXME: stylingEnabled doesn't always have to be true..
+		var f = new UITextField( id, injectedLayout == null, data, injectedLayout );	//FIXME: stylingEnabled doesn't always have to be true..
 #if (flash9 || nme)
 		f.selectable	 = false;
 		f.mouseEnabled	 = false;
