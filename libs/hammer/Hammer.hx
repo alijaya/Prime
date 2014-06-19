@@ -1,13 +1,13 @@
 import js.html.Event;
 import js.html.Element;
 
-@:fakeEnum(String)
-extern enum HammerDirection
+@:enum
+abstract HammerDirection(String)
 {
-  up;
-  down;
-  left;
-  right;
+  var up    = "up";
+  var down  = "down";
+  var left  = "left";
+  var right = "right";
 }
 
 
