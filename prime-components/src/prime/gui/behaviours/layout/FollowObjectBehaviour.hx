@@ -155,6 +155,7 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 	
 	private function updatePosition ()
 	{
+		if (followedElement == null) return;
 		Assert.isNotNull(target.window, target+"");
 		
 		var layout		= target.layout;
