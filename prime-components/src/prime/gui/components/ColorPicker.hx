@@ -107,8 +107,8 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	{
 		super.init();
 		beginBinding	= beginUpdating	.on( userEvents.mouse.down, this );
-		updateBinding	= updateColor	.on( userEvents.mouse.move, this );
-		stopBinding		= stopUpdating	.on( userEvents.mouse.up, this );
+		updateBinding	= updateColor	.on( window.userEvents.mouse.move, this );
+		stopBinding		= stopUpdating	.on( window.userEvents.mouse.up, this );
 		
 		beginBinding.enable();
 		updateBinding.disable();
@@ -126,29 +126,15 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	private inline function getColorAt( x:Float, y:Float ) : RGBA 
 	{
 #if (flash9||nme)
-	//	var l = layout.innerBounds;
-	//	var b = new BitmapDataType( l.width, l.height, false );
-	//	b.draw(this);
-	//	addChild( new flash.display.Bitmap(b));
-	//	trace(l.width+", "+l.height+"; "+b.getPixel( x.roundFloat(), y.roundFloat() ).uintToString() );
-	//	return b.getPixel( x.roundFloat(), y.roundFloat() ).rgbToRgba();
-	//	trace( spectrum.data.)
-		
-		return getSpectrum().getPixel( x.roundFloat(), y.roundFloat() ).rgbToRgba();
+		var b = getSpectrum(); 
+		return b.getPixel( (b.width/this.width * x).roundFloat().within(0, b.width - 1), (b.height/this.height * y).roundFloat().within(0, b.height - 1) ).rgbToRgba();
 #end
 	}
 
 
-	private inline function getSpectrum () {
-		if (spectrum == null) {
-		//	trace(layout.width+", "+layout.height);
-			//not sure if this is the best way but using the original bitmapdata from the fill doesnt give correct results since it's unscaled.
-		//	spectrum = Asset.createEmpty( layout.width, layout.height, false );
-		//	spectrum.draw(this);
-			spectrum = Asset.fromDisplayObject(this);
-			spectrum.toBitmapData(null, false);
-		}
-		return spectrum.toBitmapData();
+	private function getSpectrum () {
+		// Note: this method used to draw `this` as BitmapData, which is actually a nice idea when you draw gradients yourself.
+		return this.graphicData.fill.as(prime.gui.graphics.fills.BitmapFill).data;
 	}
 
 
@@ -158,7 +144,7 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	 */
 	public function moveToColor ()
 	{
-		if (!isInitialized() || width == 0 || height == 0) {
+		if (!isInitialized() || this.getSpectrum() == null) {
 			moveToColor.onceOn( displayEvents.enterFrame, this );
 			return;
 		}
@@ -176,7 +162,7 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 				if (b.getPixel(newX,newY) == color) {
 				//	trace(color.rgbToString() + "==> "+newX+", "+newY);
 					found = true;
-					selection.move(newX, newY);
+					selection.move( (newX / (b.width/this.width)).roundFloat(), (newY / (b.height/this.height)).roundFloat() );
 					break;
 				}
 			
@@ -209,8 +195,8 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	private function updateColor (mouse:MouseState) : Void
 	{
 		var padding = layout.padding;
-		var mouseX  = mouse.local.x.within( padding.left, padding.left + width - padding.right ).roundFloat();
-		var mouseY  = mouse.local.y.within( padding.top, padding.top + height - padding.bottom ).roundFloat();
+		var mouseX  = this.mouseX.within( padding.left, padding.left + width - padding.right ).roundFloat();
+		var mouseY  = this.mouseY.within( padding.top, padding.top + height - padding.bottom ).roundFloat();
 		//get color underneath mouse
 		data.value = data.value.setRgb( getColorAt( mouseX, mouseY ) );
 		selection.move( mouseX, mouseY );
