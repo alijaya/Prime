@@ -91,16 +91,16 @@ class DataButton <DataType> extends Button implements IItemRenderer <DataType>
 			newVal = defaultLabel;
 		data.set(newVal);
 
-	#if prime_css
 		if (oldVal != newVal) {
+	#if prime_css
 			if (oldVal == defaultLabel)		styleClasses.remove("empty");
 			if (newVal == defaultLabel)		styleClasses.add("empty");
-		//	trace((newVal == defaultLabel)+"; "+(oldVal == defaultLabel)+"; "+oldVal+" ========> "+newVal+"; "+defaultLabel+"; "+styleClasses);
-		}
 	#end
+		//	trace((newVal == defaultLabel)+"; "+(oldVal == defaultLabel)+"; "+oldVal+" ========> "+newVal+"; "+defaultLabel+"; "+styleClasses);
+			data.change.send( newVal, null );
+		}
 	//	trace(v+": "+oldVal+" => "+newVal+"; "+styleClasses);
 
-		data.change.send( newVal, null );
 	}
 	
 	
