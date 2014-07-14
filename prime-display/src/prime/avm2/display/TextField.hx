@@ -307,7 +307,7 @@ class TextField extends flash.text.TextField implements ITextField
 	
 	
 	private inline function set_value (v:String)	{ return data.value = v; }
-	private inline function get_value () : String	{ return data.value; }
+	private inline function get_value () : String	{ return data != null? data.value : null; }
 	
 	private inline function get_realTextWidth ()	{ return textWidth + TEXT_WIDTH_PADDING; }
 	private inline function get_realTextHeight ()	{ return getNonZeroTextHeight() + TEXT_HEIGHT_PADDING; }
