@@ -207,7 +207,8 @@ class URLLoader implements ICommunicator
 	 	uri	= v;
 #end
 		this.type = CommunicationType.loading;
-		return loadRequest(v.toRequest());
+		var request = v.toRequest(method);
+		return loadRequest(request);
 	}
 	
 	
@@ -228,6 +229,7 @@ class URLLoader implements ICommunicator
 		{
 			isStarted = true;
 			addConnection();
+			Assert.that((request.method == "GET" && request.data == null) || (request.method == "POST" && request.data != null));
 			loader.load(request);
 		}
 		else

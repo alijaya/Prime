@@ -243,6 +243,14 @@ class URI #if CSSParser implements prime.tools.generator.ICodeFormattable #end
 		if (method != null && method != get)
 		{
 			r.method = "POST";
+			// http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/net/URLRequest.html#method
+			// Note: If running in Flash Player and the referenced form has no body,
+			// Flash Player automatically uses a GET operation, even if the method is set to URLRequestMethod.POST.
+			// For this reason, it is recommended to always include a "dummy" body to ensure that the correct method is used.
+			r.data = "{}";
+			// When sending a POST request, the values of the contentType and data properties must correspond properly.
+			r.contentType = "application/json";
+
 			if (method != post)
 				r.requestHeaders.push(new flash.net.URLRequestHeader("X-HTTP-Method-Override", Std.string(method).toUpperCase()));
 		}
