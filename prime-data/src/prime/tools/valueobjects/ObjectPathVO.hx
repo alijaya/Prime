@@ -36,9 +36,9 @@ package prime.tools.valueobjects;
  */
 class ObjectPathVO implements IValueObject
 {
-    public var parent       (default, null) : ObjectPathVO;
-    public var object       (default, null) : IValueObject;
-    public var propertyID   (default, null) : Int;
+    @borrowed public var parent     (default, null) : ObjectPathVO;
+    @borrowed public var object     (default, null) : ValueObjectBase;
+    public           var propertyID (default, null) : Int;
     
     
     private function new() {}

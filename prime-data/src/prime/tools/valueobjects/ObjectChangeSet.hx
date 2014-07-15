@@ -49,7 +49,9 @@ class ObjectChangeSet extends ChangeSet
         return s;
     }
     
+    @borrowed
     public var vo                   (default, null) : ValueObjectBase;
+    @borrowed
     public var parent               (default, null) : ObjectPathVO;
     public var propertiesChanged    (default, null) : Int;
     

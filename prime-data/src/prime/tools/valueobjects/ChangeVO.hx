@@ -38,13 +38,4 @@ package prime.tools.valueobjects;
 class ChangeVO implements IValueObject
 {
     public var next (default,null) : ChangeVO;
-    
-    
-    public function dispose()
-    {
-        if (next.notNull()) {
-            next.dispose();
-            next = null;
-        }
-    }
 }

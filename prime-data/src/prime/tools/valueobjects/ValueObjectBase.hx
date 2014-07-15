@@ -74,17 +74,6 @@ class ValueObjectBase implements IValueObject implements IFlagOwner
 	}
 	
 	
-	public function dispose()
-	{
-		Assert.that(!isDisposed(), this+" is already disposed!");
-	//	if (change.notNull()) {
-		change.dispose();
-		change = null;
-	//	}
-		_changedFlags = _propertiesSet = _flags = 0;
-	}
-	
-	
 	public #if !noinline inline #end function isEmpty   () : Bool { return !(_propertiesSet & (0x7FFFFFFF ^ this._uniquePropertyFlag)).not0(); }
 	public #if !noinline inline #end function isEditable() : Bool { return _flags.has(Flags.IN_EDITMODE); }
 	public #if !noinline inline #end function isDisposed() : Bool { return change == null; }
