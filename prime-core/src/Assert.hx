@@ -150,9 +150,10 @@ import haxe.macro.Context;
 		if (Context.defined("macro")) throw "Don't use Assert from macro code, it will kill the compiler cache!";
 		if (Context.defined("display") || !Context.defined("debug")) return emptyExpr;
 
+		var secondIsConstant = assertCompareOp == null;
 		var firstComp = macro
 			$v{ new haxe.macro.Printer().printExpr(first) } + " (which is: `" + Std.string($i{"firstValue"}) + "`)" +
-			$v{ assertCompareOp == null
+			$v{ secondIsConstant
 					? ""
 					: ((switch(assertCompareOp) {
 						case OpEq:	" to not be `";
@@ -164,7 +165,6 @@ import haxe.macro.Context;
 					}) + new haxe.macro.Printer().printExpr(second) + "`")
 			};
 
-		var secondIsConstant = assertCompareOp == null;
 		var expectedValue = macro Std.string($firstComp);// + " to be: `" + Std.string($i{"secondValue"}) + "`";
 
 		var throwExpr = macro throw new chx.lang.FatalException( ((untyped $message) != null? Std.string($message) : "") + " \n Expected:  " + $expectedValue + "\n at " + $v{Std.string(pos)});
@@ -173,10 +173,10 @@ import haxe.macro.Context;
 		var ifExpr = macro {
 		/*[0]*/var firstValue  = $first;
 		/*[1]*/var secondValue = $second;
-		/*[2]*/if (${assertCompareOp == null? {expr:EConst(CIdent("secondValue")), pos:pos}
-											: { expr : EBinop(assertCompareOp, {expr:EConst(CIdent("firstValue")), pos:pos}, 
-																			   {expr:EConst(CIdent("secondValue")), pos:pos})
-															, pos : pos }})
+		/*[2]*/if (${secondIsConstant? second
+		                             : { expr: EBinop(assertCompareOp, {expr:EConst(CIdent("firstValue")),  pos:pos}, 
+		                                                               {expr:EConst(CIdent("secondValue")), pos:pos}),
+		                                 pos: pos }})
 				${{expr:throwExpr.expr, pos:pos}}
 		}
 		switch (ifExpr.expr) {
