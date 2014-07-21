@@ -62,7 +62,6 @@ class TextArea<VOType> extends InputField<VOType>
 		field = UITextField.createLabelField(id.value + "TextField", data, this, layoutContainer);
 #if (flash9 || nme)
 		handleKeyDown.on( field.userEvents.key.down, this );
-        updateScroll .on( layout.changed, true );
         field.makeEditable();
         field.mouseEnabled = field.tabEnabled = true;
         field.multiline    = true;
@@ -132,6 +131,7 @@ class TextArea<VOType> extends InputField<VOType>
         var s   = layoutContainer.scrollPos;
         scrollX = applyLayoutScrollX.on( s.xProp.change, this );
         scrollY = applyLayoutScrollY.on( s.yProp.change, this );
+        updateScroll.on( layout.changed, true );
 	}
 
 
@@ -140,18 +140,27 @@ class TextArea<VOType> extends InputField<VOType>
 		scrollX.dispose();
 		scrollY.dispose();
 		scrollX = scrollY = null;
+		layout.changed.unbind(this, cast updateScroll);
 	}
 
 
-    private inline function updateLayoutScrollX ()
+    private function updateLayoutScrollX ()
     {
+    	Assert.isNotNull(field);
+    	Assert.isNotNull(layoutContainer);
+    	Assert.isNotNull(layoutContainer.scrollPos);
+    	Assert.isNotNull(scrollX);
     	var f = field, l = layoutContainer;			//	a      =        b - 1  		 /    c - 1            * d
     	if (f.maxScrollH > 1) { scrollX.disable(); l.scrollPos.x = (((f.scrollH - 1) / (f.maxScrollH - 1)) * l.scrollableWidth).floorFloat(); scrollX.enable(); }
     }
 
 
-    private inline function updateLayoutScrollY ()
+    private function updateLayoutScrollY ()
     {
+    	Assert.isNotNull(field);
+    	Assert.isNotNull(layoutContainer);
+    	Assert.isNotNull(layoutContainer.scrollPos);
+    	Assert.isNotNull(scrollY);
     	var f = field, l = layoutContainer;			//	a      =        b - 1    	 /    c - 1            * d
     	if (f.maxScrollV > 1) { scrollY.disable(); l.scrollPos.y = (((f.scrollV - 1) / (f.maxScrollV - 1)) * l.scrollableHeight).floorFloat(); scrollY.enable(); }
     }

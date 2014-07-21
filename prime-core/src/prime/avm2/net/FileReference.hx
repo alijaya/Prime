@@ -179,7 +179,7 @@ class FileReference extends SelectEvents implements ICommunicator implements IFi
 	//
 	
 	private inline function get_bytesProgress ()	{ return bytesProgress; }
-	private inline function get_bytesTotal ()		{ return loader.size.int(); }
+	private inline function get_bytesTotal ()		{ return loader != null? loader.size.int() : 0; }
 	private inline function get_bytes ()			{ return bytes != null ? bytes : loader.data; }
 	private inline function set_bytes (v)			{ return bytes = v; }
 //	private inline function get_length ()			{ return 1; }
@@ -217,7 +217,7 @@ class FileReference extends SelectEvents implements ICommunicator implements IFi
 #if debug
 	public function toString ()
 	{
-		return "FileReference( "+type+" => "+bytesProgress + " / " + bytesTotal + " - started? "+ isStarted +"; type: "+type+" )";
+		return "FileReference( "+type +(loader == null? " )" : " => "+bytesProgress + " / " + bytesTotal + " - started? "+ isStarted +"; type: "+type+" )");
 	}
 #end
 }

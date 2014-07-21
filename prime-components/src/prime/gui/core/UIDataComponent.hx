@@ -62,7 +62,7 @@ class UIDataComponent <DataType> extends UIComponent implements IUIDataElement <
 			this.data = data;
 	}
 	
-	
+	@manual
 	override public function dispose ()
 	{
 		if (data != null)

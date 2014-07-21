@@ -179,7 +179,7 @@ class ProgressBar extends UIDataContainer<PercentageHelper>
 		{
 			mode = v == null ? ProgressBarMode.manual : ProgressBarMode.event;
 			
-			if (source != null) {
+			if (source != null && source.events != null) {
 				source.events.unloaded.unbind(this);
 				source.events.load.unbind( this );
 			}

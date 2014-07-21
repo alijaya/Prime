@@ -288,7 +288,7 @@ class MacroUtils
 						#if disposeDebug trace($v{'maybe dispose: '+ Context.getLocalClass().get().name + '.'+ field.name}); #end
 						var d:prime.core.traits.IDisposable = $fieldGetExpr;
 						if (d != null) {
-							#if disposeDebug trace($v{' - yes, disposing '+ Context.getLocalClass().get().name + "."+ field.name)}); #end
+							#if disposeDebug trace($v{' - yes, disposing '+ Context.getLocalClass().get().name + "."+ field.name}); #end
 							d.dispose();
 							$fieldSetExpr = null;
 						}

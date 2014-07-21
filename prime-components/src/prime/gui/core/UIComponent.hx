@@ -239,7 +239,7 @@ class UIComponent extends prime.gui.display.Sprite implements IUIComponent
 	//
 	
 	public  #if !noinline inline #end function attachLayoutTo	(t:ILayoutContainer, pos:Int = -1)	: IUIElement	{ layout.attachTo( t, pos );												return this; }
-	public  #if !noinline inline #end function detachLayout		()									: IUIElement	{ layout.detach();															return this; }
+	public  #if !noinline inline #end function detachLayout		()									: IUIElement	{ if (layout != null) layout.detach();															return this; }
 	public  #if !noinline inline #end function changeLayoutDepth(pos:Int)							: IUIElement	{ layout.changeDepth( pos );												return this; }
 	public  #if !noinline inline #end function changeDepth		(pos:Int)							: IUIElement	{ changeLayoutDepth(pos);					changeDisplayDepth(pos);		return this; }
 

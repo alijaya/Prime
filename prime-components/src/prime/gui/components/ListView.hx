@@ -106,7 +106,7 @@ class ListView<ListDataType> extends prime.gui.core.UIDataContainer<prime.bindab
 			isDisplayDropAllowed = defaultDisplayDropCheck;
 	}
 	
-	
+	@manual
 	override public function dispose ()
 	{
 		childClick.dispose();

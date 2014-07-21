@@ -123,7 +123,9 @@ class CommunicatorsGroup implements ICommunicator
 	
 	public #if !noinline inline #end function remove (communicator:ICommunicator) : Void
 	{
-		communicator.events.load.unbind(this);
+		if (communicator.events != null)
+			communicator.events.load.unbind(this);
+
 		list.remove( communicator );
 		
 		if (communicator.isInProgress())
