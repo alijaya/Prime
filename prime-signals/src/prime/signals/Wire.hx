@@ -83,6 +83,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 	static public function make<T>( dispatcher:Signal<T>, owner:Dynamic, handlerFn:T, flags:Int #if debug, ?pos : haxe.PosInfos #end ) : Wire<T>
 	{
 		Assert.isNotNull(dispatcher);
+		Assert.that(!Reflect.compareMethods(handlerFn, untyped dispatcher.send));
 
 		var w:Wire<Dynamic>,
 			W = Wire;
@@ -140,7 +141,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 	public var instanceNum	: Int;
 	
 	public function toString() {
-		return "{Wire["+instanceNum+" (total: "+instanceCount+"/"+disposeCount+")] bound at: "+ bindPos.fileName + ":" + bindPos.lineNumber + ", flags = 0x"+ StringTools.hex(flags, 2) +", owner = " + owner + "}";
+		return "{Wire["+instanceNum+" (total: "+instanceCount+"/"+disposeCount+")] bound at: "+ bindPos.fileName + ":" + bindPos.lineNumber + ", flags = 0x"+ StringTools.hex(flags, 2)+ "}";// +", owner = " + owner + "}";
 	}
 	public function pos(?p:haxe.PosInfos) : Wire<FunctionSignature> {
 		#if debug untyped this.bindPos = p; return this; #end
@@ -192,14 +193,21 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature> implements pr
 	private #if !noinline inline #end function get_handler() : FunctionSignature  return _handler;
 	private #if !noinline inline #end function set_handler( h:FunctionSignature ) : FunctionSignature
 	{
+		Assert.that(!Reflect.compareMethods(h, untyped signal.send));
+
 		// set_handler only accepts functions with FunctionSignature
 		// and this is not a VOID_HANDLER for Signal1..4
 		flags.unset( VOID_HANDLER );
 		return _handler = h;
 	}
 	
-	public #if !noinline inline #end function setVoidHandler( h:Void->Void )
+	public #if !noinline inline #end function setVoidHandler( h:Void->Void #if debug, ?pos : haxe.PosInfos #end )
 	{
+	#if debug
+		Assert.that(!Reflect.compareMethods(h, untyped signal.send));
+		this.bindPos = pos;
+	#end
+
 		flags.set( VOID_HANDLER );
 		_handler = h;
 	}
