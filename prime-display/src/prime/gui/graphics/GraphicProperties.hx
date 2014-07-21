@@ -251,8 +251,8 @@ class GraphicProperties implements IGraphicElement
 	private inline function drawShape (target:IGraphicsOwner, layout:IntRectangle)
 	{
 #if debug
-		Assert.that( layout.width < 10000, target+" width is too big: "+layout.width+"; layout: "+layout );
-		Assert.that( layout.height < 10000, target+" height is too big: "+layout.height+"; layout: "+layout );
+		Assert.that( layout.width < 100000, target+" width is too big: "+layout.width+"; layout: "+layout );
+		Assert.that( layout.height < 100000, target+" height is too big: "+layout.height+"; layout: "+layout );
 #end
 		if (percentage == 1)	shape.draw( target, layout, borderRadius );
 		else					shape.drawFraction( target, layout, borderRadius, percentage );
