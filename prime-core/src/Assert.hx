@@ -151,7 +151,7 @@ import haxe.macro.Context;
 		if (Context.defined("display") || !Context.defined("debug")) return emptyExpr;
 
 		var firstComp = macro
-			$v{ new haxe.macro.Printer().printExpr(first) } + " (which is: `" + Std.string($i{"first"}) + "`)" +
+			$v{ new haxe.macro.Printer().printExpr(first) } + " (which is: `" + Std.string($i{"firstValue"}) + "`)" +
 			$v{ assertCompareOp == null
 					? ""
 					: ((switch(assertCompareOp) {
@@ -160,24 +160,24 @@ import haxe.macro.Context;
 						case OpGte:	" <= `";
 						case OpLt:	" > `";
 						case OpLte:	" >= `";
-						default:    " to be `";
+						default:    " to equal `";
 					}) + new haxe.macro.Printer().printExpr(second) + "`")
 			};
 
 		var secondIsConstant = assertCompareOp == null;
-		var expectedValue = switch (secondIsConstant? EConst(null) : second.expr) {
-			case EConst(_):
-				secondIsConstant = true;
-				macro Std.string($firstComp);
-			default:
-				macro Std.string($firstComp) + " (which is: `" + Std.string($i{"second"}) + "`)";
-		}
+		var expectedValue = macro Std.string($firstComp);// + " to be: `" + Std.string($i{"secondValue"}) + "`";
+
+		var throwExpr = macro throw new chx.lang.FatalException( ((untyped $message) != null? Std.string($message) : "") + " \n Expected:  " + $expectedValue + "\n at " + $v{Std.string(pos)});
+		throwExpr.pos = pos;
 
 		var ifExpr = macro {
-		/*[0]*/var first  = $first;
-		/*[1]*/var second = $second;
-		/*[2]*/if (${assertCompareOp == null? second : { expr : EBinop(assertCompareOp, first, second), pos : pos }})
-				throw new chx.lang.FatalException( ((untyped $message) != null? Std.string($message) : "") + " \n Expected:  " + $expectedValue + "\n" );
+		/*[0]*/var firstValue  = $first;
+		/*[1]*/var secondValue = $second;
+		/*[2]*/if (${assertCompareOp == null? {expr:EConst(CIdent("secondValue")), pos:pos}
+											: { expr : EBinop(assertCompareOp, {expr:EConst(CIdent("firstValue")), pos:pos}, 
+																			   {expr:EConst(CIdent("secondValue")), pos:pos})
+															, pos : pos }})
+				${{expr:throwExpr.expr, pos:pos}}
 		}
 		switch (ifExpr.expr) {
 			case EBlock(exprs):
