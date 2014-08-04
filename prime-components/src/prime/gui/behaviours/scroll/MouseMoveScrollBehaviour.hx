@@ -58,6 +58,9 @@ class MouseMoveScrollBehaviour extends MouseScrollBehaviourBase
 
 	override private function calculateScroll (mouseObj:MouseState)
 	{
+		var horizontalScrollBufferPercent : Float = 0.250;
+		var verticalScrollBufferPercent : Float = 0.25;
+		
 		if ( targetScrollPos == null )
 			targetScrollPos	= new IntPoint();
 		
@@ -74,22 +77,47 @@ class MouseMoveScrollBehaviour extends MouseScrollBehaviourBase
 		var percentX:Float = 0, percentY:Float = 0;
 
 		//horScroll
-		if (scrollHor) {
-			  percentX	 = ( mousePos.x / layout.width ).max(0).min(1);
-			targetScrollPos.x		 = ( layout.scrollableWidth * percentX ).roundFloat();
+		if (scrollHor) 
+		{
+			var scrollWidth = layout.scrollableWidth;
+			var layoutWidth = layout.width;
+			
+			//scrollWidth	= Std.int( scrollWidth * (1.0 - horizontalScrollBufferPercent * 2) );
+			//layoutWidth	= Std.int( layoutWidth * (1.0-horizontalScrollBufferPercent*2) );
+			
+			percentX	 = ( mousePos.x / layoutWidth ).max(0).min(1);			  
+#if viewer
+			var shortenedWidth : Int = Std.int( layoutWidth * (1.0 - horizontalScrollBufferPercent * 2) );
+			var xOffset : Int = Std.int( mousePos.x - layoutWidth * horizontalScrollBufferPercent );
+			percentX = ( xOffset / shortenedWidth );			
+			percentX = percentX.max(0).min(1);
+#end
+			targetScrollPos.x		 = ( scrollWidth * percentX ).roundFloat();
 		//	untyped trace(scrollPos.x + "; scrollX: "+layout.scrollPos.x+"; sW: "+layout.scrollableWidth+"; w: "+layout.width+"; eW: "+layout.explicitWidth+"; mW: "+layout.measuredWidth+"; mX: "+mousePos.x+"; pX "+percentX+"; horP: "+layout.getHorPosition()+"; x: "+target.x);
 		}
 		
 		//verScroll
-		if (scrollVer) {
-			  percentY	 = ( mousePos.y / layout.height ).min(1).max(0);
+		if (scrollVer)
+		{
+			var scrollHeight = layout.scrollableWidth;
+			var layoutHeight = layout.height;
+			
+			percentY	 = ( mousePos.y / layoutHeight ).min(1).max(0);
+			
+#if viewer
+			var shortenedHeight : Int = Std.int( layoutHeight * (1.0 - verticalScrollBufferPercent * 2) );
+			var yOffset : Int = Std.int( mousePos.y - layoutHeight * verticalScrollBufferPercent );
+			percentY = ( yOffset / shortenedHeight );			
+			percentY = percentY.max(0).min(1);
+#end
+			
 			targetScrollPos.y		 = ( layout.scrollableHeight * percentY ).roundFloat();
 		//	untyped trace(scrollPos.y + "; scrollY: "+layout.scrollPos.y+"; sH: "+layout.scrollableHeight+"; h: "+layout.height+"; eH: "+layout.explicitHeight+"; mH: "+layout.measuredHeight+"; mY: "+mousePos.y+"; pY: "+percentY+"; verP: "+layout.getVerPosition()+"; y: "+target.y);
 		}
 		
 		targetScrollPos = layout.validateScrollPosition( targetScrollPos );
 		//trace(target+" - "+scrollHor+" / "+scrollVer+"; scrollPos "+scrollPos.x+", "+scrollPos.y+"; perc: "+percentX+", "+percentY+"; mouse: "+mousePos.x+", "+mousePos.y+"; size: "+layout.width+", "+layout.height+"; scrollable "+layout.scrollableWidth+", "+layout.scrollableHeight+"; measured "+layout.measuredWidth+", "+layout.measuredHeight);
-		trace( " scrollPos " + targetScrollPos.x + ", " + targetScrollPos.y );
+		//trace( " scrollPos " + targetScrollPos.x + ", " + targetScrollPos.y );
 		//scrollPos.x = 0;
 		//scrollPos.y = -100;
 		
