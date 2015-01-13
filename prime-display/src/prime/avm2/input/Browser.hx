@@ -47,9 +47,9 @@ package prime.avm2.input;
 class Browser
 {
 	public static var instance (get_instance, null)		: Browser;
-		private static inline function get_instance ()	{ return instance == null ? instance = new Browser() : instance; }
+	private static inline function get_instance ()	{ return instance == null ? instance = new Browser() : instance; }
 	
-	
+	public var baseAddress	(get_baseAddress,	null)	: String;
 	public var events		(default,		null)		: BrowserEvents;
 	public var address		(get_address,	set_address): String;
 	public var history		(get_history,	set_history): Bool;
@@ -167,6 +167,8 @@ class Browser
 	//
 	// GETTERS / SETTERS
 	//
+	
+	public inline function get_baseAddress() { return SWFAddress.getBaseURL(); };
 	
 	private inline function get_address ()		{ return SWFAddress.getValue(); }
 	private inline function set_address (v)		{ SWFAddress.setValue(v); return v; }
