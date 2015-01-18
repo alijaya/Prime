@@ -46,7 +46,8 @@ interface IDisplayable extends prime.core.traits.IDisposable
 	/**
 	 * Wrapper object for the stage.
 	 */
-	public var window			(default, set_window)		: prime.gui.display.Window;
+	@:keepSub public var window	(default, set_window)		: prime.gui.display.Window;
+		@:keepSub private function set_window(v:prime.gui.display.Window) : prime.gui.display.Window;
 	
 	
 	/**

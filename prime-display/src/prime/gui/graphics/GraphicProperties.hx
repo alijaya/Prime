@@ -273,7 +273,7 @@ class GraphicProperties implements IGraphicElement
 				shape.invalidated.unbind(this);
 
 			shape = v;
-			if (shape != null)
+			if (shape != null && shape.invalidated != null)
 				shape.invalidated.bind(this, invalidateCall);
 
 			invalidate( GraphicFlags.SHAPE );

@@ -56,7 +56,7 @@ interface IBindable<T> extends IBindableReadonly<T>
 	/**
 	 * Internal function which tells this IBindable, another bindable is writing to it.
 	 */
-	private function registerBoundTo( otherBindable:IBindableReadonly<T> ) : Void;
+	@:keep private function registerBoundTo( otherBindable:IBindableReadonly<T> ) : Void;
 	
 	/** 
 	 * Makes sure this Bindable and otherBindable always have the same value.
