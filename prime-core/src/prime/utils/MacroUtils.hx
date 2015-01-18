@@ -272,15 +272,15 @@ class MacroUtils
 			var fieldSetExpr = switch(field) {
 				case {kind: FVar(_, VarAccess.AccNormal) | FVar(_, VarAccess.AccNo)}:
 					var n = field.name;  macro           this.$n;
-				default:
+				case {kind: FVar(_, VarAccess.AccCall)}:
 					var n = field.name;  macro (untyped this).$n;
+				default:
+					null;
 	  		}
 
 			// Dispose non-getter-only IDisposables fields
-			if ( (c.hasInterface("IDisposable") || c.isClass("IDisposable"))  &&  switch(field) {
-				case {kind: FVar(_, VarAccess.AccNormal) | FVar(_, VarAccess.AccNo)}: true;
-				default: false;
-			  }){
+			if (fieldSetExpr != null && (c.hasInterface("IDisposable") || c.isClass("IDisposable")))
+			{
 				// @manual is blanket skip of build/autoBuild macros, @borrowed skips only dispose() calls
 				if ( !field.meta.has("manual") && !field.meta.has("borrowed") )
 				{
@@ -297,7 +297,7 @@ class MacroUtils
 				}
 			}
 			
-			if ( !field.meta.has("manual") && field.isNullableType() )
+			if (fieldSetExpr != null && !field.meta.has("manual") && field.isNullableType())
 				blocks.push(macro $fieldSetExpr = null);
 		}
 		#if disposeDebug
