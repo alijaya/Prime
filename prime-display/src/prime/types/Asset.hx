@@ -237,6 +237,7 @@ class Asset		implements prime.core.traits.IDisposable
 	public  function toDrawable ()			: IBitmapDrawable	{ Assert.abstractMethod(); return null; }
 #end
 	public  function load ()				: Void				{ Assert.abstractMethod(); }
+	public  function preload ()				: Void				{ Assert.abstractMethod(); }
 	public  function close ()				: Void				{ Assert.abstractMethod(); }
 #if CSSParser
 	public  function isEmpty ()				: Bool				{ return source == null; }
@@ -323,6 +324,7 @@ class BitmapAsset extends Asset
 	override public  function toDrawable ()		 : IBitmapDrawable	{ return bitmapData; }
 #end
 	override public  function load ()								{}
+	override public  function preload ()							{}
 	override public  function close ()								{}
 	override public  function isEmpty ()							{ return data == null; }
 #if debug
@@ -392,6 +394,7 @@ class DisplayAsset extends Asset
 	override public  function toDrawable ()		 : IBitmapDrawable	{ return data == null ? toDisplayObject() : data; }
 #end
 	override public  function load ()								{}
+	override public  function preload ()							{}
 	override public  function close ()								{}
 	override public  function isEmpty ()							{ return data == null; }
 #if debug
@@ -506,6 +509,7 @@ class BytesAsset extends BytesAssetBase
 	
 	public function new (source:BytesData)					{ super(); data = source; }
 	override public  function load ()						{ loadBytes(data); }
+	override public  function preload ()					{}
 	override public  function isEmpty ()					{ return data == null; }
 #if debug
 	override public  function toString ()					{ return "BytesAsset("+data+")" + super.toString(); }
@@ -568,11 +572,21 @@ class ExternalAsset extends BytesAssetBase
 #end
 	
 	
+	var doPreload : Bool = false;
+
+	override public  function preload ()
+	{
+		trace("Preloading " + externalLoader);
+		load();
+		doPreload = true;
+	}
+
 	override public  function load ()
 	{
-		if (!isLoadable())
+		if (!isLoadable() || isLoading())
 			return;
 		
+		doPreload = false;
 		setLoading();
 		
 		if		(externalLoader.isCompleted())		loadBytes( externalLoader.bytes );	
@@ -657,7 +671,8 @@ class ExternalAsset extends BytesAssetBase
 	{
 		Assert.isNotNull( externalLoader );
 	//	Assert.that( externalLoader.isCompleted(), ""+externalLoader );
-		loadBytes( externalLoader.bytes );
+		if (!doPreload) loadBytes( externalLoader.bytes );
+		else trace("NOT loading bytes, preloaded: " + externalLoader);
 	}
 }
 #end
