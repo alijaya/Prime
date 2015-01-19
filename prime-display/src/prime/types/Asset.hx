@@ -294,7 +294,7 @@ class BitmapAsset extends Asset
 	override private function unsetData ()
 	{
 		super.unsetData();
-		(untyped this).data = null;
+		this.data = null;
 	}
 
 
@@ -357,7 +357,7 @@ class DisplayAsset extends Asset
 	override private function unsetData ()
 	{
 		super.unsetData();
-		(untyped this).data = null;
+		this.data = null;
 	}
 
 
@@ -517,7 +517,7 @@ class BytesAsset extends BytesAssetBase
 	override private function unsetData ()
 	{
 		super.unsetData();
-		(untyped this).data = null;
+		this.data = null;
 	}
 
 
@@ -562,7 +562,7 @@ class ExternalAsset extends BytesAssetBase
 	override private function unsetData ()
 	{
 		super.unsetData();
-		(untyped this).data = null;
+		this.data = null;
 	}
 
 
