@@ -56,7 +56,7 @@ class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.
 	// Scrolling is based on AdvancedLayoutClient::measuredWidth and AdvancedLayoutClient::width (plus their height dimension counterparts).
 	// These things can change but scrolling will not update until the mouse is moved which can result in large jumps. So listen to those changes
 	// and recalculate scroll position in response. Also listen to target position changes, which can also move content under a stationary mouse.
-	private var layoutScrollBinding	: Wire < Int >;
+	private var layoutScrollBinding	: Wire < Int->Void >;
 	private var lastMouseObj:MouseState;
 	
 	/**
@@ -86,7 +86,7 @@ class MouseScrollBehaviourBase extends prime.gui.behaviours.BehaviourBase<prime.
 		deactivateBinding	= mouseEvt.rollOut.observeDisabled(this, deactivateScrolling);
 		calcScrollBinding	= mouseEvt.move.bindDisabled(this, calculateScroll);
 
-		layoutScrollBinding = untyped target.layout.changed.bindDisabled(this, layoutValidated);
+		layoutScrollBinding = target.scrollableLayout.changed.bindDisabled(this, layoutValidated);
 		
 		var mouse = target.container.globalToLocal(target.window.mouse.pos);
 		if (target.rect.containsPoint(mouse.x.int(), mouse.y.int()))
