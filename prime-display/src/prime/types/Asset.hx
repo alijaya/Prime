@@ -293,7 +293,6 @@ class BitmapAsset extends Asset
 
 	override private function unsetData ()
 	{
-		super.unsetData();
 		this.data = null;
 	}
 
@@ -303,7 +302,7 @@ class BitmapAsset extends Asset
 		if (v != data)
 		{
 			if (data != null && v == null)
-				unsetData();
+				super.unsetData();
 			
 			removeBitmapData();
 			data = v;
@@ -356,7 +355,6 @@ class DisplayAsset extends Asset
 
 	override private function unsetData ()
 	{
-		super.unsetData();
 		this.data = null;
 	}
 
@@ -366,7 +364,7 @@ class DisplayAsset extends Asset
 		if (v != data)
 		{
 			if (data != null && v == null)
-				unsetData();
+				super.unsetData();
 			
 			data = v;
 			removeBitmapData();
@@ -516,7 +514,6 @@ class BytesAsset extends BytesAssetBase
 
 	override private function unsetData ()
 	{
-		super.unsetData();
 		this.data = null;
 	}
 
@@ -526,7 +523,7 @@ class BytesAsset extends BytesAssetBase
 		if (v != data)
 		{
 			if (data != null)
-				unsetData();
+				super.unsetData();
 			
 			if (v != null) {
 				data = v;
@@ -561,7 +558,6 @@ class ExternalAsset extends BytesAssetBase
 
 	override private function unsetData ()
 	{
-		super.unsetData();
 		this.data = null;
 	}
 
@@ -636,7 +632,7 @@ class ExternalAsset extends BytesAssetBase
 		if (v != data)
 		{
 			if (data != null)
-				unsetData();
+				super.unsetData();
 			
 			if (v != null) {
 				data = v;
