@@ -54,7 +54,7 @@ class ConfirmPanel extends AlertPanel
     public var canceled     (default, null)             : Signal0;
 
 
-    public function new (id:String = null, title:String = null, content:IUIElement = null, system:ISystem = null, applyLabel:String = "Toepassen", cancelLabel:String = "Annuleren")     //TRANSLATE
+    public function new (id:String = null, title:String = null, content:IUIElement = null, system:ISystem = null, applyLabel:String, cancelLabel:String)
     {
         super(id, title, content, system, applyLabel);
         canceled         = new Signal0();
