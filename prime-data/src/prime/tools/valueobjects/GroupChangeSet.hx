@@ -48,7 +48,7 @@ package prime.tools.valueobjects;
 
     public function add (change:ChangeSet)
     {
-        untyped change.nextSet = nextSet;
+        change.nextSet = nextSet;
         nextSet = change;
     }
 

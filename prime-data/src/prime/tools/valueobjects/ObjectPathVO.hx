@@ -36,6 +36,7 @@ package prime.tools.valueobjects;
  */
 class ObjectPathVO implements IValueObject
 {
+    @:allow(prime.tools.valueobjects.ValueObjectBase)
     @borrowed public var parent     (default, null) : ObjectPathVO;
     @borrowed public var object     (default, null) : ValueObjectBase;
     public           var propertyID (default, null) : Int;

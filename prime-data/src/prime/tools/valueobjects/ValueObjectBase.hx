@@ -123,9 +123,9 @@ class ValueObjectBase implements IValueObject implements IFlagOwner
 		if (p.notNull()) {
 			// Find either pathNode, or the last parent
 			while (p.notNull() && p.parent.notNull() && p.parent != pathNode) p = p.parent;
-			untyped p.parent = pathNode;
+			p.parent = pathNode;
 		}
-		else untyped change.parent = pathNode;
+		else change.parent = pathNode;
 		
 		if (change.vo.isEmpty())
 			this.unsetPropertyFlag(propertyID);

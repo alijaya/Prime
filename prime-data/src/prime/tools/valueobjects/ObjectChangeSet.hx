@@ -51,14 +51,17 @@ class ObjectChangeSet extends ChangeSet
     
     @borrowed
     public var vo                   (default, null) : ValueObjectBase;
+
+    @:allow(prime.tools.valueobjects.ValueObjectBase)
     @borrowed
     public var parent               (default, null) : ObjectPathVO;
+
     public var propertiesChanged    (default, null) : Int;
     
     
     public function add (change:PropertyChangeVO)
     {
-        untyped change.next = next;
+        change.next = next;
         next = change;
     }
     
